@@ -1,0 +1,368 @@
+% ============================================================
+%  SOS/A FORMELSAMMLUNG — Teil 3–5
+%  Zustandsraum & ÜF | Nichtlineare Systeme | Linearisierung & Lyapunov
+% ============================================================
+
+\bereich[cKap3]{Teil 3: Zustandsraumdarstellung und Übertragungsfunktion}
+
+\begin{formelreihe}
+  \formelblock{Zustandsraum (allgemein)}{\begin{aligned}
+    \dot{\mathbf{x}}(t) &= \mathbf{A}\,\mathbf{x}(t)+\mathbf{B}\,u(t) \\
+    y(t) &= \mathbf{C}\,\mathbf{x}(t)+D\,u(t)
+  \end{aligned}} &
+  \infoblock{$\mathbf{A}$ ($n\!\times\!n$): Systemmatrix\\[0.05em]
+    $\mathbf{B}$ ($n\!\times\!1$): Eingangsmatrix\\[0.05em]
+    $\mathbf{C}$ ($1\!\times\!n$): Ausgangsmatrix\\[0.05em]
+    $D$: Durchgriff (Skalar)} &
+  \beispielblock{RC-Glied}{%
+    \dot{x}=-\tfrac{1}{RC}x+\tfrac{1}{RC}u\\[0.05em]
+    y=x\\[0.05em]
+    A=-\tfrac{1}{RC},\;B=\tfrac{1}{RC}} \\[0.3em]
+
+  \formelblock{Übertragungsfunktion aus ZR}{\begin{aligned}
+    G(s) = \mathbf{C}(s\mathbf{I}-\mathbf{A})^{-1}\mathbf{B}+D
+  \end{aligned}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Charakterist. Polynom}{%
+      N(s)=\det(s\mathbf{I}-\mathbf{A})}\\[0.25em]%
+    \infoblock{EW von $\mathbf{A}$ = Pole von $G(s)$\\
+      $\Rightarrow$ Routh auf $N(s)$ anwendbar\\[0.04em]
+      $n\!=\!2$: $N\!=\!s^2-\operatorname{tr}(\mathbf{A})\,s+\det(\mathbf{A})$}} &
+  \beispielblock{3×3 Sarrus-Regel}{%
+    \mathbf{A}\!=\!\begin{bsmallmatrix}1&2&0\\3&0&1\\0&4&2\end{bsmallmatrix}\\[0.07em]
+    {\scriptstyle\begin{array}{@{}c@{\,}c@{\,}c@{\,}|@{\,}c@{\,}c@{}}
+      (s\!-\!1)&-2&0&(s\!-\!1)&-2\\[-0.02em]
+      -3&s&-1&-3&s\\[-0.02em]
+      0&-4&(s\!-\!2)&0&-4
+    \end{array}}\\[0.07em]
+    =s^3\!-\!3s^2\!-\!8s\!+\!16} \\[0.3em]
+
+  \formelblock{Faltung (Zeit)}{%
+    y(t)=\int_0^t h(\tau)\,u(t-\tau)\,\mathrm{d}\tau} &
+  \formelblock{Multiplikation (Frequenz)}{%
+    Y(s)=G(s)\cdot U(s)\\[0.08em]
+    G(s)=\dfrac{Y(s)}{U(s)}} &
+  \beispielblock{Impulsantwort}{%
+    h(t)=\mathcal{L}^{-1}\{G(s)\}\\[0.05em]
+    \text{PT1: }h(t)=\tfrac{K}{T}e^{-t/T}} \\
+\end{formelreihe}
+\bereichende
+
+% ============================================================
+
+\bereich[cKap4]{Teil 4: Nichtlineare Systeme — Ruhelagen \& Stabilitätsanalyse}
+
+\begin{formelreihe}
+  \formelblock{Nichtlin. System (allg.)}{\begin{aligned}
+    \dot{\mathbf{x}}(t) &= \mathbf{f}(\mathbf{x}(t),u(t),t)\\
+    y(t) &= h(\mathbf{x}(t),u(t),t)
+  \end{aligned}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Autonomes System}{%
+      \dot{\mathbf{x}}(t)=\mathbf{f}(\mathbf{x}(t))\\
+      \text{(zeitinvariant, }u=0\text{)}}\\[0.25em]%
+    \infoblock{NL-Besonderheiten: mehrere isolierte\\
+      Ruhelagen, Hysterese, Chaos möglich}} &
+  \beispielblock{Pendel}{\begin{aligned}
+    \dot{x}_1 &= x_2\\
+    \dot{x}_2 &= -\tfrac{g}{\ell}\sin x_1
+  \end{aligned}} \\[0.3em]
+
+  \formelblock{Ruhelage $\mathbf{x}_R$}{\begin{aligned}
+    &\mathbf{f}(\mathbf{x}_R,\,\mathbf{0})=\mathbf{0}\\[0.06em]
+    &\text{1. }u(t)=0\\
+    &\text{2. }\dot{x}_i\stackrel{!}{=}0\\
+    &\text{3. }x_i\to x_{i,R}\\
+    &\text{4. Löse }\mathbf{f}(\mathbf{x}_R,\mathbf{0})=\mathbf{0}
+  \end{aligned}} &
+  \infoblock{Autonomes System: kein\\
+    Eingang ($u\equiv 0$).\\[0.05em]
+    NL: mehrere isolierte\\
+    Ruhelagen möglich.} &
+  \beispielblock{Pendel-RL}{%
+    \dot{x}_1\!=\!x_2\stackrel{!}{=}0
+    \Rightarrow x_{2,R}\!=\!0\\[0.04em]
+    \dot{x}_2\!=\!-\tfrac{g}{\ell}\sin x_1\stackrel{!}{=}0\\[0.02em]
+    \Rightarrow\sin x_{1,R}\!=\!0\\[0.02em]
+    \Rightarrow x_{1,R}\in\{0,\pi\}\\[0.05em]
+    \text{RL: }(0,0),\,(\pi,0)} \\[0.3em]
+
+  \formelblock{Betriebspunkt $\mathbf{x}_B$}{%
+    u_B=\mathrm{const},\quad
+    \mathbf{f}(\mathbf{x}_B,\,u_B)=\mathbf{0}} &
+  \infoblock{$\mathbf{x}_B$ wird zur Ruhelage\\
+    des linearisierten $\Delta$-Systems\\
+    (s. Teil\,5:
+    $\Delta\mathbf{x}=\mathbf{0}$
+    $\Leftrightarrow\mathbf{x}=\mathbf{x}_B$)} &
+  \beispielblock{BP: $\dot{x}=u-x^2$}{%
+    u_B=1:\;x_B=\pm1\\[0.04em]
+    (2\text{ Betriebspunkte})} \\[0.3em]
+
+  \formelblock{Vektornormen}{\begin{aligned}
+    \|\mathbf{x}\|_1 &= \textstyle\sum_i|x_i|\\
+    \|\mathbf{x}\|_2 &= \sqrt{\textstyle\sum_i x_i^2}\\
+    \|\mathbf{x}\|_\infty &= \max_i|x_i|
+  \end{aligned}} &
+  \infoblock{Norm-Eigenschaften:\\[0.05em]
+    $\|\mathbf{x}\|=0\Leftrightarrow\mathbf{x}=\mathbf{0}$\\[0.03em]
+    $\|c\,\mathbf{x}\|=|c|\,\|\mathbf{x}\|$\\[0.03em]
+    Dreiecksungl.:
+    $\|\mathbf{x}+\mathbf{y}\|\leq\|\mathbf{x}\|+\|\mathbf{y}\|$} &
+  \beispielblock{2-Norm}{%
+    \mathbf{x}=\begin{bmatrix}3\\4\end{bmatrix}\\[0.1em]
+    \|\mathbf{x}\|_2=\sqrt{9+16}=5} \\[0.3em]
+
+  \formelblock{Stabil nach Lyapunov (iSvL)}{%
+    \forall\varepsilon>0\;\exists\,\delta>0:\\
+    \|\mathbf{x}(0)-\mathbf{x}_R\|<\delta\\
+    \Rightarrow\|\mathbf{x}(t)-\mathbf{x}_R\|<\varepsilon\;\forall t\geq0} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Asymptotisch stabil}{%
+      \text{iSvL-stabil PLUS:}\\
+      \lim_{t\to\infty}\|\mathbf{x}(t)-\mathbf{x}_R\|=0}\\[0.25em]%
+    \formelblock{Global asymptotisch stabil}{%
+      \text{Asym. stabil für alle}\\
+      \mathbf{x}(0)\in\mathbb{R}^n}\\[0.15em]%
+    \infoblock{\textbf{Absolut stabil:} glob.\,asym.\,stabil\\
+      mit $\mathbf{x}_R=\mathbf{0}$ (RL im Nullpunkt)}} &
+  \beispielblock{Stabilitäten}{%
+    \text{Pendel m. Reib.:}\\
+    \text{asym. stabil}\\[0.1em]
+    \text{PT1: global}\\
+    \text{asym. stabil}} \\
+\end{formelreihe}
+\bereichende
+
+% ============================================================
+
+\bereich[cKap5]{Transformation in Betriebspunkt}
+
+\begin{formelreihe}
+  \formelblock{Vorgehen (3 Schritte)}{\begin{aligned}
+    &\text{1. }\dot{x}_i\stackrel{!}{=}0,\;u=u_B
+      \;\Rightarrow x_{iB}\\[0.08em]
+    &\text{2. Substitution:}\\
+    &\quad x_i=\Delta x_i+x_{iB},\\
+    &\quad u=\Delta u+u_B\\
+    &\quad\text{in Originalgl.\ einsetzen}\\
+    &\quad\Rightarrow\Delta\dot{x}_i\text{-Gleichungen}\\[0.08em]
+    &\text{3. }x_{iB},\,u_B\text{ einsetzen;}\\
+    &\quad\text{Terme ohne }\Delta\text{ kürzen}\\
+    &\quad(\,f(\mathbf{x}_B,u_B)=\mathbf{0}\,)
+  \end{aligned}} &
+  \infoblock{Terme ohne $\Delta$ fallen\\
+    heraus, da im BP gilt:\\
+    $f(\mathbf{x}_B,u_B)=\mathbf{0}$\\[0.1em]
+    Ergebnis: $\Delta$-System\\
+    mit Ruhelage $\Delta\mathbf{x}=\mathbf{0}$\\
+    $(\Leftrightarrow\mathbf{x}=\mathbf{x}_B)$\\[0.05em]
+    \textup{= Trafo in die Ruhelage}\\[0.07em]
+    \textbf{Nachweis:} $\Delta x_i\!=\!0\;\forall i$:\\
+    r.\,S.\,$=0\Rightarrow\Delta\mathbf{x}_R\!=\!\mathbf{0}$\\[0.08em]
+    \textbf{Exakt} — NL-Terme\\
+    in $\Delta x_i$ bleiben!} &
+  \beispielblock{Bsp.\ $u_B=2$}{%
+    \dot{x}_1=-x_1+2u\\
+    \dot{x}_2=x_1^2-x_2-4\\[0.05em]
+    x_{1B}=4,\;x_{2B}=12\\[0.08em]
+    \Delta\dot{x}_1=-\Delta x_1+2\Delta u\\
+    \Delta\dot{x}_2=8\Delta x_1\\
+    \quad+(\Delta x_1)^2-\Delta x_2} \\
+\end{formelreihe}
+\bereichende
+
+% ============================================================
+
+\bereich[cKap5]{Linearisierung via Jacobi-Matrix}
+
+\begin{formelreihe}
+  \formelblock{Vorgehen}{\begin{aligned}
+    &\text{1. }\dot{x}_i=f_i(x_1,\ldots,x_n,u)\\
+    &\quad\text{aufschreiben}\\[0.07em]
+    &\text{2. Partiell ableiten:}\\
+    &\quad A_{B,ij}=\tfrac{\partial f_i}{\partial x_j}\big|_{BP}\\[0.02em]
+    &\quad b_{B,i}=\tfrac{\partial f_i}{\partial u}\big|_{BP}\\[0.07em]
+    &\text{3. }x_{jB},\,u_B\text{ einsetzen}\\[0.07em]
+    &\text{4. }\mathbf{A}_B,\,\mathbf{b}_B\text{ aufstellen}
+  \end{aligned}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Matrixform $(n\!=\!2)$}{\begin{aligned}
+      \mathbf{A}_B &=
+        \begin{bsmallmatrix}
+          A_{B,11}&A_{B,12}\\[0.04em]
+          A_{B,21}&A_{B,22}
+        \end{bsmallmatrix},\;
+      \mathbf{b}_B =
+        \begin{bsmallmatrix}b_{B,1}\\[0.04em]b_{B,2}\end{bsmallmatrix}
+    \end{aligned}}\\[0.25em]
+    \infoblock{$A_{B,ij}$: part. Abl. von $f_i$\\
+      nach $x_j$, ausgewertet im BP.\\[0.06em]
+      \textbf{Einsetzen nie vergessen!}}} &
+  \beispielblock{Pendel, $u_B\!=\!0$}{%
+    {\scriptstyle f_2=(u\cos x_1-g\sin x_1-dx_2)/\ell}\\[0.06em]
+    \text{stehend }(x_{1B}=\pi)\text{:}\\[0.02em]
+    \mathbf{A}_B\!=\!\begin{bsmallmatrix}0&1\\+g/\ell&-d/\ell\end{bsmallmatrix}\!,\;
+    \mathbf{b}_B\!=\!\begin{bsmallmatrix}0\\-1/\ell\end{bsmallmatrix}\\[0.1em]
+    \text{hängend }(x_{1B}=0)\text{:}\\[0.02em]
+    \mathbf{A}_B\!=\!\begin{bsmallmatrix}0&1\\-g/\ell&-d/\ell\end{bsmallmatrix}\!,\;
+    \mathbf{b}_B\!=\!\begin{bsmallmatrix}0\\+1/\ell\end{bsmallmatrix}} \\[0.3em]
+
+  \formelblock{Taylor-Linearisierung}{\begin{aligned}
+    \Delta\dot{x}_i &\approx
+    \textstyle\sum_j\frac{\partial f_i}{\partial x_j}\Delta x_j
+    +\frac{\partial f_i}{\partial u}\Delta u\\
+    &\text{(ausgewertet bei }(\mathbf{x}_B,u_B)\text{)}
+  \end{aligned}} &
+  \formelblock{Linearisiertes System}{\begin{aligned}
+    \Delta\dot{\mathbf{x}} &= \mathbf{A}_B\,\Delta\mathbf{x}+\mathbf{b}_B\,\Delta u\\
+    \Delta y &= \mathbf{C}_B\,\Delta\mathbf{x}+d_B\,\Delta u
+  \end{aligned}} &
+  \beispielblock{1. Ordnung}{%
+    \dot{x}=u-x^3+2,\;u_B=2\\[0.04em]
+    x_B=0\\[0.04em]
+    A_B=0,\;b_B=1\\[0.04em]
+    \Delta\dot{x}=\Delta u} \\[0.3em]
+
+  \parbox[t]{\linewidth}{%
+    \formelblock{Jacobi-Matrizen}{\begin{aligned}
+      \mathbf{A}_B &=
+        \tfrac{\partial\mathbf{f}}{\partial\mathbf{x}}
+        \big|_{(\mathbf{x}_B,u_B)},\;
+      \mathbf{b}_B =
+        \tfrac{\partial\mathbf{f}}{\partial u}
+        \big|_{(\mathbf{x}_B,u_B)}\\[0.08em]
+      \mathbf{C}_B &=
+        \tfrac{\partial h}{\partial\mathbf{x}}
+        \big|_{(\mathbf{x}_B,u_B)},\;
+      d_B =
+        \tfrac{\partial h}{\partial u}
+        \big|_{(\mathbf{x}_B,u_B)}
+    \end{aligned}}\\[0.25em]
+    \formelblock{Delta-Koordinaten}{\begin{aligned}
+      \mathbf{x} &= \Delta\mathbf{x}+\mathbf{x}_B,\quad
+      u = \Delta u+u_B\\
+      \Delta\mathbf{x} &= \mathbf{0}
+        \Leftrightarrow \mathbf{x}=\mathbf{x}_B
+    \end{aligned}}} &
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Stabilität via Linearisierung}\\[0.03em]%
+    1.\ $\mathbf{A}_B$ aufstellen (Jacobi)\\[0.02em]
+    2.\ EW: $\det(s\mathbf{I}-\mathbf{A}_B)=0$ lösen $\Rightarrow s_\infty$\\[0.02em]
+    3.\ RT aller $s_\infty$ prüfen:\\[0.01em]
+    {\scriptsize
+    \quad alle neg.\,RT $\Rightarrow$ as.\,stab.\,(lok.)\\[0.01em]
+    \quad pos.\,RT vorh. $\Rightarrow$ instab.\\[0.03em]
+    \quad lokal (nahe BP); LZI: global\\[0.01em]
+    \quad neg.\,RT: kehrt zurück\\
+    \quad pos.\,RT: läuft weg}} &
+  \beispielblock{Trick $2\!\times\!2$, $\operatorname{tr}=0$}{%
+    \mathbf{A}_B=\begin{bsmallmatrix}0&1\\\alpha&0\end{bsmallmatrix}\!:\\[0.06em]
+    s^2\!-\!\alpha=0\Rightarrow s_\infty=\pm\sqrt{\alpha}\\[0.05em]
+    \alpha>0\Rightarrow\text{instab.}\\[0.02em]
+    \alpha<0\Rightarrow\text{grenzstab.\ (rein imag.)}\\[0.06em]
+    \text{Pendel stehend: }\alpha=\tfrac{g}{\ell}>0\\
+    \Rightarrow\text{instab.}} \\
+\end{formelreihe}
+\bereichende
+
+% ============================================================
+
+\bereich[cKap5]{Teil 5: Linearisierung im Betriebspunkt \& Direkte Methode von Lyapunov}
+
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Direkte Methode von Lyapunov}\\[0.03em]%
+    1.\ $V(\mathbf{x})$ wählen: pos.\,def., $V(\mathbf{0})=0$\\[0.02em]
+    2.\ $\dot{V}=\bigl(\tfrac{\partial V}{\partial\mathbf{x}}\bigr)^{\!T}\!\mathbf{f}(\mathbf{x})$ berechnen\\[0.02em]
+    3.\ Definitheit von $\dot{V}$ prüfen:\\[0.01em]
+    {\scriptsize
+    \quad $\dot{V}\leq0\Rightarrow$ glob.\,stab.\ (Satz\,1)\\[0.01em]
+    \quad $\dot{V}<0\Rightarrow$ glob.\,asym.\,stab.\ (Satz\,2)}} &
+  \infoblock{Typische $V$-Ansätze:\\[0.03em]
+    $V=\mathbf{x}^T\mathbf{Q}\mathbf{x}$,\ $\mathbf{Q}$ pos.\,def.\\[0.02em]
+    $V=\sum_i\lambda_i x_i^2$\ ($\lambda_i>0$)} &
+  \beispielblock{$\dot{x}=-x^3$}{%
+    V=\tfrac{1}{2}x^2>0\\[0.04em]
+    \dot{V}=x(-x^3)=-x^4\\[0.04em]
+    \dot{V}<0\;\forall x\!\neq\!0\\
+    \Rightarrow\text{gl.\,asym.\,stab.}} \\[0.3em]
+
+  \formelblock{Definitheit (Funktion $V$)}{\begin{aligned}
+    \text{pos. def.}&:\;V(\mathbf{x})>0\;\forall\mathbf{x}\neq\mathbf{0}\\
+    \text{pos. semid.}&:\;V(\mathbf{x})\geq0\\
+    \text{neg. def.}&:\;V(\mathbf{x})<0\;\forall\mathbf{x}\neq\mathbf{0}\\
+    &V(\mathbf{0})=0\;\text{in allen Fällen}
+  \end{aligned}} &
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Definitheit (Matrix $\mathbf{Q}$)}\\[0.03em]%
+    \scriptsize
+    $\mathbf{Q}$ pos.\,def.\ $\Leftrightarrow$ $\mathbf{Q}$ sym.\ und alle EW$(\mathbf{Q})>0$\\[0.05em]
+    oder: alle Hauptunterdet.\,$>0$:\\[0.03em]
+    \quad$q_{11}>0$,\;
+    $\det\!\left[\begin{smallmatrix}q_{11}&q_{12}\\q_{21}&q_{22}\end{smallmatrix}\right]>0$,\;\ldots\\[0.08em]
+    $\mathbf{Q}$ neg.\,def.\ $\Leftrightarrow$ $-\mathbf{Q}$ pos.\,def.\\[0.08em]
+    $V=\mathbf{x}^T\!\mathbf{Q}\mathbf{x}$ pos.\,def.\ $\Leftrightarrow$ $\mathbf{Q}$ pos.\,def.} &
+  \beispielblock{Q prüfen}{%
+    \mathbf{Q}=\begin{bmatrix}2&1\\1&3\end{bmatrix}\\[0.1em]
+    q_{11}=2>0\\
+    \det(\mathbf{Q})=5>0\\
+    \Rightarrow\text{pos.\,def.}} \\[0.3em]
+
+  \formelblock{Satz 1: global stabil}{\begin{aligned}
+    &V(\mathbf{x})\text{ pos. def., }V(\mathbf{0})=0\\
+    &\dot{V}(\mathbf{x})\leq0\;\forall\mathbf{x}\neq\mathbf{0}\\
+    &\Rightarrow\text{Ruhelage global stabil}
+  \end{aligned}} &
+  \formelblock{Satz 2: global asympt. stabil}{\begin{aligned}
+    &V(\mathbf{x})\text{ pos. def., }V(\mathbf{0})=0\\
+    &\dot{V}(\mathbf{x})<0\;\forall\mathbf{x}\neq\mathbf{0}\\
+    &\Rightarrow\text{global asym. stabil}
+  \end{aligned}} &
+  \beispielblock{Satz 2 Bsp}{%
+    \dot{x}=-x:\\[0.05em]
+    V=\tfrac{1}{2}x^2>0\\[0.05em]
+    \dot{V}=x(-x)=-x^2<0\\
+    \Rightarrow\text{gl. asym. stab.}} \\[0.3em]
+
+  \formelblock{$\dot{V}$ berechnen}{\begin{aligned}
+    \dot{V}(\mathbf{x})
+    &= \sum_i\frac{\partial V}{\partial x_i}\dot{x}_i\\[0.05em]
+    &= \left(\frac{\partial V}{\partial\mathbf{x}}\right)^{\!T}
+       \mathbf{f}(\mathbf{x})
+  \end{aligned}} &
+  \infoblock{\textbf{Einzugsgebiet:} Gesamtheit aller
+    $\mathbf{x}(0)$, von denen aus
+    $\mathbf{x}(t)\to\mathbf{x}_R$ für $t\to\infty$.\\[0.1em]
+    \textbf{Nachweis:} Inneres einer
+    Äqui-$V$-Linie $V(\mathbf{x})=c$, die
+    vollständig in $\{\dot{V}(\mathbf{x})<0\}$ liegt.} &
+  \beispielblock{Einzugsgebiet}{%
+    \dot{x}_1=-x_1+2x_1^3 x_2\\
+    \dot{x}_2=-x_2\\[0.05em]
+    V=\lambda_1 x_1^2+\lambda_2 x_2^2\\
+    \text{Ellipse als EZG}} \\[0.3em]
+
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black}%
+      Stabilität LZI — Zusammenfassung}\\[0.03em]%
+    \scriptsize\itshape
+    BIBO $\Leftrightarrow$ alle Pole neg. Realteil\\[0.03em]
+    iSvL glob. stabil $\Leftrightarrow$ keine EW pos. RT,\\
+    \phantom{iSvL glob. stabil}\,keine mehrfachen EW auf $j\omega$\\[0.03em]
+    iSvL glob. asym. stab. $\Leftrightarrow$ alle EW neg. RT} &
+  \parbox[t]{\linewidth}{%
+    \scriptsize\itshape
+    Glob. stab. (Lyap.): $V$ pos.def.\ $+$ $\dot{V}\!\leq\!0$\\[0.03em]
+    Glob. asym. (Lyap.): $V$ pos.def.\ $+$ $\dot{V}\!<\!0$\\[0.06em]
+    Via Linearisierung \textbf{(lokal!):}\\[0.03em]
+    stab. RL: keine EW pos. RT,\\
+    \phantom{stab. RL:}\,keine mehrfachen EW auf $j\omega$\\[0.03em]
+    asym. stab. RL: alle EW neg. RT} &
+  \beispielblock{Merkregel}{%
+    \dot{V}\leq0\text{: stabil}\\
+    \dot{V}<0\text{: asym. stab.}\\[0.05em]
+    \text{(beide global)}\\[0.05em]
+    \text{Lin.: nur lokal!}} \\
+\end{formelreihe}
+\bereichende

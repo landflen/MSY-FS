@@ -1,0 +1,177 @@
+% ============================================================
+%  02 · Zufallsprozesse
+%      Quelle: 02_zufallsprozesse.pdf
+% ============================================================
+
+\bereich[cProzess]{Zufallsprozess — Definition \& Klassifikation}
+\begin{formelreihe}
+  \infoblock{$X(\eta,t)$: jedem Ergebnis $\eta_i$ wird eine\\
+    Zeitfunktion $x_i(t)$ zugeordnet.\\[0.2em]
+    $\eta,t$ variabel $\to$ Zufallsprozess\\
+    $t=t_0$ fest $\to$ Zufallsvariable\\
+    $\eta=\eta_i$ fest $\to$ Musterfunktion (deterministisch)\\
+    $\eta,t$ fest $\to$ Zahlenwert} &
+  \formelblock{Zeitkontinuierlich}{t\in\mathbb{R}} &
+  \formelblock{Zeitdiskret}{t=k\cdot T,\quad k\in\mathbb{Z}} \\[0.3em]
+  \formelblock{Reellwertig}{X(\eta_i,t)\in\mathbb{R}\;\forall\,t} &
+  \formelblock{Komplexwertig}{X(\eta,t)=X_R(\eta,t)+j\cdot X_I(\eta,t)} &
+  \beispielblock{Wechselspannung}{X(\eta,t)=U_0\cdot\sin(\omega t+\varphi(\eta))\\
+    \text{ZV: }\varphi(\eta)\in[0,2\pi)} \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cProzess]{Wahrscheinlichkeitsverteilung eines Zufallsprozesses}
+\begin{formelreihe}
+  \formelblock{CDF (zeitabhängig!)}{F_X(x,t)=P(\{\eta\mid X(\eta,t)\le x\})} &
+  \formelblock{PDF}{f_X(x,t)=\dfrac{\partial F_X(x,t)}{\partial x}} &
+  \infoblock{Anders als bei ZV: $F_X$, $f_X$, $\mu_X$, $\sigma_X^2$\\
+    sind im Allgemeinen \emph{zeitabhängig}!} \\[0.3em]
+  \formelblock{Verbund-CDF (zwei Zeitpkte.)}{F_{XX}(x_1,x_2,t_1,t_2)\\
+    =P(\{\eta{\mid}X(\eta,t_1){\le}x_1\}\cap\{\eta{\mid}X(\eta,t_2){\le}x_2\})} &
+  \formelblock{Verbund-PDF}{\displaystyle f_{XX}(x_1,x_2,t_1,t_2)
+    =\dfrac{\partial^2 F_{XX}}{\partial x_1\,\partial x_2}} &
+  \formelblock{Zwei ZP unabhängig}{f_{XY}(x,y,t_1,t_2)\\
+    =f_X(x,t_1)\cdot f_Y(y,t_2)} \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cProzess]{Mittelwert, Varianz \& Momentanleistung}
+\begin{formelreihe}
+  \formelblock{Ensemblemittelwert}{\mu_X(t)=E\{X(\eta,t)\}
+    =\int_{-\infty}^{+\infty}\!x\,f_X(x,t)\,\mathrm{d}x} &
+  \formelblock{Varianz}{\sigma_X^2(t)=E\{(X(\eta,t)-\mu_X(t))^2\}
+    =\int_{-\infty}^{+\infty}\!(x{-}\mu_X)^2 f_X(x,t)\,\mathrm{d}x} &
+  \beispielblock{$X{=}A(\eta)\cos(\omega t{+}\varphi)$,\;$A\sim\mathcal{U}[0,A_0]$}{%
+    \mu_X(t)=\tfrac{A_0}{2}\cos(\omega t+\varphi)\\[0.15em]
+    \sigma_X^2(t)=\tfrac{A_0^2}{24}(1+\cos(2(\omega t+\varphi)))} \\[0.3em]
+  \formelblock{Mittl.\ Momentanleistung}{p(t)=E\{X^2(\eta,t)\}
+    =\sigma_X^2(t)+\mu_X^2(t)} &
+  \infoblock{Zeitmittelwert (Längs): $\langle x_i\rangle=\lim_{T\to\infty}\frac{1}{2T}\int_{-T}^{T}\!x_i(t)\,\mathrm{d}t$\\
+    Ensemblemittelwert (Quer): über $\eta$ bei festem $t$.\\
+    Ergodisch: Zeitmittelwert = Ensemblemittelwert.} &
+  \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cProzess]{AKF, AKV, KKF, KKV}
+\begin{formelreihe}
+  \formelblock{Autokorrelationsfunktion (AKF)}{\varphi_{XX}(t_1,t_2)
+    =E\{X(\eta,t_1)\cdot X(\eta,t_2)\}} &
+  \formelblock{Autokovarianzfunktion (AKV)}{\psi_{XX}(t_1,t_2)
+    =E\{(X(t_1){-}\mu_X(t_1))(X(t_2){-}\mu_X(t_2))\}} &
+  \formelblock{Symmetrie}{\varphi_{XX}(t_1,t_2)=\varphi_{XX}(t_2,t_1)\\[0.1em]
+    \psi_{XX}(t_1,t_2)=\psi_{XX}(t_2,t_1)} \\[0.3em]
+  \formelblock{$t_1{=}t_2{=}t$: AKF = Leistung}{\varphi_{XX}(t,t)
+    =E\{X^2\}=\sigma_X^2(t)+\mu_X^2(t)\ge0} &
+  \formelblock{$t_1{=}t_2{=}t$: AKV = Varianz}{\psi_{XX}(t,t)
+    =\sigma_X^2(t)\ge0} &
+  \\[0.3em]
+  \formelblock{Kreuzkorrelation (KKF)}{\varphi_{XY}(t_1,t_2)
+    =E\{X(\eta,t_1)\cdot Y(\eta,t_2)\}} &
+  \formelblock{KKF-Symmetrie}{\varphi_{XY}(t_1,t_2)=\varphi_{YX}(t_2,t_1)} &
+  \formelblock{Unkorreliert / Orthogonal}{%
+    \text{unkorr.: }\psi_{XY}=\varphi_{XY}-\mu_X\mu_Y=0\\[0.1em]
+    \text{orthog.: }\varphi_{XY}(t_1,t_2)=0} \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cProzess]{Stationarität}
+\begin{formelreihe}
+  \infoblock{\textbf{Streng stationär:}\\
+    $f_X(x,t)=f_X(x)$ (zeitinvariant)\\
+    $\Rightarrow\mu_X=\mathrm{const}$,\;
+    $\sigma_X^2=\mathrm{const}$\\[0.2em]
+    \textbf{Schwach stationär (WSS):}\\
+    genügt: $\mu_X(t)=\mu_X=\mathrm{const}$\\
+    und $\varphi_{XX}(t_1,t_2)=\varphi_{XX}(\tau)$\\[0.2em]
+    \textbf{Gauß'scher Prozess:}\\
+    WSS $\Rightarrow$ streng stationär} &
+  \formelblock{Stationäre AKF: $\tau=t_1-t_2$}{\varphi_{XX}(\tau)
+    =E\{X(t+\tau)\cdot X(t)\}\\[0.15em]
+    \varphi_{XX}(0)=\sigma_X^2+\mu_X^2\quad\text{(Leistung)}\\[0.1em]
+    \varphi_{XX}(\tau)=\varphi_{XX}(-\tau)\quad\text{(gerade)}\\[0.1em]
+    |\varphi_{XX}(\tau)|\le\varphi_{XX}(0)\\[0.1em]
+    \varphi_{XX}(\tau\to\infty)=\mu_X^2} &
+  \beispielblock{$X{=}A_0\cos(\omega t{+}\varphi(\eta))$,\;$\varphi{\sim}\mathcal{U}[0,2\pi]$}{%
+    \mu_X=0\quad\sigma_X^2=\dfrac{A_0^2}{2}\\[0.2em]
+    \varphi_{XX}(\tau)=\dfrac{A_0^2}{2}\cos(\omega\tau)\\[0.1em]
+    \Rightarrow\text{WSS (AKF nur von }\tau\text{)}} \\[0.3em]
+  \formelblock{Stationäre KKF}{\varphi_{XY}(\tau)=E\{X(t+\tau)\cdot Y(t)\}\\[0.1em]
+    \varphi_{XY}(\tau)=\varphi_{YX}(-\tau)} &
+  \formelblock{Zyklostationär (streng)}{F_X(x,t)=F_X(x,t+kT)\;\forall\,k\in\mathbb{Z}} &
+  \formelblock{Zyklostationär (schwach)}{\mu_X(t)=\mu_X(t+kT)\\[0.1em]
+    \varphi_{XX}(\tau,t)=\varphi_{XX}(\tau,t+kT)} \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cProzess]{Systemverarbeitung — Lineare Operationen (WSS vorausgesetzt)}
+\begin{formelreihe}
+  \infoblock{Für alle Ops gilt: Aus (schwach) stationärem\\
+    Eingang folgt (schwach) stationärer Ausgang.} &
+  \formelblock{$Y=a\cdot X$}{\mu_Y=a\,\mu_X\quad\sigma_Y^2=a^2\sigma_X^2\\[0.1em]
+    \varphi_{YY}(\tau)=a^2\varphi_{XX}(\tau)\\[0.1em]
+    \varphi_{XY}(\tau)=a\cdot\varphi_{XX}(\tau)} &
+  \formelblock{$Y=X+c$}{\mu_Y=\mu_X+c\quad\sigma_Y^2=\sigma_X^2\\[0.1em]
+    \varphi_{YY}(\tau)=\varphi_{XX}(\tau)+2c\mu_X+c^2\\[0.1em]
+    \varphi_{YX}(\tau)=\varphi_{XX}(\tau)+c\cdot\mu_X} \\[0.3em]
+  \formelblock{$Z=X+Y$ (unabh.)}{%
+    \mu_Z=\mu_X+\mu_Y\quad\sigma_Z^2=\sigma_X^2+\sigma_Y^2\\[0.1em]
+    \varphi_{ZZ}(\tau)=\varphi_{XX}+\varphi_{YY}+2\mu_X\mu_Y\\[0.1em]
+    \text{orthog.:\ }\varphi_{ZZ}=\varphi_{XX}+\varphi_{YY}} &
+  \formelblock{$Y(t)=X(t-T_d)$}{\mu_Y=\mu_X\quad\sigma_Y^2=\sigma_X^2\\[0.1em]
+    \varphi_{YY}(\tau)=\varphi_{XX}(\tau)\\[0.1em]
+    \varphi_{YX}(\tau)=\varphi_{XX}(\tau-T_d)} &
+  \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cProzess]{LTI-System: $Y(t)=h(t)*X(t)$}
+\begin{formelreihe}
+  \formelblock{Mittelwert \& Varianz}{\mu_Y=\mu_X\cdot H(0)
+    =\mu_X\!\int_{-\infty}^{\infty}\!h(t)\,\mathrm{d}t\\[0.2em]
+    \sigma_Y^2=\sigma_X^2\cdot|H(0)|^2} &
+  \formelblock{Filterautokorrelation}{\varphi_{hh}(\tau)=h(\tau)*h(-\tau)
+    \;\xrightarrow{\mathcal{F}}\;|H(j\omega)|^2} &
+  \infoblock{$*$ = Faltung\\
+    $H(j\omega)=\mathcal{F}\{h(t)\}$\\
+    Ausgangsprozess ist näherungsweise\\
+    gaußverteilt (Zentraler Grenzwertsatz).} \\[0.3em]
+  \formelblock{AKF \& KKF (Zeitbereich)}{%
+    \varphi_{YX}(\tau)=\varphi_{XX}(\tau)*h(\tau)\\[0.1em]
+    \varphi_{XY}(\tau)=\varphi_{XX}(\tau)*h(-\tau)\\[0.1em]
+    \varphi_{YY}(\tau)=\varphi_{XX}(\tau)*\varphi_{hh}(\tau)} &
+  \formelblock{LDS (Frequenzbereich)}{%
+    \Phi_{YX}(\omega)=\Phi_{XX}(\omega)\cdot H(j\omega)\\[0.1em]
+    \Phi_{XY}(\omega)=\Phi_{XX}(\omega)\cdot H^*(j\omega)\\[0.1em]
+    \Phi_{YY}(\omega)=\Phi_{XX}(\omega)\cdot|H(j\omega)|^2} &
+  \beispielblock{Systemidentifikation}{%
+    \text{Eingang: weißes Rauschen }X_0\\[0.15em]
+    H(j\omega)=\dfrac{\Phi_{YX}(\omega)}{\Phi_{XX}(\omega)}
+    =\dfrac{\Phi_{YX}(\omega)}{X_0}\\[0.2em]
+    h(t)=\dfrac{\varphi_{YX}(\tau)}{X_0}} \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cProzess]{Leistungsdichtespektrum (LDS) \& Weißes Rauschen}
+\begin{formelreihe}
+  \formelblock{Wiener-Khinchin}{%
+    \Phi_{XX}(\omega)=\mathcal{F}\{\varphi_{XX}(\tau)\}
+    =\int_{-\infty}^{+\infty}\!\varphi_{XX}(\tau)\,e^{-j\omega\tau}\,\mathrm{d}\tau} &
+  \formelblock{Parseval: Leistung}{\dfrac{1}{2\pi}\int_{-\infty}^{+\infty}\!
+    \Phi_{XX}(\omega)\,\mathrm{d}\omega
+    =\varphi_{XX}(0)=E\{X^2\}} &
+  \formelblock{Eigenschaften LDS}{\Phi_{XX}(\omega)=\Phi_{XX}(-\omega)\quad\text{(gerade)}\\[0.1em]
+    \mathrm{Im}\{\Phi_{XX}(\omega)\}=0\quad\text{(reell)}\\[0.1em]
+    \Phi_{XX}(\omega)\ge0} \\[0.3em]
+  \formelblock{Kreuz-LDS}{\Phi_{XY}(\omega)=\mathcal{F}\{\varphi_{XY}(\tau)\}\\[0.1em]
+    \Phi_{XY}(\omega)=\Phi_{YX}(-\omega)} &
+  \formelblock{Weißes Rauschen $N(t)$ (allg.)}{%
+    \text{mw-frei: }\psi_{XX}(t_1,t_2)=\varphi_{XX}(t_1,t_2)\\[0.05em]
+    \quad=\sigma_X^2(t_1)\cdot\delta(t_1{-}t_2)\\[0.1em]
+    \text{stationär: }\varphi_{NN}(\tau)=N_0\cdot\delta(\tau)\\[0.05em]
+    \Phi_{NN}(\omega)=N_0=\mathrm{const}} &
+  \beispielblock{$\Phi_{XX}(\omega)$ aus AKF}{%
+    \varphi_{XX}(\tau)=\tfrac{A_0^2}{2}\cos(\omega_0\tau)\\[0.2em]
+    \Phi_{XX}(\omega)=\tfrac{\pi A_0^2}{2}(\delta(\omega{-}\omega_0)+\delta(\omega{+}\omega_0))} \\
+\end{formelreihe}
+\bereichende

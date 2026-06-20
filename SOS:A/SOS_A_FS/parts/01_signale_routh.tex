@@ -1,0 +1,141 @@
+% ============================================================
+%  SOS/A FORMELSAMMLUNG — Teil 1–2
+%  Signale & Systeme | Routh-Schema
+% ============================================================
+
+\bereich[cKap1]{Teil 1: Signale, Systeme und Eigenschaften}
+
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Signal / System}\\[0.03em]%
+    \scriptsize
+    \textbf{Signal:} Funktion mind.\,einer unabh.\,Variablen,
+    repräsentiert Information.\\[0.1em]%
+    \textbf{System:} Abbildung $u(t)\!\to\!y(t)$
+    bzw.\,$\mathbf{u}(t)\!\to\!\mathbf{y}(t)$} &
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Signaltypen}\\[0.03em]%
+    \scriptsize
+    zeitkontinuierlich / zeitdiskret\\
+    wertekontinuierlich / wertediskret\\
+    analog (ztkt.\,+\,wtkt.) / digital\\
+    deterministisch / stochastisch} &
+  \beispielblock{Analog}{%
+    \text{Spannung }u(t):\\
+    \text{zeitkont., wertkont.}\\
+    \Rightarrow\text{analoges Signal}} \\[0.3em]
+
+  \formelblock{Lineare Operation}{\begin{aligned}
+    y &= c\cdot u,\quad
+    y = \tfrac{\mathrm{d}u}{\mathrm{d}t},\quad
+    y = \textstyle\int_0^t u\,\mathrm{d}\tau
+  \end{aligned}} &
+  \formelblock{Nichtlineare Operation}{\begin{aligned}
+    y &= u^2,\quad y = u+k\;(k\!\neq\!0),\\
+    y &= \sin(u)
+  \end{aligned}} &
+  \beispielblock{Linear}{y=5u\text{: konst. Fakt.}\\[0.1em]
+    y=\tfrac{\mathrm{d}u}{\mathrm{d}t}} \\[0.3em]
+
+  \formelblock{Lineares System}{\begin{aligned}
+    &\alpha u_1+\beta u_2
+    \;\xrightarrow{\;S\;}\;
+    \alpha y_1+\beta y_2\\
+    &\text{(Homogenität + Additivität)}
+  \end{aligned}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Statisches System}{%
+      y(t)=f\bigl(u(t)\bigr)\;\text{(gedächtnislos)}}\\[0.25em]%
+    \formelblock{Dynamisches System}{%
+      y(t)=f\bigl(u(t),\mathbf{x}(t)\bigr)\;\text{(Speicher)}}} &
+  \beispielblock{Statisch}{%
+    \text{Verstärker: }y=Ku\\[0.1em]
+    \text{Nichtlin. stat.:}\\
+    y=u^2} \\[0.3em]
+
+  \formelblock{Zeitinvariant}{\begin{aligned}
+    &u(t)\!\to\!y(t)\;\Rightarrow\;u(t\!-\!T)\!\to\!y(t\!-\!T)\\
+    &\forall T:\;\text{Parameter zeitunabhängig}
+  \end{aligned}} &
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Kausal}\\[0.03em]%
+    \scriptsize $y(t)$ hängt nur von $u(\tau)$,\;$\tau\!\leq\!t$ ab.\\[0.2em]%
+    {\scriptsize\scshape\color{gray!65!black} BIBO-stabil (allgemein)}\\[0.03em]%
+    $\displaystyle
+      |u(t)|\!\leq\!M_1\!<\!\infty
+      \;\Rightarrow\;
+      |y(t)|\!\leq\!M_2\!<\!\infty$} &
+  \beispielblock{Zeitvariant}{%
+    \text{Funkkanal: Dämpf.}\\
+    \text{ändert sich mit }t\\[0.1em]
+    \text{Akausal: }y(t)=u(t\!+\!1)} \\
+\end{formelreihe}
+\bereichende
+
+% ============================================================
+
+\bereich[cKap2]{Teil 2: Stabilitätsuntersuchung LZI — Routh-Schema}
+
+\begin{formelreihe}
+  \formelblock{BIBO-Stabilität LZI}{\begin{aligned}
+    &G(s)=\tfrac{Z(s)}{N(s)}\;\text{BIBO-stabil}\\
+    &\Leftrightarrow\;\text{alle Pole}\;\operatorname{Re}(s_i)<0
+  \end{aligned}} &
+  \infoblock{Routh prüft Koeffizienten von
+    $N(s)=a_n s^n+\cdots+a_0$,\\
+    ohne explizite Polberechnung.\\[0.1em]
+    Notwendig \& hinreichend.} &
+  \beispielblock{Stabil}{G(s)=\dfrac{1}{s+1}\\[0.1em]
+    \text{Pol: }s_1=-1\\
+    \Rightarrow\text{stabil}} \\[0.3em]
+
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Routh-Tableau}\\[0.03em]%
+    {\renewcommand{\arraystretch}{0.95}%
+    $\displaystyle
+    \begin{array}{r|ccc}
+      s^n     & a_n     & a_{n-2} & \cdots \\
+      s^{n-1} & a_{n-1} & a_{n-3} & \cdots \\
+      s^{n-2} & b_1     & b_2     & \cdots \\
+      \vdots  & \vdots  &         &        \\
+      s^0     & h_1     &         &
+    \end{array}$}} &
+  \formelblock{Zeilenelement (Kreuzprodukt)}{\begin{gathered}
+    b_1 = \dfrac{a_{n-1}\cdot a_{n-2}-a_n\cdot a_{n-3}}{a_{n-1}}\\[0.15em]
+    \text{analog für }b_2,\,c_1,\,\ldots
+  \end{gathered}} &
+  \beispielblock{n=3}{\begin{aligned}
+    &N\!=\!s^3\!+\!6s^2\!+\!11s\!+\!6\\[0.1em]
+    &b_1=\tfrac{6{\cdot}11-1{\cdot}6}{6}=10\\[0.05em]
+    &\text{l.Sp.: }1,6,10,6\\
+    &\Rightarrow\text{stabil}
+  \end{aligned}} \\[0.3em]
+
+  \parbox[t]{\linewidth}{%
+    \formelblock{Regel 1 (notwendig, $n>2$)}{\begin{aligned}
+      &\text{Alle }a_i\text{ gleiches Vorzeichen}\\
+      &\text{nötig — sonst sofort instabil}
+    \end{aligned}}\\[0.25em]%
+    \infoblock{$n\leq2$: Regel~1 auch hinreichend.}} &
+  \formelblock{Regel 2 \& 3 (hinreichend)}{\begin{aligned}
+    &\text{\#\,Vorzeichenwechsel}\\
+    &\text{in linker Spalte}\\
+    &=\text{Pole in rechter HE}\\[0.08em]
+    &\text{Null in l.\,Spalte}\\
+    &\;\Rightarrow\text{Pol auf }j\omega\text{-Achse}
+  \end{aligned}} &
+  \beispielblock{Instabil}{\begin{aligned}
+    &N\!=\!s^3\!+\!s^2\!-\!s\!+\!1\\
+    &\text{Reg.\,1 verletzt}\\
+    &\Rightarrow\text{instabil}
+  \end{aligned}} \\[0.3em]
+
+  \infoblock{$n=1$: $N(s)=as+b$\\
+    stabil $\Leftrightarrow$ $a$, $b$ gleiches VZ} &
+  \infoblock{$n=2$: $N(s)=as^2+bs+c$\\
+    stabil $\Leftrightarrow$ alle gleich\\
+    positiv oder alle negativ} &
+  \beispielblock{n=2}{N=s^2+4s+1\\[0.1em]
+    a,b,c>0\Rightarrow\text{stabil}} \\
+\end{formelreihe}
+\bereichende

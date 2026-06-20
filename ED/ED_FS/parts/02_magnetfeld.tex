@@ -1,0 +1,188 @@
+% ---- EDy3: Magnetisches Feld ----------------------------
+
+% 3.1  Magnetische Feldstärke
+\bereich[cKap3]{3.1 Magnetische Feldstärke $\vec{H}$}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \formelblock{Magnetische Feldstärke}{%
+      H=|\vec{H}|=\tfrac{I}{2\pi r}=\tfrac{\text{Stromstärke}}{\text{Feldlinienlänge}}}\\[0.25em]%
+    \formelblock{Einheit}{%
+      [H]=1\,\tfrac{\mathrm{A}}{\mathrm{m}}}\\[0.25em]%
+    \infoblock{$\vec{H}\perp I$;\; $\vec{H}\perp\vec{r}$\quad (Rechtsschraube)}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Proportionalitäten}{%
+      H\sim I\;,\quad H\sim\tfrac{1}{r}}\\[0.25em]%
+    \infoblock{analog zu $E=U/d$:\\
+      $H=U_{\mathrm{mag}}/l_{\mathrm{Feldlinie}}$}} &
+  \beispielblock{Langer gerader Leiter}{%
+    \begin{aligned}
+      H(r)&=\tfrac{I}{2\pi r}\\[0.1em]
+      [H]&=1\,\tfrac{\mathrm{A}}{\mathrm{m}}
+    \end{aligned}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 3.2  Magnetische Flussdichte
+\bereich[cKap3]{3.2 Magnetische Flussdichte $\vec{B}$}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \formelblock{Flussdichte und Fluss}{%
+      \vec{B}=\tfrac{\mathrm{d}\Phi}{\mathrm{d}\vec{A}}\;,\qquad
+      \Phi=\int\!\vec{B}\,\mathrm{d}\vec{A}}\\[0.25em]%
+    \formelblock{Einheit}{%
+      [B]=1\,\tfrac{\mathrm{Vs}}{\mathrm{m}^2}=1\,\mathrm{T}}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Materialgesetz}{%
+      \vec{B}=\mu\cdot\vec{H}=\mu_0\cdot\mu_r\cdot\vec{H}}\\[0.25em]%
+    \formelblock{Permeabilität Vakuum}{%
+      \mu_0=4\pi\cdot10^{-7}\,\tfrac{\mathrm{Vs}}{\mathrm{Am}}
+        =1{,}257\cdot10^{-6}\,\tfrac{\mathrm{Vs}}{\mathrm{Am}}}} &
+  \beispielblock{analog Elektrostatik}{%
+    \begin{aligned}
+      \vec{D}&=\varepsilon\vec{E}
+        \;\leftrightarrow\;\vec{B}=\mu\vec{H}\\[0.1em]
+      I&=\int\vec{J}\,\mathrm{d}\vec{A}
+        \;\leftrightarrow\;\Phi=\int\vec{B}\,\mathrm{d}\vec{A}
+    \end{aligned}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 3.3  Durchflutungsgesetz
+\bereich[cKap3]{3.3 Durchflutungsgesetz}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \formelblock{Durchflutungsgesetz}{%
+      I=\int_A\!\vec{J}\,\mathrm{d}\vec{A}
+        =\oint_{K_A}\!\vec{H}\,\mathrm{d}\vec{s}=V}\\[0.25em]%
+    \formelblock{Magn.\ Spannung (homogen)}{%
+      V=H\cdot l}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Weg umschließt Leiter}{%
+      V_0=\oint\vec{H}\,\mathrm{d}\vec{s}=I}\\[0.25em]%
+    \formelblock{Weg umschließt Leiter \emph{nicht}}{%
+      \oint\vec{H}\,\mathrm{d}\vec{s}=0}} &
+  \beispielblock{$\vec{H}$: Wirbelfeld}{%
+    \begin{aligned}
+      &\oint\vec{H}\,\mathrm{d}\vec{s}=I\neq0\\[0.1em]
+      &\Rightarrow\text{nicht wirbelfrei}\\[0.1em]
+      &\text{vgl.\ Elektrostatik:}\\
+      &\oint\vec{E}\,\mathrm{d}\vec{s}=0
+    \end{aligned}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 3.4.1  Bewegungsinduktion
+\bereich[cKap3]{3.4.1 Bewegungsinduktion (Leiter bewegt, $\vec{B}$ ruhend)}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \formelblock{Induziertes Feld (Lorentzkraft)}{%
+      \vec{E}_i=\vec{v}\times\vec{B}}\\[0.25em]%
+    \formelblock{Induz.\ Spannung (homogen, $\vec{v}\perp\vec{B}\perp\vec{l}$)}{%
+      U_i=-B\cdot l\cdot v}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Allgemein (Umlaufintegral)}{%
+      U_i=\oint\vec{E}_i\,\mathrm{d}\vec{s}
+        =\oint\!\left(\vec{v}\times\vec{B}\right)\mathrm{d}\vec{s}}\\[0.25em]%
+    \formelblock{Induktive Spannung an Klemmen}{%
+      U_q=-U_i\quad\text{(EMK)}}} &
+  \beispielblock{Betrag $E_i$}{%
+    \begin{aligned}
+      &\vec{v}\perp\vec{B}:\;E_{max}=v\cdot B\\[0.1em]
+      &\vec{v}\parallel\vec{B}:\;E_i=0
+    \end{aligned}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 3.4.2 / 3.4.3  Ruheinduktion & allgemeines Induktionsgesetz
+\bereich[cKap3]{3.4.2 Ruheinduktion \& 3.4.3 Allgemeines Induktionsgesetz}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \formelblock{Induktionsgesetz ($N$ Windungen)}{%
+      u_q=N\cdot\tfrac{\mathrm{d}\Phi}{\mathrm{d}t}}\\[0.25em]%
+    \infoblock{\textbf{Lenzsche Regel:} Induzierter Strom\\
+      wirkt der Flussänderung entgegen.}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{2.\ Maxwellsche Gleichung}{%
+      u_i=\oint\vec{E}_i\,\mathrm{d}\vec{s}
+        =-\tfrac{\mathrm{d}}{\mathrm{d}t}\int_A\!\vec{B}\,\mathrm{d}\vec{A}}\\[0.25em]%
+    \formelblock{Produktregel ($\Phi=B(t)\cdot A(t)$)}{%
+      -u_i=\underbrace{\tfrac{\mathrm{d}B}{\mathrm{d}t}\cdot A}_{\text{Ruhe}}
+        +\underbrace{B\cdot\tfrac{\mathrm{d}A}{\mathrm{d}t}}_{\text{Bewegung}}}} &
+  \beispielblock{Anteile}{%
+    \begin{aligned}
+      \tfrac{\mathrm{d}B}{\mathrm{d}t}{\cdot}A
+        &:\;\text{Ruheinduktion}\\
+        &\quad\text{(Trafo)}\\[0.1em]
+      B{\cdot}\tfrac{\mathrm{d}A}{\mathrm{d}t}
+        &:\;\text{Bewegungsinduktion}\\
+        &\quad\text{(Generator)}
+    \end{aligned}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 3.5  Induktivität
+\bereich[cKap3]{3.5 Induktivität}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \formelblock{Selbstinduktivität}{%
+      L=\tfrac{\psi_m}{I}=\tfrac{N\cdot\Phi}{I}\;,\quad
+      [L]=1\,\tfrac{\mathrm{Vs}}{\mathrm{A}}=1\,\mathrm{H}}\\[0.25em]%
+    \formelblock{Spulenspannung}{%
+      u_L(t)=L\cdot\tfrac{\mathrm{d}i}{\mathrm{d}t}=-u_i(t)}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Aus Geometrie \& Material}{%
+      L=\mu\cdot N^2\cdot\tfrac{A}{l}}\\[0.25em]%
+    \formelblock{Doppelleitung (exakt / $a\gg r$)}{%
+      \begin{aligned}
+        L&=\tfrac{\mu_0 l}{\pi}\!\left(\ln\tfrac{a-r}{r}+0{,}25\right)\\[0.1em]
+        L&\approx\tfrac{\mu_0 l}{\pi}\cdot\ln\tfrac{a}{r}
+      \end{aligned}}} &
+  \beispielblock{Magn.\ Kreis}{%
+    \begin{aligned}
+      \Phi&=\tfrac{\Theta}{R_m}\;,\;\Theta=I N\\[0.1em]
+      \Lambda_m&=\tfrac{1}{R_m}=\tfrac{\mu A}{l}\\[0.1em]
+      L&=\Lambda_m\cdot N^2
+    \end{aligned}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 3.6  Energie im magnetischen Feld
+\bereich[cKap3]{3.6 Energie im magnetischen Feld}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \formelblock{Energie (Spule)}{%
+      W_m=\tfrac{1}{2}L I^2=\tfrac{1}{2}I\psi_m
+        =\tfrac{1}{2}\Theta\cdot\Phi}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Energiedichte}{%
+      w_m=\tfrac{1}{2}\mu H^2=\tfrac{1}{2}B\cdot H
+        =\tfrac{B^2}{2\mu}}} &
+  \beispielblock{analog Elektrostatik}{%
+    \begin{aligned}
+      W_e&=\tfrac{1}{2}CU^2\;\leftrightarrow\;W_m=\tfrac{1}{2}LI^2\\[0.1em]
+      w_e&=\tfrac{1}{2}\varepsilon E^2\;\leftrightarrow\;w_m=\tfrac{1}{2}\mu H^2
+    \end{aligned}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 3.7  Grenzflächen im magnetischen Feld
+\bereich[cKap3]{3.7 Grenzflächen im magnetischen Feld}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \formelblock{Tangentialkomp.\ stetig (aus $\oint\vec{H}\,\mathrm{d}\vec{s}=0$)}{%
+      H_{t1}=H_{t2}}\\[0.25em]%
+    \formelblock{Brechung der Feldlinien}{%
+      \tfrac{\tan\alpha_1}{\tan\alpha_2}=\tfrac{\mu_1}{\mu_2}}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Normalkomp.\ stetig (aus $\oint\vec{B}\,\mathrm{d}\vec{A}=0$)}{%
+      B_{n1}=B_{n2}}\\[0.25em]%
+    \formelblock{Grenzfl.\ zu Metall ($\kappa\to\infty$, zeitl.\ veränd.)}{%
+      H_n=0}} &
+  \beispielblock{Zusammenfassung Magn.\ Feld}{%
+    \begin{aligned}
+      \oint\vec{H}\,\mathrm{d}\vec{s}&=I\;\text{(Wirbelfeld)}\\
+      \oint\vec{B}\,\mathrm{d}\vec{A}&=0\;\text{(quellenfrei)}\\
+      \vec{B}&=\mu\vec{H}
+    \end{aligned}} \\[0.3em]
+\end{formelreihe}
+\bereichende

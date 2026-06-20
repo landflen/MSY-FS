@@ -1,0 +1,95 @@
+% ============================================================
+%  Formelsammlung Elektrodynamik  —  Hauptdatei
+%  TH Nürnberg, Studiengang MSY
+% ============================================================
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{microtype}
+\usepackage{needspace}
+\geometry{top=10mm,bottom=14mm,left=10mm,right=10mm,includefoot}
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{0pt}
+\renewcommand{\baselinestretch}{0.9}
+\setlength{\emergencystretch}{2em}
+\hfuzz=3pt
+\setlength{\fboxsep}{0.18em}
+\setlength{\fboxrule}{0.3pt}
+
+% ---- Farbschema: eine Farbe pro EDy-Skript ---------------
+\colorlet{cKap0}{gray!80!black}    % EDy0: Übersicht / Einteilung
+\colorlet{cKap1}{blue}             % EDy1: Einteilung EM-Felder
+\colorlet{cKap2}{teal}             % EDy2: Elektrostatisches Feld
+\colorlet{cKap3}{violet}           % EDy3: Magnetisches Feld
+\colorlet{cKap4}{orange!90!red}    % EDy4: Stationäres Strömungsfeld
+\colorlet{cKap5}{olive}            % EDy5: Zeitveränderliches Strömungsfeld
+\colorlet{cKap6}{purple}           % EDy6: Elektromagnetische Wellen
+\colorlet{cKap7}{cyan!70!black}    % EDy7: Wellenleiter
+\colorlet{cKap8}{red!70!black}     % EDy8: Antennen
+
+% ---- Bereichskopf ----------------------------------------
+\newcommand{\bereich}[2][cKap1]{%
+  \needspace{4\baselineskip}%
+  \vspace{0.5em}%
+  \noindent\colorbox{#1!10}{%
+    \makebox[\dimexpr\linewidth-2\fboxsep\relax][l]{%
+      \small\bfseries\color{#1!80!black}\strut\enspace #2}}%
+  \nopagebreak%
+  \vspace{0.1em}\par\noindent}
+
+% ---- Trennlinie ------------------------------------------
+\newcommand{\bereichende}{%
+  \vspace{0.2em}%
+  {\color{gray!50}\hrule height 0.3pt}%
+  \vspace{0.2em}}
+
+% ---- Drei-Spalten-Layout ---------------------------------
+\newenvironment{formelreihe}{%
+  \noindent\footnotesize%
+  \setlength{\tabcolsep}{0pt}%
+  \renewcommand{\arraystretch}{0.85}%
+  \begin{tabular}{@{}p{0.32\linewidth}@{\hspace{0.02\linewidth}}%
+                     p{0.32\linewidth}@{\hspace{0.02\linewidth}}%
+                     p{0.32\linewidth}@{}}%
+}{\end{tabular}\par}
+
+% ---- Formel-Block ----------------------------------------
+\newcommand{\formelblock}[2]{%
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} #1}\\[0.03em]%
+    $\displaystyle #2$}}
+
+% ---- Beispiel-Block (nur Spalte 3) -----------------------
+\newcommand{\beispielblock}[2]{%
+  \fcolorbox{orange!50}{yellow!15}{%
+    \parbox[t]{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+      {\scriptsize\scshape\color{orange!80!black} Bsp: #1}\\[0.03em]%
+      $\displaystyle #2$}}}
+
+% ---- Info-Block ------------------------------------------
+\newcommand{\infoblock}[1]{%
+  \parbox[t]{\linewidth}{\scriptsize\itshape #1}}
+
+% ==========================================================
+\begin{document}
+\begin{center}
+  {\large\bfseries Formelsammlung Elektrodynamik — TH Nürnberg MSY}
+\end{center}
+\vspace{0.3em}
+
+\input{parts/00_einteilung}
+\input{parts/01_elektrostatik}
+\input{parts/02_magnetfeld}
+\input{parts/03_stroemungsfeld}
+%\input{parts/04_zeitveraenderlich}
+%\input{parts/05_em_wellen}
+%\input{parts/06_wellenleiter}
+%\input{parts/07_antennen}
+
+\end{document}

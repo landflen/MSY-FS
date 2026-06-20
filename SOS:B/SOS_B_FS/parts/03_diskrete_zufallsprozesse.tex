@@ -1,0 +1,117 @@
+% ============================================================
+%  03 · Diskrete Zufallsprozesse
+%      Quelle: 03_diskrete_zufallsprozesse.pdf
+% ============================================================
+
+\bereich[cDiskret]{Zeitdiskreter Zufallsprozess — Definition}
+\begin{formelreihe}
+  \formelblock{Abtastung mit Periode $T$}{X_\eta[k]=X(\eta,kT),\quad k\in\mathbb{Z}\\[0.15em]
+    \text{Musterfunktion: }X_{\eta_i}[k]=x_i[k]} &
+  \infoblock{\textbf{Wichtig:} zeitdiskret $\neq$ wertdiskret!\\
+    Werte sind weiterhin kontinuierlich.\\[0.15em]
+    Ensemble, Musterfunktion: gleiche\\
+    Bedeutung wie bei kont.\ Prozessen.} &
+  \formelblock{CDF \& PDF (zeitabhängig)}{F_X(x,k)=P(\{\eta\mid X_\eta[k]\le x\})\\[0.15em]
+    f_X(x,k)=\dfrac{\partial F_X(x,k)}{\partial x}} \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cDiskret]{Mittelwert, Varianz, AKF, AKV}
+\begin{formelreihe}
+  \formelblock{Mittelwert}{\mu_X[k]=E\{X_\eta[k]\}
+    =\int_{-\infty}^{+\infty}\!x\,f_X(x,k)\,\mathrm{d}x} &
+  \formelblock{Varianz}{\sigma_X^2[k]=E\{(X_\eta[k]{-}\mu_X[k])^2\}
+    =\int_{-\infty}^{+\infty}\!(x{-}\mu_X)^2 f_X(x,k)\,\mathrm{d}x} &
+  \formelblock{Momentanleistung}{p[k]=\varphi_{XX}[k,k]
+    =E\{X_\eta^2[k]\}=\sigma_X^2[k]+\mu_X^2[k]} \\[0.3em]
+  \formelblock{AKF}{\varphi_{XX}[k_1,k_2]
+    =E\{X_\eta[k_1]\cdot X_\eta[k_2]\}} &
+  \formelblock{AKV}{\psi_{XX}[k_1,k_2]
+    =E\{(X[k_1]{-}\mu_X[k_1])(X[k_2]{-}\mu_X[k_2])\}} &
+  \formelblock{Symmetrie \& Spezialfälle}{%
+    \varphi_{XX}[k_1,k_2]=\varphi_{XX}[k_2,k_1]\\[0.1em]
+    \varphi_{XX}[k,k]=\sigma_X^2[k]+\mu_X^2[k]\ge0\\[0.1em]
+    \psi_{XX}[k,k]=\sigma_X^2[k]\ge0} \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cDiskret]{KKF, KKV — Korrelation zweier Prozesse}
+\begin{formelreihe}
+  \formelblock{Kreuzkorrelation (KKF)}{\varphi_{XY}[k_1,k_2]
+    =E\{X_\eta[k_1]\cdot Y_\eta[k_2]\}} &
+  \formelblock{Kreuzkovarianz (KKV)}{\psi_{XY}[k_1,k_2]
+    =E\{(X[k_1]{-}\mu_X[k_1])(Y[k_2]{-}\mu_Y[k_2])\}} &
+  \formelblock{Symmetrie}{\varphi_{XY}[k_1,k_2]=\varphi_{YX}[k_2,k_1]\\[0.1em]
+    \psi_{XY}[k_1,k_2]=\psi_{YX}[k_2,k_1]} \\[0.3em]
+  \formelblock{Unkorreliert}{\psi_{XY}[k_1,k_2]
+    =\varphi_{XY}[k_1,k_2]-\mu_X[k_1]\mu_Y[k_2]=0} &
+  \formelblock{Orthogonal}{\varphi_{XY}[k_1,k_2]=0\quad\forall\,k_1,k_2} &
+  \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cDiskret]{Stationarität (WSS)}
+\begin{formelreihe}
+  \infoblock{\textbf{WSS:} statist.\ Eigenschaften unabhängig\\
+    vom Abtastzeitpunkt $k$.\\[0.15em]
+    $\mu_X[k]=\mu_X=\mathrm{const}$\\
+    $\sigma_X^2[k]=\sigma_X^2=\mathrm{const}$\\
+    $\varphi_{XX}[k_1,k_2]=\varphi_{XX}[\kappa]$\quad mit $\kappa=k_1{-}k_2$} &
+  \formelblock{Stationäre AKF: $\kappa=k_1{-}k_2$}{\varphi_{XX}[\kappa]
+    =E\{X[k{+}\kappa]\cdot X[k]\}\\[0.1em]
+    \varphi_{XX}[0]=\sigma_X^2+\mu_X^2\quad\text{(Leistung)}\\[0.1em]
+    \varphi_{XX}[-\kappa]=\varphi_{XX}[\kappa]\quad\text{(gerade)}\\[0.1em]
+    |\varphi_{XX}[\kappa]|\le\varphi_{XX}[0]\quad\text{(Maximum bei }0)} &
+  \formelblock{Stationäre KKF}{\varphi_{XY}[\kappa]
+    =E\{X[k{+}\kappa]\cdot Y[k]\}\\[0.1em]
+    \varphi_{XY}[\kappa]=\varphi_{YX}[-\kappa]} \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cDiskret]{Weißes Rauschen \& Ergodizität}
+\begin{formelreihe}
+  \infoblock{\textbf{i.i.d.\ Rauschen:} Einzelne Werte der Sequenz\\
+    voneinander unabhängig und gleich verteilt\\
+    (independent identically distributed).\\[0.15em]
+    $\Rightarrow$ stets stationär und weiß.} &
+  \formelblock{Schwach stationäres weißes Rauschen}{%
+    \varphi_{XX}[\kappa]=\sigma_X^2\cdot\delta[\kappa]\\[0.15em]
+    f_X(x,k)=f_X(x)\quad\text{(zeitinvariant)}} &
+  \formelblock{Ergodizität}{\mu_X=\lim_{N\to\infty}\dfrac{1}{2N{+}1}
+    \sum_{k=-N}^{N}x_i[k]\\[0.2em]
+    \varphi_{XX}[\kappa]=\lim_{N\to\infty}\dfrac{1}{2N{+}1}
+    \sum_{k=-N}^{N}x_i[k{+}\kappa]x_i[k]} \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cDiskret]{LDS — Diskrete Fouriertransformation (DTFT)}
+\begin{formelreihe}
+  \formelblock{Wiener-Khinchin (diskret)}{\Phi_{XX}(\Omega)
+    =\mathrm{DTFT}\{\varphi_{XX}[\kappa]\}
+    =\sum_{\kappa=-\infty}^{+\infty}\varphi_{XX}[\kappa]\,e^{-j\kappa\Omega}} &
+  \formelblock{Rücktransformation}{\varphi_{XX}[\kappa]
+    =\dfrac{1}{2\pi}\int_{-\pi}^{\pi}\Phi_{XX}(\Omega)\,e^{j\kappa\Omega}\,\mathrm{d}\Omega} &
+  \infoblock{$\Omega=\omega T\in[-\pi,\pi]$: normierte Kreisfrequenz.\\[0.15em]
+    Dimension von $\Phi_{XX}(\Omega)$: $[X]^2$\\
+    (keine echte Leistungsdichte!)} \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cDiskret]{Diskretes LTI-System: $Y[k]=h[k]*X[k]$}
+\begin{formelreihe}
+  \formelblock{AKF \& KKF (Zeitbereich)}{%
+    \varphi_{YX}[\kappa]=\varphi_{XX}[\kappa]*h[\kappa]\\[0.1em]
+    \varphi_{XY}[\kappa]=\varphi_{XX}[\kappa]*h[-\kappa]\\[0.1em]
+    \varphi_{YY}[\kappa]=\varphi_{XX}[\kappa]*h[\kappa]*h[-\kappa]\\[0.1em]
+    \varphi_{hh}[\kappa]=h[\kappa]*h[-\kappa]} &
+  \formelblock{LDS (Frequenzbereich)}{%
+    \Phi_{YX}(\Omega)=\Phi_{XX}(\Omega)\cdot H(e^{j\Omega})\\[0.1em]
+    \Phi_{XY}(\Omega)=\Phi_{XX}(\Omega)\cdot H^*(e^{j\Omega})\\[0.1em]
+    \Phi_{YY}(\Omega)=\Phi_{XX}(\Omega)\cdot|H(e^{j\Omega})|^2} &
+  \infoblock{Analog zum kont.\ LTI-System,\\
+    aber: $H(j\omega)\to H(e^{j\Omega})$\\
+    $\Omega=\omega T$,\quad$|H|^2=H\cdot H^*$\\[0.15em]
+    Aus WSS-Eingang folgt\\
+    WSS-Ausgang.} \\
+\end{formelreihe}
+\bereichende

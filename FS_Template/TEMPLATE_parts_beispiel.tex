@@ -1,0 +1,46 @@
+% ============================================================
+%  BEISPIEL-KAPITEL — zeigt alle Makros in Verwendung
+%  Als parts/01_kapitel.tex speichern und in TEMPLATE.tex einbinden
+% ============================================================
+
+% ---- \bereich[Farbe]{Titel} --------------------------------
+% Farbe muss in TEMPLATE.tex mit \colorlet definiert sein
+\bereich[cKap1]{Abschnittstitel}
+
+% ---- formelreihe -------------------------------------------
+% 3 Spalten, getrennt mit &, Zeile endet mit \\
+% Empfehlung: Spalte 1+2 = Formeln, Spalte 3 = Beispiele
+\begin{formelreihe}
+  % --- Zeile 1: normaler Fall ---
+  \formelblock{Formelname}{f(x) = \int_a^b g(x)\,\mathrm{d}x} &
+  \formelblock{Weitere Formel}{P(A) = \dfrac{|A|}{|\Omega|}} &
+  \beispielblock{Kontext}{P(\text{Kopf}) = \dfrac{1}{2}} \\[0.3em]
+
+  % --- Zeile 2: mehrzeilige Formel mit aligned ---
+  \formelblock{Mehrzeilig}{\begin{aligned}
+    \mu &= E\{X\} \\
+    \sigma^2 &= E\{X^2\} - \mu^2
+  \end{aligned}} &
+  % --- leere Zelle ---
+  &
+  % --- Beispiel mit Zeilenumbruch (aligned in #2) ---
+  \beispielblock{Würfel}{%
+    E\{X\}=\sum_{k=1}^{6}k\cdot\tfrac{1}{6}=3{.}5 \\[0.15em]
+    \text{(aligned nicht nötig für 1 Zeile)}} \\[0.3em]
+
+  % --- Zeile 3: Infoblock in Spalte 1 ---
+  \infoblock{Erklärungstext erscheint\\kursiv und klein.\\
+             Gut für Definitionen.} &
+  \formelblock{Formel in Sp. 2}{\sigma_X = \sqrt{\sigma_X^2}} &
+  \\
+\end{formelreihe}
+\bereichende
+
+% ---- Zweiter Abschnitt -------------------------------------
+\bereich[cKap1]{Zweiter Abschnitt}
+\begin{formelreihe}
+  \formelblock{Beispiel}{y = ax + b} &
+  \formelblock{Folge}{\mu_y = a\mu_x + b,\quad \sigma_y^2 = a^2\sigma_x^2} &
+  \\
+\end{formelreihe}
+\bereichende

@@ -1,0 +1,102 @@
+% ============================================================
+%  Formelsammlung SOS:B  —  Hauptdatei
+%  Neue Kapitel als \input{parts/XX_name} einbinden.
+% ============================================================
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{microtype}
+\usepackage{needspace}
+\geometry{top=10mm,bottom=14mm,left=10mm,right=10mm,includefoot}
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{0pt}
+\renewcommand{\baselinestretch}{0.9}
+\setlength{\emergencystretch}{2em}
+\hfuzz=3pt   % dfrac in engen Spalten: <3pt Overfull unterdrücken
+\setlength{\fboxsep}{0.18em}
+\setlength{\fboxrule}{0.3pt}
+
+% ---- Farbschema: eine Farbe pro Skript -------------------
+\colorlet{cMath}{olive}             % 00 Mathematische Grundregeln
+\colorlet{cGrundl}{blue}            % 01 Grundlagen
+\colorlet{cProzess}{teal}           % 02 Zufallsprozesse
+\colorlet{cDiskret}{violet}         % 03 Diskrete ZP
+\colorlet{cSchaetz}{orange!90!red}  % 04 Schätzung / Estimation
+
+% ---- Bereichskopf ----------------------------------------
+% Farbiger Balken statt \section* → spart ~2 Zeilen pro Abschnitt
+% Verwendung: \bereich[Farbe]{Titel}
+\newcommand{\bereich}[2][cGrundl]{%
+  \needspace{4\baselineskip}%
+  \vspace{0.5em}%
+  \noindent\colorbox{#1!10}{%
+    \makebox[\dimexpr\linewidth-2\fboxsep\relax][l]{%
+      \small\bfseries\color{#1!80!black}\strut\enspace #2}}%
+  \nopagebreak%
+  \vspace{0.1em}\par\noindent%
+}
+
+% ---- Trennlinie zwischen Bereichen -----------------------
+\newcommand{\bereichende}{%
+  \vspace{0.2em}%
+  {\color{gray!50}\hrule height 0.3pt}%
+  \vspace{0.2em}%
+}
+
+% ---- Drei-Spalten-Layout ---------------------------------
+% Jede Zeile: linke & mittlere Spalte = Formeln, rechte = Beispiele
+\newenvironment{formelreihe}{%
+  \noindent\footnotesize%
+  \setlength{\tabcolsep}{0pt}%
+  \renewcommand{\arraystretch}{0.85}%
+  \begin{tabular}{@{}p{0.32\linewidth}@{\hspace{0.02\linewidth}}%
+                     p{0.32\linewidth}@{\hspace{0.02\linewidth}}%
+                     p{0.32\linewidth}@{}}%
+}{%
+  \end{tabular}\par%
+}
+
+% ---- Formel-Block: Bezeichnung + Formel ------------------
+% Bezeichnung in Kapitälchen/grau → klarer Kontrast zur Formel
+\newcommand{\formelblock}[2]{%
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} #1}\\[0.03em]%
+    $\displaystyle #2$%
+  }%
+}
+
+% ---- Beispiel-Block: orangefarben hinterlegt -------------
+% Für die rechte Spalte, sofort als Beispiel erkennbar
+\newcommand{\beispielblock}[2]{%
+  \fcolorbox{orange!50}{yellow!15}{%
+    \parbox[t]{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+      {\scriptsize\scshape\color{orange!80!black} Bsp: #1}\\[0.03em]%
+      $\displaystyle #2$%
+    }}%
+}
+
+% ---- Info-Block: Fließtext in Spalte ---------------------
+\newcommand{\infoblock}[1]{%
+  \parbox[t]{\linewidth}{\scriptsize\itshape #1}%
+}
+
+% ==========================================================
+\begin{document}
+\begin{center}
+  {\large\bfseries Formelsammlung SOS:B}
+\end{center}
+\vspace{0.3em}
+
+% ---- Kapitel einbinden -----------------------------------
+\input{parts/01_grundlagen}
+\input{parts/02_zufallsprozesse}
+\input{parts/03_diskrete_zufallsprozesse}
+\input{parts/04_signal_estimation}
+
+\end{document}

@@ -1,0 +1,262 @@
+% ============================================================
+%  01 · Grundlagen zur Anwendung von Zufallsvariablen
+%      Quelle: 01_Grundlagen.pdf
+% ============================================================
+
+\bereich[cMath]{Mathematische Grundregeln}
+\noindent\footnotesize\setlength{\tabcolsep}{6pt}%
+\begin{tabular}{@{}l|l@{}}
+  $\sqrt[n]{x}=x^{1/n}$ &
+  $\dfrac{1}{x^n}=x^{-n}$ \\[0.3em]
+  \multicolumn{2}{@{}l}{Kettenregel (Klammerpotenz):\quad
+    $\bigl[u(x)^{n}\bigr]' =
+      \underbrace{n\cdot u(x)^{n-1}}_{\text{\scriptsize äuß.\ Abl.}}
+      \cdot
+      \underbrace{u'(x)}_{\text{\scriptsize inn.\ Abl.}}$} \\[0.3em]
+  \multicolumn{2}{@{}l}{\rule{0pt}{1.1em}%
+    \textbf{Gerade $y(x)$ aus Graph ablesen:}\quad
+    $y(x)=m\,x+b$} \\[0.2em]
+  $b$: Schnittpunkt mit $y$-Achse (Wert bei $x{=}0$) &
+  $m=\dfrac{\Delta y}{\Delta x}=\dfrac{y_2-y_1}{x_2-x_1}$
+    \;(zwei Punkte) \\[0.4em]
+  \multicolumn{2}{@{}l}{Punkt-Steigungs-Form:\quad
+    $y(x)=y_1+m\,(x-x_1)$\qquad
+    {\scriptsize($m{>}0$ steigend, $m{<}0$ fallend, $m{=}0$ waagrecht)}} \\
+\end{tabular}\par
+\bereichende
+
+\bereich[cMath]{Typische Funktionen im Graphen erkennen}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Dreieck}\\[0.03em]%
+    $\displaystyle f(\tau)=A\!\left(1-\dfrac{|\tau-\tau_0|}{b}\right)$\\[0.1em]%
+    {\tiny\itshape für $|\tau{-}\tau_0|\le b$, sonst $0$. Höhe $A$, Zentrum
+      $\tau_0$, Halbbreite $b$, Flankensteig.\ $A/b$. Erkennung: gerade
+      Flanken, Knick an der Spitze. Entsteht bei Faltung zweier gleicher
+      Rechtecke.}%
+  } &
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Rechteck}\\[0.03em]%
+    $\displaystyle f(\tau)=A \;\text{für}\; a\le\tau\le c,\;\text{sonst }0$\\[0.1em]%
+    {\tiny\itshape Höhe $A$, Grenzen $a,c$, Breite $c-a$.}%
+  } &
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Rampe / Gerade}\\[0.03em]%
+    $\displaystyle m=\dfrac{y_2-y_1}{x_2-x_1},\;\; f(x)=y_1+m(x{-}x_1)$\\[0.1em]%
+    {\tiny\itshape im gültigen Bereich.}%
+  } \\[0.3em]
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Exponentialabfall}\\[0.03em]%
+    $\displaystyle f(\tau)=A\,e^{-|\tau|/T}$\\[0.1em]%
+    {\tiny\itshape Höhe $A$ bei $\tau{=}0$, Zeitkonstante $T$ (Wert $A/e$ bei
+      $|\tau|{=}T$). Typische AKF von tiefpassgefiltertem Rauschen.}%
+  } &
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Dirac-Impuls}\\[0.03em]%
+    $\displaystyle f(\tau)=A\,\delta(\tau-\tau_0)$\\[0.1em]%
+    {\tiny\itshape Pfeil der Gewichtung $A$ bei $\tau_0$. Weißes Rauschen:
+      $\varphi(\tau)=N_0\,\delta(\tau)$.}%
+  } &
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Cosinus}\\[0.03em]%
+    $\displaystyle f(\tau)=A\cos(\omega_0\tau),\;\; \omega_0=\dfrac{2\pi}{T}$\\[0.1em]%
+    {\tiny\itshape $\omega_0$ aus dem Abstand zweier Maxima. AKF eines
+      harmonischen Prozesses.}%
+  } \\[0.3em]
+  \multicolumn{3}{@{}p{\linewidth}}{%
+    \infoblock{\textbf{Faustregeln:}\;
+      Gerade Flanken $\to$ Betragsfunktion (Dreieck); gekrümmte Flanken $\to$
+      Quadrat (Parabel).\quad
+      Jede AKF ist gerade ($\varphi(\tau)=\varphi(-\tau)$) mit Maximum bei
+      $\tau=0$ — Plausibilitätscheck beim Ablesen.}%
+  } \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cGrundl]{Wahrscheinlichkeiten}
+\begin{formelreihe}
+  \infoblock{$\Omega$: Ergebnismenge,\; $E\subseteq\Omega$: Ereignis.\\
+             Würfel: $\Omega=\{1,\dots,6\}$, gerade $=\{2,4,6\}$} &
+  \formelblock{Wahrscheinlichkeit}{P(E)=\dfrac{|H|}{|\Omega|}=\dfrac{N_{Elem.Ereignismenge}}{N_{Elem.Ergebnismenge}}} &
+  \beispielblock{Würfel}{P(\text{gerade})=\tfrac{3}{6}=\tfrac{1}{2},\;
+    P(X{=}3)=\tfrac{1}{6}} \\[0.3em]
+  \formelblock{Komplement}{P(\bar{E})=1-P(E)} &
+  \formelblock{Additivität (disjunkt)}{P(E\cup F)=P(E)+P(F)} &
+  \beispielblock{Komplement}{P(X{\le}4)=1-P(X{>}4)=1-\tfrac{1}{3}=\tfrac{2}{3}} \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cGrundl]{Bedingte Wahrscheinlichkeit \& Bayes}
+\begin{formelreihe}
+  \formelblock{Bedingte W'keit}{P(B\mid A)=\dfrac{P(B\cap A)}{P(A)}} &
+  \formelblock{Satz von Bayes}{P(A\mid B)=\dfrac{P(B\mid A)\,P(A)}{P(B)}} &
+  \beispielblock{$B{=}\{5,6\}$, $A{=}\{2,4,6\}$}{%
+    P(B{\mid}A)=\dfrac{P(\{6\})}{P(\{2,4,6\})}
+    =\dfrac{1/6}{3/6}=\dfrac{1}{3}} \\[0.3em]
+  \formelblock{Unabhängigkeit}{P(A\cap B)=P(A)\cdot P(B)} &
+  \formelblock{Folge bei Unabh.}{P(B\mid A)=P(B)} &
+  \beispielblock{$B{=}\{5,6\}$, $A{=}\{2,4,6\}$}{P(A{\mid}B)=\dfrac{\frac13\cdot\frac12}{\frac13}=\dfrac{1}{2}} \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cGrundl]{Zufallsvariablen}
+\begin{formelreihe}
+  \infoblock{$X:\Omega\to\mathbb{R}$ ordnet jedem Ergebnis eine reelle Zahl zu.\\
+             Diskret: endlich/abzählbar viele Werte.\\
+             Kontinu.: $P(X{=}x)=0\;\forall\,x$, z.\,B.\ \\Glücksrad $X\in[0,2\pi]$} &
+  \formelblock{Verteilungsfunktion}{F_X(x)=P(X\le x)} &
+  \beispielblock{Würfel}{X\in\{1,\dots,6\},\quad P(X{=}x)=\tfrac{1}{6}} \\[0.3em]
+  \formelblock{Intervall-W'keit}{P(a{<}X{\le}b)=F_X(b)-F_X(a)} &
+  \formelblock{Überschreitung}{P(X{>}x)=1-F_X(x)} &
+  \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cGrundl]{Wahrscheinlichkeitsdichte (PDF) \& Verteilung (CDF)}
+% Spalte 1 = Dichte (PDF) · Spalte 2 = Verteilung (CDF) · Spalte 3 = Beispiele
+\begin{formelreihe}
+  \formelblock{PDF: Normierung}{\int_{-\infty}^{\infty}\!f_X(x)\,\mathrm{d}x=1,
+    \quad f_X(x)\ge0} &
+  \formelblock{CDF: Definition}{F_X(x)=\int_{-\infty}^{x} f_X(\xi)\,\mathrm{d}\xi} &
+  \beispielblock{Gleichvert.\ $[0,2\pi]$, $f_X{=}\tfrac{1}{2\pi}$}{%
+    P\!\left(\tfrac{\pi}{2}{<}X{<}\tfrac{3\pi}{4}\right)
+    =F_X\!\!\left(\tfrac{3\pi}{4}\right)\!-\!F_X\!\!\left(\tfrac{\pi}{2}\right)
+    =\tfrac{1}{8}} \\[0.3em]
+  \formelblock{Diskrete PDF}{f_X(x)=\sum_i P(X{=}x_i)\cdot\delta(x-x_i)} &
+  \formelblock{Ränder \& W'keiten}{\begin{aligned}
+    F_X(-\infty)&=0,\quad F_X(\infty)=1 \\
+    P(X{\le}x)&=F_X(x)\\
+    P(X{>}x)&=1-F_X(x)\\
+    P(x_1{<}X{\le}x_2)&=F_X(x_2)-F_X(x_1)
+  \end{aligned}} &
+  \\[0.3em]
+  \formelblock{Gaußdichte}{f_X(x)=\dfrac{1}{\sqrt{2\pi}\,\sigma_X}
+    \exp\!\!\left(-\dfrac{1}{2}\!\left(\dfrac{x-\mu_X}{\sigma_X}\right)^{\!2}\right)} &
+  \formelblock{Gauß-CDF \& erf}{F_X(x)=\tfrac{1}{2}\!\left(1+\mathrm{erf}\!\left(
+    \dfrac{x-\mu_X}{\sqrt{2}\,\sigma_X}\right)\right)\\[0.2em]
+    \mathrm{erf}(x)=\dfrac{2}{\sqrt{\pi}}\int_0^x e^{-\xi^2}\,\mathrm{d}\xi} &
+  \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cGrundl]{Erwartungswert, Momente \& Varianz}
+\begin{formelreihe}
+  \formelblock{Erwartungs-/Mittelwert (stetig)}{E\{X\}=\mu_X
+    =\int_{-\infty}^{\infty} x\,f_X(x)\,\mathrm{d}x} &
+  \formelblock{Erwartungswert (diskret)}{E\{X\}=\mu_X
+    =\sum_i x_i\,P(X{=}x_i)} &
+  \beispielblock{Würfelmittel}{E\{X\}=\sum_{k=1}^{6}k\cdot\tfrac{1}{6}
+    =\tfrac{21}{6}=3{.}5} \\[0.3em]
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} EW diskret via Dirac}\\[0.03em]%
+    {\scriptsize$\displaystyle E[X]=\int_{-\infty}^{\infty}\!x\cdot\sum_i w_i\cdot\delta(x{-}x_i)\,\mathrm{d}x=\left[w_i\cdot x_i\right]_{-\infty}^{\infty}$}%
+  } &
+  \infoblock{$w_i=P(X{=}x_i)$\\[0.1em]
+    Die Ausblendeigenschaft ersetzt x durch $x_i$, \\der Rest fällt weg.} &
+  \\[0.3em]
+  \formelblock{$n$-tes Moment}{m_X^{(n)}=E\{X^n\}
+    =\int_{-\infty}^{\infty}x^n f_X(x)\,\mathrm{d}x} &
+  \formelblock{$n$-tes zentrales Moment}{\mu_X^{(n)}
+    =E\!\left\{\!\left(X-m_X^{(1)}\right)^{\!n}\right\}} &
+  \\[0.3em]
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Varianz (stetig)}\\[0.03em]%
+    $\displaystyle\sigma_X^2=\int_{-\infty}^{+\infty}\!(x{-}\mu_X)^2 f_X(x)\,\mathrm{d}x$\\[0.25em]%
+    {\scriptsize\scshape\color{gray!65!black} Verschiebungssatz (Steiner)}\\[0.03em]%
+    $\displaystyle\sigma_X^2=E\{X^2\}-\mu_X^2$\\[0.25em]%
+    {\scriptsize\scshape\color{gray!65!black} Standardabweichung}\\[0.03em]%
+    $\displaystyle\sigma_X=\sqrt{E\{(X-\mu_X)^2\}}$\\[0.25em]%
+    {\scriptsize\scshape\color{gray!65!black} Gleichverteilung ($f_X$ konstant)}\\[0.03em]%
+    $\displaystyle\mu_X=\dfrac{x_{\min}+x_{\max}}{2},\quad\sigma_X^2=\dfrac{(x_{\max}-x_{\min})^2}{12}$%
+  } &
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Varianz (diskret)}\\[0.03em]%
+    $\displaystyle\sigma_X^2=\sum_i(x_i{-}\mu_X)^2 P(X{=}x_i)$\\[0.25em]%
+    {\scriptsize\scshape\color{gray!65!black} Varianz diskret via Dirac}\\[0.03em]%
+    {\scriptsize$\displaystyle\sigma_X^2=\left[w_i\cdot x_i^2\right]_{-\infty}^{\infty}-\left(E[X]\right)^2$}\\[0.15em]%
+    {\tiny\itshape$w_i=P(X{=}x_i)$}%
+  } &
+  \parbox[t]{\linewidth}{%
+    \beispielblock{Würfelvarianz}{%
+      \sigma_X^2=\tfrac{1}{6}\sum_{k=1}^{6}(k-3{.}5)^2
+      =\tfrac{17.5}{6}\approx2{.}92}\\[0.2em]%
+    \beispielblock{Glücksrad $[0,2\pi]$, $f_X{=}\tfrac{1}{2\pi}$}{%
+      \mu_X=\int_0^{2\pi}\!x\cdot\tfrac{1}{2\pi}\,\mathrm{d}x
+      =\tfrac{1}{2\pi}\!\left[\tfrac{x^2}{2}\right]_0^{2\pi}=\pi\\[0.2em]
+      \sigma_X^2=\int_0^{2\pi}\!(x{-}\pi)^2\cdot\tfrac{1}{2\pi}\,\mathrm{d}x
+      =\dfrac{\pi^2}{3}}%
+  } \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cGrundl]{Transformation \& Lineare Abbildungen}
+\begin{formelreihe}
+  \formelblock{Lineare Abbildung}{Y=aX+b} &
+  \formelblock{Mittelwert}{\mu_Y=a\,\mu_X+b} &
+  \formelblock{Varianz}{\sigma_Y^2=a^2\,\sigma_X^2} \\[0.3em]
+  \formelblock{Dichte-Transformation}{f_Y(y)=\dfrac{f_X(x)}{|y'(x)|}} &
+  \formelblock{CDF-Transformation}{F_Y(y)=F_X(g^{-1}(y))\\[0.1em]
+    {\scriptsize(g^{-1}\text{: Umkehrfunktion})}} &
+  \infoblock{Bereich von $f_Y$: $x$-Grenzen durch\\
+    Einsetzen in $y=g(x)$ umrechnen!} \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cGrundl]{Gemeinsame Verteilungen \& Korrelation}
+\begin{formelreihe}
+  \formelblock{Verbund-CDF}{F_{XY}(x,y)
+    =\int_{-\infty}^{x}\!\int_{-\infty}^{y}\!
+    f_{XY}(\xi,\eta)\,\mathrm{d}\eta\,\mathrm{d}\xi} &
+  \formelblock{Randdichte $X$}{f_X(x)
+    =\int_{-\infty}^{\infty} f_{XY}(x,y)\,\mathrm{d}y} &
+  \formelblock{Randdichte $Y$}{f_Y(y)
+    =\int_{-\infty}^{\infty} f_{XY}(x,y)\,\mathrm{d}x} \\[0.3em]
+  \formelblock{Unabhängigkeit}{f_{XY}(x,y)=f_X(x)\cdot f_Y(y)
+    \;\Leftrightarrow\; P(A\cap B)=P(A)\cdot P(B)} &
+  \formelblock{Kovarianz}{\mathrm{Cov}(X,Y)
+    =E\bigl\{(X{-}\mu_X)(Y{-}\mu_Y)\bigr\}
+    =E\{XY\}-\mu_X\mu_Y\\[0.1em]
+    {>}0\text{: steigen zus.}\\[-0.05em]
+    {<}0\text{: gegläufig}\quad
+    {=}0\text{: unkorr.}} &
+  \formelblock{Korrelationskoeff.}{\rho_{XY}
+    =\dfrac{\mathrm{Cov}(X,Y)}{\sigma_X\cdot\sigma_Y}\in[-1,1]\\[0.15em]
+    {+}1\text{: perfekt pos. linear}\\
+    \phantom{+}0\text{: kein lin. Zsmhang}\\
+    {-}1\text{: perfekt neg. linear}} \\[0.3em]
+  \formelblock{Orthogonalität \& Unkorr.}{%
+    \text{orthog.: }E\{X\cdot Y\}=0\\[0.1em]
+    \text{unkorr.: }\mathrm{Cov}(X,Y)=0\\[0.1em]
+    \text{unabh.}\Rightarrow\text{unkorr., umgekehrt \textbf{nicht}!}} &
+  \formelblock{Linearität EW}{E\{aX\}=a\,E\{X\},\quad
+    \\E\{X{+}Y\}=E\{X\}+E\{Y\}} &
+  \beispielblock{Zwei unabh.\ Würfel $X,Y$}{%
+    P(X{=}1){=}\tfrac16,\;P(X{=}2){=}\tfrac36,\;P(X{=}3){=}\tfrac26\\
+    P(Y{=}1){=}\tfrac46,\;P(Y{=}2){=}\tfrac26\\
+    P(X{=}1\cap Y{=}1)=\tfrac16\cdot\tfrac46=\tfrac{4}{36}} \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cGrundl]{Summe von ZV \& Zentraler Grenzwertsatz}
+\begin{formelreihe}
+  \formelblock{Summe $Z=X+Y$ (unabh.)}{f_Z(z)=(f_X * f_Y)(z)
+    =\int_{-\infty}^{\infty}\!f_X(\xi)\,f_Y(z{-}\xi)\,\mathrm{d}\xi\\[0.15em]
+    \mu_Z=\mu_X+\mu_Y\quad\sigma_Z^2=\sigma_X^2+\sigma_Y^2} &
+  \formelblock{Zentraler Grenzwertsatz}{Y=\dfrac{1}{N}\sum_{i=1}^{N}X_i
+    \;\xrightarrow{N\to\infty}\;\mathcal{N}(\mu_X,\tfrac{\sigma_X^2}{N})\\[0.15em]
+    X_i\text{ unabh., gleichverteilt (beliebig)}} &
+  \infoblock{Summe vieler unabh.\ ZV $\to$ Gaußverteilt,\\
+    unabhängig von Einzelverteilung.\\
+    Histogramm $\to$ Dichte für $N\to\infty$.} \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cGrundl]{Gesetz der großen Zahlen}
+\begin{formelreihe}
+  \infoblock{Relative Häufigkeit nähert sich bei $N\to\infty$\\
+             der Wahrscheinlichkeit.\\
+             Histogramm $\to$ Dichte für $N\to\infty$.} &
+  \formelblock{Relative Häufigkeit}{h_X(x)=\dfrac{n(x)}{N}} &
+  \formelblock{Konvergenz}{\lim_{N\to\infty}h_X(x)=P(X{=}x)} \\
+\end{formelreihe}
+\bereichende

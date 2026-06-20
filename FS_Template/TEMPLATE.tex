@@ -1,0 +1,134 @@
+% ============================================================
+%  FORMELSAMMLUNG-TEMPLATE
+%  Dreispaltiges A4-Layout für Klausur-Formelsammlungen
+%
+%  DATEISTRUKTUR:
+%    TEMPLATE.tex           ← diese Datei (Preamble + \input-Liste)
+%    parts/01_kapitel.tex   ← Kapitel-Dateien (je Vorlesungsskript eine)
+%    parts/02_kapitel.tex
+%    ...
+%
+%  NEUE KAPITEL HINZUFÜGEN:
+%    1. Neue Datei in parts/ anlegen
+%    2. \input{parts/XX_name} am Ende dieser Datei eintragen
+%    3. Eigene Farbe in Farbschema definieren (cMeinKapitel)
+% ============================================================
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{microtype}
+\geometry{top=10mm,bottom=10mm,left=10mm,right=10mm}
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{0pt}
+\renewcommand{\baselinestretch}{0.9}
+\setlength{\emergencystretch}{2em}
+\setlength{\fboxsep}{0.18em}
+\setlength{\fboxrule}{0.3pt}
+\hfuzz=3pt   % dfrac in engen Spalten: <3pt Overfull unterdrücken
+
+% ============================================================
+%  FARBSCHEMA — je Kapitel/Skript eine Farbe
+%  Syntax: \colorlet{cMeinName}{Farbe}
+%  Verfügbare Basisfarben: blue, teal, violet, orange, red,
+%                          green!60!black, cyan!70!black, ...
+% ============================================================
+\colorlet{cKap1}{blue}            % Teil 1–4: Signale, Systeme, Stabilität, Nichtlinearität
+\colorlet{cKap2}{teal}            % Variante 2
+\colorlet{cKap3}{violet}          % Variante 3
+\colorlet{cKap4}{orange!90!red}   % Variante 4
+
+% ============================================================
+%  MAKROS — ÜBERSICHT
+%
+%  \bereich[Farbe]{Titel}      Farbiger Abschnittsbalken
+%  \bereichende                Trennlinie zwischen Abschnitten
+%  formelreihe (Umgebung)      3-spaltiger Tabellenblock
+%  \formelblock{Name}{Formel}  Formel mit Bezeichnung (grau/kursiv)
+%  \beispielblock{Name}{Inh.} Hervorgehobener Beispielblock (orange)
+%  \infoblock{Text}            Kursiver Erklärungstext in Spalte
+% ============================================================
+
+% ---- Abschnittsbalken: \bereich[cKap1]{Titel} --------------
+% Spart ~2 Zeilen gegenüber \section*
+% Standardfarbe: cKap1 (kann weggelassen werden)
+\newcommand{\bereich}[2][cKap1]{%
+  \vspace{0.5em}%
+  \noindent\colorbox{#1!10}{%
+    \makebox[\dimexpr\linewidth-2\fboxsep\relax][l]{%
+      \small\bfseries\color{#1!80!black}\strut\enspace #2}}%
+  \vspace{0.1em}\par\noindent%
+}
+
+% ---- Trennlinie --------------------------------------------
+\newcommand{\bereichende}{%
+  \vspace{0.2em}%
+  {\color{gray!50}\hrule height 0.3pt}%
+  \vspace{0.2em}%
+}
+
+% ---- 3-Spalten-Layout --------------------------------------
+% Jede Zeile endet mit \\ oder \\[Abstand]
+% Spalten werden mit & getrennt
+% Leerzeile zwischen Zeilengruppen: & & \\[0.3em]
+\newenvironment{formelreihe}{%
+  \noindent\footnotesize%
+  \setlength{\tabcolsep}{0pt}%
+  \renewcommand{\arraystretch}{0.85}%
+  \begin{tabular}{@{}p{0.32\linewidth}@{\hspace{0.02\linewidth}}%
+                     p{0.32\linewidth}@{\hspace{0.02\linewidth}}%
+                     p{0.32\linewidth}@{}}%
+}{%
+  \end{tabular}\par%
+}
+
+% ---- Formel-Block ------------------------------------------
+% #1 = Bezeichnung (erscheint in Kapitälchen grau über der Formel)
+% #2 = LaTeX-Mathe (wird automatisch in \displaystyle gesetzt)
+% Für mehrzeilige Formeln: aligned-Umgebung in #2 verwenden
+\newcommand{\formelblock}[2]{%
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} #1}\\[0.03em]%
+    $\displaystyle #2$%
+  }%
+}
+
+% ---- Beispiel-Block ----------------------------------------
+% Orangefarbener Rahmen — immer in Spalte 3 (rechte Spalte)
+% #1 = kurze Kontextbeschreibung
+% #2 = Inhalt (Mathe oder Text, wird in \displaystyle gesetzt)
+% Für Zeilenumbruch in #2: aligned-Umgebung verwenden
+\newcommand{\beispielblock}[2]{%
+  \fcolorbox{orange!50}{yellow!15}{%
+    \parbox[t]{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+      {\scriptsize\scshape\color{orange!80!black} Bsp: #1}\\[0.03em]%
+      $\displaystyle #2$%
+    }}%
+}
+
+% ---- Info-Block --------------------------------------------
+% Kursiver Fließtext — für Definitionen/Kontext in Spalte 1
+\newcommand{\infoblock}[1]{%
+  \parbox[t]{\linewidth}{\scriptsize\itshape #1}%
+}
+
+% ============================================================
+\begin{document}
+\begin{center}
+  {\large\bfseries Formelsammlung — SOS/A (Nichtlineare und Stochastische Systeme)}
+\end{center}
+\vspace{0.3em}
+
+% ---- Kapitel einbinden -------------------------------------
+% Auskommentierte Kapitel werden ignoriert (nützlich beim Aufbau)
+\input{parts/01_SOS_Teil1_4}
+%\input{parts/02_kapitel}
+%\input{parts/03_kapitel}
+%\input{parts/04_kapitel}
+
+\end{document}

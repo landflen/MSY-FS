@@ -1,0 +1,139 @@
+% ============================================================
+%  SOS/A FORMELSAMMLUNG — Teil 7
+%  Die harmonische Balance
+% ============================================================
+
+\bereich[cKap7]{Teil 7: Harmonische Balance — Grenzzyklen}
+
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Def.: Grenzzyklus}\\[0.03em]%
+    \scriptsize
+    Period.\,Lösung der Zustandsgl.\\
+    (geschlossene Trajektorie),\\
+    in deren Nähe keine weitere\\
+    period.\,Lösung existiert.\\[0.06em]
+    {\scriptsize\scshape\color{gray!65!black} Arten}\\[0.03em]%
+    \textbf{Stabil:} Traj.\,konvergieren\\
+    von innen \& außen auf GZ\\[0.03em]
+    \textbf{Instabil:} Traj.\,divergieren\\
+    vom GZ weg} &
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Instabile Ruhelage $\Rightarrow$}\\[0.03em]%
+    \scriptsize
+    – Zustand $\to$ andere Ruhelage\\[0.02em]
+    – Zustand $\to\infty$\\[0.02em]
+    – Zustand $\to$ \textbf{Grenzzyklus}\\
+    \quad(nichtlin.\,Dauerschwingung)\\[0.02em]
+    – Chaotisches Verhalten\\[0.06em]
+    {\scriptsize\scshape\color{gray!65!black} NL-Standardregelkreis}\\[0.03em]%
+    \scriptsize
+    – NL: durch Nullpunkt, symmetr.\\
+    – $G(s)$: stabiles LZI-Teilsystem\\
+    – Betrachte Grundschwingung} &
+  \beispielblock{Einheitskreis-GZ}{%
+    \dot{x}_1\!=\!-x_2\!+\!(1\!-\!x_1^2\!-\!x_2^2)x_1\\[0.04em]
+    \dot{x}_2\!=\!\phantom{-}x_1\!+\!(1\!-\!x_1^2\!-\!x_2^2)x_2\\[0.07em]
+    \Rightarrow\text{GZ: Einheitskreis}\\
+    \text{(stabil, ampl.-unabhäng.)}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+\bereich[cKap7]{Beschreibungsfunktion \& Schwingungsbedingung}
+
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Grundschwingungsnäherung}\\[0.03em]%
+    \scriptsize
+    $v(t)\!\approx\!v_0\cos(\omega_0 t)$\\[0.03em]
+    Bei statischer, symm.\,Kennlinie:\\
+    Grundschw.\,von $a(t)$ hat\\
+    gleiche Phasenlage wie $v(t)$\\[0.06em]
+    {\scriptsize\scshape\color{gray!65!black} Beschreibungsfunktion $K_N(v_0)$}\\[0.03em]%
+    $\displaystyle K_N(v_0)=\frac{a_1}{v_0}$\\[0.04em]
+    {\scriptsize Fourier-Grundkoeff.\,von $a(t)$:}\\[0.02em]
+    $\displaystyle a_1=\tfrac{2}{T_P}\!\int_0^{T_P}\!a(t)\cos\tfrac{2\pi t}{T_P}\,dt$\\[0.03em]
+    \scriptsize NL $\to$ amplitudenabh.\,Verstärk.} &
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{cKap7!80!black} Schwingungsbedingung}\\[0.03em]%
+    $\displaystyle G(j\omega_0)=-\frac{1}{K_N(v_0)}$\\[0.06em]
+    {\scriptsize\scshape\color{gray!65!black} Zwei-Ortskurven-Methode}\\[0.03em]%
+    \scriptsize
+    1.\;$G(j\omega)$-Ortskurve in kompl.\,Ebene\\[0.02em]
+    2.\;Neg.\,inv.\,BF $-\tfrac{1}{K_N(v_0)}$ eintragen\\[0.02em]
+    3.\;Schnittpunkt $=$ GZ-Kandidat\\[0.02em]
+    \quad $v_0$: Beziff.\,der inv.-BF-Kurve\\[0.01em]
+    \quad $\omega_0$: Beziff.\,der $G(j\omega)$-Kurve\\[0.04em]
+    Periodendauer:\;$T_0=\tfrac{2\pi}{\omega_0}$\\[0.04em]
+    Ampl.\,$v_0$ am Ausgang von $G(s)$} &
+  \beispielblock{Schalter, $G\!=\!\tfrac{1}{(1+s)^3}$}{%
+    K_N=\tfrac{4\cdot 1}{\pi v_0}\\[0.04em]
+    -\tfrac{1}{K_N}=-\tfrac{\pi v_0}{4}\\[0.04em]
+    \text{(neg.\,reelle Achse)}\\[0.05em]
+    \Rightarrow\omega_0\!\approx\!1{,}7\\[0.02em]
+    \Rightarrow T_0\!\approx\!3{,}7\\[0.02em]
+    \Rightarrow v_0\!\approx\!0{,}16} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+\bereich[cKap7]{Beschreibungsfunktionen — Übersicht}
+
+\noindent\footnotesize\textit{Statische, symm.\,Kennlinie \textbf{ohne Gedächtnis}: $K_N\in\mathbb{R}$ $\Rightarrow$ neg.\,inv.\,BF liegt auf neg.\,reeller Achse.\quad\textbf{Mit Gedächtnis} (Hysterese): $K_N\in\mathbb{C}$, Im$\!\left(-\tfrac{1}{K_N}\right)=-\tfrac{d\pi}{4h}=\mathrm{konst.}$}\par\vspace{0.12em}
+\noindent\footnotesize\setlength{\tabcolsep}{2pt}%
+{\renewcommand{\arraystretch}{1.15}%
+\begin{tabular}{@{}p{0.16\linewidth}@{\hspace{2pt}}p{0.50\linewidth}@{\hspace{3pt}}p{0.30\linewidth}@{}}
+  \scriptsize\scshape\color{gray!65!black}Nichtlinearität &
+  \scriptsize\scshape\color{gray!65!black}Beschreibungsfunktion $K_N(v_0)$ &
+  \scriptsize\scshape\color{gray!65!black}Neg.\,inv.\,BF\;$-1/K_N$ \\[0.1em]
+  Schalter &
+  $\tfrac{4h}{\pi v_0}$ &
+  $-\tfrac{\pi v_0}{4h}$ (reell)\\[0.2em]
+  Schalter m.\,Hyst. &
+  $\tfrac{4h}{\pi v_0}\sqrt{1\!-\!\tfrac{d^2}{v_0^2}}-j\tfrac{4dh}{\pi v_0^2}$ &
+  $-\tfrac{\pi v_0}{4h}\sqrt{1\!-\!\tfrac{d^2}{v_0^2}}-j\tfrac{d\pi}{4h}$\\[0.04em]
+  & \scriptsize\itshape $v_0\!\geq\!d$ (sonst kommt $v_0\!<\!d$ nicht vor) &
+    \scriptsize\itshape $\operatorname{Im}=-\tfrac{d\pi}{4h}=\mathrm{konst.}$\\[0.15em]
+  Dreipunktschalter &
+  $\begin{cases}0 & v_0\!<\!d\\\tfrac{4h\sqrt{v_0^2-d^2}}{\pi v_0^2} & v_0\!\geq\!d\end{cases}$ &
+  reell ($v_0\!\geq\!d$)\\[0.5em]
+  Begrenzer &
+  $\begin{cases}\tfrac{h}{d} & v_0\!<\!d\\[0.1em]\tfrac{2h}{d\pi}\!\left(\arcsin\tfrac{d}{v_0}\!+\!\tfrac{d}{v_0}\sqrt{1\!-\!\tfrac{d^2}{v_0^2}}\right) & v_0\!\geq\!d\end{cases}$ &
+  reell\\[0.65em]
+  Totzone &
+  $\begin{cases}0 & v_0\!<\!d\\[0.1em]m\!-\!\tfrac{2m}{\pi}\!\left(\arcsin\tfrac{d}{v_0}\!+\!\tfrac{d}{v_0}\sqrt{1\!-\!\tfrac{d^2}{v_0^2}}\right) & v_0\!\geq\!d\end{cases}$ &
+  reell\\
+\end{tabular}}\par
+\vspace{0.15em}
+\bereichende
+
+\bereich[cKap7]{Stabilität von Grenzzyklen}
+
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Stabilitätsprüfung am Schnittpunkt}\\[0.03em]%
+    \scriptsize
+    Am Schnittpunkt gilt $G(j\omega_0)=-\tfrac{1}{K_N(v_0)}$\\[0.04em]
+    Erhöhe $v_0$ leicht ($v_0\!+\!\varepsilon$):\\[0.03em]
+    Liegt $-\tfrac{1}{K_N(v_0\!+\!\varepsilon)}$\\
+    \quad\textbf{links} der $G(j\omega)$-Ortskurve?\\[0.04em]
+    $\Rightarrow$ \textbf{Ja}: stabiler GZ\;$\bigcirc$\\[0.03em]
+    $\Rightarrow$ \textbf{Nein}: instabiler GZ\;$\triangle$} &
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Gültigkeit der Methode}\\[0.03em]%
+    \scriptsize
+    Genau dann genau, wenn $G(s)$\\
+    ausgeprägte Tiefpasswirkung hat\\
+    (Oberwellen stark gedämpft)\\[0.04em]
+    \textbf{Kein Schnittpunkt} $\not\Rightarrow$ kein GZ!\\[0.03em]
+    Bsp.: PT1\,+\,Schalter\,m.\,Hyst.\\
+    $\Rightarrow$ GZ existiert trotzdem\\[0.04em]
+    Keine Aussage über Schwingung\\
+    wenn keine Schnittpur.} &
+  \beispielblock{Vorgehen kompakt}{%
+    \text{1. }G(j\omega)\text{-Ortskurve}\\[0.03em]
+    \text{2. }-\tfrac{1}{K_N(v_0)}\text{-Kurve}\\[0.03em]
+    \text{3. Schnittpkt.\!}\to\!v_0,\omega_0\\[0.03em]
+    \text{4. }T_0=\tfrac{2\pi}{\omega_0}\\[0.04em]
+    \text{5. }v_0{\uparrow}\!:\text{ links?}\Rightarrow\!\text{stab.}} \\[0.3em]
+\end{formelreihe}
+\bereichende

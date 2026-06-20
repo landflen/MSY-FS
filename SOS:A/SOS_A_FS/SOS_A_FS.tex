@@ -1,0 +1,91 @@
+% ============================================================
+%  Formelsammlung SOS:A  —  Hauptdatei
+%  Nichtlineare und Stochastische Systeme, Teil A
+%  Prof. Dr. B. Wagner, TH Nürnberg
+% ============================================================
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{microtype}
+\usepackage{needspace}
+\geometry{top=10mm,bottom=14mm,left=10mm,right=10mm,includefoot}
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{0pt}
+\renewcommand{\baselinestretch}{0.9}
+\setlength{\emergencystretch}{2em}
+\hfuzz=3pt
+\setlength{\fboxsep}{0.18em}
+\setlength{\fboxrule}{0.3pt}
+
+% ---- Farbschema: eine Farbe pro Kapitel ------------------
+\colorlet{cKap1}{blue}              % Teil 1: Signale & Systeme
+\colorlet{cKap2}{teal}              % Teil 2: Routh-Schema
+\colorlet{cKap3}{violet}            % Teil 3: Zustandsraum & ÜF
+\colorlet{cKap4}{orange!90!red}     % Teil 4: Nichtlineare Systeme
+\colorlet{cKap5}{olive}             % Teil 5: Linearisierung & Lyapunov
+\colorlet{cKap6}{purple}            % Teil 6: Kreiskriterium
+\colorlet{cKap7}{cyan!70!black}     % Teil 7: Harmonische Balance
+
+% ---- Bereichskopf ----------------------------------------
+\newcommand{\bereich}[2][cKap1]{%
+  \needspace{4\baselineskip}%
+  \vspace{0.5em}%
+  \noindent\colorbox{#1!10}{%
+    \makebox[\dimexpr\linewidth-2\fboxsep\relax][l]{%
+      \small\bfseries\color{#1!80!black}\strut\enspace #2}}%
+  \nopagebreak%
+  \vspace{0.1em}\par\noindent}
+
+% ---- Trennlinie ------------------------------------------
+\newcommand{\bereichende}{%
+  \vspace{0.2em}%
+  {\color{gray!50}\hrule height 0.3pt}%
+  \vspace{0.2em}}
+
+% ---- Drei-Spalten-Layout ---------------------------------
+\newenvironment{formelreihe}{%
+  \noindent\footnotesize%
+  \setlength{\tabcolsep}{0pt}%
+  \renewcommand{\arraystretch}{0.85}%
+  \begin{tabular}{@{}p{0.32\linewidth}@{\hspace{0.02\linewidth}}%
+                     p{0.32\linewidth}@{\hspace{0.02\linewidth}}%
+                     p{0.32\linewidth}@{}}%
+}{\end{tabular}\par}
+
+% ---- Formel-Block ----------------------------------------
+\newcommand{\formelblock}[2]{%
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} #1}\\[0.03em]%
+    $\displaystyle #2$}}
+
+% ---- Beispiel-Block (nur Spalte 3) -----------------------
+\newcommand{\beispielblock}[2]{%
+  \fcolorbox{orange!50}{yellow!15}{%
+    \parbox[t]{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+      {\scriptsize\scshape\color{orange!80!black} Bsp: #1}\\[0.03em]%
+      $\displaystyle #2$}}}
+
+% ---- Info-Block ------------------------------------------
+\newcommand{\infoblock}[1]{%
+  \parbox[t]{\linewidth}{\scriptsize\itshape #1}}
+
+% ==========================================================
+\begin{document}
+\begin{center}
+  {\large\bfseries Formelsammlung SOS:A — Nichtlineare und Stochastische Systeme}
+\end{center}
+\vspace{0.3em}
+
+% ---- Kapitel einbinden -----------------------------------
+\input{parts/01_signale_routh}
+\input{parts/02_zustandsraum_lyapunov}
+\input{parts/03_kreiskriterium}
+\input{parts/04_harmonische_balance}
+
+\end{document}

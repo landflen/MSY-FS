@@ -1,0 +1,164 @@
+% ---- EDy4: Stationäres Strömungsfeld --------------------
+
+% 4.1  Stromdichte
+\bereich[cKap4]{4.1 Stromdichte $\vec{J}$}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \formelblock{Stromdichte (allgemein)}{%
+      I=\int_A\!\vec{J}\,\mathrm{d}\vec{A}}\\[0.25em]%
+    \formelblock{Homogenes Feld}{%
+      J=\tfrac{I}{A}\;,\qquad [J]=1\,\tfrac{\mathrm{A}}{\mathrm{m}^2}}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Stromdichtevektor}{%
+      \vec{J}\parallel\vec{E}\;,\quad
+      \vec{J}\parallel\vec{S}_{\mathrm{Feldl.}}}\\[0.25em]%
+    \infoblock{Strömungsfeld quellenfrei:\\
+      $\oint\vec{J}\,\mathrm{d}\vec{A}=0$}} &
+  \beispielblock{Draht, $d=2\,\text{mm}$, $I=1\,\text{A}$}{%
+    \begin{aligned}
+      A&=\pi r^2=\pi(1\,\text{mm})^2\\[0.1em]
+      J&=\tfrac{1\,\text{A}}{\pi\cdot10^{-6}\,\text{m}^2}\\[0.1em]
+      &\approx318\,\tfrac{\text{kA}}{\text{m}^2}
+    \end{aligned}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 4.2  Elektrische Leitfähigkeit / Lok. Ohmsches Gesetz
+\bereich[cKap4]{4.2 Elektrische Leitfähigkeit — Lokales Ohmsches Gesetz}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \formelblock{Lokales Ohmsches Gesetz}{%
+      \vec{J}=\kappa\cdot\vec{E}}\\[0.25em]%
+    \formelblock{Spez.\ Leitfähigkeit}{%
+      [\kappa]=1\,\tfrac{\mathrm{S}}{\mathrm{m}}
+        =1\,\tfrac{\mathrm{A}}{\mathrm{V\,m}}}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Spez.\ Widerstand}{%
+      \varrho=\tfrac{1}{\kappa}\;,\qquad
+      [\varrho]=1\,\Omega\mathrm{m}}\\[0.25em]%
+    \infoblock{Kupfer: $\kappa_\mathrm{Cu}=58\cdot10^6\,\tfrac{\mathrm{S}}{\mathrm{m}}$\\
+      Isolator: $\kappa\to0$, Metall: $\kappa\gg1$}} &
+  \beispielblock{Analogie}{%
+    \begin{aligned}
+      \vec{J}&=\kappa\,\vec{E}\\[0.1em]
+      \vec{D}&=\varepsilon\,\vec{E}\\[0.1em]
+      \Rightarrow\;\kappa&\leftrightarrow\varepsilon
+    \end{aligned}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 4.3  Kontinuitätsgleichung
+\bereich[cKap4]{4.3 Kontinuitätsgleichung (Stationär)}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \formelblock{Quellfreiheit der Stromdichte}{%
+      \oint_{A}\!\vec{J}\,\mathrm{d}\vec{A}=0}\\[0.25em]%
+    \formelblock{Differenzielle Form}{%
+      \nabla\cdot\vec{J}=0}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Knotenpunktsatz (Kirchhoff)}{%
+      \textstyle\sum_k I_k=0}\\[0.25em]%
+    \infoblock{Stationär: keine freien Ladungen\\
+      im Leiterinneren ($\varrho_\mathrm{frei}=0$)}} &
+  \beispielblock{Zwei Leiter, $A_1\neq A_2$}{%
+    \begin{aligned}
+      I_1&=I_2=I\\[0.1em]
+      J_1 A_1&=J_2 A_2\\[0.1em]
+      \Rightarrow J&\sim\tfrac{1}{A}
+    \end{aligned}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 4.4  Widerstand — Globales Ohmsches Gesetz
+\bereich[cKap4]{4.4 Widerstand — Globales Ohmsches Gesetz}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \formelblock{Ohmsches Gesetz (integral)}{%
+      U=R\cdot I\;,\qquad [R]=1\,\Omega}\\[0.25em]%
+    \formelblock{Widerstand aus Geometrie}{%
+      R=\varrho\cdot\tfrac{l}{A}=\tfrac{l}{\kappa\cdot A}}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Leitwert}{%
+      G=\tfrac{1}{R}=\kappa\cdot\tfrac{A}{l}\;,\quad[G]=1\,\mathrm{S}}\\[0.25em]%
+    \formelblock{Herleitung ($\vec{J}=\kappa\vec{E}$, homogen)}{%
+      U=E\cdot l\;,\;I=J\cdot A=\kappa E A}} &
+  \beispielblock{Zylinder, $l$, $A$, $\kappa$}{%
+    \begin{aligned}
+      R&=\tfrac{l}{\kappa A}\\[0.1em]
+      U&=\tfrac{I\,l}{\kappa A}\\[0.1em]
+      E&=\tfrac{U}{l}=\tfrac{J}{\kappa}
+    \end{aligned}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 4.5  Verlustleistung (Joulesche Wärme)
+\bereich[cKap4]{4.5 Verlustleistung — Joulesche Wärme}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \formelblock{Leistung (global)}{%
+      P=U\cdot I=R\cdot I^2=\tfrac{U^2}{R}}\\[0.25em]%
+    \formelblock{Leistungsdichte (lokal)}{%
+      p=\kappa\cdot E^2=\vec{J}\cdot\vec{E}=\tfrac{J^2}{\kappa}}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Gesamtleistung aus Dichte}{%
+      P=\int_V\!p\,\mathrm{d}V
+        =\int_V\!\kappa E^2\,\mathrm{d}V}\\[0.25em]%
+    \infoblock{Elektrische Energie → Wärme\\
+      (Joulsche Verluste, irreversibel)}} &
+  \beispielblock{Zylinder, $\kappa$, $E$, $V=A\cdot l$}{%
+    \begin{aligned}
+      p&=\kappa E^2\\[0.1em]
+      P&=\kappa E^2\cdot A l\\[0.1em]
+      &=\tfrac{U^2}{R}
+    \end{aligned}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 4.6  Grenzflächen im Strömungsfeld
+\bereich[cKap4]{4.6 Grenzflächen im Strömungsfeld}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \formelblock{Normalkomp.\ stetig ($\oint\vec{J}\,\mathrm{d}\vec{A}=0$)}{%
+      J_{n1}=J_{n2}}\\[0.25em]%
+    \formelblock{Tangentialkomp.\ stetig ($\oint\vec{E}\,\mathrm{d}\vec{s}=0$)}{%
+      E_{t1}=E_{t2}}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Brechungsgesetz}{%
+      \tfrac{\tan\alpha_1}{\tan\alpha_2}=\tfrac{\kappa_1}{\kappa_2}}\\[0.25em]%
+    \infoblock{Analog zum Magnetfeld:\\
+      $\tfrac{\tan\alpha_1}{\tan\alpha_2}=\tfrac{\mu_1}{\mu_2}$\quad
+      ($J_{n}\leftrightarrow B_{n}$)}} &
+  \beispielblock{Grenzfl.\ $\kappa_1\gg\kappa_2$}{%
+    \begin{aligned}
+      &\kappa_1\gg\kappa_2:\\[0.1em]
+      &\Rightarrow\alpha_1\gg\alpha_2\\[0.1em]
+      &\Rightarrow\vec{J}\text{ senkr.\ in Med.\ 2}
+    \end{aligned}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 4.7  Analogie Strömungsfeld ↔ Elektrostatik
+\bereich[cKap4]{4.7 Analogie: Strömungsfeld $\leftrightarrow$ Elektrostatik}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \formelblock{Feldgrößen-Analogie}{%
+      \vec{J}=\kappa\vec{E}
+        \;\leftrightarrow\;
+      \vec{D}=\varepsilon\vec{E}}\\[0.25em]%
+    \formelblock{Quell-/Wirbelfreiheit}{%
+      \oint\vec{J}\,\mathrm{d}\vec{A}=0
+        \;\leftrightarrow\;
+      \oint\vec{D}\,\mathrm{d}\vec{A}=0}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Schaltgrößen-Analogie}{%
+      G\leftrightarrow C\;,\quad R\leftrightarrow\tfrac{1}{C}}\\[0.25em]%
+    \formelblock{Zusammenhang $R$ und $C$}{%
+      R\cdot C=\tfrac{\varepsilon}{\kappa}}} &
+  \beispielblock{Plattenkondens.\ $A$, $d$}{%
+    \begin{aligned}
+      C&=\varepsilon\tfrac{A}{d}\\[0.1em]
+      G&=\kappa\tfrac{A}{d}\\[0.1em]
+      R\cdot C&=\tfrac{\varepsilon}{\kappa}
+    \end{aligned}} \\[0.3em]
+\end{formelreihe}
+\bereichende

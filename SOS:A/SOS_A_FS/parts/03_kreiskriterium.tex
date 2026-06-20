@@ -1,0 +1,105 @@
+% ============================================================
+%  SOS/A FORMELSAMMLUNG — Teil 6
+%  Das Kreiskriterium
+% ============================================================
+
+\bereich[cKap6]{Teil 6: Das Kreiskriterium}
+
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} NL-Standardregelkreis}\\[0.03em]%
+    \scriptsize
+    Lin.\,TS $G(s)$: stabil, LZI\\[0.04em]
+    NL $N(v)$: statisch (gedächtnislos)\\[0.04em]
+    $u(t)\!\to\!G(s)\!\to\!v(t)$,\;$a(t)=f(v(t))$\\[0.09em]
+    {\scriptsize\scshape\color{gray!65!black} Sektornichtlinearität $]k_1;k_2[$}\\[0.03em]%
+    $\displaystyle k_1 < \frac{a(v)}{v} < k_2\;(v\!\neq\!0)$\\[0.04em]
+    \scriptsize Kennlinie zw.\,$k_1 v$ und $k_2 v$} &
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Def.: Absolute Stabilität}\\[0.03em]%
+    \scriptsize
+    NL-Kreis \textbf{absolut stabil}: $\mathbf{x}\!=\!0$\\
+    für \emph{alle} $N$ aus $]k_1;\,k_2[$ global\\
+    asymptotisch stabil.\\[0.08em]
+    Vor.: $G(s)$ stabil,\\
+    Nennergrad\,$>$\,Zählergrad\\[0.09em]
+    {\scriptsize\scshape\color{gray!65!black} Energiebilanz (Herleitung)}\\[0.03em]%
+    $\dot{V}\!=\!u(t)i(t)-{\textstyle\sum_c}R_c\,i_{R,c}^2$\\[0.03em]
+    \scriptsize $\dot{V}<0$ wenn $u(t)i(t)<0$} &
+  \beispielblock{Stellsignalbegrenz.}{%
+    G_{\mathrm{lin}}\!=\!G_R(s)\!\cdot\!G_S(s)\\[0.05em]
+    \operatorname{sat}(v)\in]0;\,k_2[\\[0.05em]
+    \text{Alle LZI-Teile zu}\\
+    G(s)\text{ zusammenfassen}} \\[0.3em]
+
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{cKap6!80!black} 1.\,Fall:\;$k_1\!=\!0,\;k_2\!=\!\infty$}\\[0.03em]%
+    \scriptsize $N\!\in\!]0;\,\infty[$\\[0.04em]
+    \textbf{abs.\,stabil}\;$\Leftrightarrow$\\[0.04em]
+    $\displaystyle\operatorname{Re}\{G(j\omega)\}\geq 0\;\forall\omega$\\[0.06em]
+    \scriptsize Ortskurve $G(j\omega)$\\
+    rechts von $j\omega$-Achse} &
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{cKap6!80!black} 2.\,Fall:\;$k_1\!=\!0,\;k_2\!<\!\infty$}\\[0.03em]%
+    \scriptsize $N\!\in\!]0;\,k_2[$\\[0.04em]
+    \textbf{abs.\,stabil}\;$\Leftrightarrow$\\[0.04em]
+    $\displaystyle\operatorname{Re}\{G(j\omega)\}>-\tfrac{1}{k_2}\;\forall\omega$\\[0.06em]
+    \scriptsize Ortskurve $G(j\omega)$\\
+    rechts vom Punkt $-1/k_2$} &
+  \beispielblock{$G\!=\!\tfrac{2}{s+1}$, Fall\,1}{%
+    \operatorname{Re}\!\left\{\tfrac{2}{1+j\omega}\right\}\\[0.04em]
+    =\tfrac{2}{1+\omega^2}>0\;\forall\omega\\[0.04em]
+    \Rightarrow\text{abs.\,stabil}\\
+    \text{für }N\!\in\!]0;\,\infty[} \\[0.3em]
+
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{cKap6!80!black} 3.\,Fall:\;$k_1\!>\!0,\;k_2\!>\!0$}\\[0.03em]%
+    \scriptsize $N\!\in\!]k_1;\,k_2[$,\;Kreis $\mathcal{K}$:\\[0.04em]
+    $M\!=\!-\tfrac{1}{2}\!\left(\tfrac{1}{k_1}+\tfrac{1}{k_2}\right)$\\[0.05em]
+    $r\!=\!\tfrac{1}{2}\!\left|\tfrac{1}{k_1}-\tfrac{1}{k_2}\right|$\\[0.04em]
+    \textbf{abs.\,stabil}\;$\Leftrightarrow$\\
+    Ortskurve \textbf{außerhalb}~$\mathcal{K}$\\
+    \textit{(nicht umfassen/schneiden)}} &
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{cKap6!80!black} 4.\,Fall:\;$k_1\!<\!0,\;k_2\!>\!0$}\\[0.03em]%
+    \scriptsize $-\tfrac{1}{k_1}>0$\;(rechts v.\,Ursprung)\\[0.04em]
+    Gleiche $\mathcal{K}$-Def.\,wie Fall\,3:\\[0.03em]
+    $M\!=\!-\tfrac{1}{2}(\tfrac{1}{k_1}+\tfrac{1}{k_2})$\\[0.04em]
+    $r\!=\!\tfrac{1}{2}|\tfrac{1}{k_1}-\tfrac{1}{k_2}|$\\[0.04em]
+    \textbf{abs.\,stabil}\;$\Leftrightarrow$\\
+    Ortskurve \textbf{innerhalb}~$\mathcal{K}$\\
+    \textit{(verlässt $\mathcal{K}$ nicht)}} &
+  \beispielblock{Kreis $\mathcal{K}$}{%
+    \text{Dchm.\,auf Re-Achse:}\\[0.03em]
+    {-\tfrac{1}{k_1}}\text{ bis }{-\tfrac{1}{k_2}}\\[0.05em]
+    k_1,k_2{>}0{:}\;
+    {-\tfrac{1}{k_1}}{<}{-\tfrac{1}{k_2}}{<}0\\
+    k_1{<}0{:}\;
+    0{<}{-\tfrac{1}{k_1}}} \\[0.3em]
+
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Vorgehen}\\[0.03em]%
+    \scriptsize
+    1.\;$G(s)$ stabil, Nennergrad\,$>$\,Zählergrad?\\
+    2.\;Sektor $]k_1;\,k_2[$ bestimmen\\
+    3.\;Fall aus Tabelle bestimmen\\
+    4.\;$\operatorname{Re}\{G(j\omega)\}$ berechnen\\
+    5.\;Geometr.\,Bedingung prüfen} &
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} 4 Fälle im Überblick}\\[0.03em]%
+    {\renewcommand{\arraystretch}{0.88}\scriptsize%
+    \begin{tabular}{@{}l@{\;}l@{}}
+      $k_1\!=\!0,k_2\!=\!\infty$ & re.\,v.\,$j\omega$-Achse\\
+      $k_1\!=\!0,k_2\!<\!\infty$ & re.\,v.\,$-1/k_2$\\
+      $k_1,k_2\!>\!0$ & außerh.\,$\mathcal{K}$\\
+      $k_1\!<\!0,k_2\!>\!0$ & innerh.\,$\mathcal{K}$\\
+    \end{tabular}}\\[0.08em]
+    \scriptsize Verwandt: Popov-, Zypkin-Krit.} &
+  \beispielblock{PT3, Fall\,2}{%
+    G\!=\!\tfrac{2}{(s+1)^3}\\[0.05em]
+    \min_\omega\operatorname{Re}\{G\}
+    \!=\!-\tfrac{1}{2}\\[0.04em]
+    \Rightarrow-\tfrac{1}{k_2}\!\leq\!-\tfrac{1}{2}\\
+    \Rightarrow k_{2,\max}\!=\!2} \\
+\end{formelreihe}
+\bereichende

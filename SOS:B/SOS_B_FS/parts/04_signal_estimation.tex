@@ -1,0 +1,149 @@
+% ============================================================
+%  04 · Signalschätzung / Estimation
+%      Quelle: 04_signal_estimation.pdf + 01_Grundlagen.pdf
+% ============================================================
+
+\bereich[cSchaetz]{Schätztheorie — Grundbegriffe}
+\begin{formelreihe}
+  \infoblock{Schätzer: Algorithmus, der aus Beobachtungsvektor $\mathbf{X}$
+    (Zufallsvariable) einen Schätzwert $\hat{\theta}$ für den
+    deterministischen Parametervektor $\boldsymbol{\theta}$ liefert.} &
+  \formelblock{Schätzfehler}{e=\theta-\hat{\theta}} &
+  \formelblock{MSE (Skalar)}{\mathrm{MSE}=E\{e^2\}=E\{(\theta-\hat{\theta})^2\}} \\[0.3em]
+  \formelblock{MSE (Vektor)}{\mathrm{MSE}=E\{\mathbf{e}\cdot\mathbf{e}^T\}
+    =E\{(\boldsymbol{\theta}-\hat{\boldsymbol{\theta}})
+    (\boldsymbol{\theta}-\hat{\boldsymbol{\theta}})^T\}} &
+  \formelblock{Entwurfsziel}{\mathrm{MSE}\to\min\quad\text{(MMSE)}} &
+  \formelblock{MSE-Zerlegung}{\mathrm{MSE}=\mathrm{Bias}^2+\mathrm{Var}(\hat{\theta})} \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cSchaetz]{Bewertungskriterien \& Eigenschaften}
+\begin{formelreihe}
+  \formelblock{Bias (syst.\ Fehler)}{b=E\{\hat{\theta}\}-\theta} &
+  \formelblock{Kovarianz der Schätzung}{C_{\hat{\theta}}
+    =E\!\left\{(\hat{\theta}{-}E\{\hat{\theta}\})
+    (\hat{\theta}{-}E\{\hat{\theta}\})^T\right\}} &
+  \formelblock{Erwartungstreu (unbiased)}{E\{\hat{\theta}\}=\theta
+    \;\Leftrightarrow\; b=0} \\[0.3em]
+  \formelblock{Asympt.\ erwartungstreu}{\lim_{N\to\infty}E\{\hat{\theta}\}=\theta} &
+  \formelblock{Konsistent}{\lim_{N\to\infty}P(|\hat{\theta}-\theta|>\epsilon)=0} &
+  \formelblock{Effizient}{C_{\hat{\theta}^*}\ge C_{\hat{\theta}_{\min}}\;\forall\,\hat{\theta}^*} \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cSchaetz]{Mittelwert- \& Varianzschätzer}
+\begin{formelreihe}
+  \formelblock{Stichprobenmittel (erw.-treu)}{\hat{\mu}_X
+    =\dfrac{1}{N}\sum_{i=1}^{N}x_i,\quad E\{\hat{\mu}_X\}=\mu_X} &
+  \formelblock{Varianz — biased}{\hat{\sigma}_{X,*}^2
+    =\dfrac{1}{N}\sum_{i=1}^{N}(x_i-\hat{\mu}_X)^2} &
+  \beispielblock{Bias der biased Varianz}{E\{\hat{\sigma}_{X,*}^2\}
+    =\sigma_X^2\cdot\dfrac{N-1}{N}\;\neq\sigma_X^2} \\[0.3em]
+  \formelblock{Varianz — unbiased}{\hat{\sigma}_X^2
+    =\dfrac{1}{N-1}\sum_{i=1}^{N}(x_i-\hat{\mu}_X)^2} &
+  \formelblock{Korrektur}{\hat{\sigma}_X^2
+    =\dfrac{N}{N-1}\,\hat{\sigma}_{X,*}^2,\quad
+    E\{\hat{\sigma}_X^2\}=\sigma_X^2} &
+  \infoblock{Biased: asympt.\ erw.-treu\\
+    ($\lim_{N\to\infty}\tfrac{N-1}{N}=1$).\\
+    $\mu_X$ bekannt $\Rightarrow$ Nenner $N$ korrekt.} \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cSchaetz]{Korrelationsschätzer}
+\begin{formelreihe}
+  \formelblock{Kreuzkorrelation (def.)}{\varphi_{xy}[\kappa]
+    =E\{X[k{+}\kappa]\cdot Y[k]\}} &
+  \formelblock{Unnormierte Summe}{\hat{c}_{xy}[\kappa]
+    =\sum_{k=0}^{N-\kappa-1}X[k{+}\kappa]\cdot Y[k]\quad(\kappa\ge0)} &
+  \formelblock{Biased-Schätzer}{\hat{\varphi}_{xy}^*[\kappa]
+    =\dfrac{1}{N}\,\hat{c}_{xy}[\kappa]} \\[0.3em]
+  \formelblock{Unbiased-Schätzer}{\hat{\varphi}_{xy}[\kappa]
+    =\dfrac{1}{N-|\kappa|}\,\hat{c}_{xy}[\kappa]} &
+  \infoblock{Bevorzugt für kleine $|\kappa|$.\\
+    Schätzfehler steigt für $|\kappa|\to N$.} &
+  \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cSchaetz]{Wiener-Filter — Grundprinzip}
+\begin{formelreihe}
+  \infoblock{Beobachtetes Signal $x(t)$: Originalsignal $s(t)$\\
+    verzerrt durch LTI $+$ Rauschen.\\[0.1em]
+    Rekonstruktionsfilter $H$:\\
+    minimiert Fehlerleistung $E\{|e|^2\}$.\\[0.1em]
+    $e(t)=y(t)-s(t)$} &
+  \formelblock{LDS des Fehlers}{\Phi_{ee}
+    =\Phi_{xx}|H|^2-\Phi_{xs}H-\Phi_{sx}H^*+\Phi_{ss}} &
+  \formelblock{Wiener-Filter (kontinuierlich)}{H(j\omega)
+    =\dfrac{\Phi_{sx}(\omega)}{\Phi_{xx}(\omega)}
+    =\dfrac{\Phi_{xs}^*(\omega)}{\Phi_{xx}(\omega)}} \\[0.3em]
+  \formelblock{Wiener-Filter (zeitdiskret)}{H(e^{j\Omega})
+    =\dfrac{\Phi_{sx}(\Omega)}{\Phi_{xx}(\Omega)}
+    =\dfrac{\Phi_{xs}^*(\Omega)}{\Phi_{xx}(\Omega)}} &
+  \beispielblock{Gestörter Kanal: $x=G*s+n$, $n\perp s$}{%
+    \Phi_{xx}=\Phi_{ss}|G|^2+\Phi_{nn}\\[0.15em]
+    \Phi_{sx}=\Phi_{ss}\cdot G^*(j\omega)\\[0.15em]
+    H=\dfrac{\Phi_{ss}\cdot G^*}{\Phi_{ss}|G|^2+\Phi_{nn}}} &
+  \infoblock{Einschränkungen:\\
+    -- unendl.\ Beobachtungsdauer nötig\\
+    -- Prozesse müssen stationär sein\\
+    -- Einschwingvorgang\\[0.1em]
+    $\to$ Kalman-Filter für endliche\\
+    Beobachtung, zeitvariante Systeme} \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cSchaetz]{Kalman-Filter — Systemmodell}
+\begin{formelreihe}
+  \formelblock{Zustandsdifferenzengleichung}{x[k{+}1]=A[k]x[k]+B[k]u[k]+G[k]z[k]\\[0.1em]
+    y[k]=C[k]x[k]+n[k]} &
+  \infoblock{$x[k]$: Zustandsvektor (unbekannt)\\
+    $u[k]$: bekannter Eingang\\
+    $z[k]$: Systemrauschen (weiß, mw-frei)\\
+    $n[k]$: Messrauschen (weiß, mw-frei)\\[0.1em]
+    $\varphi_{zz}[\kappa,k]=\delta[\kappa]\cdot Z_0[k]$\\
+    $\varphi_{nn}[\kappa,k]=\delta[\kappa]\cdot N_0[k]$} &
+  \formelblock{Schätzfehler \& Ziel}{e[k]=\hat{x}[k]-x[k]\\[0.1em]
+    F[k]=E\{e[k]\cdot e^T[k]\}\quad\text{(Fehlerkorr.-Matrix)}\\[0.1em]
+    \mathrm{trace}\{F[k]\}\to\min} \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cSchaetz]{Kalman-Filter — Algorithmus (ohne Innovationsterm)}
+\begin{formelreihe}
+  \formelblock{Kalman-Gain \& Inno.-Kovarianz}{R[k]=N_0[k]+CF[k]C^T\\[0.15em]
+    K[k]=AF[k]C^T\cdot R^{-1}[k]} &
+  \formelblock{Update Zustandsschätzung}{\hat{x}[k{+}1]=A\hat{x}[k]+Bu[k]
+    +K[k](y[k]-\hat{y}[k])\\[0.1em]
+    \hat{y}[k]=C\hat{x}[k]} &
+  \formelblock{Update Fehlerkorr.-Matrix}{F[k{+}1]=AF[k]A^T\\
+    \quad-K[k]R[k]K^T[k]+GZ_0G^T\\[0.1em]
+    \text{Start: }F[0]=0} \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cSchaetz]{Kalman-Filter — mit Innovationsterm (a-posteriori)}
+\begin{formelreihe}
+  \formelblock{Gewichtungsmatrix \& Gain}{R[k]=N_0[k]+CF[k]C^T\\[0.15em]
+    M[k]=F[k]C^T\cdot R^{-1}[k]\\[0.1em]
+    K[k]=A\cdot M[k]} &
+  \formelblock{A-posteriori Zustandsschätzung}{\hat{x}^+[k]=\hat{x}[k]+M[k](y[k]-\hat{y}[k])\\[0.15em]
+    \hat{x}[k{+}1]=A\hat{x}^+[k]+Bu[k]} &
+  \formelblock{Update Fehlerkorr.-Matrix}{F[k{+}1]=AF[k]A^T\\
+    \quad-AM[k]R[k]M^T[k]A^T+GZ_0G^T\\[0.1em]
+    \text{Start: }F[0]=0} \\[0.3em]
+  \beispielblock{Redundante Messung: $y_i=x+n_i$, $\hat{x}=k_1y_1+k_2y_2$}{%
+    k_1+k_2=1\quad\text{(Erw.-treue)}\\
+    k_1=\dfrac{\sigma_{n_2}^2}{\sigma_{n_1}^2+\sigma_{n_2}^2},\quad
+    k_2=\dfrac{\sigma_{n_1}^2}{\sigma_{n_1}^2+\sigma_{n_2}^2}} &
+  \infoblock{Eigenschaften:\\
+    -- Einschwingvorgang des Gains\\
+    -- LTI + stationäres Rauschen\\
+    $\Rightarrow$ stationärer Endwert $K_\infty$\\
+    -- In diesem Fall: Kalman $=$ Wiener} &
+  \formelblock{Stationärer Endwert $f_\infty$ (Skalar)}{f_\infty=\dfrac{0.81f_\infty}{1+f_\infty}+GZ_0G^T\\[0.1em]
+    \text{quadr.\ Gl.\ lösen }\Rightarrow K_\infty=\dfrac{Af_\infty}{R_\infty}} \\
+\end{formelreihe}
+\bereichende

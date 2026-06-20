@@ -1,0 +1,21 @@
+# Standardmäßig alles ignorieren ...
+*
+
+# ... aber in Unterordner absteigen, damit verschachtelte Quellen gefunden werden
+!*/
+
+# Formelsammlung-Quellen und relevante Dokumentation einschließen
+!*.tex
+!*.md
+
+# .gitignore selbst versionieren
+!.gitignore
+
+# LaTeX-Build-Artefakte trotzdem ausschließen (falls sie je .tex/.md heißen sollten)
+*.aux
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.log
+*.out
+*.toc
