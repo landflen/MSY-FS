@@ -260,3 +260,82 @@
   \formelblock{Konvergenz}{\lim_{N\to\infty}h_X(x)=P(X{=}x)} \\
 \end{formelreihe}
 \bereichende
+
+% ==========================================================
+%  REZEPTE — WDF / Transformation / EW · Varianz / Summe
+% ==========================================================
+
+\bereich[cGrundl]{REZEPT A1 · Gültige WDF / Normierung (+ Mittelwertfreiheit)}
+\begin{rezept}
+  \rs{Fläche $=1$ ansetzen: $\int f_X\,\mathrm dx=1$.\;
+      Rechteck: Breite${\cdot}$Höhe; Dreieck: $\tfrac12{\cdot}$Breite${\cdot}$Höhe;
+      Diracs: Summe der Gewichte $\sum w_i=1$.}
+  \rs{Unbekannte $>1$? Zweite Gleichung aus Zusatzbedingung — meist
+      \emph{Mittelwertfreiheit} $\int x\,f_X\,\mathrm dx=0$ oder gegebene Varianz.}
+  \rs{Lineares Gleichungssystem lösen.}
+\end{rezept}
+\miniexample{Normierung (a) \;/\; Normierung + Mittelwertfreiheit (b)}{%
+  (a) $2{\cdot}\tfrac13+6\,f_0=1\Rightarrow f_0=\tfrac1{18}$.\hfill
+  (b) $3f_1{+}9f_2{=}1$ und $\mu_X{=}0:\;-f_1\tfrac92+f_2\tfrac{81}2=0$
+  $\Rightarrow f_1{=}\tfrac14,\;f_2{=}\tfrac1{36}$.}
+\bereichende
+
+\bereich[cGrundl]{REZEPT A2 · Transformation über Kennlinie $f_Y(y)=\dfrac{f_X(x)}{|g'(x)|}$}
+\begin{rezept}
+  \rs{Kennlinie stückweise linear $\Rightarrow$ $g'(x)$ = Steigung je Abschnitt
+      (konstant).}
+  \rs{Pro $y$-Bereich den zugehörigen $x$-Bereich bestimmen (Umkehrung
+      $x{=}g^{-1}(y)$) und $f_Y=f_X(x)/|g'|$ einsetzen.}
+  \rs{$y$-Grenzen aus den $x$-Grenzen über $y{=}g(x)$ umrechnen.}
+  \rs{Kontrolle: $\int f_Y\,\mathrm dy=1$.}
+\end{rezept}
+\fallstrick{Steigung-Betrag $|g'|$ (Vorzeichen egal).\; $y$-Achse \emph{umrechnen},
+  nicht $x$-Grenzen übernehmen.\;
+  \textbf{Rückwärts}: Steigung so wählen, dass $Y$
+  \emph{gleichverteilt} wird $\Rightarrow g'=\dfrac{f_X}{f_Y}$ mit $f_Y=$const.}
+\miniexample{stückw.\ lineare Kennlinie \;/\; Kennlinie $g(x){=}\sqrt[3]{x}$}{%
+  $g'{=}3\,(x{<}0),\,2\,(x{>}0)\Rightarrow
+  f_Y{=}\tfrac{1/3}{3}{=}\tfrac19\,(-6{<}y{<}0),\;\tfrac{1/18}{2}{=}\tfrac1{36}\,(0{<}y{<}12)$.\\
+  $g{=}\sqrt[3]{x}:\;g'{=}\tfrac{1}{3x^{2/3}}$, $x{=}y^3\Rightarrow f_Y(y)=f_X(y^3)\cdot 3y^2$.}
+\bereichende
+
+\bereich[cGrundl]{REZEPT A3 · Erwartungswert \& Varianz}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Diskret}\\[0.05em]
+    {\footnotesize $\mu=\sum_i x_i w_i$,\quad
+      $\sigma^2=\sum_i x_i^2 w_i-\mu^2$}} &
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Stetig (bereichsweise)}\\[0.05em]
+    {\footnotesize $\mu=\int x f\,\mathrm dx$,\quad
+      $\sigma^2=\int x^2 f\,\mathrm dx-\mu^2$}} &
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Gleichverteilung $[a,b]$}\\[0.05em]
+    {\footnotesize $\mu=\tfrac{a+b}{2}$,\quad $\sigma^2=\tfrac{(b-a)^2}{12}$}} \\
+\end{formelreihe}
+\miniexample{$f_Y{=}\tfrac19$ auf $[-6,0]$, $\tfrac1{36}$ auf $[0,12]$}{%
+  $\mu_Y=\tfrac19\!\int_{-6}^{0}\!y\,\mathrm dy+\tfrac1{36}\!\int_{0}^{12}\!y\,\mathrm dy
+  =-2+2=0$;\quad
+  $\sigma_Y^2=\tfrac19\!\int_{-6}^{0}\!y^2\mathrm dy+\tfrac1{36}\!\int_{0}^{12}\!y^2\mathrm dy
+  =8+16=24$.}
+\bereichende
+
+\bereich[cGrundl]{REZEPT A4 · Summe $Z{=}X{+}Y$ über Faltung}
+\noindent\footnotesize
+$\mu_Z=\mu_X+\mu_Y$,\;\; $\sigma_Z^2=\sigma_X^2+\sigma_Y^2$ (unabh.),\;\;
+$f_Z=f_X*f_Y$.
+\begin{rezept}
+  \rs{Verstärkung \emph{vor} der Summe zuerst transformieren ($Y{=}aX$:
+      Dichte um $a$ stauchen/spiegeln, A2).}
+  \rs{Diskret${+}$kontinuierlich: jede diskrete Masse $w_i$ bei $x_i$ erzeugt eine
+      \emph{um $x_i$ verschobene, mit $w_i$ skalierte Kopie} von $f_Y$.}
+  \rs{Kopien addieren; in Überlappungsbereichen Höhen aufsummieren.}
+  \rs{Kontrolle: Gesamtfläche $=1$, $\mu_Z=\mu_X+\mu_Y$.}
+\end{rezept}
+\miniexample{diskret${+}$kontinuierlich \;/\; mit Verstärkung}{%
+  $X\in\{\pm1\}$, $P({+}1){=}\tfrac23$, $Y\sim\mathcal U[0,4]$ ($f_Y{=}\tfrac14$):\;
+  $f_Z=\tfrac13{\cdot}\tfrac14$ auf $[-1,3]\;+\;\tfrac23{\cdot}\tfrac14$ auf $[1,5]$
+  (Überlapp $[1,3]:\tfrac1{12}{+}\tfrac16{=}\tfrac14$).\\
+  $Z{=}{-}3X{+}Y$, $Y$ zwei Diracs bei $\pm2\Rightarrow
+  f_Z=\tfrac12 f_{-3X}(z{-}2)+\tfrac12 f_{-3X}(z{+}2)$ (zwei verschobene Kopien).}
+\bereichende

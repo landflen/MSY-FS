@@ -13,6 +13,7 @@
 \usepackage{multirow}
 \usepackage{microtype}
 \usepackage{needspace}
+\usepackage{alltt}   % ASCII-Skizzen: monospace, erhält Leerzeichen/Umbrüche
 \geometry{top=10mm,bottom=14mm,left=10mm,right=10mm,includefoot}
 \setlength{\parskip}{0pt}
 \setlength{\parindent}{0pt}
@@ -85,6 +86,59 @@
 \newcommand{\infoblock}[1]{%
   \parbox[t]{\linewidth}{\scriptsize\itshape #1}%
 }
+
+% ==========================================================
+%  Operations-/Rezept-Makros (Inhalt bleibt in den bestehenden Kapiteln)
+% ==========================================================
+
+% ---- Rezept: kompakt nummerierte Schritte ----------------
+% Verwendung:  \begin{rezept}\rs{...}\rs{...}\end{rezept}
+\newcounter{rezeptnr}
+\newenvironment{rezept}{%
+  \par\nobreak\noindent
+  \setcounter{rezeptnr}{0}%
+  \footnotesize\setlength{\tabcolsep}{2pt}%
+  \renewcommand{\arraystretch}{1.05}%
+  \begin{tabular}{@{}r@{\;\,}p{\dimexpr\linewidth-1.6em\relax}@{}}%
+}{%
+  \end{tabular}\par%
+}
+\newcommand{\rs}[1]{\refstepcounter{rezeptnr}\therezeptnr.&#1\\}
+
+% ---- Fallstricke: rote Hinweiszeile ----------------------
+\newcommand{\fallstrick}[1]{%
+  \par\vspace{0.1em}\noindent
+  {\footnotesize\color{red!72!black}\textbf{Fallstricke:}}\;{\footnotesize #1}\par}
+
+% ---- Mini-Beispiel: volle Breite, gelb hinterlegt --------
+\newcommand{\miniexample}[2]{%
+  \par\vspace{0.12em}%
+  \fcolorbox{orange!50}{yellow!13}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+      {\footnotesize\scshape\color{orange!82!black} Mini-Beispiel: #1}\\[0.12em]%
+      \footnotesize #2}}\par}
+
+% ---- Ergänzung: sichtbar markierter Zusatz (nicht im Orig.)
+\newcommand{\ergmark}{{\scriptsize\color{red!75!black}\,[\textbf{+}]\,}}
+\newcommand{\ergbox}[1]{%
+  \par\vspace{0.1em}%
+  \fcolorbox{red!55}{red!7}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+      {\footnotesize\color{red!72!black}\textbf{Ergänzung (nicht in Original-FS):}}\;%
+      \footnotesize #1}}\par}
+
+% ---- Skizzen-Box: volle Breite, ASCII-Diagramm + Worterklärung
+% Verwendung:  \begin{skizzebox}{Titel} ... \begin{alltt}...\end{alltt} ... \end{skizzebox}
+\newsavebox{\skizzebuffer}
+\newenvironment{skizzebox}[1]{%
+  \par\vspace{0.12em}%
+  \begin{lrbox}{\skizzebuffer}%
+  \begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}%
+    {\footnotesize\scshape\color{teal!75!black} #1}\par\vspace{0.1em}\footnotesize%
+}{%
+  \end{minipage}%
+  \end{lrbox}%
+  \noindent\fcolorbox{teal!45}{teal!6}{\usebox{\skizzebuffer}}\par}
 
 % ==========================================================
 \begin{document}

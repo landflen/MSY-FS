@@ -175,3 +175,293 @@
     \Phi_{XX}(\omega)=\tfrac{\pi A_0^2}{2}(\delta(\omega{-}\omega_0)+\delta(\omega{+}\omega_0))} \\
 \end{formelreihe}
 \bereichende
+
+% ==========================================================
+%  REZEPTE — Korrelationsfunktionen / LDS / Plot-Erkennung
+% ==========================================================
+
+\bereich[cProzess]{OPERATIONSTABELLE · eine Zeile pro Blocktyp (WSS-Eingang)}
+\noindent\scriptsize\setlength{\tabcolsep}{4pt}%
+\renewcommand{\arraystretch}{1.25}%
+\begin{tabular}{@{}p{0.20\linewidth}|c|c|c|c|c@{}}
+  \textbf{Block} & $\mu_Y$ & $\sigma_Y^2$ & $\varphi_{YX}(\tau)$ &
+    $\varphi_{YY}(\tau)$ & $\Phi_{YY}(\omega)$ \\\hline
+  Verstärkung $Y{=}aX$ & $a\,\mu_X$ & $a^2\sigma_X^2$ & $a\,\varphi_{XX}(\tau)$ &
+    $a^2\varphi_{XX}(\tau)$ & $a^2\Phi_{XX}$ \\
+  Offset $Y{=}X{+}c$ & $\mu_X{+}c$ & $\sigma_X^2$ &
+    $\varphi_{XX}{+}c\mu_X$ & $\varphi_{XX}{+}2c\mu_X{+}c^2$ &
+    $\Phi_{XX}{+}2\pi(2c\mu_X{+}c^2)\delta(\omega)$ \\
+  Verzögerung $Y{=}X(t{-}T_d)$ & $\mu_X$ & $\sigma_X^2$ &
+    $\varphi_{XX}(\tau{-}T_d)$ & $\varphi_{XX}(\tau)$ & $\Phi_{XX}$ \\
+  Gleit.\ MWB (Dauer $T$) & $\mu_X$ & $\varphi_{YY}(0)$ &
+    $\varphi_{XX}{*}h$ & $\varphi_{XX}{*}\varphi_{hh}$ &
+    $\Phi_{XX}\!\cdot\mathrm{si}^2\!\left(\frac{\omega T}{2}\right)$ \\
+  Summe $Z{=}X{+}Y$ (unabh.) & $\mu_X{+}\mu_Y$ & $\sigma_X^2{+}\sigma_Y^2$ &
+    \textit{--} & $\varphi_{XX}{+}\varphi_{YY}{+}2\mu_X\mu_Y$ & $\Phi_{XX}{+}\Phi_{YY}$ \\
+  LTI $Y{=}h{*}X$ & $\mu_X H(0)$ & $\varphi_{YY}(0)$ &
+    $\varphi_{XX}{*}h$ & $\varphi_{XX}{*}\varphi_{hh}$ & $\Phi_{XX}|H|^2$ \\
+\end{tabular}\par
+\vspace{0.2em}
+{\scriptsize\itshape MWB: $h(t)=\frac1T$ für $0{\le}t{\le}T$;\;
+  $\varphi_{hh}(\tau)=h{*}h(-\tau)$ ist ein \textbf{Dreieck}, Breite $2T$, Höhe
+  $\frac1T$.\; Weißes Rauschen ($\varphi_{XX}{=}X_0\delta$) durch MWB
+  $\Rightarrow \varphi_{YY}=X_0\,\varphi_{hh}$ = Dreieck, Spitze $X_0/T$.}
+\fallstrick{\textbf{MWB $\neq$ Verzögerung} (häufiger Lesefehler im
+  Blockschaltbild): Block mit „$T$" / Symbol $\frac1T$ $=$ \emph{gleitender
+  Mittelwertbildner}, $h(t){=}\frac1T\,\mathrm{rect}_{[0,T]}$ $\Rightarrow$ weißes
+  Rauschen wird zum \textbf{Dreieck} (Basis $\pm T$, Spitze $X_0/T$).\;
+  Block mit „$T_d$" $=$ \emph{reine Verzögerung}, $h(t){=}\delta(t{-}T_d)$
+  $\Rightarrow$ nur Verschieben, kein Dreieck.}
+\ergbox{\textbf{Summe zweier Pfade aus DERSELBEN Quelle} (korreliert/verzögert),
+  $Z{=}X{+}Y$ mit $X,Y$ aus demselben Prozess:
+  \[\varphi_{ZZ}=\varphi_{XX}+\varphi_{YY}+\varphi_{XY}+\varphi_{YX}\]
+  Die \textbf{Kreuzterme} $\varphi_{XY},\varphi_{YX}$ dürfen NICHT entfallen
+  (nur bei Unkorreliertheit/Orthogonalität fallen sie weg). Beispiel
+  $z{=}y(t{-}T_d){+}a(t)\Rightarrow
+  \varphi_{zz}=\varphi_{yy}+\varphi_{ya}(\tau{-}T_d)+\varphi_{ay}(\tau{+}T_d)+\varphi_{aa}$.}
+\bereichende
+
+% ==========================================================
+%  FALTUNGS-MECHANIK (grafisch) — vor der Master-Regel:
+%  erst WIE gefaltet wird, dann (Master-Regel) WAS womit.
+% ==========================================================
+\bereich[cProzess]{FALTUNGS-MECHANIK · wie man $\varphi*h$ wirklich rechnet}
+\noindent\footnotesize
+Die Korrelation durch eine Strecke ist immer eine \textbf{Faltung}. Stolperstein
+ist die Mechanik — darum erst anschaulich, dann (s.\,u.\ \emph{Master-Regel}) die
+Regel, \emph{was} womit gefaltet wird. Kurzschreibweise: $d(\tau){=}\delta(\tau)$,
+Stelle$@$Gewicht.\par
+
+\begin{skizzebox}{1 · Dirac verschiebt / skaliert — die Grundbewegung}
+\begin{alltt}
+  f(t) * d(t-D)        = f(t-D)        Kopie von f, nur nach D verschoben
+  f(t) * a*d(t-D)      = a*f(t-D)      Kopie, zusaetzlich mit a skaliert
+  f(t) * [d + 2d(t-D)] = f(t) + 2f(t-D)   jeder Dirac STEMPELT eine Kopie,
+                                          am Ende alle Kopien aufaddieren
+\end{alltt}
+\end{skizzebox}
+
+\begin{skizzebox}{2 · Dirac $*$ Dirac — Stellen addieren, Gewichte multiplizieren}
+\begin{alltt}
+   a*d(t-D1)  *  b*d(t-D2)  =  (a*b) * d( t-(D1+D2) )
+   |__________________________|        |____________|
+        GEWICHTE  multiplizieren        STELLEN  addieren   (a*b ;  D1+D2)
+\end{alltt}
+\end{skizzebox}
+
+\begin{skizzebox}{3 · Kamm $*$ Kamm — alle Paare; Beispiel $h{=}\delta{+}2\delta(t{-}80){+}\delta(t{-}200)$}
+\begin{alltt}
+   h    : 0@1   80@2   200@1            (Stelle@Gewicht)
+   h(-t): 0@1  -80@2  -200@1
+   phi_hh = h * h(-t):  ALLE 3x3 Paare, Stelle = Di-Dj, Gewicht = wi*wj
+      t =    0 :  1*1 + 2*2 + 1*1 = 6   <- drei Paare auf GLEICHER Stelle,
+      t = +-80 :  2                         deren Gewichte werden ADDIERT
+      t = +-120:  2
+      t = +-200:  1
+\end{alltt}
+\end{skizzebox}
+
+\fallstrick{\textbf{Zwei verschiedene Operationen — nicht verwechseln:} beim
+  \emph{Falten} werden Gewichte \textbf{multipliziert} (Stellen addiert); beim
+  \emph{Zusammenfassen} des Ergebnisses werden Diracs auf \emph{gleicher} Stelle
+  durch \textbf{Addition} der Gewichte verschmolzen (oben das $6$ bei $\tau{=}0$).}
+
+\begin{skizzebox}{4 · Form-Regeln — Rechteck $*$ Dirac bleibt Rechteck!}
+\begin{alltt}
+   rect * d(t-D)  =  rect (nur verschoben)   Dirac hat keine Breite
+   rect * rect    =  DREIECK (gleiche Breite) gleitende Ueberlappungsflaeche
+                  =  TRAPEZ  (versch. Breite)  -> lineare Flanken
+\end{alltt}
+\end{skizzebox}
+\noindent\footnotesize\emph{Merke:} ein Dreieck entsteht \textbf{erst} aus
+Rechteck$*$Rechteck (z.\,B.\ weiß durch \emph{einen} MWB), nie aus Rechteck$*$Dirac.
+\miniexample{Weiß $X_0{=}2$, MWB $T{=}40$, dann Kamm $h{=}\delta{+}2\delta(t{-}80){+}\delta(t{-}200)$}{%
+  $\varphi_{xx}{=}2\,\delta(\tau)$ $\to$ MWB: $\varphi_{aa}$ = Dreieck, Basis
+  $\pm40$, Spitze $X_0/T{=}0{,}05$.\; Kamm: $\varphi_{hh}$ wie Skizze 3
+  ($6$ bei $0$; $2$ bei $\pm80$; $2$ bei $\pm120$; $1$ bei $\pm200$).\;
+  $\varphi_{yy}=\varphi_{aa}*\varphi_{hh}$: jeder $\varphi_{hh}$-Dirac stempelt
+  eine \emph{gewichtete} Dreieck-Kopie an seine Stelle (Spitze $0{,}05{\times}$Gewicht).}
+\bereichende
+
+% ==========================================================
+%  MASTER-REGEL Korrelation durch eine Strecke
+% ==========================================================
+\bereich[cProzess]{MASTER-REGEL · Korrelation durch eine Strecke (gemeinsame Quelle)}
+\noindent\footnotesize
+\textbf{Denkmodell (wie ein Netzwerk):} \emph{Knoten} $(x,a,y)$ sind Messpunkte,
+\emph{Zweige} $(g,h)$ sind die effektive Impulsantwort von der gemeinsamen Quelle
+$x$ zum Knoten — inkl.\ \emph{aller} Parallelpfade. Reihenschaltung $=$ falten
+($h_1{*}h_2$), Parallelzweige $=$ addieren ($h_1{+}h_2$). Verzögerungs-/Verstärker-Netze
+werden so zum Dirac-Kamm $h=\sum_i w_i\,\delta(t{-}d_i)$.\par
+\vspace{0.15em}
+\begin{formelreihe}
+  \formelblock{Kernregel ($h_i$ = Pfad Quelle$\to$Knoten)}{%
+    \boxed{\;\varphi_{(1)(2)}(\tau)=\varphi_{xx}(\tau)*h_1(\tau)*h_2(-\tau)\;}\\[0.25em]
+    \text{1.\ Index }\to\text{ Pfad VORWÄRTS }h_1(\tau)\\
+    \text{2.\ Index }\to\text{ Pfad GESPIEGELT }h_2(-\tau)\\
+    \varphi_{xx}\text{ immer in der Mitte}} &
+  \formelblock{Symmetrie-Abkürzung}{\varphi_{(1)(2)}(\tau)=\varphi_{(2)(1)}(-\tau)\\[0.3em]
+    \text{(Faltungs-Mechanik: s.\ Abschnitt oben)}} &
+  \infoblock{\textbf{Konvention} (beugt Vorzeichenfehlern vor):
+    FS-Definition $\varphi_{XY}(\tau){=}E\{X(t{+}\tau)Y(t)\}$ — der \emph{erste}
+    Index sitzt bei $t{+}\tau$, bekommt den \emph{vorwärts}-Pfad. Liegt im Pfad
+    eine Verzögerung $T_d$, liegt das KKF-Maximum bei $\tau{=}{+}T_d$ (auf der zum
+    ersten Index passenden Seite), nicht beliebig.} \\
+\end{formelreihe}
+\ergbox{\textbf{Geltungsbereich (wichtig!):} Die Master-Regel gilt für eine
+  \textbf{gemeinsame Quelle} $x$ — egal ob die beiden Punkte \emph{parallel} oder
+  \emph{in Reihe} liegen. Sie bricht \textbf{nur} bei \emph{zwei unabhängigen}
+  Eingängen (dann Kreuzterme separat behandeln).}
+\vspace{0.2em}
+\noindent\scriptsize\textbf{Standardkette} $x\xrightarrow{\;g\;}a\xrightarrow{\;h\;}y$
+\;(Pfade: $x{\to}\delta$, $a{\to}g$, $y{\to}g{*}h$):
+\setlength{\tabcolsep}{5pt}\renewcommand{\arraystretch}{1.2}%
+\begin{tabular}{@{}l@{\;}c@{\;}l|l@{\;}c@{\;}l@{}}
+  $\varphi_{aa}$ & $=$ & $\varphi_{xx}*g(\tau)*g(-\tau)$ &
+  $\varphi_{ay}$ & $=$ & $\varphi_{aa}*h(-\tau)$ \\
+  $\varphi_{ax}$ & $=$ & $\varphi_{xx}*g(\tau)$ &
+  $\varphi_{ya}$ & $=$ & $\varphi_{aa}*h(\tau)$ \\
+  $\varphi_{xa}$ & $=$ & $\varphi_{xx}*g(-\tau)$ &
+  $\varphi_{yy}$ & $=$ & $\varphi_{aa}*h(\tau)*h(-\tau)$ \\
+  \multicolumn{3}{l|}{} &
+  $\varphi_{yx}$ & $=$ & $\varphi_{xx}*g*h$ \\
+\end{tabular}\par
+\bereichende
+
+% ==========================================================
+%  Konstanter Offset am Summenknoten
+% ==========================================================
+\bereich[cProzess]{Konstanter Offset $c$ am Summenknoten}
+\begin{formelreihe}
+  \infoblock{Eine additive Konstante $c$ ist \textbf{kein} gefiltertes $x$ —
+    sie gehört \textbf{nicht} in die effektive $h_y$. Sie koppelt in Korrelationen
+    nur über den \emph{Mittelwert des anderen Faktors}.} &
+  \formelblock{Wo $c$ herausfällt / bleibt}{%
+    \text{Partner mw-frei}\Rightarrow c\text{ fällt aus allen KKF}\\
+    (\varphi_{ya},\varphi_{ba},\dots=0\text{-Anteil von }c)\\[0.2em]
+    \mu_y=\dots+c\quad(\text{bleibt})\\
+    \varphi_{yy}=\varphi_{ww}+c^2\;(\text{mw-freier Rest})} &
+  \infoblock{\textbf{Merksatz:} „Konstante $\times$ etwas-um-Null-gemittelt $=0$;
+    Konstante $\times$ Konstante bleibt."\\[0.2em]
+    Im LDS: $c$ erzeugt einen $\delta(\omega)$-Anteil bei $f{=}0$.} \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cProzess]{REZEPT B · Korrelationsfunktionen durch eine Strecke}
+\begin{rezept}
+  \rs{Eingang charakterisieren: $\varphi_{XX}(\tau)$ (weiß $\to X_0\,\delta(\tau)$;
+      sonst gegeben). $\mu_X$ notieren (oft $0$).}
+  \rs{Strecke Block für Block mit der Operationstabelle abarbeiten;
+      Zwischensignale $a,b,c\dots$ benennen.}
+  \rs{KKF zwischen zwei Punkten: $\varphi_{BA}(\tau)=E\{b(t{+}\tau)a(t)\}$ —
+      Operation, die $b$ aus $a$ macht, einsetzen und vereinfachen.}
+  \rs{Summenknoten: AKF des Summensignals = Summe der AKFs \emph{plus Kreuzterme},
+      falls die Summanden aus derselben Quelle stammen.}
+  \rs{\textbf{Zahlenwerte} eintragen: Höhen aus $\sigma^2$/Flächen, Dreieck-Spitze
+      $=X_0/T$, Trapezhöhe, Lage der Maxima ($\tau{=}T_d$ bei Verzögerung).}
+\end{rezept}
+\fallstrick{Verzögerung verschiebt nur \emph{KKF} (um $T_d$), nicht die AKF.\;
+  Weißes Rauschen durch MWB $\to$ \textbf{Dreieck}, nicht Rechteck.\;
+  Achsenbeschriftung und konkrete Zahlenwerte (Höhen, Lagen) immer mit angeben.\;
+  AKF ist immer gerade mit Maximum bei $0$ — Plausibilitätscheck.}
+\miniexample{Weiß $X_0{=}2$ durch MWB $T{=}2$, dann Summe mit verzögertem Pfad}{%
+  $\varphi_{aa}(\tau)$ = Dreieck, Breite $4$ ($\pm2$), Spitze $X_0/T=1$.\;
+  Verzögerung $T_d{=}2$: $\varphi_{ba}(\tau)$ = Rechteck/Trapez um $\tau{=}T_d$
+  verschoben.\; $\varphi_{ya}=\varphi_{aa}+\varphi_{ba}$ (gemeinsame Quelle!).}
+\bereichende
+
+\bereich[cProzess]{LDS-Übergang · Faltung wird Multiplikation (Frequenzbereich)}
+\begin{formelreihe}
+  \formelblock{Weiß $\to$ flach}{\varphi_{xx}{=}X_0\delta(\tau)\;\Rightarrow\;
+    \Phi_{xx}(\omega){=}X_0={\rm const}\\[0.2em]
+    \text{Falten }\to\text{ Multiplizieren:}\\
+    \Phi_{yx}{=}\Phi_{xx}H,\;\;\Phi_{xy}{=}\Phi_{xx}H^*\\
+    \Phi_{yy}{=}\Phi_{xx}|H|^2} &
+  \formelblock{AKF-Spektrum $\Phi_{aa}=\Phi_{xx}|H|^2$}{%
+    \text{stets }\textbf{reell},\;\ge0\\[0.15em]
+    \text{MWB: }|H|^2{=}{\rm si}^2\!\left(\tfrac{\omega T}{2}\right)\\
+    \to\text{si}^2\text{-Glocke (Spitze }X_0,\\
+    \text{Nullst.\ bei Vielfachen von }1/T)} &
+  \infoblock{\textbf{KKF-Spektrum} (z.\,B.\
+    $\Phi_{ba}{=}\Phi_{xx}H_bH_a^*$) i.\,Allg.\ \textbf{komplex}.\\[0.2em]
+    Reine Verzögerung $T_d$ $\Rightarrow$ Phasenfaktor $e^{-j\omega T_d}$;
+    Betrag z.\,B.\ $|{\rm si}|$ (nicht ${\rm si}^2$).} \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cProzess]{PLOT-ERKENNUNGSTABELLE · Form $\to$ Funktion $\to$ Begründung}
+\noindent\scriptsize\setlength{\tabcolsep}{4pt}%
+\renewcommand{\arraystretch}{1.2}%
+\begin{tabular}{@{}p{0.26\linewidth}|p{0.30\linewidth}|p{0.38\linewidth}@{}}
+  \textbf{Merkmal im Plot} & \textbf{gehört zu} & \textbf{Begründungsbaustein} \\\hline
+  Dirac-Pfeil bei $\tau{=}0$ & weißes Rauschen (AKF) &
+    weiß $=$ unkorreliert $\Rightarrow \varphi=X_0\delta(\tau)$ \\
+  konstant (flach), evtl.\ verrauscht & LDS von weißem Rauschen $\Phi$ &
+    $\mathcal F\{X_0\delta\}=X_0=$const; Schätzung aus endl.\ Messung rauscht \\
+  Dreieck (Spitze, gerade Flanken) bei $0$ & AKF nach \emph{einem} MWB &
+    weiß ${*}$ Rechteck${*}$Rechteck $=$ Dreieck; gleiche Breiten \\
+  Trapez (flache Oberkante) & Faltung zweier \emph{unterschiedlich} breiter Rechtecke &
+    zwei MWB versch.\ $T$ bzw.\ MWB${+}$Verzög.; Oberkante $=$ Breitendiff. \\
+  Maximum \emph{verschoben} ($\tau{\neq}0$) & KKF mit Laufzeit &
+    Verzögerung $T_d$ schiebt KKF: Maximum bei $\tau{=}T_d$ \\
+  $\mathrm{si}^2$ / $\big(\tfrac{\sin}{\cdot}\big)^2$ im LDS & MWB
+    (Rechteck-Impulsantwort) & $|H(j\omega)|^2=\mathrm{si}^2(\omega T/2)$;
+    schmälere Hauptkeule $\Rightarrow$ größeres $T$ \\
+  Exponentialabfall $e^{-|\tau|/T}$ & tiefpassgefiltertes Rauschen &
+    TP-Filterung $\Rightarrow$ Korrelation über $T$ \\
+\end{tabular}\par
+\vspace{0.15em}
+\noindent\footnotesize\textbf{Vorgehen: mehrere Plots den Funktionen zuordnen:}
+\begin{rezept}
+  \rs{LDS aussortieren ($\Phi$): nur über $f/\omega$, oft flach oder $\mathrm{si}^2$,
+      keine geraden-Symmetrie-Pflicht um eine Spitze.}
+  \rs{AKF: gerade um $\tau{=}0$, Maximum bei $0$. KKF: darf unsymmetrisch /
+      verschoben sein.}
+  \rs{Über die Strecke Form vorhersagen (Tabelle) und Höhe/Lage mit Plot abgleichen.}
+  \rs{Begründung je Zuordnung mit einem Baustein aus der Tabelle.}
+\end{rezept}
+\bereichende
+
+\bereich[cProzess]{BEGRÜNDUNGS-BAUSTEINE · Stationarität \& Musterfunktionen}
+\begin{formelreihe}
+  \infoblock{\textbf{Streng / schwach / instationär}\\[0.15em]
+    \emph{streng:} $f_X(x,t)$ zeitinvariant $\Rightarrow$ \emph{alle} Momente
+    zeitinvariant.\\
+    \emph{schwach (WSS):} nur $\mu_X{=}$const \emph{und} $\varphi_{XX}(\tau)$.\\
+    \emph{instationär:} $\mu_X(t)$, $\sigma_X^2(t)$ oder $\varphi$ zeitabhängig.\\[0.2em]
+    Standardsatz: „Eingang ist streng stationär; keines der
+    LTI-Glieder kann diese Eigenschaft ändern $\Rightarrow$ Ausgang ebenfalls
+    streng stationär."} &
+  \infoblock{\textbf{Warum bleibt es stationär?}\\
+    Lineare, \emph{zeitinvariante} Operationen (Skalierung, Offset, Verzögerung,
+    Faltung, Summe stationärer Prozesse) erzeugen aus WSS-Eingang WSS-Ausgang —
+    Verschiebung/Skalierung ändern die Zeitinvarianz nicht.\\[0.2em]
+    Bsp.\ $Z{=}X{+}g\,Y$ mit $X,Y$ stationär, $g$ konst.\ $\Rightarrow$
+    $Z$ (schwach) stationär.} &
+  \infoblock{\textbf{Musterfunktionen / Ergodizität}\\
+    $\mu_X$ \emph{quer} $=$ Ensemblemittel über Realisierungen bei festem $t$;
+    \emph{längs} $=$ Zeitmittel einer Realisierung.\\
+    $q_x[k]=\sqrt{\frac1N\sum_i x_i^2[k]}$ (quer).\\
+    \emph{ergodisch}: Zeitmittel $=$ Ensemblemittel.\\
+    $\sigma^2(t_1){=}\sigma^2(t_2)$? aus Streubreite der Musterfkt.\ ablesen.} \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cProzess]{PLAUSIBILITÄTS-CHECKS · Säule B (vor dem Abgeben prüfen)}
+\begin{formelreihe}
+  \infoblock{\textbf{AKF $\varphi_{xx}$:}\\
+    -- immer \emph{gerade}: $\varphi(\tau){=}\varphi(-\tau)$\\
+    -- Maximum bei $\tau{=}0$\\
+    -- $\varphi(0)=\sigma^2{+}\mu^2$ (Leistung)\\
+    -- $\varphi(\tau{\to}\infty)=\mu^2$} &
+  \infoblock{\textbf{KKF $\varphi_{xy}$:}\\
+    -- \emph{darf} unsymmetrisch / verschoben sein\\
+    -- Maximum bei $\tau{=}{\pm}T_d$ (Laufzeit)\\
+    -- $\varphi_{xy}(\tau)=\varphi_{yx}(-\tau)$} &
+  \infoblock{\textbf{Form-Check (MWB im Pfad):}\\
+    -- MWB \emph{einmal} im Pfad zwischen den\\
+    \quad zwei Punkten $\Rightarrow$ \textbf{Rechteck}\\
+    -- AKF $\varphi_{vv}$ \emph{mit} MWB $\Rightarrow$ \textbf{Dreieck}\\
+    \quad (Rechteck$*$Rechteck)} \\
+\end{formelreihe}
+\bereichende

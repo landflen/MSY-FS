@@ -115,3 +115,24 @@
     WSS-Ausgang.} \\
 \end{formelreihe}
 \bereichende
+
+% ==========================================================
+%  Ensemble-Auswertung aus Realisierungstabelle
+%  (numerisch über die Schar von N Realisierungen)
+% ==========================================================
+\bereich[cDiskret]{REZEPT · Numerische Ensemble-Auswertung ($N$ Realisierungen)}
+\begin{formelreihe}
+  \formelblock{Quer: Mittel-/Quadrat\-mittelwert bei festem $k$}{%
+    \mu_X[k]=\dfrac1N\sum_{i=1}^{N}x_i[k]\\[0.15em]
+    q_X[k]=\sqrt{\dfrac1N\sum_{i=1}^{N}x_i^2[k]}} &
+  \formelblock{AKF (Ensemble) zwischen $k_1,k_2$}{%
+    \varphi_{XX}[k_1,k_2]=\dfrac1N\sum_{i=1}^{N}x_i[k_1]\,x_i[k_2]} &
+  \infoblock{\textbf{Quer} (Ensemble): Spalte $k$ über alle Zeilen $x_i$.\\
+    \textbf{Längs} (Zeit): eine Zeile $x_i$ über alle $k$.\\[0.15em]
+    \textbf{Ergodisch}: Längs-$=$Quer-Mittel. Für das Quer-Mittel braucht man
+    \emph{viele} Realisierungen.} \\
+\end{formelreihe}
+\miniexample{$N{=}5$ Realisierungen}{%
+  $q_X[7]=\sqrt{\tfrac15(0{,}57^2{+}0{,}24^2{+}0{,}42^2{+}0{,}78^2{+}0{,}68^2)}=0{,}571$;\quad
+  $\varphi_{XX}[3,13]=\tfrac15\sum_i x_i[3]x_i[13]=0{,}179$.}
+\bereichende

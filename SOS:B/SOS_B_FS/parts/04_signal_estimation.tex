@@ -143,7 +143,142 @@
     -- LTI + stationäres Rauschen\\
     $\Rightarrow$ stationärer Endwert $K_\infty$\\
     -- In diesem Fall: Kalman $=$ Wiener} &
-  \formelblock{Stationärer Endwert $f_\infty$ (Skalar)}{f_\infty=\dfrac{0.81f_\infty}{1+f_\infty}+GZ_0G^T\\[0.1em]
-    \text{quadr.\ Gl.\ lösen }\Rightarrow K_\infty=\dfrac{Af_\infty}{R_\infty}} \\
+  \formelblock{Stationärer Endwert $f_\infty$ (Skalar)}{%
+    f_\infty=\dfrac{A^2 N_0\,f_\infty}{N_0+C^2 f_\infty}+G Z_0 G^T\\[0.15em]
+    \text{quadr.\ Gl.\ lösen, }R_\infty{=}N_0{+}C^2 f_\infty\\[0.1em]
+    \Rightarrow K_\infty=\dfrac{A\,C\,f_\infty}{R_\infty}} \\
 \end{formelreihe}
+\bereichende
+
+% ==========================================================
+%  Kalman / Zustandsraum — Rezepte und durchgerechnete Beispiele
+% ==========================================================
+
+\bereich[cSchaetz]{REZEPT C1 · Zustandsraum aus Blockschaltbild ablesen}
+\noindent\footnotesize
+Jeder Verzögerer $z^{-1}$ ist ein Zustand $x_i$: sein \emph{Ausgang} ist $x_i[k]$,
+sein \emph{Eingang} ist $x_i[k{+}1]$. Stelle für jeden Verzögerer-Eingang die
+Summe aller einlaufenden Pfade auf.
+\begin{rezept}
+  \rs{Verzögerer durchnummerieren $x_1\dots x_n$ (Ausgang $=x_i[k]$).}
+  \rs{Für jeden Eingang $x_i[k{+}1]$: alle einlaufenden Zweige addieren
+      (Rückkopplungsfaktor $\to$ Eintrag in $\mathbf A$, Pfad von $u[k]\to\mathbf B$,
+      Pfad von $z[k]\to\mathbf G$).}
+  \rs{Ausgangsgleichung $y[k]=\mathbf C\,\mathbf x[k]+n[k]$: welcher Zustand (mit
+      welchem Faktor) liegt am Messpunkt? $\to\mathbf C$. Additives Rauschen $n[k]$
+      am Ausgang.}
+  \rs{Reihenfolge im Vektor frei, aber konsistent halten (Eingang von $x_i$ links,
+      Ausgang von $x_i$ rechts vom $z^{-1}$).}
+\end{rezept}
+\fallstrick{Skalierungsblock \emph{nach} dem Verzögerer (z.\,B.\ $\cdot 2$ am
+  Messabgriff) gehört in $\mathbf C$, nicht in $\mathbf A$ (Fall $C{\neq}1$).\;
+  Rauschpfad $z[k]$ läuft i.\,d.\,R.\ über einen eigenen Faktor in $\mathbf G$ —
+  nicht mit $\mathbf B$ verwechseln.}
+\miniexample{System 1.\ Ordnung}{%
+  $x[k{+}1]=0{,}8\,x[k]+0{,}2\,z[k]+0{,}7\,u[k]$,\quad $y[k]=x[k]+n[k]$\\
+  $\Rightarrow A{=}0{,}8,\;B{=}0{,}7,\;G{=}0{,}2,\;C{=}1$.}
+\bereichende
+
+\bereich[cSchaetz]{REZEPT C2 · Kalman-Algorithmus iterativ rechnen}
+\noindent\footnotesize
+Beide Varianten kommen vor. Start stets $\mathbf F[0]=\mathbf 0$, $\hat{\mathbf x}[0]=\mathbf 0$
+(falls nicht anders angegeben). Pro Schritt $k$ in dieser Reihenfolge:
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Variante A — OHNE Innovationsterm
+      (a-priori $\hat x[k]$)}\par\vspace{0.1em}
+    \begin{rezept}
+      \rs{$R[k]=N_0+C\,F[k]\,C^{T}$}
+      \rs{$K[k]=A\,F[k]\,C^{T}\,R^{-1}[k]$}
+      \rs{$\hat x[k{+}1]=A\,\hat x[k]+B\,u[k]+K[k]\,(y[k]-C\,\hat x[k])$}
+      \rs{$F[k{+}1]=A\,F[k]\,A^{T}-K[k]\,R[k]\,K^{T}[k]+G\,Z_0\,G^{T}$}
+    \end{rezept}} &
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Variante B — MIT Innovationsterm
+      (a-posteriori $\hat x^{+}[k]$)}\par\vspace{0.1em}
+    \begin{rezept}
+      \rs{$R[k]=N_0+C\,F[k]\,C^{T}$}
+      \rs{$M[k]=F[k]\,C^{T}\,R^{-1}[k]$\quad(Gewichtungsmatrix),\;\; $K[k]=A\,M[k]$}
+      \rs{$\hat x^{+}[k]=\hat x[k]+M[k]\,(y[k]-C\,\hat x[k])$}
+      \rs{$\hat x[k{+}1]=A\,\hat x^{+}[k]+B\,u[k]$}
+      \rs{$F[k{+}1]=A\,F[k]\,A^{T}-K[k]\,R[k]\,K^{T}[k]+G\,Z_0\,G^{T}$}
+    \end{rezept}} &
+  \infoblock{\textbf{Welche Variante?}\\
+    „Schätzwert $\hat x[k]$ / Eingang $y[k]$, Ausgang $\hat x$" ohne extra
+    Korrekturpfad $\to$ \emph{ohne}.\\
+    Innovationspfad $e[k]{=}y{-}\hat y$ wirkt direkt auf $\hat x^{+}[k]$
+    $\to$ \emph{mit}.\\[0.3em]
+    \textbf{Alternative Nomenklatur} möglich: $\Sigma\,{\hat=}\,M$,
+    $\Lambda\,{\hat=}\,$Rückführung, $\Phi,\Psi\,{\hat=}\,A,$ Verzög.\ —
+    Struktur identisch.\\[0.3em]
+    Nur $K[k]$ bzw.\ $M[k]$ und $F[k]$ sind \emph{zeitvariant}; $A,B,C,G$ konstant.}
+\end{formelreihe}
+\fallstrick{Erst $R$, dann $K/M$, dann $\hat x$, zuletzt $F$ — Reihenfolge nicht
+  vertauschen.\; $F[0]{=}0\Rightarrow K[0]{=}0\Rightarrow F[1]=G Z_0 G^{T}$ (immer!).\;
+  Bei $C{\neq}1$: $C F C^{T}$ und $C\hat x$ nicht vergessen.\;
+  $u[k]=\cos(k\pi)=(-1)^k$ erzeugt die Folge $1,-1,1,\dots$}
+\bereichende
+
+\bereich[cSchaetz]{REZEPT C3 · Dimensionen \& stationärer Endwert}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Dimensionen ($n$ Zustände, $1$ Ausgang)}\\[0.1em]
+    {\footnotesize
+    $\mathbf A:n{\times}n$,\;\; $\mathbf C:1{\times}n$,\;\;
+    $\mathbf G:n{\times}q$,\;\; $\mathbf F:n{\times}n$,\\[0.15em]
+    $R:1{\times}1$,\;\; $\mathbf M[k]:n{\times}1$,\;\; $\mathbf K[k]:n{\times}1$.\\[0.1em]
+    \itshape ($q$ = Anzahl Systemrausch-Quellen $z$.)}} &
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Stationärer Endwert (Skalar)}\par\vspace{0.05em}
+    \begin{rezept}
+      \rs{Setze $F[k{+}1]=F[k]=f_\infty$ in die $F$-Rekursion ein.}
+      \rs{$K/M$ durch $f_\infty$ ausdrücken und einsetzen.}
+      \rs{Auf Form $f_\infty^2+p\,f_\infty+q=0$ bringen, quadr.\ Gl.\ lösen.}
+      \rs{\emph{Nur positive} Lösung $f_\infty$ behalten $\to$ $K_\infty$ bzw.\ $M_\infty$.}
+    \end{rezept}} &
+  \infoblock{\textbf{Existiert ein Endwert?} Ja, wenn System LTI \emph{und}
+    Rauschen (schwach) stationär ist — dann Begründung mit genau diesem Satz.\\[0.3em]
+    Mit den Endwerten initialisiert: \emph{kein} Einschwingvorgang, Filter
+    zeitinvariant $\Rightarrow$ entspricht dem Wiener-Filter.}
+\end{formelreihe}
+\miniexample{Skalar, ohne Innovation ($A{=}0{,}8$, $C{=}1$, $G{=}0{,}2$, $Z_0{=}3$, $N_0{=}2$)}{%
+  $R[k]{=}2{+}f[k]$,\quad $K[k]{=}\dfrac{0{,}8\,f[k]}{2{+}f[k]}$,\quad
+  $f[k{+}1]{=}0{,}64\,f[k]-\dfrac{0{,}64\,f^{2}[k]}{2{+}f[k]}+0{,}12$\\[0.25em]
+  \begin{tabular}{@{}l|cccc@{}}
+    $k$ & 0 & 1 & 2 & 3\\\hline
+    $f[k]$ & 0 & 0{,}12 & 0{,}1925 & 0{,}2324\\
+    $K[k]$ & 0 & 0{,}0453 & 0{,}0702 & 0{,}0833
+  \end{tabular}\quad
+  $\hat x[k{+}1]{=}0{,}8\hat x{+}0{,}7u{+}K(y{-}\hat x)$\\[0.25em]
+  Endwert: $f_\infty{=}0{,}64f_\infty-\frac{0{,}64f_\infty^2}{2+f_\infty}+0{,}12$
+  $\Rightarrow f_\infty^2-1{,}73f_\infty-4{,}9{=}0$, $f_\infty{=}3{,}24$,
+  $K_\infty{=}\frac{0{,}8\cdot3{,}24}{2+3{,}24}{=}0{,}495$.}
+\miniexample{Matrix, 3.\ Ordnung, ohne Innovation (erster Schritt)}{%
+  $\mathbf A{=}\!\begin{psmallmatrix}0&0&0\\1&0{,}7&0\\0&0&0{,}81\end{psmallmatrix}$,\;
+  $\mathbf G{=}\!\begin{psmallmatrix}0&0\\1&0\\0&0{,}9\end{psmallmatrix}$,\;
+  $\mathbf C{=}\!\begin{psmallmatrix}0&2&2\end{psmallmatrix}$,\;
+  $\mathbf Z_0{=}\!\begin{psmallmatrix}1&0\\0&2\end{psmallmatrix}$,\; $R_0{=}3$.\\[0.2em]
+  $\mathbf F[0]{=}\mathbf 0\Rightarrow R[0]{=}R_0{=}3\Rightarrow \mathbf K[0]{=}\mathbf 0$
+  $\Rightarrow \mathbf F[1]{=}\mathbf G\,\mathbf Z_0\,\mathbf G^{T}
+  {=}\!\begin{psmallmatrix}0&0&0\\0&1&0\\0&0&1{,}62\end{psmallmatrix}$.\quad
+  $\dim\mathbf K[1]=3{\times}1$.}
+\bereichende
+
+\bereich[cSchaetz]{REZEPT C4 · Wiener-Filter als MSE-Minimierung im Zeitbereich}
+\noindent\footnotesize
+Tritt auf, wenn das Filter eine \emph{Konstante} $h_0$ ist (kein LDS gefordn.).
+Ziel: $E\{e^2\}\to\min$.
+\begin{rezept}
+  \rs{Schätzwert hinschreiben: $\hat s(t)=h_0\cdot x(t)$, dabei $x(t)$ durch
+      $s$, verzögerte $s$ und Rauschen ausdrücken.}
+  \rs{Fehler $e(t)=s(t)-\hat s(t)$ einsetzen und nach Termen ordnen.}
+  \rs{$E\{e^2\}$ ausmultiplizieren; nutze $E\{s(t)s(t{-}\tau)\}=\varphi_{ss}(\tau)$,
+      $E\{s\cdot n\}=0$, $E\{n^2\}=\varphi_{nn}(0)$.}
+  \rs{Ergebnis ist Parabel $E\{e^2\}=\alpha\,h_0^2+\beta\,h_0+\gamma$.}
+  \rs{$\dfrac{\mathrm d}{\mathrm d h_0}E\{e^2\}=0 \Rightarrow h_0=-\dfrac{\beta}{2\alpha}$.}
+\end{rezept}
+\miniexample{$\hat s=h_0(5s(t)+n_1(t)+s(t{-}2))$, $\varphi_{ss}(0){=}0{,}6$, $\varphi_{nn}{=}10\delta$}{%
+  $e=s(1{-}5h_0)-h_0 s(t{-}2)-h_0 n_1$\;
+  $\Rightarrow E\{e^2\}=28{,}6\,h_0^2-6{,}6\,h_0+0{,}6$\;
+  $\Rightarrow h_0=\dfrac{6{,}6}{2\cdot28{,}6}=0{,}115$.}
 \bereichende
