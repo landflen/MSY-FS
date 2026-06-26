@@ -13,7 +13,7 @@
 \usepackage{multirow}
 \usepackage{microtype}
 \usepackage{needspace}
-\usepackage{alltt}   % ASCII-Skizzen: monospace, erhält Leerzeichen/Umbrüche
+\usepackage{tikz}    % kleine Skizzen (Dirac/Rechteck/Dreieck) für Faltungs-Mechanik
 \geometry{top=10mm,bottom=14mm,left=10mm,right=10mm,includefoot}
 \setlength{\parskip}{0pt}
 \setlength{\parindent}{0pt}
@@ -127,8 +127,18 @@
       {\footnotesize\color{red!72!black}\textbf{Ergänzung (nicht in Original-FS):}}\;%
       \footnotesize #1}}\par}
 
-% ---- Skizzen-Box: volle Breite, ASCII-Diagramm + Worterklärung
-% Verwendung:  \begin{skizzebox}{Titel} ... \begin{alltt}...\end{alltt} ... \end{skizzebox}
+% ---- Skizzen-Box: volle Breite, TikZ-Diagramm + Worterklärung
+% Verwendung:  \begin{skizzebox}{Titel} ... \begin{tikzpicture}...\end{tikzpicture} ... \end{skizzebox}
+% ---- TikZ-Helfer für die Faltungs-Skizzen (nur in tikzpicture verwenden) -------
+\tikzset{skz/.style={teal!72!black,line width=0.7pt}}
+\newcommand{\sax}[2]{\draw[->,gray!55,line width=0.3pt] (#1,0)--(#2,0);} % x-Achse von..bis
+% Dirac: x, Höhe, Label (oben)
+\newcommand{\sdir}[3]{\draw[->,skz,line width=1pt] (#1,0)--(#1,#2);%
+  \node[font=\tiny,teal!50!black,above=-1.5pt] at (#1,#2){#3};}
+\newcommand{\srct}[3]{\draw[skz] (#1,0)--(#1,#3)--(#2,#3)--(#2,0);}      % Rechteck x1,x2,Höhe
+\newcommand{\stri}[4]{\draw[skz] (#1,0)--(#3,#4)--(#2,0);}              % Dreieck Basis x1..x2, Spitze xp,Höhe
+\newcommand{\strap}[5]{\draw[skz] (#1,0)--(#2,#5)--(#3,#5)--(#4,0);}    % Trapez x1<x2<x3<x4, Höhe
+\newcommand{\sop}[2]{\node[font=\footnotesize] at (#1){$#2$};}          % Operator (*,=) an Position
 \newsavebox{\skizzebuffer}
 \newenvironment{skizzebox}[1]{%
   \par\vspace{0.12em}%

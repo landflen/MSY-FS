@@ -228,37 +228,63 @@
 \bereich[cProzess]{FALTUNGS-MECHANIK · wie man $\varphi*h$ wirklich rechnet}
 \noindent\footnotesize
 Die Korrelation durch eine Strecke ist immer eine \textbf{Faltung}. Stolperstein
-ist die Mechanik — darum erst anschaulich, dann (s.\,u.\ \emph{Master-Regel}) die
-Regel, \emph{was} womit gefaltet wird. Kurzschreibweise: $d(\tau){=}\delta(\tau)$,
-Stelle$@$Gewicht.\par
+ist die Mechanik — darum erst anschaulich (Skizzen unten: \emph{Pfeil} $=$ Dirac,
+Pfeilhöhe $=$ Gewicht), dann (s.\,u.\ \emph{Master-Regel}) die Regel, \emph{was}
+womit gefaltet wird.\par
 
-\begin{skizzebox}{1 · Dirac verschiebt / skaliert — die Grundbewegung}
-\begin{alltt}
-  f(t) * d(t-D)        = f(t-D)        Kopie von f, nur nach D verschoben
-  f(t) * a*d(t-D)      = a*f(t-D)      Kopie, zusaetzlich mit a skaliert
-  f(t) * [d + 2d(t-D)] = f(t) + 2f(t-D)   jeder Dirac STEMPELT eine Kopie,
-                                          am Ende alle Kopien aufaddieren
-\end{alltt}
+\begin{skizzebox}{1 · Dirac verschiebt \& skaliert — jeder Pfeil STEMPELT eine Kopie}
+\centering
+\begin{tikzpicture}[baseline]
+  % f
+  \sax{-0.15}{1.15}\stri{0}{1}{0.5}{0.6}\node[font=\tiny,below=0pt] at (0.5,0){$f$};
+  \sop{1.55,0.32}{*}
+  % Kamm  d + 2d(t-D)
+  \sax{1.9}{3.35}\sdir{2.15}{0.55}{\,$1$}\sdir{2.95}{1.0}{\,$2$}
+  \node[font=\tiny,below=0pt] at (2.15,0){$0$};\node[font=\tiny,below=0pt] at (2.95,0){$D$};
+  \sop{3.65,0.32}{=}
+  % Ergebnis: zwei (gewichtete) Kopien
+  \sax{3.95}{6.55}\stri{4.1}{5.1}{4.6}{0.6}\stri{5.35}{6.35}{5.85}{1.0}
+  \node[font=\tiny,below=0pt] at (4.6,0){$0$};\node[font=\tiny,below=0pt] at (5.85,0){$D$};
+\end{tikzpicture}\par
+{\centering\footnotesize Pfeilhöhe $=$ Gewicht.\;
+  $\delta$ \emph{verschiebt} die Form, $a\,\delta$ \emph{skaliert} sie zusätzlich
+  mit $a$; mehrere Diracs stempeln je eine Kopie $\to$ am Ende aufaddieren.\par}
 \end{skizzebox}
 
 \begin{skizzebox}{2 · Dirac $*$ Dirac — Stellen addieren, Gewichte multiplizieren}
-\begin{alltt}
-   a*d(t-D1)  *  b*d(t-D2)  =  (a*b) * d( t-(D1+D2) )
-   |__________________________|        |____________|
-        GEWICHTE  multiplizieren        STELLEN  addieren   (a*b ;  D1+D2)
-\end{alltt}
+\centering
+\begin{tikzpicture}[baseline]
+  \sax{-0.15}{1.0}\sdir{0.55}{0.6}{\,$a$}\node[font=\tiny,below=0pt] at (0.55,0){$D_1$};
+  \sop{1.3,0.32}{*}
+  \sax{1.7}{2.85}\sdir{2.35}{0.6}{\,$b$}\node[font=\tiny,below=0pt] at (2.35,0){$D_2$};
+  \sop{3.15,0.32}{=}
+  \sax{3.55}{5.3}\sdir{4.6}{1.0}{\,$a\,b$}\node[font=\tiny,below=0pt] at (4.6,0){$D_1{+}D_2$};
+\end{tikzpicture}\par
+{\centering\footnotesize Stelle des Ergebnisses $=D_1{+}D_2$ (\textbf{addieren}),
+  Gewicht $=a\,b$ (\textbf{multiplizieren}).\par}
 \end{skizzebox}
 
 \begin{skizzebox}{3 · Kamm $*$ Kamm — alle Paare; Beispiel $h{=}\delta{+}2\delta(t{-}80){+}\delta(t{-}200)$}
-\begin{alltt}
-   h    : 0@1   80@2   200@1            (Stelle@Gewicht)
-   h(-t): 0@1  -80@2  -200@1
-   phi_hh = h * h(-t):  ALLE 3x3 Paare, Stelle = Di-Dj, Gewicht = wi*wj
-      t =    0 :  1*1 + 2*2 + 1*1 = 6   <- drei Paare auf GLEICHER Stelle,
-      t = +-80 :  2                         deren Gewichte werden ADDIERT
-      t = +-120:  2
-      t = +-200:  1
-\end{alltt}
+\centering
+\begin{tikzpicture}[baseline]
+  % h
+  \sax{-0.25}{2.25}
+  \sdir{0}{0.32}{\,$1$}\sdir{0.8}{0.6}{\,$2$}\sdir{2.0}{0.32}{\,$1$}
+  \node[font=\tiny,below=0pt] at (0,0){$0$};\node[font=\tiny,below=0pt] at (0.8,0){$80$};
+  \node[font=\tiny,below=0pt] at (2.0,0){$200$};
+  \node[font=\footnotesize] at (3.2,0.35){$\xrightarrow{\;h*h(-t)\;}$};
+  % phi_hh
+  \begin{scope}[xshift=4.6cm]
+    \sax{-2.3}{2.3}
+    \sdir{-2.0}{0.18}{}\sdir{-1.2}{0.34}{}\sdir{-0.8}{0.34}{}
+    \sdir{0}{1.0}{\,$6$}\sdir{0.8}{0.34}{\,$2$}\sdir{1.2}{0.34}{\,$2$}\sdir{2.0}{0.18}{\,$1$}
+    \node[font=\tiny,below=0pt] at (0,0){$0$};
+    \node[font=\tiny,below=0pt] at (-2.0,0){\rotatebox{0}{$\mp200$}};
+    \node[font=\tiny,below=0pt] at (1.0,0){$\pm80,120$};
+  \end{scope}
+\end{tikzpicture}\par
+{\centering\footnotesize Alle $3{\times}3$ Paare: Stelle $=D_i{-}D_j$, Gewicht $=w_iw_j$.
+  Drei Paare landen auf $\tau{=}0$ $\Rightarrow$ Gewichte addiert: $1{+}4{+}1{=}\mathbf{6}$.\par}
 \end{skizzebox}
 
 \fallstrick{\textbf{Zwei verschiedene Operationen — nicht verwechseln:} beim
@@ -266,12 +292,37 @@ Stelle$@$Gewicht.\par
   \emph{Zusammenfassen} des Ergebnisses werden Diracs auf \emph{gleicher} Stelle
   durch \textbf{Addition} der Gewichte verschmolzen (oben das $6$ bei $\tau{=}0$).}
 
-\begin{skizzebox}{4 · Form-Regeln — Rechteck $*$ Dirac bleibt Rechteck!}
-\begin{alltt}
-   rect * d(t-D)  =  rect (nur verschoben)   Dirac hat keine Breite
-   rect * rect    =  DREIECK (gleiche Breite) gleitende Ueberlappungsflaeche
-                  =  TRAPEZ  (versch. Breite)  -> lineare Flanken
-\end{alltt}
+\begin{skizzebox}{4 · Form-Regeln — Rechteck $*$ Dirac bleibt Rechteck (kein Dreieck!)}
+\centering
+% Zeile i: rect * dirac = rect (verschoben)
+\begin{tikzpicture}[baseline]
+  \sax{-0.15}{0.95}\srct{0}{0.8}{0.55}
+  \sop{1.2,0.3}{*}
+  \sax{1.55}{2.55}\sdir{2.05}{0.55}{}\node[font=\tiny,below=0pt] at (2.05,0){$D$};
+  \sop{2.85,0.3}{=}
+  \sax{3.2}{4.35}\srct{3.5}{4.3}{0.55}
+  \node[font=\tiny] at (5.4,0.28){\itshape nur verschoben};
+\end{tikzpicture}\par\vspace{1pt}
+% Zeile ii: rect * rect = Dreieck (gleiche Breite)
+\begin{tikzpicture}[baseline]
+  \sax{-0.15}{0.95}\srct{0}{0.8}{0.55}
+  \sop{1.2,0.3}{*}
+  \sax{1.55}{2.55}\srct{1.6}{2.4}{0.55}
+  \sop{2.85,0.3}{=}
+  \sax{3.2}{4.85}\stri{3.45}{4.65}{4.05}{0.6}
+  \node[font=\tiny] at (5.75,0.28){\itshape \textbf{Dreieck} (gl.\ Breite)};
+\end{tikzpicture}\par\vspace{1pt}
+% Zeile iii: rect(breit) * rect(schmal) = Trapez
+\begin{tikzpicture}[baseline]
+  \sax{-0.15}{1.35}\srct{0}{1.2}{0.55}
+  \sop{1.6,0.3}{*}
+  \sax{1.95}{2.75}\srct{2.05}{2.55}{0.55}
+  \sop{3.05,0.3}{=}
+  \sax{3.4}{5.25}\strap{3.6}{4.1}{4.75}{5.25}{0.55}
+  \node[font=\tiny] at (6.1,0.28){\itshape \textbf{Trapez} (versch.\ Breite)};
+\end{tikzpicture}\par
+{\centering\footnotesize Dirac hat keine Breite $\to$ nur verschieben.
+  Rechteck$*$Rechteck $=$ gleitende Überlappungsfläche $\to$ lineare Flanken.\par}
 \end{skizzebox}
 \noindent\footnotesize\emph{Merke:} ein Dreieck entsteht \textbf{erst} aus
 Rechteck$*$Rechteck (z.\,B.\ weiß durch \emph{einen} MWB), nie aus Rechteck$*$Dirac.
