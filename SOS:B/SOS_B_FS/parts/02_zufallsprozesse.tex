@@ -104,6 +104,31 @@
 \end{formelreihe}
 \bereichende
 
+\bereich[cProzess]{BEGRÜNDUNGS-BAUSTEINE · Stationarität \& Musterfunktionen}
+\begin{formelreihe}
+  \infoblock{\textbf{Streng / schwach / instationär}\\[0.15em]
+    \emph{streng:} $f_X(x,t)$ zeitinvariant $\Rightarrow$ \emph{alle} Momente
+    zeitinvariant.\\
+    \emph{schwach (WSS):} nur $\mu_X{=}$const \emph{und} $\varphi_{XX}(\tau)$.\\
+    \emph{instationär:} $\mu_X(t)$, $\sigma_X^2(t)$ oder $\varphi$ zeitabhängig.\\[0.2em]
+    Standardsatz: „Eingang ist streng stationär; keines der
+    LTI-Glieder kann diese Eigenschaft ändern $\Rightarrow$ Ausgang ebenfalls
+    streng stationär."} &
+  \infoblock{\textbf{Warum bleibt es stationär?}\\
+    Lineare, \emph{zeitinvariante} Operationen (Skalierung, Offset, Verzögerung,
+    Faltung, Summe stationärer Prozesse) erzeugen aus WSS-Eingang WSS-Ausgang —
+    Verschiebung/Skalierung ändern die Zeitinvarianz nicht.\\[0.2em]
+    Bsp.\ $Z{=}X{+}g\,Y$ mit $X,Y$ stationär, $g$ konst.\ $\Rightarrow$
+    $Z$ (schwach) stationär.} &
+  \infoblock{\textbf{Musterfunktionen / Ergodizität}\\
+    $\mu_X$ \emph{quer} $=$ Ensemblemittel über Realisierungen bei festem $t$;
+    \emph{längs} $=$ Zeitmittel einer Realisierung.\\
+    $q_x[k]=\sqrt{\frac1N\sum_i x_i^2[k]}$ (quer).\\
+    \emph{ergodisch}: Zeitmittel $=$ Ensemblemittel.\\
+    $\sigma^2(t_1){=}\sigma^2(t_2)$? aus Streubreite der Musterfkt.\ ablesen.} \\
+\end{formelreihe}
+\bereichende
+
 \bereich[cProzess]{Systemverarbeitung — Lineare Operationen (WSS vorausgesetzt)}
 \begin{formelreihe}
   \infoblock{Für alle Ops gilt: Aus (schwach) stationärem\\
@@ -152,34 +177,6 @@
 \end{formelreihe}
 \bereichende
 
-\bereich[cProzess]{Leistungsdichtespektrum (LDS) \& Weißes Rauschen}
-\begin{formelreihe}
-  \formelblock{Wiener-Khinchin}{%
-    \Phi_{XX}(\omega)=\mathcal{F}\{\varphi_{XX}(\tau)\}
-    =\int_{-\infty}^{+\infty}\!\varphi_{XX}(\tau)\,e^{-j\omega\tau}\,\mathrm{d}\tau} &
-  \formelblock{Parseval: Leistung}{\dfrac{1}{2\pi}\int_{-\infty}^{+\infty}\!
-    \Phi_{XX}(\omega)\,\mathrm{d}\omega
-    =\varphi_{XX}(0)=E\{X^2\}} &
-  \formelblock{Eigenschaften LDS}{\Phi_{XX}(\omega)=\Phi_{XX}(-\omega)\quad\text{(gerade)}\\[0.1em]
-    \mathrm{Im}\{\Phi_{XX}(\omega)\}=0\quad\text{(reell)}\\[0.1em]
-    \Phi_{XX}(\omega)\ge0} \\[0.3em]
-  \formelblock{Kreuz-LDS}{\Phi_{XY}(\omega)=\mathcal{F}\{\varphi_{XY}(\tau)\}\\[0.1em]
-    \Phi_{XY}(\omega)=\Phi_{YX}(-\omega)} &
-  \formelblock{Weißes Rauschen $N(t)$ (allg.)}{%
-    \text{mw-frei: }\psi_{XX}(t_1,t_2)=\varphi_{XX}(t_1,t_2)\\[0.05em]
-    \quad=\sigma_X^2(t_1)\cdot\delta(t_1{-}t_2)\\[0.1em]
-    \text{stationär: }\varphi_{NN}(\tau)=N_0\cdot\delta(\tau)\\[0.05em]
-    \Phi_{NN}(\omega)=N_0=\mathrm{const}} &
-  \beispielblock{$\Phi_{XX}(\omega)$ aus AKF}{%
-    \varphi_{XX}(\tau)=\tfrac{A_0^2}{2}\cos(\omega_0\tau)\\[0.2em]
-    \Phi_{XX}(\omega)=\tfrac{\pi A_0^2}{2}(\delta(\omega{-}\omega_0)+\delta(\omega{+}\omega_0))} \\
-\end{formelreihe}
-\bereichende
-
-% ==========================================================
-%  REZEPTE — Korrelationsfunktionen / LDS / Plot-Erkennung
-% ==========================================================
-
 \bereich[cProzess]{OPERATIONSTABELLE · eine Zeile pro Blocktyp (WSS-Eingang)}
 \noindent\scriptsize\setlength{\tabcolsep}{4pt}%
 \renewcommand{\arraystretch}{1.25}%
@@ -212,19 +209,108 @@
   Rauschen wird zum \textbf{Dreieck} (Basis $\pm T$, Spitze $X_0/T$).\;
   Block mit „$T_d$" $=$ \emph{reine Verzögerung}, $h(t){=}\delta(t{-}T_d)$
   $\Rightarrow$ nur Verschieben, kein Dreieck.}
-\ergbox{\textbf{Summe zweier Pfade aus DERSELBEN Quelle} (korreliert/verzögert),
-  $Z{=}X{+}Y$ mit $X,Y$ aus demselben Prozess:
-  \[\varphi_{ZZ}=\varphi_{XX}+\varphi_{YY}+\varphi_{XY}+\varphi_{YX}\]
-  Die \textbf{Kreuzterme} $\varphi_{XY},\varphi_{YX}$ dürfen NICHT entfallen
-  (nur bei Unkorreliertheit/Orthogonalität fallen sie weg). Beispiel
-  $z{=}y(t{-}T_d){+}a(t)\Rightarrow
-  \varphi_{zz}=\varphi_{yy}+\varphi_{ya}(\tau{-}T_d)+\varphi_{ay}(\tau{+}T_d)+\varphi_{aa}$.}
+\ergbox{\textbf{Summe zweier Pfade aus DERSELBEN Quelle} (korreliert/verzögert).
+  \emph{Konvention:} Eingang $x$, Ausgang $y$, Summanden $s_1,s_2$.\;
+  Mit $y{=}s_1{+}s_2$ (beide aus demselben Prozess):
+  \[\varphi_{yy}=\varphi_{s_1s_1}+\varphi_{s_2s_2}+\varphi_{s_1s_2}+\varphi_{s_2s_1}\]
+  Die \textbf{Kreuzterme} $\varphi_{s_1s_2},\varphi_{s_2s_1}$ dürfen NICHT entfallen
+  (nur bei Unkorreliertheit/Orthogonalität fallen sie weg).\par
+  \vspace{0.15em}
+  \textit{Beispiel} (Kette $x\to g\to a\to h\to b$), Ausgang
+  $y{=}b(t{-}T_d){+}a(t)$, also $s_1{=}b(t{-}T_d)$, $s_2{=}a(t)$:
+  \[\varphi_{yy}=\varphi_{bb}+\varphi_{aa}+\varphi_{ba}(\tau{-}T_d)+\varphi_{ab}(\tau{+}T_d)\]
+  ($\varphi_{s_1s_1}{=}\varphi_{bb}$, da Verzögerung die AKF nicht ändert;
+  $\varphi_{s_2s_2}{=}\varphi_{aa}$.)\par
+  \vspace{0.25em}
+  \centering
+  \begin{tikzpicture}[font=\tiny,color=teal!72!black,line width=0.5pt,
+      blk/.style={draw,fill=white,inner sep=1.3pt,minimum height=3mm},
+      sj/.style={draw,circle,inner sep=0pt,minimum size=3.2mm}]
+    % obere (direkte) Linie:  x -> g -> a ---> (+) -> y
+    \node (x) at (0,0.8) {$x$};
+    \node[blk] (g) at (0.8,0.8) {$g$};
+    \coordinate (a) at (1.6,0.8);
+    \node[sj]  (s) at (4.7,0.8) {$+$};
+    \node (y) at (5.35,0.8) {$y$};
+    % unterer Pfad:  a -> h -> b -> [Verz. Td] -> (+)
+    \node[blk] (h)  at (2.4,0) {$h$};
+    \node[blk] (vz) at (3.7,0) {Verz.\,$T_d$};
+    \coordinate (al) at (1.6,0);
+    \coordinate (sl) at (4.7,0);
+    % Verbindungen
+    \draw[->] (x)--(g);
+    \draw (g)--(a);
+    \node[above=0pt] at (a) {$a$};
+    \fill (a) circle (0.5pt);                       % Abgriff bei a
+    \draw[->] (a)-- node[above,pos=0.55]{$s_2$} (s);
+    \draw[->] (s)--(y);
+    \draw (a)--(al);
+    \draw[->] (al)--(h);
+    \draw[->] (h)-- node[above]{$b$} (vz);
+    \draw (vz)--(sl);
+    \draw[->] (sl)-- node[left=1pt,pos=0.5]{$s_1$} (s);
+  \end{tikzpicture}}
 \bereichende
 
-% ==========================================================
-%  FALTUNGS-MECHANIK (grafisch) — vor der Master-Regel:
-%  erst WIE gefaltet wird, dann (Master-Regel) WAS womit.
-% ==========================================================
+\bereich[cProzess]{Konstanter Offset $c$ am Summenknoten}
+\begin{formelreihe}
+  \infoblock{Eine additive Konstante $c$ ist \textbf{kein} gefiltertes $x$ —
+    sie gehört \textbf{nicht} in die effektive $h_y$. Sie koppelt in Korrelationen
+    nur über den \emph{Mittelwert des anderen Faktors}.} &
+  \formelblock{Wo $c$ herausfällt / bleibt}{%
+    \text{Partner mw-frei}\Rightarrow c\text{ fällt aus allen KKF}\\
+    (\varphi_{ya},\varphi_{ba},\dots=0\text{-Anteil von }c)\\[0.2em]
+    \mu_y=\dots+c\quad(\text{bleibt})\\
+    \varphi_{yy}=\varphi_{ww}+c^2\;(\text{mw-freier Rest})} &
+  \infoblock{\textbf{Merksatz:} „Konstante $\times$ etwas-um-Null-gemittelt $=0$;
+    Konstante $\times$ Konstante bleibt."\\[0.2em]
+    Im LDS: $c$ erzeugt einen $\delta(\omega)$-Anteil bei $f{=}0$.} \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cProzess]{Leistungsdichtespektrum (LDS) \& Weißes Rauschen}
+\begin{formelreihe}
+  \formelblock{Wiener-Khinchin}{%
+    \Phi_{XX}(\omega)=\mathcal{F}\{\varphi_{XX}(\tau)\}
+    =\int_{-\infty}^{+\infty}\!\varphi_{XX}(\tau)\,e^{-j\omega\tau}\,\mathrm{d}\tau} &
+  \formelblock{Parseval: Leistung}{\dfrac{1}{2\pi}\int_{-\infty}^{+\infty}\!
+    \Phi_{XX}(\omega)\,\mathrm{d}\omega
+    =\varphi_{XX}(0)=E\{X^2\}} &
+  \formelblock{Eigenschaften LDS}{\Phi_{XX}(\omega)=\Phi_{XX}(-\omega)\quad\text{(gerade)}\\[0.1em]
+    \mathrm{Im}\{\Phi_{XX}(\omega)\}=0\quad\text{(reell)}\\[0.1em]
+    \Phi_{XX}(\omega)\ge0} \\[0.3em]
+  \formelblock{Kreuz-LDS}{\Phi_{XY}(\omega)=\mathcal{F}\{\varphi_{XY}(\tau)\}\\[0.1em]
+    \Phi_{XY}(\omega)=\Phi_{YX}(-\omega)} &
+  \formelblock{Weißes Rauschen $N(t)$ (allg.)}{%
+    \text{mw-frei: }\psi_{XX}(t_1,t_2)=\varphi_{XX}(t_1,t_2)\\[0.05em]
+    \quad=\sigma_X^2(t_1)\cdot\delta(t_1{-}t_2)\\[0.1em]
+    \text{stationär: }\varphi_{NN}(\tau)=N_0\cdot\delta(\tau)\\[0.05em]
+    \Phi_{NN}(\omega)=N_0=\mathrm{const}} &
+  \beispielblock{$\Phi_{XX}(\omega)$ aus AKF}{%
+    \varphi_{XX}(\tau)=\tfrac{A_0^2}{2}\cos(\omega_0\tau)\\[0.2em]
+    \Phi_{XX}(\omega)=\tfrac{\pi A_0^2}{2}(\delta(\omega{-}\omega_0)+\delta(\omega{+}\omega_0))} \\
+\end{formelreihe}
+\bereichende
+
+\bereich[cProzess]{LDS-Übergang · Faltung wird Multiplikation (Frequenzbereich)}
+\begin{formelreihe}
+  \formelblock{Weiß $\to$ flach}{\varphi_{xx}{=}X_0\delta(\tau)\;\Rightarrow\;
+    \Phi_{xx}(\omega){=}X_0={\rm const}\\[0.2em]
+    \text{Falten }\to\text{ Multiplizieren:}\\
+    \Phi_{yx}{=}\Phi_{xx}H,\;\;\Phi_{xy}{=}\Phi_{xx}H^*\\
+    \Phi_{yy}{=}\Phi_{xx}|H|^2} &
+  \formelblock{AKF-Spektrum $\Phi_{aa}=\Phi_{xx}|H|^2$}{%
+    \text{stets }\textbf{reell},\;\ge0\\[0.15em]
+    \text{MWB: }|H|^2{=}{\rm si}^2\!\left(\tfrac{\omega T}{2}\right)\\
+    \to\text{si}^2\text{-Glocke (Spitze }X_0,\\
+    \text{Nullst.\ bei Vielfachen von }1/T)} &
+  \infoblock{\textbf{KKF-Spektrum} (z.\,B.\
+    $\Phi_{ba}{=}\Phi_{xx}H_bH_a^*$) i.\,Allg.\ \textbf{komplex}.\\[0.2em]
+    Reine Verzögerung $T_d$ $\Rightarrow$ Phasenfaktor $e^{-j\omega T_d}$;
+    Betrag z.\,B.\ $|{\rm si}|$ (nicht ${\rm si}^2$).} \\
+\end{formelreihe}
+\bereichende
+
 \bereich[cProzess]{FALTUNGS-MECHANIK · wie man $\varphi*h$ wirklich rechnet}
 \noindent\footnotesize
 Die Korrelation durch eine Strecke ist immer eine \textbf{Faltung}. Stolperstein
@@ -334,9 +420,6 @@ Rechteck$*$Rechteck (z.\,B.\ weiß durch \emph{einen} MWB), nie aus Rechteck$*$D
   eine \emph{gewichtete} Dreieck-Kopie an seine Stelle (Spitze $0{,}05{\times}$Gewicht).}
 \bereichende
 
-% ==========================================================
-%  MASTER-REGEL Korrelation durch eine Strecke
-% ==========================================================
 \bereich[cProzess]{MASTER-REGEL · Korrelation durch eine Strecke (gemeinsame Quelle)}
 \noindent\footnotesize
 \textbf{Denkmodell (wie ein Netzwerk):} \emph{Knoten} $(x,a,y)$ sind Messpunkte,
@@ -379,26 +462,7 @@ werden so zum Dirac-Kamm $h=\sum_i w_i\,\delta(t{-}d_i)$.\par
 \end{tabular}\par
 \bereichende
 
-% ==========================================================
-%  Konstanter Offset am Summenknoten
-% ==========================================================
-\bereich[cProzess]{Konstanter Offset $c$ am Summenknoten}
-\begin{formelreihe}
-  \infoblock{Eine additive Konstante $c$ ist \textbf{kein} gefiltertes $x$ —
-    sie gehört \textbf{nicht} in die effektive $h_y$. Sie koppelt in Korrelationen
-    nur über den \emph{Mittelwert des anderen Faktors}.} &
-  \formelblock{Wo $c$ herausfällt / bleibt}{%
-    \text{Partner mw-frei}\Rightarrow c\text{ fällt aus allen KKF}\\
-    (\varphi_{ya},\varphi_{ba},\dots=0\text{-Anteil von }c)\\[0.2em]
-    \mu_y=\dots+c\quad(\text{bleibt})\\
-    \varphi_{yy}=\varphi_{ww}+c^2\;(\text{mw-freier Rest})} &
-  \infoblock{\textbf{Merksatz:} „Konstante $\times$ etwas-um-Null-gemittelt $=0$;
-    Konstante $\times$ Konstante bleibt."\\[0.2em]
-    Im LDS: $c$ erzeugt einen $\delta(\omega)$-Anteil bei $f{=}0$.} \\
-\end{formelreihe}
-\bereichende
-
-\bereich[cProzess]{REZEPT B · Korrelationsfunktionen durch eine Strecke}
+\bereich[cProzess]{REZEPT · Korrelationsfunktionen durch eine Strecke}
 \begin{rezept}
   \rs{Eingang charakterisieren: $\varphi_{XX}(\tau)$ (weiß $\to X_0\,\delta(\tau)$;
       sonst gegeben). $\mu_X$ notieren (oft $0$).}
@@ -419,25 +483,6 @@ werden so zum Dirac-Kamm $h=\sum_i w_i\,\delta(t{-}d_i)$.\par
   $\varphi_{aa}(\tau)$ = Dreieck, Breite $4$ ($\pm2$), Spitze $X_0/T=1$.\;
   Verzögerung $T_d{=}2$: $\varphi_{ba}(\tau)$ = Rechteck/Trapez um $\tau{=}T_d$
   verschoben.\; $\varphi_{ya}=\varphi_{aa}+\varphi_{ba}$ (gemeinsame Quelle!).}
-\bereichende
-
-\bereich[cProzess]{LDS-Übergang · Faltung wird Multiplikation (Frequenzbereich)}
-\begin{formelreihe}
-  \formelblock{Weiß $\to$ flach}{\varphi_{xx}{=}X_0\delta(\tau)\;\Rightarrow\;
-    \Phi_{xx}(\omega){=}X_0={\rm const}\\[0.2em]
-    \text{Falten }\to\text{ Multiplizieren:}\\
-    \Phi_{yx}{=}\Phi_{xx}H,\;\;\Phi_{xy}{=}\Phi_{xx}H^*\\
-    \Phi_{yy}{=}\Phi_{xx}|H|^2} &
-  \formelblock{AKF-Spektrum $\Phi_{aa}=\Phi_{xx}|H|^2$}{%
-    \text{stets }\textbf{reell},\;\ge0\\[0.15em]
-    \text{MWB: }|H|^2{=}{\rm si}^2\!\left(\tfrac{\omega T}{2}\right)\\
-    \to\text{si}^2\text{-Glocke (Spitze }X_0,\\
-    \text{Nullst.\ bei Vielfachen von }1/T)} &
-  \infoblock{\textbf{KKF-Spektrum} (z.\,B.\
-    $\Phi_{ba}{=}\Phi_{xx}H_bH_a^*$) i.\,Allg.\ \textbf{komplex}.\\[0.2em]
-    Reine Verzögerung $T_d$ $\Rightarrow$ Phasenfaktor $e^{-j\omega T_d}$;
-    Betrag z.\,B.\ $|{\rm si}|$ (nicht ${\rm si}^2$).} \\
-\end{formelreihe}
 \bereichende
 
 \bereich[cProzess]{PLOT-ERKENNUNGSTABELLE · Form $\to$ Funktion $\to$ Begründung}
@@ -471,31 +516,6 @@ werden so zum Dirac-Kamm $h=\sum_i w_i\,\delta(t{-}d_i)$.\par
   \rs{Über die Strecke Form vorhersagen (Tabelle) und Höhe/Lage mit Plot abgleichen.}
   \rs{Begründung je Zuordnung mit einem Baustein aus der Tabelle.}
 \end{rezept}
-\bereichende
-
-\bereich[cProzess]{BEGRÜNDUNGS-BAUSTEINE · Stationarität \& Musterfunktionen}
-\begin{formelreihe}
-  \infoblock{\textbf{Streng / schwach / instationär}\\[0.15em]
-    \emph{streng:} $f_X(x,t)$ zeitinvariant $\Rightarrow$ \emph{alle} Momente
-    zeitinvariant.\\
-    \emph{schwach (WSS):} nur $\mu_X{=}$const \emph{und} $\varphi_{XX}(\tau)$.\\
-    \emph{instationär:} $\mu_X(t)$, $\sigma_X^2(t)$ oder $\varphi$ zeitabhängig.\\[0.2em]
-    Standardsatz: „Eingang ist streng stationär; keines der
-    LTI-Glieder kann diese Eigenschaft ändern $\Rightarrow$ Ausgang ebenfalls
-    streng stationär."} &
-  \infoblock{\textbf{Warum bleibt es stationär?}\\
-    Lineare, \emph{zeitinvariante} Operationen (Skalierung, Offset, Verzögerung,
-    Faltung, Summe stationärer Prozesse) erzeugen aus WSS-Eingang WSS-Ausgang —
-    Verschiebung/Skalierung ändern die Zeitinvarianz nicht.\\[0.2em]
-    Bsp.\ $Z{=}X{+}g\,Y$ mit $X,Y$ stationär, $g$ konst.\ $\Rightarrow$
-    $Z$ (schwach) stationär.} &
-  \infoblock{\textbf{Musterfunktionen / Ergodizität}\\
-    $\mu_X$ \emph{quer} $=$ Ensemblemittel über Realisierungen bei festem $t$;
-    \emph{längs} $=$ Zeitmittel einer Realisierung.\\
-    $q_x[k]=\sqrt{\frac1N\sum_i x_i^2[k]}$ (quer).\\
-    \emph{ergodisch}: Zeitmittel $=$ Ensemblemittel.\\
-    $\sigma^2(t_1){=}\sigma^2(t_2)$? aus Streubreite der Musterfkt.\ ablesen.} \\
-\end{formelreihe}
 \bereichende
 
 \bereich[cProzess]{PLAUSIBILITÄTS-CHECKS · Säule B (vor dem Abgeben prüfen)}
