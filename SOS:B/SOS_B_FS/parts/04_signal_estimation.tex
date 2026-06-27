@@ -67,6 +67,10 @@
 \end{formelreihe}
 \bereichende
 
+% ==========================================================
+%  WIENER-FILTER  (Theorie + zugehöriges Rezept C4)
+% ==========================================================
+
 \bereich[cSchaetz]{Wiener-Filter — Grundprinzip}
 \begin{formelreihe}
   \infoblock{Beobachtetes Signal $x(t)$: Originalsignal $s(t)$\\
@@ -95,6 +99,29 @@
 \end{formelreihe}
 \bereichende
 
+\bereich[cSchaetz]{REZEPT · Wiener-Filter als MSE-Minimierung im Zeitbereich}
+\noindent\footnotesize
+Tritt auf, wenn das Filter eine \emph{Konstante} $h_0$ ist (kein LDS gefordn.).
+Ziel: $E\{e^2\}\to\min$.
+\begin{rezept}
+  \rs{Schätzwert hinschreiben: $\hat s(t)=h_0\cdot x(t)$, dabei $x(t)$ durch
+      $s$, verzögerte $s$ und Rauschen ausdrücken.}
+  \rs{Fehler $e(t)=s(t)-\hat s(t)$ einsetzen und nach Termen ordnen.}
+  \rs{$E\{e^2\}$ ausmultiplizieren; nutze $E\{s(t)s(t{-}\tau)\}=\varphi_{ss}(\tau)$,
+      $E\{s\cdot n\}=0$, $E\{n^2\}=\varphi_{nn}(0)$.}
+  \rs{Ergebnis ist Parabel $E\{e^2\}=\alpha\,h_0^2+\beta\,h_0+\gamma$.}
+  \rs{$\dfrac{\mathrm d}{\mathrm d h_0}E\{e^2\}=0 \Rightarrow h_0=-\dfrac{\beta}{2\alpha}$.}
+\end{rezept}
+\miniexample{$\hat s=h_0(5s(t)+n_1(t)+s(t{-}2))$, $\varphi_{ss}(0){=}0{,}6$, $\varphi_{nn}{=}10\delta$}{%
+  $e=s(1{-}5h_0)-h_0 s(t{-}2)-h_0 n_1$\;
+  $\Rightarrow E\{e^2\}=28{,}6\,h_0^2-6{,}6\,h_0+0{,}6$\;
+  $\Rightarrow h_0=\dfrac{6{,}6}{2\cdot28{,}6}=0{,}115$.}
+\bereichende
+
+% ==========================================================
+%  KALMAN-FILTER  (Systemmodell + Algorithmus + Endwert, je mit Rezept)
+% ==========================================================
+
 \bereich[cSchaetz]{Kalman-Filter — Systemmodell}
 \begin{formelreihe}
   \formelblock{Zustandsdifferenzengleichung}{x[k{+}1]=A[k]x[k]+B[k]u[k]+G[k]z[k]\\[0.1em]
@@ -111,50 +138,7 @@
 \end{formelreihe}
 \bereichende
 
-\bereich[cSchaetz]{Kalman-Filter — Algorithmus (ohne Innovationsterm)}
-\begin{formelreihe}
-  \formelblock{Kalman-Gain \& Inno.-Kovarianz}{R[k]=N_0[k]+CF[k]C^T\\[0.15em]
-    K[k]=AF[k]C^T\cdot R^{-1}[k]} &
-  \formelblock{Update Zustandsschätzung}{\hat{x}[k{+}1]=A\hat{x}[k]+Bu[k]
-    +K[k](y[k]-\hat{y}[k])\\[0.1em]
-    \hat{y}[k]=C\hat{x}[k]} &
-  \formelblock{Update Fehlerkorr.-Matrix}{F[k{+}1]=AF[k]A^T\\
-    \quad-K[k]R[k]K^T[k]+GZ_0G^T\\[0.1em]
-    \text{Start: }F[0]=0} \\
-\end{formelreihe}
-\bereichende
-
-\bereich[cSchaetz]{Kalman-Filter — mit Innovationsterm (a-posteriori)}
-\begin{formelreihe}
-  \formelblock{Gewichtungsmatrix \& Gain}{R[k]=N_0[k]+CF[k]C^T\\[0.15em]
-    M[k]=F[k]C^T\cdot R^{-1}[k]\\[0.1em]
-    K[k]=A\cdot M[k]} &
-  \formelblock{A-posteriori Zustandsschätzung}{\hat{x}^+[k]=\hat{x}[k]+M[k](y[k]-\hat{y}[k])\\[0.15em]
-    \hat{x}[k{+}1]=A\hat{x}^+[k]+Bu[k]} &
-  \formelblock{Update Fehlerkorr.-Matrix}{F[k{+}1]=AF[k]A^T\\
-    \quad-AM[k]R[k]M^T[k]A^T+GZ_0G^T\\[0.1em]
-    \text{Start: }F[0]=0} \\[0.3em]
-  \beispielblock{Redundante Messung: $y_i=x+n_i$, $\hat{x}=k_1y_1+k_2y_2$}{%
-    k_1+k_2=1\quad\text{(Erw.-treue)}\\
-    k_1=\dfrac{\sigma_{n_2}^2}{\sigma_{n_1}^2+\sigma_{n_2}^2},\quad
-    k_2=\dfrac{\sigma_{n_1}^2}{\sigma_{n_1}^2+\sigma_{n_2}^2}} &
-  \infoblock{Eigenschaften:\\
-    -- Einschwingvorgang des Gains\\
-    -- LTI + stationäres Rauschen\\
-    $\Rightarrow$ stationärer Endwert $K_\infty$\\
-    -- In diesem Fall: Kalman $=$ Wiener} &
-  \formelblock{Stationärer Endwert $f_\infty$ (Skalar)}{%
-    f_\infty=\dfrac{A^2 N_0\,f_\infty}{N_0+C^2 f_\infty}+G Z_0 G^T\\[0.15em]
-    \text{quadr.\ Gl.\ lösen, }R_\infty{=}N_0{+}C^2 f_\infty\\[0.1em]
-    \Rightarrow K_\infty=\dfrac{A\,C\,f_\infty}{R_\infty}} \\
-\end{formelreihe}
-\bereichende
-
-% ==========================================================
-%  Kalman / Zustandsraum — Rezepte und durchgerechnete Beispiele
-% ==========================================================
-
-\bereich[cSchaetz]{REZEPT C1 · Zustandsraum aus Blockschaltbild ablesen}
+\bereich[cSchaetz]{REZEPT · Zustandsraum aus Blockschaltbild ablesen}
 \noindent\footnotesize
 Jeder Verzögerer $z^{-1}$ ist ein Zustand $x_i$: sein \emph{Ausgang} ist $x_i[k]$,
 sein \emph{Eingang} ist $x_i[k{+}1]$. Stelle für jeden Verzögerer-Eingang die
@@ -174,15 +158,59 @@ Summe aller einlaufenden Pfade auf.
   Messabgriff) gehört in $\mathbf C$, nicht in $\mathbf A$ (Fall $C{\neq}1$).\;
   Rauschpfad $z[k]$ läuft i.\,d.\,R.\ über einen eigenen Faktor in $\mathbf G$ —
   nicht mit $\mathbf B$ verwechseln.}
+\par\vspace{0.3em}
+\centering
+\begin{tikzpicture}[font=\scriptsize,color=teal!72!black,line width=0.6pt,
+    blk/.style={draw,fill=white,inner sep=2pt,minimum height=4.6mm,minimum width=5mm},
+    sj/.style={draw,circle,inner sep=0pt,minimum size=3.7mm}]
+  % --- Hauptpfad:  (+) -> z^{-1} -> x[k] -> C -> (+) -> y
+  \node[sj]  (sig)  at (2.5,1.2) {$+$};
+  \node[blk] (vz)   at (3.8,1.2) {$z^{-1}$};
+  \coordinate        (tap)  at (5.1,1.2);
+  \node[blk] (C)    at (6.1,1.2) {$\mathbf C$};
+  \node[sj]  (sig2) at (7.3,1.2) {$+$};
+  \node      (y)    at (8.1,1.2) {$y[k]$};
+  % --- Eingänge u (über B) und z (über G)
+  \node      (u)    at (0,2.05)  {$u[k]$};
+  \node[blk] (B)    at (1.25,2.05){$\mathbf B$};
+  \node      (z)    at (0,1.2)   {$z[k]$};
+  \node[blk] (G)    at (1.25,1.2){$\mathbf G$};
+  % --- Messrauschen n
+  \node      (n)    at (7.3,2.05){$n[k]$};
+  % --- Rückführung A
+  \node[blk] (A)    at (3.8,0.35){$\mathbf A$};
+  % --- Verbindungen
+  \draw[->] (u)--(B);
+  \draw (B)--(2.5,2.05); \draw[->] (2.5,2.05)--(sig);
+  \draw[->] (z)--(G);
+  \draw[->] (G)--(sig);
+  \draw[->] (sig)-- node[above,font=\tiny,pos=0.5]{$x[k{+}1]$} (vz);
+  \draw (vz)--(tap); \fill (tap) circle (0.7pt);
+  \node[above=0pt,font=\tiny] at (4.55,1.18){$x[k]$};
+  \draw[->] (tap)--(C);
+  \draw[->] (C)--(sig2);
+  \draw[->] (sig2)--(y);
+  \draw[->] (n)--(sig2);
+  \draw (tap)--(5.1,0.35);
+  \draw[->] (5.1,0.35)--(A);
+  \draw (A)--(2.5,0.35);
+  \draw[->] (2.5,0.35)--(sig);
+\end{tikzpicture}\par
+\vspace{0.15em}
+{\footnotesize Jeder Block $=$ eine Matrix: Rückführung $\mathbf A$, bekannter Eingang
+$\mathbf B$, Rauschpfad $\mathbf G$, Messabgriff $\mathbf C$. Der Verzögerer $z^{-1}$
+hält den Zustand ($x[k{+}1]\!\to\!x[k]$); $z[k]$ koppelt über $\mathbf G$, $n[k]$
+additiv am Ausgang ein.}\par\vspace{0.2em}
 \miniexample{System 1.\ Ordnung}{%
   $x[k{+}1]=0{,}8\,x[k]+0{,}2\,z[k]+0{,}7\,u[k]$,\quad $y[k]=x[k]+n[k]$\\
   $\Rightarrow A{=}0{,}8,\;B{=}0{,}7,\;G{=}0{,}2,\;C{=}1$.}
 \bereichende
 
-\bereich[cSchaetz]{REZEPT C2 · Kalman-Algorithmus iterativ rechnen}
+\bereich[cSchaetz]{Kalman-Filter — Algorithmus (beide Varianten)}
 \noindent\footnotesize
-Beide Varianten kommen vor. Start stets $\mathbf F[0]=\mathbf 0$, $\hat{\mathbf x}[0]=\mathbf 0$
-(falls nicht anders angegeben). Pro Schritt $k$ in dieser Reihenfolge:
+Start stets $\mathbf F[0]{=}\mathbf 0$, $\hat{\mathbf x}[0]{=}\mathbf 0$ (falls nicht
+anders angegeben). Pro Schritt $k$ in fester Reihenfolge $R\to K/M\to\hat x\to F$.
+Nur $K[k]$ bzw.\ $M[k]$ und $F[k]$ sind \emph{zeitvariant}; $A,B,C,G$ konstant.
 \begin{formelreihe}
   \parbox[t]{\linewidth}{%
     {\scriptsize\scshape\color{gray!65!black} Variante A — OHNE Innovationsterm
@@ -210,36 +238,44 @@ Beide Varianten kommen vor. Start stets $\mathbf F[0]=\mathbf 0$, $\hat{\mathbf 
     $\to$ \emph{mit}.\\[0.3em]
     \textbf{Alternative Nomenklatur} möglich: $\Sigma\,{\hat=}\,M$,
     $\Lambda\,{\hat=}\,$Rückführung, $\Phi,\Psi\,{\hat=}\,A,$ Verzög.\ —
-    Struktur identisch.\\[0.3em]
-    Nur $K[k]$ bzw.\ $M[k]$ und $F[k]$ sind \emph{zeitvariant}; $A,B,C,G$ konstant.}
+    Struktur identisch.} \\
 \end{formelreihe}
 \fallstrick{Erst $R$, dann $K/M$, dann $\hat x$, zuletzt $F$ — Reihenfolge nicht
   vertauschen.\; $F[0]{=}0\Rightarrow K[0]{=}0\Rightarrow F[1]=G Z_0 G^{T}$ (immer!).\;
   Bei $C{\neq}1$: $C F C^{T}$ und $C\hat x$ nicht vergessen.\;
   $u[k]=\cos(k\pi)=(-1)^k$ erzeugt die Folge $1,-1,1,\dots$}
+\miniexample{Redundante Messung (statisch): $y_i=x+n_i$, $\hat x=k_1y_1+k_2y_2$}{%
+  Erwartungstreue $\Rightarrow k_1+k_2=1$;\quad
+  $k_1=\dfrac{\sigma_{n_2}^2}{\sigma_{n_1}^2+\sigma_{n_2}^2}$,\quad
+  $k_2=\dfrac{\sigma_{n_1}^2}{\sigma_{n_1}^2+\sigma_{n_2}^2}$\quad
+  (kleinere Rauschvarianz $\to$ größeres Gewicht).}
 \bereichende
 
-\bereich[cSchaetz]{REZEPT C3 · Dimensionen \& stationärer Endwert}
+\bereich[cSchaetz]{Kalman-Filter — Stationärer Endwert \& Dimensionen}
 \begin{formelreihe}
+  \formelblock{Stationärer Endwert $f_\infty$ (Skalar)}{%
+    f_\infty=\dfrac{A^2 N_0\,f_\infty}{N_0+C^2 f_\infty}+G Z_0 G^{T}\\[0.15em]
+    \text{quadr.\ Gl.\ lösen, }R_\infty{=}N_0{+}C^2 f_\infty\\[0.1em]
+    \Rightarrow K_\infty=\dfrac{A\,C\,f_\infty}{R_\infty}} &
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} Endwert bestimmen}\par\vspace{0.05em}
+    \begin{rezept}
+      \rs{$F[k{+}1]{=}F[k]{=}f_\infty$ in die $F$-Rekursion einsetzen.}
+      \rs{$K/M$ durch $f_\infty$ ausdrücken und einsetzen.}
+      \rs{Auf $f_\infty^2+p\,f_\infty+q=0$ bringen, quadr.\ Gl.\ lösen.}
+      \rs{\emph{Nur positive} Lösung behalten $\to K_\infty$ bzw.\ $M_\infty$.}
+    \end{rezept}} &
+  \infoblock{\textbf{Existiert ein Endwert?} Ja, wenn System LTI \emph{und}
+    Rauschen (schwach) stationär — dann mit genau diesem Satz begründen.\\[0.3em]
+    Mit den Endwerten initialisiert: \emph{kein} Einschwingvorgang, Filter
+    zeitinvariant $\Rightarrow$ Kalman $=$ Wiener.} \\[0.3em]
   \parbox[t]{\linewidth}{%
     {\scriptsize\scshape\color{gray!65!black} Dimensionen ($n$ Zustände, $1$ Ausgang)}\\[0.1em]
     {\footnotesize
     $\mathbf A:n{\times}n$,\;\; $\mathbf C:1{\times}n$,\;\;
-    $\mathbf G:n{\times}q$,\;\; $\mathbf F:n{\times}n$,\\[0.15em]
-    $R:1{\times}1$,\;\; $\mathbf M[k]:n{\times}1$,\;\; $\mathbf K[k]:n{\times}1$.\\[0.1em]
-    \itshape ($q$ = Anzahl Systemrausch-Quellen $z$.)}} &
-  \parbox[t]{\linewidth}{%
-    {\scriptsize\scshape\color{gray!65!black} Stationärer Endwert (Skalar)}\par\vspace{0.05em}
-    \begin{rezept}
-      \rs{Setze $F[k{+}1]=F[k]=f_\infty$ in die $F$-Rekursion ein.}
-      \rs{$K/M$ durch $f_\infty$ ausdrücken und einsetzen.}
-      \rs{Auf Form $f_\infty^2+p\,f_\infty+q=0$ bringen, quadr.\ Gl.\ lösen.}
-      \rs{\emph{Nur positive} Lösung $f_\infty$ behalten $\to$ $K_\infty$ bzw.\ $M_\infty$.}
-    \end{rezept}} &
-  \infoblock{\textbf{Existiert ein Endwert?} Ja, wenn System LTI \emph{und}
-    Rauschen (schwach) stationär ist — dann Begründung mit genau diesem Satz.\\[0.3em]
-    Mit den Endwerten initialisiert: \emph{kein} Einschwingvorgang, Filter
-    zeitinvariant $\Rightarrow$ entspricht dem Wiener-Filter.}
+    $\mathbf G:n{\times}q$,\;\; $\mathbf F:n{\times}n$,\;\;
+    $R:1{\times}1$,\;\; $\mathbf M[k],\mathbf K[k]:n{\times}1$.\;
+    \itshape ($q$ = Anzahl Systemrausch-Quellen $z$.)}} & & \\
 \end{formelreihe}
 \miniexample{Skalar, ohne Innovation ($A{=}0{,}8$, $C{=}1$, $G{=}0{,}2$, $Z_0{=}3$, $N_0{=}2$)}{%
   $R[k]{=}2{+}f[k]$,\quad $K[k]{=}\dfrac{0{,}8\,f[k]}{2{+}f[k]}$,\quad
@@ -262,23 +298,4 @@ Beide Varianten kommen vor. Start stets $\mathbf F[0]=\mathbf 0$, $\hat{\mathbf 
   $\Rightarrow \mathbf F[1]{=}\mathbf G\,\mathbf Z_0\,\mathbf G^{T}
   {=}\!\begin{psmallmatrix}0&0&0\\0&1&0\\0&0&1{,}62\end{psmallmatrix}$.\quad
   $\dim\mathbf K[1]=3{\times}1$.}
-\bereichende
-
-\bereich[cSchaetz]{REZEPT C4 · Wiener-Filter als MSE-Minimierung im Zeitbereich}
-\noindent\footnotesize
-Tritt auf, wenn das Filter eine \emph{Konstante} $h_0$ ist (kein LDS gefordn.).
-Ziel: $E\{e^2\}\to\min$.
-\begin{rezept}
-  \rs{Schätzwert hinschreiben: $\hat s(t)=h_0\cdot x(t)$, dabei $x(t)$ durch
-      $s$, verzögerte $s$ und Rauschen ausdrücken.}
-  \rs{Fehler $e(t)=s(t)-\hat s(t)$ einsetzen und nach Termen ordnen.}
-  \rs{$E\{e^2\}$ ausmultiplizieren; nutze $E\{s(t)s(t{-}\tau)\}=\varphi_{ss}(\tau)$,
-      $E\{s\cdot n\}=0$, $E\{n^2\}=\varphi_{nn}(0)$.}
-  \rs{Ergebnis ist Parabel $E\{e^2\}=\alpha\,h_0^2+\beta\,h_0+\gamma$.}
-  \rs{$\dfrac{\mathrm d}{\mathrm d h_0}E\{e^2\}=0 \Rightarrow h_0=-\dfrac{\beta}{2\alpha}$.}
-\end{rezept}
-\miniexample{$\hat s=h_0(5s(t)+n_1(t)+s(t{-}2))$, $\varphi_{ss}(0){=}0{,}6$, $\varphi_{nn}{=}10\delta$}{%
-  $e=s(1{-}5h_0)-h_0 s(t{-}2)-h_0 n_1$\;
-  $\Rightarrow E\{e^2\}=28{,}6\,h_0^2-6{,}6\,h_0+0{,}6$\;
-  $\Rightarrow h_0=\dfrac{6{,}6}{2\cdot28{,}6}=0{,}115$.}
 \bereichende
