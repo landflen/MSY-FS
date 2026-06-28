@@ -131,8 +131,7 @@
 
 \bereich[cProzess]{Systemverarbeitung — Lineare Operationen (WSS vorausgesetzt)}
 \begin{formelreihe}
-  \infoblock{Für alle Ops gilt: Aus (schwach) stationärem\\
-    Eingang folgt (schwach) stationärer Ausgang.} &
+  \infoblock{Alle Ops: WSS-Eingang $\Rightarrow$ WSS-Ausgang.} &
   \formelblock{$Y=a\cdot X$}{\mu_Y=a\,\mu_X\quad\sigma_Y^2=a^2\sigma_X^2\\[0.1em]
     \varphi_{YY}(\tau)=a^2\varphi_{XX}(\tau)\\[0.1em]
     \varphi_{XY}(\tau)=a\cdot\varphi_{XX}(\tau)} &
@@ -157,10 +156,8 @@
     \sigma_Y^2=\sigma_X^2\cdot|H(0)|^2} &
   \formelblock{Filterautokorrelation}{\varphi_{hh}(\tau)=h(\tau)*h(-\tau)
     \;\xrightarrow{\mathcal{F}}\;|H(j\omega)|^2} &
-  \infoblock{$*$ = Faltung\\
-    $H(j\omega)=\mathcal{F}\{h(t)\}$\\
-    Ausgangsprozess ist näherungsweise\\
-    gaußverteilt (Zentraler Grenzwertsatz).} \\[0.3em]
+  \infoblock{$*$: Faltung,\; $H(j\omega)=\mathcal{F}\{h(t)\}$.\\
+    Ausgang $\approx$ gaußverteilt (ZGS).} \\[0.3em]
   \formelblock{AKF \& KKF (Zeitbereich)}{%
     \varphi_{YX}(\tau)=\varphi_{XX}(\tau)*h(\tau)\\[0.1em]
     \varphi_{XY}(\tau)=\varphi_{XX}(\tau)*h(-\tau)\\[0.1em]
@@ -254,18 +251,17 @@
 
 \bereich[cProzess]{Konstanter Offset $c$ am Summenknoten}
 \begin{formelreihe}
-  \infoblock{Eine additive Konstante $c$ ist \textbf{kein} gefiltertes $x$ —
-    sie gehört \textbf{nicht} in die effektive Impulsantwort $h_y$ (Eingang$\to$Knoten).
-    Sie koppelt in Korrelationen
-    nur über den \emph{Mittelwert des anderen Faktors}.} &
+  \infoblock{Konstante $c$ $=$ \textbf{kein} gefiltertes $x$ $\Rightarrow$ \textbf{nicht}
+    in eff.\ Impulsantwort $h_y$.\;
+    Koppelt in Korrelationen nur über $\mu$ des anderen Faktors.} &
   \formelblock{Wo $c$ herausfällt / bleibt}{%
     \text{Partner mw-frei}\Rightarrow c\text{ fällt aus allen KKF}\\
     (\varphi_{ya},\varphi_{ba},\dots=0\text{-Anteil von }c)\\[0.2em]
     \mu_y=\dots+c\quad(\text{bleibt})\\
     \varphi_{yy}=\varphi_{ww}+c^2\;(\text{mw-freier Rest})} &
-  \infoblock{\textbf{Merksatz:} „Konstante $\times$ etwas-um-Null-gemittelt $=0$;
-    Konstante $\times$ Konstante bleibt."\\[0.2em]
-    Im LDS: $c$ erzeugt einen $\delta(\omega)$-Anteil bei $f{=}0$.} \\
+  \infoblock{\textbf{Merke:} Konst.\ $\times$ (um Null gemittelt) $=0$;
+    Konst.\ $\times$ Konst.\ bleibt.\\[0.2em]
+    LDS: $c$ $\to$ $\delta(\omega)$-Anteil bei $f{=}0$.} \\
 \end{formelreihe}
 \bereichende
 
@@ -314,10 +310,8 @@
 
 \bereich[cProzess]{FALTUNGS-MECHANIK · wie man $\varphi*h$ wirklich rechnet}
 \noindent\footnotesize
-Die Korrelation durch eine Strecke ist immer eine \textbf{Faltung}. Stolperstein
-ist die Mechanik — darum erst anschaulich (Skizzen unten: \emph{Pfeil} $=$ Dirac,
-Pfeilhöhe $=$ Gewicht), dann (s.\,u.\ \emph{Master-Regel}) die Regel, \emph{was}
-womit gefaltet wird.\par
+Korrelation durch Strecke $=$ stets \textbf{Faltung}.\; Skizzen: \emph{Pfeil} $=$ Dirac,
+Höhe $=$ Gewicht.\; Regel \emph{was${*}$was}: s.\ Master-Regel.\par
 
 \begin{skizzebox}{1 · Dirac verschiebt \& skaliert — jeder Pfeil STEMPELT eine Kopie}
 \centering
@@ -333,9 +327,8 @@ womit gefaltet wird.\par
   \sax{3.95}{6.55}\stri{4.1}{5.1}{4.6}{0.6}\stri{5.35}{6.35}{5.85}{1.0}
   \node[font=\tiny,below=0pt] at (4.6,0){$0$};\node[font=\tiny,below=0pt] at (5.85,0){$D$};
 \end{tikzpicture}\par
-{\centering\footnotesize Pfeilhöhe $=$ Gewicht.\;
-  $\delta$ \emph{verschiebt} die Form, $a\,\delta$ \emph{skaliert} sie zusätzlich
-  mit $a$; mehrere Diracs stempeln je eine Kopie $\to$ am Ende aufaddieren.\par}
+{\centering\footnotesize Höhe $=$ Gewicht.\; $\delta$ verschiebt, $a\delta$ skaliert mit $a$;\;
+  mehrere Diracs $\to$ je Kopie, am Ende addieren.\par}
 \end{skizzebox}
 
 \begin{skizzebox}{2 · Dirac $*$ Dirac — Stellen addieren, Gewichte multiplizieren}
@@ -423,11 +416,10 @@ Rechteck$*$Rechteck (z.\,B.\ weiß durch \emph{einen} MWB), nie aus Rechteck$*$D
 
 \bereich[cProzess]{MASTER-REGEL · Korrelation durch eine Strecke (gemeinsame Quelle)}
 \noindent\footnotesize
-\textbf{Denkmodell (wie ein Netzwerk):} \emph{Knoten} $(x,a,y)$ sind Messpunkte,
-\emph{Zweige} $(g,h)$ sind die effektive Impulsantwort von der gemeinsamen Quelle
-$x$ zum Knoten — inkl.\ \emph{aller} Parallelpfade. Reihenschaltung $=$ falten
-($h_1{*}h_2$), Parallelzweige $=$ addieren ($h_1{+}h_2$). Verzögerungs-/Verstärker-Netze
-werden so zum Dirac-Kamm $h=\sum_i w_i\,\delta(t{-}d_i)$.\par
+\textbf{Denkmodell (Netzwerk):} Knoten $(x,a,y)$ $=$ Messpunkte; Zweige $(g,h)$ $=$
+eff.\ Impulsantwort Quelle$\to$Knoten (alle Parallelpfade).\;
+Reihe $=$ falten ($h_1{*}h_2$), parallel $=$ addieren ($h_1{+}h_2$).\;
+Verzög./Verstärker-Netz $\to$ Dirac-Kamm $h=\sum_i w_i\,\delta(t{-}d_i)$.\par
 \vspace{0.15em}
 \begin{formelreihe}
   \formelblock{Kernregel ($h_i$ = Pfad Quelle$\to$Knoten)}{%
@@ -437,16 +429,14 @@ werden so zum Dirac-Kamm $h=\sum_i w_i\,\delta(t{-}d_i)$.\par
     \varphi_{xx}\text{ immer in der Mitte}} &
   \formelblock{Symmetrie-Abkürzung}{\varphi_{(1)(2)}(\tau)=\varphi_{(2)(1)}(-\tau)\\[0.3em]
     \text{(Faltungs-Mechanik: s.\ Abschnitt oben)}} &
-  \infoblock{\textbf{Konvention} (beugt Vorzeichenfehlern vor):
-    FS-Definition $\varphi_{XY}(\tau){=}E\{X(t{+}\tau)Y(t)\}$ — der \emph{erste}
-    Index sitzt bei $t{+}\tau$, bekommt den \emph{vorwärts}-Pfad. Liegt im Pfad
-    eine Verzögerung $T_d$, liegt das KKF-Maximum bei $\tau{=}{+}T_d$ (auf der zum
-    ersten Index passenden Seite), nicht beliebig.} \\
+  \infoblock{\textbf{Konvention} (gg.\ Vorzeichenfehler):
+    $\varphi_{XY}(\tau){=}E\{X(t{+}\tau)Y(t)\}$ — \emph{erster} Index bei $t{+}\tau$
+    $\to$ \emph{vorwärts}-Pfad.\;
+    Verzög.\ $T_d$ im Pfad $\Rightarrow$ KKF-Max bei $\tau{=}{+}T_d$.} \\
 \end{formelreihe}
-\ergbox{\textbf{Geltungsbereich (wichtig!):} Die Master-Regel gilt für eine
-  \textbf{gemeinsame Quelle} $x$ — egal ob die beiden Punkte \emph{parallel} oder
-  \emph{in Reihe} liegen. Sie bricht \textbf{nur} bei \emph{zwei unabhängigen}
-  Eingängen (dann Kreuzterme separat behandeln).}
+\ergbox{\textbf{Geltungsbereich:} Master-Regel gilt für \textbf{gemeinsame Quelle} $x$
+  (parallel od.\ Reihe egal).\;
+  Bricht \textbf{nur} bei \emph{zwei unabh.}\ Eingängen $\to$ Kreuzterme separat.}
 \vspace{0.2em}
 \noindent\scriptsize\textbf{Standardkette} $x\xrightarrow{\;g\;}a\xrightarrow{\;h\;}y$
 \;(Pfade: $x{\to}\delta$, $a{\to}g$, $y{\to}g{*}h$):

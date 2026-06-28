@@ -80,10 +80,8 @@
 
 \bereich[cSchaetz]{Wiener-Filter — Grundprinzip}
 \begin{formelreihe}
-  \infoblock{Beobachtetes Signal $x(t)$: Originalsignal $s(t)$\\
-    verzerrt durch LTI $+$ Rauschen.\\[0.1em]
-    Rekonstruktionsfilter $H$:\\
-    minimiert Fehlerleistung $E\{|e|^2\}$.\\[0.1em]
+  \infoblock{$x(t)$: $s(t)$ verzerrt (LTI) $+$ Rauschen.\\
+    $H$: min.\ Fehlerleistung $E\{|e|^2\}$.\\
     $e(t)=y(t)-s(t)$} &
   \formelblock{LDS des Fehlers}{\Phi_{ee}
     =\Phi_{xx}|H|^2-\Phi_{xs}H-\Phi_{sx}H^*+\Phi_{ss}} &
@@ -137,17 +135,14 @@
   \draw[->] (6.6,-0.45)-- node[right,font=\tiny,pos=0.12]{$s(t)$ (Soll)} (se);
 \end{tikzpicture}\par
 \vspace{0.12em}
-\parbox{0.97\linewidth}{\footnotesize Beobachtung $x=G*s+n$ $\to$ Rekonstruktionsfilter $H$
-$\to$ Schätzung $\hat s(t)$. Schätzfehler $e(t)=\hat s(t)-s(t)$ gegen das (unbekannte)
-Nutzsignal $s(t)$. $H$ minimiert $E\{|e|^2\}$ $\Rightarrow$ \emph{Orthogonalitätsprinzip}
-$e(t)\perp x(t)$ $\Rightarrow$ $H=\Phi_{sx}/\Phi_{xx}$. \itshape Gegensatz zu Kalman: ein
-festes (zeitinvariantes) $H$, kein Zustand/keine Rekursion.}\par\raggedright
+\parbox{0.97\linewidth}{\footnotesize $x{=}G{*}s{+}n\to H\to\hat s$;\; Fehler $e{=}\hat s-s$ ggü.\ Nutzsignal $s$.\;
+$\min E\{|e|^2\}\Rightarrow$ \emph{Orthogonalität} $e\perp x\Rightarrow H{=}\Phi_{sx}/\Phi_{xx}$.\;
+\itshape vs.\ Kalman: festes (zeitinvar.)\ $H$, kein Zustand/Rekursion.}\par\raggedright
 \bereichende
 
 \bereich[cSchaetz]{REZEPT · Wiener-Filter als MSE-Minimierung im Zeitbereich}
 \noindent\footnotesize
-Tritt auf, wenn das Filter eine \emph{Konstante} $h_0$ ist (kein LDS gefordn.).
-Ziel: $E\{e^2\}\to\min$.
+Filter $=$ \emph{Konstante} $h_0$ (kein LDS gefordert).\; Ziel: $E\{e^2\}\to\min$.
 \begin{rezept}
   \rs{Schätzwert hinschreiben: $\hat s(t)=h_0\cdot x(t)$, dabei $x(t)$ durch
       $s$, verzögerte $s$ und Rauschen ausdrücken.}
@@ -185,9 +180,8 @@ Ziel: $E\{e^2\}\to\min$.
 
 \bereich[cSchaetz]{REZEPT · Zustandsraum aus Blockschaltbild ablesen}
 \noindent\footnotesize
-Jeder Verzögerer $z^{-1}$ ist ein Zustand $x_i$: sein \emph{Ausgang} ist $x_i[k]$,
-sein \emph{Eingang} ist $x_i[k{+}1]$. Stelle für jeden Verzögerer-Eingang die
-Summe aller einlaufenden Pfade auf.
+Jeder $z^{-1}$ $=$ Zustand $x_i$: Ausgang $x_i[k]$, Eingang $x_i[k{+}1]$.\;
+Pro Verzögerer-Eingang: Summe aller einlaufenden Pfade.
 \begin{rezept}
   \rs{Verzögerer durchnummerieren $x_1\dots x_n$ (Ausgang $=x_i[k]$).}
   \rs{Für jeden Eingang $x_i[k{+}1]$: alle einlaufenden Zweige addieren
@@ -242,10 +236,9 @@ Summe aller einlaufenden Pfade auf.
   \draw[->] (2.5,0.35)--(sig);
 \end{tikzpicture}\par
 \vspace{0.15em}
-{\footnotesize Jeder Block $=$ eine Matrix: Rückführung $\mathbf A$, bekannter Eingang
-$\mathbf B$, Rauschpfad $\mathbf G$, Messabgriff $\mathbf C$. Der Verzögerer $z^{-1}$
-hält den Zustand ($x[k{+}1]\!\to\!x[k]$); $z[k]$ koppelt über $\mathbf G$, $n[k]$
-additiv am Ausgang ein.}\par\vspace{0.2em}
+{\footnotesize Block $=$ Matrix: $\mathbf A$ Rückführung, $\mathbf B$ Eingang $u$,
+$\mathbf G$ Rauschpfad $z$, $\mathbf C$ Messabgriff.\; $z^{-1}$ hält Zustand
+($x[k{+}1]\!\to\!x[k]$); $n[k]$ additiv am Ausgang.}\par\vspace{0.2em}
 \miniexample{System 1.\ Ordnung mit Messverstärkung ($C{\neq}1$)}{%
   $x[k{+}1]=0{,}9\,x[k]+0{,}5\,u[k]+0{,}3\,z[k]$,\quad $y[k]=2\,x[k]+n[k]$\\
   $\Rightarrow A{=}0{,}9,\;B{=}0{,}5,\;G{=}0{,}3,\;C{=}2$.}
@@ -253,27 +246,23 @@ additiv am Ausgang ein.}\par\vspace{0.2em}
 
 \bereich[cSchaetz]{Kalman-Filter — Algorithmus (beide Varianten)}
 \noindent\footnotesize
-Start stets $\mathbf F[0]{=}\mathbf 0$, $\hat{\mathbf x}[0]{=}\mathbf 0$ (falls nicht
-anders angegeben). Pro Schritt $k$ in fester Reihenfolge $R\to K/M\to\hat x\to F$.
-Nur $K[k]$ bzw.\ $M[k]$ und $F[k]$ sind \emph{zeitvariant}; $A,B,C,G$ konstant.\\[0.15em]
-{\scshape\color{gray!65!black} Woher $Z_0,N_0$?} Es sind die \emph{Leistungen} der weißen Rausch­prozesse $z[k]$
-(System) bzw.\ $n[k]$ (Messung) — der ACF-Wert bei $\kappa{=}0$:
-$\varphi_{zz}[\kappa]{=}Z_0\,\delta[\kappa]$, $\varphi_{nn}[\kappa]{=}N_0\,\delta[\kappa]$.
-Direkt aus der Angabe ablesen, z.\,B.\ $\varphi_{zz}{=}3\,\delta[\kappa]\Rightarrow Z_0{=}3$,
-$\varphi_{nn}{=}2\,\delta[\kappa]\Rightarrow N_0{=}2$.
+Start: $\mathbf F[0]{=}\mathbf 0$, $\hat{\mathbf x}[0]{=}\mathbf 0$ (sofern nicht anders).\;
+Reihenfolge je Schritt $k$: $R\to K/M\to\hat x\to F$.\;
+zeitvariant nur $K/M,F$; $A,B,C,G$ konst.\\[0.15em]
+{\scshape\color{gray!65!black} $Z_0,N_0$?} $=$ Leistung der weißen Prozesse $z$ (System) / $n$ (Messung), ACF-Wert bei $\kappa{=}0$:\;
+$\varphi_{zz}{=}Z_0\delta[\kappa]$, $\varphi_{nn}{=}N_0\delta[\kappa]$ — direkt ablesen
+(z.\,B.\ $\varphi_{zz}{=}3\delta\Rightarrow Z_0{=}3$, $\varphi_{nn}{=}2\delta\Rightarrow N_0{=}2$).
 \par\vspace{0.35em}
 {\setlength{\tabcolsep}{0pt}\renewcommand{\arraystretch}{0.9}%
 \noindent
 \begin{tabular}{@{}p{0.485\linewidth}@{\hspace{0.03\linewidth}}p{0.485\linewidth}@{}}
   \parbox[t]{\linewidth}{\scriptsize
-    {\scshape\color{gray!65!black} Welche Variante? (zuerst entscheiden)}\\
-    \itshape „Schätzwert $\hat x[k]$, Eingang $y[k]$, Ausgang $\hat x$" ohne extra
-    Korrekturpfad $\to$ \emph{ohne}. Innovationspfad $e[k]{=}y{-}\hat y$ wirkt
-    direkt auf $\hat x^{+}[k]$ $\to$ \emph{mit}.} &
+    {\scshape\color{gray!65!black} Welche Variante?}\\
+    \itshape kein extra Korrekturpfad $\to$ \emph{ohne};\;
+    Innovationspfad $e{=}y{-}\hat y$ direkt auf $\hat x^{+}$ $\to$ \emph{mit}.} &
   \parbox[t]{\linewidth}{\scriptsize
-    {\scshape\color{gray!65!black} Alternative Nomenklatur}\\
-    \itshape möglich: $\Sigma\,{\hat=}\,M$, $\Lambda\,{\hat=}\,$Rückführung,
-    $\Phi,\Psi\,{\hat=}\,A,$ Verzög.\ — Struktur identisch.} \\
+    {\scshape\color{gray!65!black} Alt.\ Nomenklatur}\\
+    \itshape $\Sigma\,{\hat=}\,M$, $\Lambda\,{\hat=}\,$Rückführ., $\Phi,\Psi\,{\hat=}\,A$/Verzög.\ — Struktur identisch.} \\
 \end{tabular}\par
 \vspace{0.5em}\noindent
 \begin{tabular}{@{}p{0.485\linewidth}@{\hspace{0.03\linewidth}}p{0.485\linewidth}@{}}
@@ -296,14 +285,14 @@ $\varphi_{nn}{=}2\,\delta[\kappa]\Rightarrow N_0{=}2$.
     \end{rezept}} \\
 \end{tabular}\par}
 \par\vspace{0.3em}\noindent
-{\scriptsize\scshape\color{gray!65!black} Skalarfall ($n{=}1$, $C$ skalar) — geschlossene Form (so direkt in der Klausur einsetzbar)}\par\nopagebreak\vspace{0.12em}
+{\scriptsize\scshape\color{gray!65!black} Skalarfall ($n{=}1$, $C$ skalar) — geschlossene Form}\par\nopagebreak\vspace{0.12em}
 \noindent\footnotesize
 $R[k]=N_0+C^2 f[k]$,\qquad
 $\displaystyle K[k]=\frac{A\,C\,f[k]}{N_0+C^2 f[k]}\;\;(=A\,M[k],\;\; M[k]=\tfrac{C f[k]}{N_0+C^2 f[k]})$,\qquad
 $\displaystyle f[k{+}1]=A^2 f[k]-\frac{A^2 C^2 f^2[k]}{N_0+C^2 f[k]}+G^2 Z_0$.\\[0.2em]
 \emph{Für $C{=}1$:} $\;K[k]=\dfrac{A\,f[k]}{N_0+f[k]}$,\quad
 $f[k{+}1]=A^2 f[k]-\dfrac{A^2 f^2[k]}{N_0+f[k]}+G^2 Z_0$.\;
-\itshape (Nur skalar zusammenziehbar — im Matrixfall bei den Einzelschritten oben bleiben.)\upshape\par\vspace{0.15em}
+\itshape (nur skalar; Matrixfall $\to$ Einzelschritte oben).\upshape\par\vspace{0.15em}
 \fallstrick{Erst $R$, dann $K/M$, dann $\hat x$, zuletzt $F$ — Reihenfolge nicht
   vertauschen.\; $F[0]{=}0\Rightarrow K[0]{=}0\Rightarrow F[1]=G Z_0 G^{T}$ (immer!).\;
   Bei $C{\neq}1$: $C F C^{T}$ und $C\hat x$ nicht vergessen.\;
@@ -359,9 +348,8 @@ $f[k{+}1]=A^2 f[k]-\dfrac{A^2 f^2[k]}{N_0+f[k]}+G^2 Z_0$.\;
 \vspace{0.12em}
 \parbox{0.97\linewidth}{\footnotesize Eine Summierstelle:
 $\hat{\mathbf x}[k{+}1]=\mathbf A\hat{\mathbf x}[k]+\mathbf B u[k]
-+\mathbf K[k]\,\underbrace{(y[k]-\mathbf C\hat{\mathbf x}[k])}_{e[k]\;=\;\text{Schätzfehler / Innovation}}$.
-$\mathbf A$ liegt im \emph{Rückführzweig}; die Korrektur $\mathbf K e$ läuft in dieselbe
-Summe wie $\mathbf A\hat{\mathbf x}$ und $\mathbf B u$. Kein expliziter a-posteriori-Knoten.}\par
++\mathbf K[k]\,\underbrace{(y[k]-\mathbf C\hat{\mathbf x}[k])}_{e[k]\,=\,\text{Fehler/Innov.}}$.\;
+$\mathbf A$ im \emph{Rückführzweig}; $\mathbf K e$ in dieselbe Summe wie $\mathbf A\hat{\mathbf x},\mathbf B u$.\; kein a-posteriori-Knoten.}\par
 \vspace{0.55em}
 {\scriptsize\scshape\color{gray!65!black} Strukturbild · Variante B — MIT Innovationsterm (a-posteriori $\hat x^{+}[k]$)}\par\vspace{0.12em}
 \begin{tikzpicture}[font=\scriptsize,color=teal!72!black,line width=0.6pt,
@@ -409,12 +397,10 @@ Summe wie $\mathbf A\hat{\mathbf x}$ und $\mathbf B u$. Kein expliziter a-poster
   \draw[->] (1.25,-0.55)-- node[right,font=\tiny,pos=0.22]{$\mathbf C\hat{\mathbf x}[k]$} (s1);
 \end{tikzpicture}\par
 \vspace{0.12em}
-\parbox{0.97\linewidth}{\footnotesize Zwei Stufen mit \emph{explizitem} a-posteriori-Knoten:
-\textbf{Korrektur} $\hat{\mathbf x}^{+}[k]=\hat{\mathbf x}[k]+\mathbf M[k]\,e[k]$ (Schätzfehler
-$e[k]=y[k]-\mathbf C\hat{\mathbf x}[k]$ wirkt über $\mathbf M$ direkt auf $\hat{\mathbf x}^{+}$),
-dann \textbf{Prädiktion} $\hat{\mathbf x}[k{+}1]=\mathbf A\hat{\mathbf x}^{+}[k]+\mathbf B u[k]$.
-$\mathbf A$ liegt jetzt im \emph{Vorwärtszweig} (hinter $\hat{\mathbf x}^{+}$), nicht in der
-Rückführung. Es gilt $\mathbf K=\mathbf A\mathbf M$.}\par\raggedright
+\parbox{0.97\linewidth}{\footnotesize Zwei Stufen, \emph{expliziter} a-posteriori-Knoten:\;
+\textbf{Korrektur} $\hat{\mathbf x}^{+}[k]=\hat{\mathbf x}[k]+\mathbf M[k]\,e[k]$ ($e{=}y-\mathbf C\hat{\mathbf x}$),\;
+\textbf{Prädiktion} $\hat{\mathbf x}[k{+}1]=\mathbf A\hat{\mathbf x}^{+}[k]+\mathbf B u[k]$.\;
+$\mathbf A$ jetzt im \emph{Vorwärtszweig} (hinter $\hat{\mathbf x}^{+}$), nicht Rückführung;\; $\mathbf K=\mathbf A\mathbf M$.}\par\raggedright
 \bereichende
 
 \bereich[cSchaetz]{Kalman-Filter — Stationärer Endwert \& Dimensionen}
@@ -431,10 +417,9 @@ Rückführung. Es gilt $\mathbf K=\mathbf A\mathbf M$.}\par\raggedright
       \rs{Auf $f_\infty^2+p\,f_\infty+q=0$ bringen, quadr.\ Gl.\ lösen.}
       \rs{\emph{Nur positive} Lösung behalten $\to K_\infty$ bzw.\ $M_\infty$.}
     \end{rezept}} &
-  \infoblock{\textbf{Existiert ein Endwert?} Ja, wenn System LTI \emph{und}
-    Rauschen (schwach) stationär — dann mit genau diesem Satz begründen.\\[0.3em]
-    Mit den Endwerten initialisiert: \emph{kein} Einschwingvorgang, Filter
-    zeitinvariant $\Rightarrow$ Kalman $=$ Wiener.} \\[0.3em]
+  \infoblock{\textbf{Endwert existiert?} Ja, falls System LTI \emph{und}
+    Rauschen (schwach) stationär (so begründen).\\[0.3em]
+    Mit Endwerten init.: kein Einschwingen, Filter zeitinvar.\ $\Rightarrow$ Kalman $=$ Wiener.} \\[0.3em]
   \parbox[t]{\linewidth}{%
     {\scriptsize\scshape\color{gray!65!black} Dimensionen ($n$ Zustände, $1$ Ausgang)}\\[0.1em]
     {\footnotesize
