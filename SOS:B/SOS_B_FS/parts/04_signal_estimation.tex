@@ -16,6 +16,13 @@
   \formelblock{Entwurfsziel}{\mathrm{MSE}\to\min\quad\text{(MMSE)}} &
   \formelblock{MSE-Zerlegung}{\mathrm{MSE}=\mathrm{Bias}^2+\mathrm{Var}(\hat{\theta})} \\
 \end{formelreihe}
+\miniexample{MMSE — redundante Messung: $y_i=x+n_i$ ($n_i$ unkorr.), $\hat x=k_1y_1+k_2y_2$}{%
+  Erwartungstreu $\Rightarrow k_1+k_2=1$; Varianz minimieren $\Rightarrow$ Gewicht $\propto$ inverse
+  Rauschvarianz:\;
+  $k_1=\dfrac{\sigma_{n_2}^2}{\sigma_{n_1}^2+\sigma_{n_2}^2}$,\quad
+  $k_2=\dfrac{\sigma_{n_1}^2}{\sigma_{n_1}^2+\sigma_{n_2}^2}$.\;
+  Z.\,B.\ $\sigma_{n_1}^2{=}1,\,\sigma_{n_2}^2{=}3\Rightarrow k_1{=}\tfrac34,\,k_2{=}\tfrac14$
+  (kleinere Rauschvarianz $\to$ größeres Gewicht — Grundidee des Kalman-Gains).}
 \bereichende
 
 \bereich[cSchaetz]{Bewertungskriterien \& Eigenschaften}
@@ -97,6 +104,44 @@
     $\to$ Kalman-Filter für endliche\\
     Beobachtung, zeitvariante Systeme} \\
 \end{formelreihe}
+\par\vspace{0.3em}\centering
+{\scriptsize\scshape\color{gray!65!black} Strukturbild · Wiener-Filter (MSE-optimal, stationär)}\par\vspace{0.12em}
+\begin{tikzpicture}[font=\scriptsize,color=teal!72!black,line width=0.6pt,
+    blk/.style={draw,fill=white,inner sep=2pt,minimum height=4.6mm,minimum width=5.2mm},
+    sj/.style={draw,circle,inner sep=0pt,minimum size=3.8mm}]
+  % --- Strecke (Verzerrung G + Rauschen n)  |  Rekonstruktion H  |  Fehlerbildung
+  \node      (s)  at (0,1.3)    {$s(t)$};
+  \node[blk] (G)  at (1.35,1.3) {$G$};
+  \node[sj]  (sn) at (2.65,1.3) {$+$};
+  \node[blk] (H)  at (4.55,1.3) {$H$};
+  \node[sj]  (se) at (6.6,1.3)  {};
+  \node      (e)  at (7.55,1.3) {$e(t)$};
+  \node      (n)  at (2.65,2.25){$n(t)$};
+  % --- Labels auf Leitungen
+  \node[above=0pt,font=\tiny] at (3.55,1.28){$x(t)$};
+  \node[above=0pt,font=\tiny] at (5.7,1.28) {$\hat s(t)$};
+  \node[font=\tiny] at (6.27,1.52){$+$};
+  \node[font=\tiny] at (6.62,0.96){$-$};
+  % --- Verbindungen Hauptpfad
+  \draw[->] (s)--(G);
+  \draw[->] (G)--(sn);
+  \draw[->] (n)--(sn);
+  \draw[->] (sn)-- node[pos=0.45,coordinate](xx){} (H);
+  \draw[->] (H)--(se);
+  \draw[->] (se)--(e);
+  % --- Nutzsignal s(t) als Soll in se (−)
+  \coordinate (sbr) at (0.55,1.3);
+  \fill (sbr) circle (0.7pt);
+  \draw (sbr)--(0.55,-0.45);
+  \draw (0.55,-0.45)--(6.6,-0.45);
+  \draw[->] (6.6,-0.45)-- node[right,font=\tiny,pos=0.12]{$s(t)$ (Soll)} (se);
+\end{tikzpicture}\par
+\vspace{0.12em}
+\parbox{0.97\linewidth}{\footnotesize Beobachtung $x=G*s+n$ $\to$ Rekonstruktionsfilter $H$
+$\to$ Schätzung $\hat s(t)$. Schätzfehler $e(t)=\hat s(t)-s(t)$ gegen das (unbekannte)
+Nutzsignal $s(t)$. $H$ minimiert $E\{|e|^2\}$ $\Rightarrow$ \emph{Orthogonalitätsprinzip}
+$e(t)\perp x(t)$ $\Rightarrow$ $H=\Phi_{sx}/\Phi_{xx}$. \itshape Gegensatz zu Kalman: ein
+festes (zeitinvariantes) $H$, kein Zustand/keine Rekursion.}\par\raggedright
 \bereichende
 
 \bereich[cSchaetz]{REZEPT · Wiener-Filter als MSE-Minimierung im Zeitbereich}
@@ -112,10 +157,10 @@ Ziel: $E\{e^2\}\to\min$.
   \rs{Ergebnis ist Parabel $E\{e^2\}=\alpha\,h_0^2+\beta\,h_0+\gamma$.}
   \rs{$\dfrac{\mathrm d}{\mathrm d h_0}E\{e^2\}=0 \Rightarrow h_0=-\dfrac{\beta}{2\alpha}$.}
 \end{rezept}
-\miniexample{$\hat s=h_0(5s(t)+n_1(t)+s(t{-}2))$, $\varphi_{ss}(0){=}0{,}6$, $\varphi_{nn}{=}10\delta$}{%
-  $e=s(1{-}5h_0)-h_0 s(t{-}2)-h_0 n_1$\;
-  $\Rightarrow E\{e^2\}=28{,}6\,h_0^2-6{,}6\,h_0+0{,}6$\;
-  $\Rightarrow h_0=\dfrac{6{,}6}{2\cdot28{,}6}=0{,}115$.}
+\miniexample{$\hat s=h_0\,(s(t)+s(t{-}1)+n)$, $\varphi_{ss}(0){=}2$, $\varphi_{ss}(1){=}1$, $\varphi_{nn}(0){=}3$, $s\perp n$}{%
+  $e=s(1{-}h_0)-h_0 s(t{-}1)-h_0 n$\;
+  $\Rightarrow E\{e^2\}=9\,h_0^2-6\,h_0+2$\;
+  $\Rightarrow h_0=\dfrac{6}{2\cdot9}=\dfrac13$.}
 \bereichende
 
 % ==========================================================
@@ -201,20 +246,39 @@ Summe aller einlaufenden Pfade auf.
 $\mathbf B$, Rauschpfad $\mathbf G$, Messabgriff $\mathbf C$. Der Verzögerer $z^{-1}$
 hält den Zustand ($x[k{+}1]\!\to\!x[k]$); $z[k]$ koppelt über $\mathbf G$, $n[k]$
 additiv am Ausgang ein.}\par\vspace{0.2em}
-\miniexample{System 1.\ Ordnung}{%
-  $x[k{+}1]=0{,}8\,x[k]+0{,}2\,z[k]+0{,}7\,u[k]$,\quad $y[k]=x[k]+n[k]$\\
-  $\Rightarrow A{=}0{,}8,\;B{=}0{,}7,\;G{=}0{,}2,\;C{=}1$.}
+\miniexample{System 1.\ Ordnung mit Messverstärkung ($C{\neq}1$)}{%
+  $x[k{+}1]=0{,}9\,x[k]+0{,}5\,u[k]+0{,}3\,z[k]$,\quad $y[k]=2\,x[k]+n[k]$\\
+  $\Rightarrow A{=}0{,}9,\;B{=}0{,}5,\;G{=}0{,}3,\;C{=}2$.}
 \bereichende
 
 \bereich[cSchaetz]{Kalman-Filter — Algorithmus (beide Varianten)}
 \noindent\footnotesize
 Start stets $\mathbf F[0]{=}\mathbf 0$, $\hat{\mathbf x}[0]{=}\mathbf 0$ (falls nicht
 anders angegeben). Pro Schritt $k$ in fester Reihenfolge $R\to K/M\to\hat x\to F$.
-Nur $K[k]$ bzw.\ $M[k]$ und $F[k]$ sind \emph{zeitvariant}; $A,B,C,G$ konstant.
-\begin{formelreihe}
+Nur $K[k]$ bzw.\ $M[k]$ und $F[k]$ sind \emph{zeitvariant}; $A,B,C,G$ konstant.\\[0.15em]
+{\scshape\color{gray!65!black} Woher $Z_0,N_0$?} Es sind die \emph{Leistungen} der weißen Rausch­prozesse $z[k]$
+(System) bzw.\ $n[k]$ (Messung) — der ACF-Wert bei $\kappa{=}0$:
+$\varphi_{zz}[\kappa]{=}Z_0\,\delta[\kappa]$, $\varphi_{nn}[\kappa]{=}N_0\,\delta[\kappa]$.
+Direkt aus der Angabe ablesen, z.\,B.\ $\varphi_{zz}{=}3\,\delta[\kappa]\Rightarrow Z_0{=}3$,
+$\varphi_{nn}{=}2\,\delta[\kappa]\Rightarrow N_0{=}2$.
+\par\vspace{0.35em}
+{\setlength{\tabcolsep}{0pt}\renewcommand{\arraystretch}{0.9}%
+\noindent
+\begin{tabular}{@{}p{0.485\linewidth}@{\hspace{0.03\linewidth}}p{0.485\linewidth}@{}}
+  \parbox[t]{\linewidth}{\scriptsize
+    {\scshape\color{gray!65!black} Welche Variante? (zuerst entscheiden)}\\
+    \itshape „Schätzwert $\hat x[k]$, Eingang $y[k]$, Ausgang $\hat x$" ohne extra
+    Korrekturpfad $\to$ \emph{ohne}. Innovationspfad $e[k]{=}y{-}\hat y$ wirkt
+    direkt auf $\hat x^{+}[k]$ $\to$ \emph{mit}.} &
+  \parbox[t]{\linewidth}{\scriptsize
+    {\scshape\color{gray!65!black} Alternative Nomenklatur}\\
+    \itshape möglich: $\Sigma\,{\hat=}\,M$, $\Lambda\,{\hat=}\,$Rückführung,
+    $\Phi,\Psi\,{\hat=}\,A,$ Verzög.\ — Struktur identisch.} \\
+\end{tabular}\par
+\vspace{0.5em}\noindent
+\begin{tabular}{@{}p{0.485\linewidth}@{\hspace{0.03\linewidth}}p{0.485\linewidth}@{}}
   \parbox[t]{\linewidth}{%
-    {\scriptsize\scshape\color{gray!65!black} Variante A — OHNE Innovationsterm
-      (a-priori $\hat x[k]$)}\par\vspace{0.1em}
+    {\scriptsize\scshape\color{gray!65!black} Variante A — OHNE Innovationsterm (a-priori $\hat x[k]$)}\par\vspace{0.18em}
     \begin{rezept}
       \rs{$R[k]=N_0+C\,F[k]\,C^{T}$}
       \rs{$K[k]=A\,F[k]\,C^{T}\,R^{-1}[k]$}
@@ -222,33 +286,135 @@ Nur $K[k]$ bzw.\ $M[k]$ und $F[k]$ sind \emph{zeitvariant}; $A,B,C,G$ konstant.
       \rs{$F[k{+}1]=A\,F[k]\,A^{T}-K[k]\,R[k]\,K^{T}[k]+G\,Z_0\,G^{T}$}
     \end{rezept}} &
   \parbox[t]{\linewidth}{%
-    {\scriptsize\scshape\color{gray!65!black} Variante B — MIT Innovationsterm
-      (a-posteriori $\hat x^{+}[k]$)}\par\vspace{0.1em}
+    {\scriptsize\scshape\color{gray!65!black} Variante B — MIT Innovationsterm (a-posteriori $\hat x^{+}[k]$)}\par\vspace{0.18em}
     \begin{rezept}
       \rs{$R[k]=N_0+C\,F[k]\,C^{T}$}
-      \rs{$M[k]=F[k]\,C^{T}\,R^{-1}[k]$\quad(Gewichtungsmatrix),\;\; $K[k]=A\,M[k]$}
+      \rs{$M[k]=F[k]\,C^{T}\,R^{-1}[k]$ (Gewichtungsm.),\; $K[k]=A\,M[k]$}
       \rs{$\hat x^{+}[k]=\hat x[k]+M[k]\,(y[k]-C\,\hat x[k])$}
       \rs{$\hat x[k{+}1]=A\,\hat x^{+}[k]+B\,u[k]$}
       \rs{$F[k{+}1]=A\,F[k]\,A^{T}-K[k]\,R[k]\,K^{T}[k]+G\,Z_0\,G^{T}$}
-    \end{rezept}} &
-  \infoblock{\textbf{Welche Variante?}\\
-    „Schätzwert $\hat x[k]$ / Eingang $y[k]$, Ausgang $\hat x$" ohne extra
-    Korrekturpfad $\to$ \emph{ohne}.\\
-    Innovationspfad $e[k]{=}y{-}\hat y$ wirkt direkt auf $\hat x^{+}[k]$
-    $\to$ \emph{mit}.\\[0.3em]
-    \textbf{Alternative Nomenklatur} möglich: $\Sigma\,{\hat=}\,M$,
-    $\Lambda\,{\hat=}\,$Rückführung, $\Phi,\Psi\,{\hat=}\,A,$ Verzög.\ —
-    Struktur identisch.} \\
-\end{formelreihe}
+    \end{rezept}} \\
+\end{tabular}\par}
+\par\vspace{0.3em}\noindent
+{\scriptsize\scshape\color{gray!65!black} Skalarfall ($n{=}1$, $C$ skalar) — geschlossene Form (so direkt in der Klausur einsetzbar)}\par\nopagebreak\vspace{0.12em}
+\noindent\footnotesize
+$R[k]=N_0+C^2 f[k]$,\qquad
+$\displaystyle K[k]=\frac{A\,C\,f[k]}{N_0+C^2 f[k]}\;\;(=A\,M[k],\;\; M[k]=\tfrac{C f[k]}{N_0+C^2 f[k]})$,\qquad
+$\displaystyle f[k{+}1]=A^2 f[k]-\frac{A^2 C^2 f^2[k]}{N_0+C^2 f[k]}+G^2 Z_0$.\\[0.2em]
+\emph{Für $C{=}1$:} $\;K[k]=\dfrac{A\,f[k]}{N_0+f[k]}$,\quad
+$f[k{+}1]=A^2 f[k]-\dfrac{A^2 f^2[k]}{N_0+f[k]}+G^2 Z_0$.\;
+\itshape (Nur skalar zusammenziehbar — im Matrixfall bei den Einzelschritten oben bleiben.)\upshape\par\vspace{0.15em}
 \fallstrick{Erst $R$, dann $K/M$, dann $\hat x$, zuletzt $F$ — Reihenfolge nicht
   vertauschen.\; $F[0]{=}0\Rightarrow K[0]{=}0\Rightarrow F[1]=G Z_0 G^{T}$ (immer!).\;
   Bei $C{\neq}1$: $C F C^{T}$ und $C\hat x$ nicht vergessen.\;
   $u[k]=\cos(k\pi)=(-1)^k$ erzeugt die Folge $1,-1,1,\dots$}
-\miniexample{Redundante Messung (statisch): $y_i=x+n_i$, $\hat x=k_1y_1+k_2y_2$}{%
-  Erwartungstreue $\Rightarrow k_1+k_2=1$;\quad
-  $k_1=\dfrac{\sigma_{n_2}^2}{\sigma_{n_1}^2+\sigma_{n_2}^2}$,\quad
-  $k_2=\dfrac{\sigma_{n_1}^2}{\sigma_{n_1}^2+\sigma_{n_2}^2}$\quad
-  (kleinere Rauschvarianz $\to$ größeres Gewicht).}
+
+\bereichende
+
+\bereich[cSchaetz]{Kalman-Filter — Strukturbilder (Variante A \& B)}
+% ---- Strukturbilder der Filterstruktur (Klausur: zu vorgeg. System zeichnen) ----
+\par\vspace{0.2em}\centering
+{\scriptsize\scshape\color{gray!65!black} Strukturbild · Variante A — OHNE Innovationsterm (a-priori $\hat x[k]$)}\par\vspace{0.12em}
+\begin{tikzpicture}[font=\scriptsize,color=teal!72!black,line width=0.6pt,
+    blk/.style={draw,fill=white,inner sep=2pt,minimum height=4.6mm,minimum width=5.2mm},
+    sj/.style={draw,circle,inner sep=0pt,minimum size=3.8mm}]
+  % --- Hauptpfad
+  \node      (y)   at (0,1.4)    {$y[k]$};
+  \node[sj]  (s1)  at (1.25,1.4) {};
+  \node[blk] (K)   at (2.6,1.4)  {$\mathbf K[k]$};
+  \node[sj]  (s2)  at (4.25,1.4) {$+$};
+  \node[blk] (vz)  at (5.55,1.4) {$z^{-1}$};
+  \coordinate      (tap) at (6.75,1.4);
+  \node      (xh)  at (7.65,1.4) {$\hat{\mathbf x}[k]$};
+  % --- Eingang u über B (von oben in s2)
+  \node      (u)   at (3.1,2.35) {$u[k]$};
+  \node[blk] (B)   at (4.25,2.35){$\mathbf B$};
+  % --- Rückführung A (in s2)
+  \node[blk] (A)   at (5.1,0.45) {$\mathbf A$};
+  % --- Messabgriff C (Rückführung in s1)
+  \node[blk] (C)   at (3.5,-0.55){$\mathbf C$};
+  % --- Vorzeichen an s1
+  \node[font=\tiny] at (0.92,1.62){$+$};
+  \node[font=\tiny] at (1.18,1.08){$-$};
+  % --- Verbindungen
+  \draw[->] (y)--(s1);
+  \draw[->] (s1)-- node[above,font=\tiny,pos=0.5]{$e[k]$} (K);
+  \draw[->] (K)--(s2);
+  \draw[->] (s2)-- node[above,font=\tiny,pos=0.46]{$\hat{\mathbf x}[k{+}1]$} (vz);
+  \draw (vz)--(tap); \fill (tap) circle (0.7pt);
+  \draw[->] (tap)--(xh);
+  \draw[->] (u)--(B);
+  \draw[->] (B)--(s2);
+  % A-Rückführung
+  \draw (tap)--(6.75,0.45); \fill (6.75,0.45) circle (0.7pt);
+  \draw[->] (6.75,0.45)--(A);
+  \draw (A)--(4.25,0.45);
+  \draw[->] (4.25,0.45)--(s2);
+  % C-Rückführung
+  \draw (6.75,0.45)--(6.75,-0.55);
+  \draw[->] (6.75,-0.55)--(C);
+  \draw (C)--(1.25,-0.55);
+  \draw[->] (1.25,-0.55)-- node[right,font=\tiny,pos=0.22]{$\mathbf C\hat{\mathbf x}[k]$} (s1);
+\end{tikzpicture}\par
+\vspace{0.12em}
+\parbox{0.97\linewidth}{\footnotesize Eine Summierstelle:
+$\hat{\mathbf x}[k{+}1]=\mathbf A\hat{\mathbf x}[k]+\mathbf B u[k]
++\mathbf K[k]\,\underbrace{(y[k]-\mathbf C\hat{\mathbf x}[k])}_{e[k]\;=\;\text{Schätzfehler / Innovation}}$.
+$\mathbf A$ liegt im \emph{Rückführzweig}; die Korrektur $\mathbf K e$ läuft in dieselbe
+Summe wie $\mathbf A\hat{\mathbf x}$ und $\mathbf B u$. Kein expliziter a-posteriori-Knoten.}\par
+\vspace{0.55em}
+{\scriptsize\scshape\color{gray!65!black} Strukturbild · Variante B — MIT Innovationsterm (a-posteriori $\hat x^{+}[k]$)}\par\vspace{0.12em}
+\begin{tikzpicture}[font=\scriptsize,color=teal!72!black,line width=0.6pt,
+    blk/.style={draw,fill=white,inner sep=2pt,minimum height=4.6mm,minimum width=5.2mm},
+    sj/.style={draw,circle,inner sep=0pt,minimum size=3.8mm}]
+  % --- Hauptpfad: s1(Innov.) -> M -> sc(Korrektur, x^+) -> A -> s2(Prädiktion) -> z^{-1}
+  \node      (y)   at (0,1.4)    {$y[k]$};
+  \node[sj]  (s1)  at (1.25,1.4) {};
+  \node[blk] (M)   at (2.55,1.4) {$\mathbf M[k]$};
+  \node[sj]  (sc)  at (3.95,1.4) {$+$};
+  \node[blk] (A)   at (5.25,1.4) {$\mathbf A$};
+  \node[sj]  (s2)  at (6.55,1.4) {$+$};
+  \node[blk] (vz)  at (7.85,1.4) {$z^{-1}$};
+  \coordinate      (tap) at (9.0,1.4);
+  \node      (xh)  at (9.9,1.4)  {$\hat{\mathbf x}[k]$};
+  \node[above=1pt,font=\tiny] at (4.6,1.42){$\hat{\mathbf x}^{+}[k]$};
+  % --- Eingang u über B (in s2)
+  \node      (u)   at (5.4,2.35) {$u[k]$};
+  \node[blk] (B)   at (6.55,2.35){$\mathbf B$};
+  % --- Messabgriff C (Rückführung in s1)
+  \node[blk] (C)   at (4.0,-0.55){$\mathbf C$};
+  % --- Vorzeichen
+  \node[font=\tiny] at (0.92,1.62){$+$};
+  \node[font=\tiny] at (1.18,1.08){$-$};
+  \node[font=\tiny] at (3.7,1.1)  {$+$};
+  % --- Verbindungen forward
+  \draw[->] (y)--(s1);
+  \draw[->] (s1)-- node[above,font=\tiny,pos=0.5]{$e[k]$} (M);
+  \draw[->] (M)--(sc);
+  \draw[->] (sc)--(A);
+  \draw[->] (A)--(s2);
+  \draw[->] (s2)-- node[above,font=\tiny,pos=0.46]{$\hat{\mathbf x}[k{+}1]$} (vz);
+  \draw (vz)--(tap); \fill (tap) circle (0.7pt);
+  \draw[->] (tap)--(xh);
+  \draw[->] (u)--(B);
+  \draw[->] (B)--(s2);
+  % --- direkte x̂[k]-Rückführung in sc (+1)
+  \draw (tap)--(9.0,0.5); \fill (9.0,0.5) circle (0.7pt);
+  \draw (9.0,0.5)--(3.95,0.5);
+  \draw[->] (3.95,0.5)--(sc);
+  % --- C-Rückführung in s1
+  \draw (9.0,0.5)--(9.0,-0.55);
+  \draw[->] (9.0,-0.55)--(C);
+  \draw (C)--(1.25,-0.55);
+  \draw[->] (1.25,-0.55)-- node[right,font=\tiny,pos=0.22]{$\mathbf C\hat{\mathbf x}[k]$} (s1);
+\end{tikzpicture}\par
+\vspace{0.12em}
+\parbox{0.97\linewidth}{\footnotesize Zwei Stufen mit \emph{explizitem} a-posteriori-Knoten:
+\textbf{Korrektur} $\hat{\mathbf x}^{+}[k]=\hat{\mathbf x}[k]+\mathbf M[k]\,e[k]$ (Schätzfehler
+$e[k]=y[k]-\mathbf C\hat{\mathbf x}[k]$ wirkt über $\mathbf M$ direkt auf $\hat{\mathbf x}^{+}$),
+dann \textbf{Prädiktion} $\hat{\mathbf x}[k{+}1]=\mathbf A\hat{\mathbf x}^{+}[k]+\mathbf B u[k]$.
+$\mathbf A$ liegt jetzt im \emph{Vorwärtszweig} (hinter $\hat{\mathbf x}^{+}$), nicht in der
+Rückführung. Es gilt $\mathbf K=\mathbf A\mathbf M$.}\par\raggedright
 \bereichende
 
 \bereich[cSchaetz]{Kalman-Filter — Stationärer Endwert \& Dimensionen}
@@ -277,25 +443,25 @@ Nur $K[k]$ bzw.\ $M[k]$ und $F[k]$ sind \emph{zeitvariant}; $A,B,C,G$ konstant.
     $R:1{\times}1$,\;\; $\mathbf M[k],\mathbf K[k]:n{\times}1$.\;
     \itshape ($q$ = Anzahl Systemrausch-Quellen $z$.)}} & & \\
 \end{formelreihe}
-\miniexample{Skalar, ohne Innovation ($A{=}0{,}8$, $C{=}1$, $G{=}0{,}2$, $Z_0{=}3$, $N_0{=}2$)}{%
-  $R[k]{=}2{+}f[k]$,\quad $K[k]{=}\dfrac{0{,}8\,f[k]}{2{+}f[k]}$,\quad
-  $f[k{+}1]{=}0{,}64\,f[k]-\dfrac{0{,}64\,f^{2}[k]}{2{+}f[k]}+0{,}12$\\[0.25em]
+\miniexample{Skalar, ohne Innovation ($A{=}0{,}6$, $C{=}1$, $G{=}0{,}5$, $Z_0{=}2$, $N_0{=}1$)}{%
+  $R[k]{=}1{+}f[k]$,\quad $K[k]{=}\dfrac{0{,}6\,f[k]}{1{+}f[k]}$,\quad
+  $f[k{+}1]{=}0{,}36\,f[k]-\dfrac{0{,}36\,f^{2}[k]}{1{+}f[k]}+0{,}5$\\[0.25em]
   \begin{tabular}{@{}l|cccc@{}}
     $k$ & 0 & 1 & 2 & 3\\\hline
-    $f[k]$ & 0 & 0{,}12 & 0{,}1925 & 0{,}2324\\
-    $K[k]$ & 0 & 0{,}0453 & 0{,}0702 & 0{,}0833
+    $f[k]$ & 0 & 0{,}5 & 0{,}62 & 0{,}6378\\
+    $K[k]$ & 0 & 0{,}2 & 0{,}2296 & 0{,}2336
   \end{tabular}\quad
-  $\hat x[k{+}1]{=}0{,}8\hat x{+}0{,}7u{+}K(y{-}\hat x)$\\[0.25em]
-  Endwert: $f_\infty{=}0{,}64f_\infty-\frac{0{,}64f_\infty^2}{2+f_\infty}+0{,}12$
-  $\Rightarrow f_\infty^2+0{,}6f_\infty-0{,}24{=}0$, $f_\infty{=}0{,}275$,
-  $K_\infty{=}\frac{0{,}8\cdot0{,}275}{2+0{,}275}{=}0{,}097$.}
+  $\hat x[k{+}1]{=}0{,}6\hat x{+}Bu{+}K(y{-}\hat x)$\\[0.25em]
+  Endwert: $f_\infty{=}0{,}36f_\infty-\frac{0{,}36f_\infty^2}{1+f_\infty}+0{,}5$
+  $\Rightarrow f_\infty^2+0{,}14f_\infty-0{,}5{=}0$, $f_\infty{=}0{,}641$,
+  $K_\infty{=}\frac{0{,}6\cdot0{,}641}{1+0{,}641}{=}0{,}234$.}
 \miniexample{Matrix, 3.\ Ordnung, ohne Innovation (erster Schritt)}{%
-  $\mathbf A{=}\!\begin{psmallmatrix}0&0&0\\1&0{,}7&0\\0&0&0{,}81\end{psmallmatrix}$,\;
-  $\mathbf G{=}\!\begin{psmallmatrix}0&0\\1&0\\0&0{,}9\end{psmallmatrix}$,\;
-  $\mathbf C{=}\!\begin{psmallmatrix}0&2&2\end{psmallmatrix}$,\;
-  $\mathbf Z_0{=}\!\begin{psmallmatrix}1&0\\0&2\end{psmallmatrix}$,\; $R_0{=}3$.\\[0.2em]
-  $\mathbf F[0]{=}\mathbf 0\Rightarrow R[0]{=}R_0{=}3\Rightarrow \mathbf K[0]{=}\mathbf 0$
+  $\mathbf A{=}\!\begin{psmallmatrix}0&0&0\\1&0{,}5&0\\0&0&0{,}6\end{psmallmatrix}$,\;
+  $\mathbf G{=}\!\begin{psmallmatrix}0&0\\1&0\\0&0{,}8\end{psmallmatrix}$,\;
+  $\mathbf C{=}\!\begin{psmallmatrix}0&1&3\end{psmallmatrix}$,\;
+  $\mathbf Z_0{=}\!\begin{psmallmatrix}2&0\\0&1\end{psmallmatrix}$,\; $R_0{=}2$.\\[0.2em]
+  $\mathbf F[0]{=}\mathbf 0\Rightarrow R[0]{=}R_0{=}2\Rightarrow \mathbf K[0]{=}\mathbf 0$
   $\Rightarrow \mathbf F[1]{=}\mathbf G\,\mathbf Z_0\,\mathbf G^{T}
-  {=}\!\begin{psmallmatrix}0&0&0\\0&1&0\\0&0&1{,}62\end{psmallmatrix}$.\quad
+  {=}\!\begin{psmallmatrix}0&0&0\\0&2&0\\0&0&0{,}64\end{psmallmatrix}$.\quad
   $\dim\mathbf K[1]=3{\times}1$.}
 \bereichende

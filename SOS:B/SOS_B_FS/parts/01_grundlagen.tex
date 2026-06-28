@@ -149,9 +149,11 @@
   \rs{Lineares Gleichungssystem lösen.}
 \end{rezept}
 \miniexample{Normierung (a) \;/\; Normierung + Mittelwertfreiheit (b)}{%
-  (a) $2{\cdot}\tfrac13+6\,f_0=1\Rightarrow f_0=\tfrac1{18}$.\hfill
-  (b) $3f_1{+}9f_2{=}1$ und $\mu_X{=}0:\;-f_1\tfrac92+f_2\tfrac{81}2=0$
-  $\Rightarrow f_1{=}\tfrac14,\;f_2{=}\tfrac1{36}$.}
+  (a) Rechteck Höhe $f_0$ auf $[0,5]$ + Dirac $\tfrac14$ bei $x{=}2$:\;
+  $5f_0+\tfrac14=1\Rightarrow f_0=\tfrac{3}{20}$.\hfill
+  (b) Rechtecke $f_1$ auf $[-4,0]$, $f_2$ auf $[0,2]$:\;
+  $4f_1{+}2f_2{=}1$ und $\mu_X{=}0:\;-8f_1+2f_2=0$
+  $\Rightarrow f_2{=}4f_1\Rightarrow f_1{=}\tfrac1{12},\;f_2{=}\tfrac13$.}
 \bereichende
 
 \bereich[cGrundl]{Erwartungswert, Momente \& Varianz}
@@ -218,11 +220,10 @@
     {\scriptsize\scshape\color{gray!65!black} Gleichverteilung $[a,b]$}\\[0.05em]
     {\footnotesize $\mu=\tfrac{a+b}{2}$,\quad $\sigma^2=\tfrac{(b-a)^2}{12}$}} \\
 \end{formelreihe}
-\miniexample{$f_Y{=}\tfrac19$ auf $[-6,0]$, $\tfrac1{36}$ auf $[0,12]$}{%
-  $\mu_Y=\tfrac19\!\int_{-6}^{0}\!y\,\mathrm dy+\tfrac1{36}\!\int_{0}^{12}\!y\,\mathrm dy
-  =-2+2=0$;\quad
-  $\sigma_Y^2=\tfrac19\!\int_{-6}^{0}\!y^2\mathrm dy+\tfrac1{36}\!\int_{0}^{12}\!y^2\mathrm dy
-  =8+16=24$.}
+\miniexample{Diskret: $X\in\{0,2,4,6\}$, je $w_i{=}\tfrac14$}{%
+  $\mu_X=\tfrac14(0{+}2{+}4{+}6)=3$;\quad
+  $E\{X^2\}=\tfrac14(0{+}4{+}16{+}36)=14$;\quad
+  $\sigma_X^2=14-3^2=5$ \;(Verschiebungssatz).}
 \bereichende
 
 \bereich[cGrundl]{Transformation \& Lineare Abbildungen}
@@ -251,10 +252,10 @@
   nicht $x$-Grenzen übernehmen.\;
   \textbf{Rückwärts}: Steigung so wählen, dass $Y$
   \emph{gleichverteilt} wird $\Rightarrow g'=\dfrac{f_X}{f_Y}$ mit $f_Y=$const.}
-\miniexample{stückw.\ lineare Kennlinie \;/\; Kennlinie $g(x){=}\sqrt[3]{x}$}{%
-  $g'{=}3\,(x{<}0),\,2\,(x{>}0)\Rightarrow
-  f_Y{=}\tfrac{1/3}{3}{=}\tfrac19\,(-6{<}y{<}0),\;\tfrac{1/18}{2}{=}\tfrac1{36}\,(0{<}y{<}12)$.\\
-  $g{=}\sqrt[3]{x}:\;g'{=}\tfrac{1}{3x^{2/3}}$, $x{=}y^3\Rightarrow f_Y(y)=f_X(y^3)\cdot 3y^2$.}
+\miniexample{stückw.\ lineare Kennlinie \;/\; Kennlinie $g(x){=}\sqrt{x}$}{%
+  $X{\sim}\mathcal U[-2,2]$ ($f_X{=}\tfrac14$), $g'{=}2\,(x{<}0),\,4\,(x{>}0)\Rightarrow
+  f_Y{=}\tfrac{1/4}{2}{=}\tfrac18\,(-4{<}y{<}0),\;\tfrac{1/4}{4}{=}\tfrac1{16}\,(0{<}y{<}8)$.\\
+  $g{=}\sqrt{x}\,(x{>}0):\;g'{=}\tfrac{1}{2\sqrt{x}}$, $x{=}y^2\Rightarrow f_Y(y)=f_X(y^2)\cdot 2y$.}
 \bereichende
 
 \bereich[cGrundl]{Gemeinsame Verteilungen \& Korrelation}
@@ -319,11 +320,11 @@ $f_Z=f_X*f_Y$.
   \rs{Kontrolle: Gesamtfläche $=1$, $\mu_Z=\mu_X+\mu_Y$.}
 \end{rezept}
 \miniexample{diskret${+}$kontinuierlich \;/\; mit Verstärkung}{%
-  $X\in\{\pm1\}$, $P({+}1){=}\tfrac23$, $Y\sim\mathcal U[0,4]$ ($f_Y{=}\tfrac14$):\;
-  $f_Z=\tfrac13{\cdot}\tfrac14$ auf $[-1,3]\;+\;\tfrac23{\cdot}\tfrac14$ auf $[1,5]$
-  (Überlapp $[1,3]:\tfrac1{12}{+}\tfrac16{=}\tfrac14$).\\
-  $Z{=}{-}3X{+}Y$, $Y$ zwei Diracs bei $\pm2\Rightarrow
-  f_Z=\tfrac12 f_{-3X}(z{-}2)+\tfrac12 f_{-3X}(z{+}2)$ (zwei verschobene Kopien).}
+  $X\in\{0,1\}$, $P(0){=}\tfrac14$, $P(1){=}\tfrac34$, $Y\sim\mathcal U[0,3]$ ($f_Y{=}\tfrac13$):\;
+  $f_Z=\tfrac14{\cdot}\tfrac13$ auf $[0,3]\;+\;\tfrac34{\cdot}\tfrac13$ auf $[1,4]$
+  (Überlapp $[1,3]:\tfrac1{12}{+}\tfrac14{=}\tfrac13$).\\
+  $Z{=}{-}2X{+}Y$, $Y$ zwei Diracs bei $\pm1$ (je $\tfrac12$) $\Rightarrow
+  f_Z=\tfrac12 f_{-2X}(z{-}1)+\tfrac12 f_{-2X}(z{+}1)$ (zwei verschobene Kopien).}
 \bereichende
 
 \bereich[cGrundl]{Gesetz der großen Zahlen}
