@@ -1,0 +1,42 @@
+% ============================================================
+%  SOS/A FORMELSAMMLUNG — Teil 0
+%  Mathematische Grundlagen | Determinanten & Eigenwerte
+% ============================================================
+
+\bereich[cKap0]{Teil 0: Mathematische Grundlagen}
+
+\begin{formelreihe}
+  \formelblock{Determinante $2\times2$}{
+    \det\!\begin{bsmallmatrix}a&b\\c&d\end{bsmallmatrix}=ad-bc} &
+  \formelblock{Determinante $3\times3$ (Sarrus)}{\begin{aligned}
+    &\det\!\begin{bsmallmatrix}a&b&c\\d&e&f\\g&h&i\end{bsmallmatrix}\\
+    &=a(ei\!-\!fh)-b(di\!-\!fg)\\
+    &\quad+\,c(dh\!-\!eg)
+  \end{aligned}} &
+  \beispielblock{Determinante}{\begin{aligned}
+    &\det\!\begin{bsmallmatrix}1&2&0\\0&3&1\\1&0&2\end{bsmallmatrix}\\
+    &=1(6\!-\!0)-2(0\!-\!1)+0\\
+    &=6+2=8
+  \end{aligned}} \\[0.3em]
+
+  \formelblock{Eigenwerte $\lambda_i$}{\begin{aligned}
+    &\det(\lambda\mathbf{I}-\mathbf{A})=0\\
+    &\text{(charakterist. Polynom)}\\
+    &\mathbf{A}\,\mathbf{v}_i=\lambda_i\,\mathbf{v}_i
+  \end{aligned}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{$2\times2$-Schnellformel}{%
+      \lambda_{1,2}=\tfrac{\operatorname{tr}\mathbf{A}}{2}\pm
+      \sqrt{\bigl(\tfrac{\operatorname{tr}\mathbf{A}}{2}\bigr)^2-\det\mathbf{A}}}\\[0.25em]%
+    \formelblock{Eigenvektor zu $\lambda_i$}{%
+      (\mathbf{A}-\lambda_i\mathbf{I})\,\mathbf{v}_i=\mathbf{0}}} &
+  \beispielblock{Eigenwerte}{\begin{aligned}
+    &\mathbf{A}=\begin{bsmallmatrix}2&1\\1&2\end{bsmallmatrix},\;
+    \operatorname{tr}=4,\;\det=3\\
+    &\lambda_{1,2}=2\pm\sqrt{4-3}=2\pm1\\
+    &\lambda_1=3,\quad\lambda_2=1
+  \end{aligned}} \\
+\end{formelreihe}
+\bereichende
+
+% ============================================================

@@ -24,6 +24,7 @@
 \setlength{\fboxrule}{0.3pt}
 
 % ---- Farbschema: eine Farbe pro Kapitel ------------------
+\colorlet{cKap0}{black!70}          % Teil 0: Mathematische Grundlagen
 \colorlet{cKap1}{blue}              % Teil 1: Signale & Systeme
 \colorlet{cKap2}{teal}              % Teil 2: Routh-Schema
 \colorlet{cKap3}{violet}            % Teil 3: Zustandsraum & ÜF
@@ -83,6 +84,7 @@
 \vspace{0.3em}
 
 % ---- Kapitel einbinden -----------------------------------
+\input{parts/00_grundlagen}
 \input{parts/01_signale_routh}
 \input{parts/02_zustandsraum_lyapunov}
 \input{parts/03_kreiskriterium}

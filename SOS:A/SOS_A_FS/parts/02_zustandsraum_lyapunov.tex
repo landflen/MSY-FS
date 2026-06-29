@@ -292,22 +292,42 @@
     \text{pos. def.}&:\;V(\mathbf{x})>0\;\forall\mathbf{x}\neq\mathbf{0}\\
     \text{pos. semid.}&:\;V(\mathbf{x})\geq0\\
     \text{neg. def.}&:\;V(\mathbf{x})<0\;\forall\mathbf{x}\neq\mathbf{0}\\
+    \text{neg. semid.}&:\;V(\mathbf{x})\leq0\\
+    \text{indefinit}&:\;\text{sonst (Vorz.-Wechsel)}\\
     &V(\mathbf{0})=0\;\text{in allen Fällen}
   \end{aligned}} &
   \parbox[t]{\linewidth}{%
     {\scriptsize\scshape\color{gray!65!black} Definitheit (Matrix $\mathbf{Q}$)}\\[0.03em]%
     \scriptsize
-    $\mathbf{Q}$ pos.\,def.\ $\Leftrightarrow$ $\mathbf{Q}$ sym.\ und alle EW$(\mathbf{Q})>0$\\[0.05em]
-    oder: alle Hauptunterdet.\,$>0$:\\[0.03em]
-    \quad$q_{11}>0$,\;
-    $\det\!\left[\begin{smallmatrix}q_{11}&q_{12}\\q_{21}&q_{22}\end{smallmatrix}\right]>0$,\;\ldots\\[0.08em]
-    $\mathbf{Q}$ neg.\,def.\ $\Leftrightarrow$ $-\mathbf{Q}$ pos.\,def.\\[0.08em]
-    $V=\mathbf{x}^T\!\mathbf{Q}\mathbf{x}$ pos.\,def.\ $\Leftrightarrow$ $\mathbf{Q}$ pos.\,def.} &
-  \beispielblock{Q prüfen}{%
-    \mathbf{Q}=\begin{bmatrix}2&1\\1&3\end{bmatrix}\\[0.1em]
-    q_{11}=2>0\\
-    \det(\mathbf{Q})=5>0\\
-    \Rightarrow\text{pos.\,def.}} \\[0.3em]
+    \textbf{Voraussetzung:} $\mathbf{Q}$ symmetrisch.\\[0.02em]
+    \quad$\mathbf{Q}$ \textbf{nicht sym.}\ $\Rightarrow$ \textbf{indefinit!} (s.\ $\mathbf{Q}_5$)\\[0.05em]
+    \textbf{EW-Kriterium} ($\mathbf{Q}$ sym., alle EW reell):\\[0.02em]
+    \quad alle EW$>0$: pos.\,def.;\quad alle EW$<0$: neg.\,def.\\[0.02em]
+    \quad alle EW$\geq0$: pos.\,semid.;\; alle EW$\leq0$: neg.\,semid.\\[0.02em]
+    \quad Vorzeichenwechsel der EW $\Rightarrow$ indefinit\\[0.05em]
+    \textbf{Hauptunterdet.-Krit.}\ $D_k=\det\mathbf{Q}_k$ (führend):\\[0.02em]
+    \quad pos.\,def.: alle $D_k>0$ \ ($q_{11}>0,\,D_2>0,\dots$)\\[0.02em]
+    \quad neg.\,def.: $(-1)^k D_k>0$ \ ($q_{11}<0,\,D_2>0,\dots$)\\[0.02em]
+    \qquad äquiv.\ zu $-\mathbf{Q}$ pos.\,def.\ (s.\ $\mathbf{Q}_2$)\\[0.02em]
+    \quad semidef.: alle $D_k\geq0$ bzw.\ $\leq0$, Randfall $\det\mathbf{Q}=0$\\[0.02em]
+    \quad indefinit: sonst (z.\,B.\ $\det\mathbf{Q}<0$ bei $2\!\times\!2$)\\[0.05em]
+    $V=\mathbf{x}^T\!\mathbf{Q}\mathbf{x}$ erbt Definitheit von $\mathbf{Q}$.} &
+  \beispielblock{Definitheit prüfen}{%
+    \mathbf{Q}_1=\begin{bsmallmatrix}2&-1\\-1&2\end{bsmallmatrix}:\;
+    q_{11}{=}2{>}0,\,\det{=}3{>}0\\
+    \Rightarrow\text{pos.\,def.}\\[0.1em]
+    \mathbf{Q}_2=\begin{bsmallmatrix}-1&-1\\-1&-2\end{bsmallmatrix}:\;
+    -\mathbf{Q}_2{=}\begin{bsmallmatrix}1&1\\1&2\end{bsmallmatrix}\\
+    1{>}0,\,\det{=}1{>}0\Rightarrow-\mathbf{Q}_2\text{ p.\,d.}\\
+    \Rightarrow\mathbf{Q}_2\;\text{neg.\,def.}\\[0.1em]
+    \mathbf{Q}_3=\begin{bsmallmatrix}-1&1\\1&-1\end{bsmallmatrix}:\;
+    q_{11}{<}0,\,\det{=}0\\
+    \Rightarrow\text{neg.\,semidef.}\\[0.1em]
+    \mathbf{Q}_4=\begin{bsmallmatrix}1&2\\2&1\end{bsmallmatrix}:\;
+    \det{=}1{-}4{=}{-}3{<}0\\
+    \Rightarrow\text{indefinit}\\[0.1em]
+    \mathbf{Q}_5=\begin{bsmallmatrix}3&1\\2&2\end{bsmallmatrix}\text{ \textbf{unsym.}}
+    \Rightarrow\text{indefinit}} \\[0.3em]
 
   \formelblock{Satz 1: global stabil}{\begin{aligned}
     &V(\mathbf{x})\text{ pos. def., }V(\mathbf{0})=0\\

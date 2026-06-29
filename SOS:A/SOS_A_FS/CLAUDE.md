@@ -18,6 +18,7 @@ Erfolg prüfen: keine Zeilen mit `^!`, `grep -c "Overfull" SOS_A_FS.log` soll 0 
 SOS_A_FS/
 ├── SOS_A_FS.tex              ← Hauptdatei (Preamble, \input-Liste)
 └── parts/
+    ├── 00_grundlagen.tex     ← Teil 0 (Determinanten & Eigenwerte)
     ├── 01_signale_routh.tex  ← Teil 1 (Signale/Systeme) + Teil 2 (Routh)
     ├── 02_zustandsraum_lyapunov.tex  ← Teil 3 (ZR/ÜF) + Teil 4 (NL) + Teil 5 (Lin./Lyapunov)
     ├── 03_kreiskriterium.tex ← Teil 6 (Kreiskriterium)
@@ -32,6 +33,7 @@ Template/Stilregeln: `/Users/Lena1/Documents/TH Nürnberg/MSY/Formelsammlung_Pro
 
 | Farbe      | Teil | Inhalt                        |
 |------------|------|-------------------------------|
+| `cKap0` black!70   | 0 | Mathematische Grundlagen      |
 | `cKap1` blue       | 1 | Signale & Systeme             |
 | `cKap2` teal       | 2 | Routh-Schema                  |
 | `cKap3` violet     | 3 | Zustandsraum & ÜF             |
@@ -66,6 +68,7 @@ Template/Stilregeln: `/Users/Lena1/Documents/TH Nürnberg/MSY/Formelsammlung_Pro
 
 | Datei                         | Status     |
 |-------------------------------|------------|
+| 00_grundlagen.tex             | fertig, kompiliert ✓ |
 | 01_signale_routh.tex          | fertig, kompiliert ✓ |
 | 02_zustandsraum_lyapunov.tex  | fertig, kompiliert ✓ |
 | 03_kreiskriterium.tex         | fertig, kompiliert ✓ |
