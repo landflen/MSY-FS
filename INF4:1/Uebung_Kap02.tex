@@ -1,0 +1,129 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=2.3cm]{geometry}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{titlesec}
+
+\titleformat{\section}{\large\bfseries\color{blue!55!black}}{Aufgabe \thesection}{0.6em}{}
+\setlist{nosep}
+
+\newcommand{\pt}[1]{\hfill\textnormal{\small\color{gray}(#1\,P)}}
+\newcommand{\korr}[1]{\par\smallskip{\color{red}\textbf{Korrektur:} #1}}
+
+\begin{document}
+
+\begin{center}
+  {\Large\bfseries INF4:1 -- Übungsblatt Kapitel 02}\\[2pt]
+  {\normalsize Effizienz \& Landau-Symbole \quad(passend zu Praktikum 1)}\\[2pt]
+  {\small\itshape Erst selbst lösen -- Lösungen besprechen wir danach gemeinsam.}
+\end{center}
+\vspace{0.6em}
+
+%--------------------------------------------------
+\section{O / \texorpdfstring{$\Omega$}{Omega} / \texorpdfstring{$\Theta$}{Theta} ankreuzen \pt{6}}
+Wahr oder falsch? \textbf{Minuspunkte für Falsches} -- im Zweifel weglassen (wie in der Klausur).
+\smallskip
+
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}c >{$}l<{$} c@{}}
+\toprule
+ & \text{Aussage} & wahr / falsch \\
+\midrule
+a) & n \in O(n^2) & true \\
+b) & n^2 \in O(n) & false \\
+c) & n^2 \in \Omega(n) & true \\
+d) & 3n^2 + 5n - 7 \in \Theta(n^2) & true \\
+e) & 2^n \in O(n^2) & {\color{red}true $\rightarrow$ \textbf{false}} \\
+f) & \log_2 n \in \Omega(n) & false \\
+\bottomrule
+\end{tabular}
+
+\smallskip
+\textit{Achtung Richtung: } $O$ = obere Schranke (wächst \emph{höchstens} so schnell),
+$\Omega$ = untere Schranke (wächst \emph{mindestens} so schnell).
+
+\korr{a)--d), f) richtig. \textbf{e) falsch:} $2^n \notin O(n^2)$ -- exponentiell schlägt
+jedes Polynom. Wachstumshierarchie: $1 < \log n < n < n\log n < n^2 < n^3 < 2^n < n!$.}
+
+%--------------------------------------------------
+\section{Komplexität bestimmen \pt{4}}
+Gib die \textbf{$\Theta$-Klasse} in Abhängigkeit von $n$ an:
+\begin{verbatim}
+    s = 0
+    for i = 1 to n:
+        for j = i to n:
+            s = s + 1
+\end{verbatim}
+Wie oft wird \texttt{s = s + 1} insgesamt ausgeführt (geschlossener Ausdruck)?
+Und \emph{warum} läuft die innere Schleife nicht $n$-mal pro Durchlauf?
+\\
+Antwort: $(n(n+1))/2$-Durchläufe. Die innere Schleife laeft haeufiger als n mal durch, da sie pro Durchlauf der aeusseren Schleife mehrmals (mind. 1x) durchlaufen wird.
+
+\korr{Geschlossener Ausdruck $\tfrac{n(n+1)}{2}$ \emph{richtig}; Klasse fehlt noch:
+$\tfrac{n^2+n}{2}\to\Theta(n^2)$. Begründung umgekehrt: die innere Schleife läuft
+\emph{seltener}, nicht häufiger, als $n$-mal -- sie macht $n-i+1$ Durchläufe, also
+\emph{abnehmend} von $n$ (bei $i=1$) auf $1$ (bei $i=n$), im Schnitt $\approx n/2$.}
+
+%--------------------------------------------------
+\section{$c$ und $n_0$ finden \pt{3}}
+Zeige formal $f(n) \in O\big(g(n)\big)$, indem du \textbf{konkrete} Werte für $c$ und $n_0$ angibst,
+sodass $0 \le f(n) \le c\cdot g(n)$ für alle $n \ge n_0$ gilt:
+\[
+  f(n) = 4n + 10, \qquad g(n) = n .
+\]
+\newline
+Rechnung auf Papier.
+$4n=10 <= 4n+10n = 14n$\\
+$c=14, n_0=1$
+$f(n) \in O\big(g(n)\big)$ für $c=14, n>=1$
+
+\korr{Richtig! $4n+10 \le 4n+10n = 14n$ für $n\ge 1$, also $c=14,\ n_0=1$. \;(kleiner
+Tippfehler oben: gemeint ist $4n+10$, nicht $4n=10$.)}
+
+%--------------------------------------------------
+\section{Algorithmus entwerfen \pt{8}}
+Gegeben ein Array mit $n$ Zahlen. Beschreibe in \textbf{Pseudocode} einen Algorithmus, der prüft,
+ob das Array ein \textbf{Duplikat} enthält -- mit Laufzeit \textbf{$\Theta(n\log n)$}.
+Welcher Trick bringt dich von der naiven $\Theta(n^2)$-Lösung herunter?
+////
+Geht man hier davon aus dass das Array schon sortiert ist? Kommt erst im naechstem Kapitel oder?
+
+\korr{Nein -- du \emph{sortierst selbst}. Trick: (1)~Array mit einem bekannten
+$\Theta(n\log n)$-Verfahren (z.\,B.\ Merge Sort) sortieren -- \emph{wie} das geht kommt
+erst in Kap.~03/04, du darfst es als Black Box benutzen. (2)~\emph{Ein} linearer Durchlauf
+($\Theta(n)$): vergleiche je zwei Nachbarn $a[i]$ und $a[i+1]$ -- Duplikate stehen nach dem
+Sortieren direkt nebeneinander. Gesamt $\Theta(n\log n)+\Theta(n)=\Theta(n\log n)$. Das
+schlägt die naive Variante (jedes Paar prüfen, $\Theta(n^2)$).}
+%--------------------------------------------------
+\section{$\Theta$ oder nur $O$? \pt{6}}
+Entscheide jeweils, ob $f(n) \in \Theta\big(g(n)\big)$ \emph{oder nur} $f(n) \in O\big(g(n)\big)$ gilt,
+und begründe kurz:
+\begin{enumerate}[label=\alph*)]
+  \item $f(n) = 5n^2 + 3n,\qquad g(n) = n^2$
+  \item $f(n) = n,\qquad g(n) = n^2$
+  \item $f(n) = n \cdot \log_2 n,\qquad g(n) = n^2$
+\end{enumerate}
+\begin{enumerate}[label=\alph*)]
+  \item $f(n) \in \Theta\big(g(n)\big)$ da $5n^2 >= n^2$
+  \item Nur $f(n) \in O\big(g(n)\big)$ da mit $n>=cn^2$ kein ganzzahliger Wert fuer C gefunden werden kann.
+  \item Nur $f(n) \in O\big(g(n)\big)$ da kein eindeutiger Wert fuer C gefunden werden kann.
+\end{enumerate}
+
+\korr{Alle drei Schlüsse richtig (a)~$\Theta$, b)~nur $O$, c)~nur $O$). Begründung schärfen:
+$c$ muss \textbf{nicht} ganzzahlig/eindeutig sein. „nur $O$`` scheitert an der \textbf{unteren}
+Schranke $\Omega$, weil $f$ \emph{strikt langsamer} wächst, d.h.\ $f(n)/g(n)\to 0$:
+b)~$\tfrac{n}{n^2}=\tfrac1n\to0$;\; c)~$\tfrac{n\log n}{n^2}=\tfrac{\log n}{n}\to0$.}
+
+\vfill
+\hrule
+\smallskip
+{\footnotesize \textit{Bonus (Kap.~04-Vorgriff):} Warum ist Merge Sort $\Theta(n\log n)$, und warum
+gibt es dort keinen Unterschied zwischen Best- und Worst-Case? Ist Merge Sort in-place / stabil?}
+
+\end{document}

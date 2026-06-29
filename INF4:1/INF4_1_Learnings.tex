@@ -1,0 +1,200 @@
+% ============================================================
+%  INF4/1 — Algorithmen und Datenstrukturen
+%  LEARNINGS-ZUSAMMENFASSUNG (Klausurvorbereitung)
+%
+%  Regel: Neuer Foliensatz  ->  neue Seite (\clearpage).
+%  Pro Kapitel: Kernidee, Definitionen, Klausurtipps, Stolperfallen.
+%
+%  Kompilieren:  pdflatex INF4_1_Learnings.tex   (2x für Verweise)
+% ============================================================
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage[table]{xcolor}
+\usepackage[margin=18mm]{geometry}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\tcbuselibrary{skins,breakable}
+\setlist{nosep,leftmargin=1.4em,topsep=2pt}
+
+% ---- Farben -------------------------------------------------
+\definecolor{ohmred}{RGB}{197,30,40}
+\definecolor{defblue}{RGB}{30,90,160}
+\definecolor{tipgreen}{RGB}{30,130,70}
+\definecolor{pitred}{RGB}{180,40,40}
+
+% ---- Kopf-/Fußzeile -----------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small\color{ohmred}\bfseries INF4/1 — Algorithmen \& Datenstrukturen}
+\rhead{\small Learnings}
+\cfoot{\small Seite \thepage\ von \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ---- Kapitel-Überschrift ------------------------------------
+\newcommand{\kapitel}[2]{%
+  \noindent{\color{ohmred}\rule{\linewidth}{2pt}}\par
+  \vspace{2pt}
+  {\LARGE\bfseries\color{ohmred} #1}\par
+  {\large\color{black!70} #2}\par
+  \vspace{4pt}
+  {\color{ohmred}\rule{\linewidth}{0.5pt}}\par
+  \vspace{8pt}
+}
+
+% ---- Boxen --------------------------------------------------
+\newtcolorbox{defbox}[1]{colback=defblue!6,colframe=defblue,
+  fonttitle=\bfseries,title={#1},boxrule=0.6pt,arc=2pt,left=4pt,right=4pt,top=3pt,bottom=3pt}
+\newtcolorbox{tipbox}[1]{colback=tipgreen!7,colframe=tipgreen,
+  fonttitle=\bfseries,title={#1},boxrule=0.6pt,arc=2pt,left=4pt,right=4pt,top=3pt,bottom=3pt}
+\newtcolorbox{pitbox}[1]{colback=pitred!6,colframe=pitred,
+  fonttitle=\bfseries,title={#1},boxrule=0.6pt,arc=2pt,left=4pt,right=4pt,top=3pt,bottom=3pt}
+
+% ============================================================
+\begin{document}
+\thispagestyle{fancy}
+
+% ---- Titelblock ---------------------------------------------
+\begin{center}
+  {\Huge\bfseries\color{ohmred} Algorithmen \& Datenstrukturen}\\[4pt]
+  {\large Wichtigste Learnings der Vorlesung — Klausurvorbereitung}\\[2pt]
+  {\small TH Nürnberg · INF4/1 · Prüfung 13.07.2026}
+\end{center}
+\vspace{6pt}
+\begin{tipbox}{So nutzt du dieses Dokument}
+Pro Foliensatz eine Seite. \textbf{Blau} = Definitionen/Fakten, die sitzen müssen ·
+\textbf{Grün} = Klausurtipps (aus Probeklausur abgeleitet) ·
+\textbf{Rot} = typische Stolperfallen. Erst aus dem Gedächtnis abrufen, dann hier abgleichen.
+\end{tipbox}
+
+\clearpage
+% ============================================================
+%  KAP 01 — GRUNDBEGRIFFE
+% ============================================================
+\kapitel{01 — Allgemeines}{Grundbegriffe: Algorithmus, Datenstruktur, Darstellung}
+
+\begin{defbox}{Algorithmus — Definition \& die 4 Merkmale}
+Ein Algorithmus ist eine \textbf{endliche Folge} von Regeln, nach denen sich nach
+\textbf{endlich vielen}, \textbf{eindeutig festgelegten} Schritten die Lösung einer
+\textbf{Klasse von Problemen} ergibt.
+\vspace{3pt}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}p{3.0cm}p{4.3cm}p{6.5cm}@{}}
+\textbf{Merkmal} & \textbf{Bedeutung} & \textbf{verletzt, wenn …} \\
+\hline
+Finitheit & endlich beschreibbar (endl. viele Regeln) & Anleitung unendlich lang \\
+Terminiertheit & endet nach endlicher Zeit & Endlosschleife (Sprung zurück) \\
+Determiniertheit & kein Interpretationsspielraum & vage Begriffe („angemessen``, „schön``) \\
+Allgemeingültigkeit & Lösung für versch. Eingaben & nur ein fest verdrahteter Fall \\
+\end{tabular}
+\end{defbox}
+
+\begin{itemize}
+  \item \textbf{Datenstruktur:} Art und Weise, wie die von einem Algorithmus bearbeiteten
+        Daten organisiert/vorgehalten werden. Algorithmus \& DS \textbf{bedingen sich
+        gegenseitig}; manchmal ist das Erzeugen der DS aufwändiger als der Algorithmus
+        selbst (Spaghetti-Sort).
+  \item \textbf{Darstellungsformen} (informell $\to$ maschinennah): natürliche Sprache $\to$
+        UML-Aktivitätsdiagramm $\to$ \textbf{Struktogramm} (Nassi-Shneiderman, DIN 66261)
+        $\to$ \textbf{Pseudocode} (semi-formal) $\to$ \textbf{Implementierung} (Programmcode).
+  \item \textbf{Zwei zentrale Eigenschaften:} \textbf{Korrektheit} (löst die Aufgabe richtig)
+        und \textbf{Effizienz} (wenige Schritte + wenig Speicher).
+  \item \textbf{Korrektheitsnachweis} (am Euklid-ggT): \emph{Terminierung} (Werte werden
+        kleiner, Abbruch bei $x\le 0$) + \emph{Schleifeninvariante}
+        $\mathrm{ggT}(x_t,y_t)=\mathrm{ggT}(x_{t+1},y_{t+1})$ $\to$ am Ende $x=y=$ ggT.
+  \item \textbf{Abstraktes Maschinenmodell RAM} (Random Access Machine): $\infty$ viele
+        Speicherzellen (je ein Integer bel. Größe); Befehle = lesen/schreiben, vergleichen,
+        springen. \emph{Laufzeitkomplexität} = Anzahl Befehle, \emph{Speicherkomplexität}
+        = Anzahl Zellen.
+\end{itemize}
+
+\begin{tipbox}{Klausurtipps}
+\begin{itemize}
+  \item Klassiker: \textbf{die 4 Merkmale nennen} oder „welche Eigenschaft ist hier verletzt?``
+        $\to$ Eselsbrücke \textbf{F}initi–\textbf{T}ermini–\textbf{D}etermini–\textbf{A}llgemein.
+  \item Korrektheit \& Effizienz sind \textbf{unabhängig von Programmiersprache/Implementierung}.
+  \item RAM-Modell als Begründung, warum man \emph{zählt} statt \emph{misst}.
+\end{itemize}
+\end{tipbox}
+
+\begin{pitbox}{Stolperfallen}
+\begin{itemize}
+  \item Finitheit (endliche \emph{Beschreibung}) $\neq$ Terminiertheit (endliche \emph{Laufzeit}) — nicht verwechseln!
+  \item Pseudocode/Struktogramm ist \emph{kein} Programmcode: keine Implementierungsdetails (z.B. Tupel-Swap) verlangt.
+\end{itemize}
+\end{pitbox}
+
+\clearpage
+% ============================================================
+%  KAP 02 — EFFIZIENZ / LANDAU-SYMBOLE
+% ============================================================
+\kapitel{02 — Effizienz von Algorithmen}{Komplexität \& Landau-Symbole}
+
+\textbf{Kernidee.} Effizienz misst man als Funktion der Problemgröße $n$:
+\begin{itemize}
+  \item \textbf{Laufzeitkomplexität} = Anzahl ausgeführter Befehle
+  \item \textbf{Speicherkomplexität} = Anzahl benutzter Speicherzellen
+\end{itemize}
+Für große $n$ zählt nur der \textbf{führende Term}; konstante Koeffizienten fallen weg:
+\[ 1{,}5\,n^2 + 0{,}5\,n - 1 \;\longrightarrow\; \Theta(n^2)\ \text{(quadratisch)}. \]
+
+\medskip
+\textbf{Leitbeispiel „Maximale Abschnittssumme``} — eine Aufgabe, vier Komplexitätsklassen:
+
+\begin{center}\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Ansatz} & \textbf{Idee} & \textbf{Komplexität} & \textbf{Name} \\
+\midrule
+MAXFOLGE1 & alle Teilfolgen, Summe neu berechnen & $O(n^3)$ & kubisch \\
+MAXFOLGE2 & von jedem Start aufsummieren & $O(n^2)$ & quadratisch \\
+MAXFOLGE3 & Teile-und-Herrsche (Rekursion) & $O(n\log n)$ & — \\
+MAXFOLGE4 & einmal durchlaufen, bei Summe$<$0 neu & $O(n)$ & linear \\
+\bottomrule
+\end{tabular}
+\end{center}
+\textit{Praktischer Effekt bei $n=10^4$: kubisch $\approx$ 4738 s vs. linear $\approx$ 302 µs.}
+
+\medskip
+\begin{defbox}{Landau-Symbole (für alle $n \ge n_0$, positive Konstanten $c$)}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}lll@{}}
+$f \in O(g)$ & höchstens so schnell (\textbf{obere} Schranke) & $0 \le f(n) \le c\,g(n)$ \\
+$f \in \Omega(g)$ & mindestens so schnell (\textbf{untere} Schranke) & $0 \le c\,g(n) \le f(n)$ \\
+$f \in \Theta(g)$ & genauso schnell (\textbf{scharfe} Schranke) & $0 \le c_1 g(n) \le f(n) \le c_2 g(n)$ \\
+\end{tabular}
+\vspace{2pt}
+\par\textbf{Beziehungen:}\quad
+$\Theta(f) = O(f) \cap \Omega(f)$,\quad $\Theta(f) \subseteq O(f)$,\quad $\Theta(f) \subseteq \Omega(f)$.
+\end{defbox}
+
+\begin{tipbox}{Klausurtipps (laut Probeklausur)}
+\begin{itemize}
+  \item \textbf{Algorithmus entwerfen:} z.\,B. Summe von 3 aufeinanderfolgenden Zahlen in $O(n)$
+        $\to$ \emph{Sliding Window}: erste 3 aufsummieren, dann pro Schritt vorne abziehen / hinten addieren.
+  \item \textbf{Multiple Choice} zu $O/\Omega/\Theta$-Mengenbeziehungen — \emph{mit Minuspunkten} für Falsches!
+        Richtig sind u.\,a. $\Theta(f)\subseteq O(f)$, $\Omega(f)\not\subseteq O(f)$, $\Theta(f)=O(f)\cap\Omega(f)$.
+        Falsch: $\Theta(f)=O(f)\cup\Omega(f)$.
+  \item \textbf{Komplexität ablesen:} Anzahl \emph{verschachtelter} Schleifen über $n$ = Exponent.
+        2 verschachtelt $\to O(n^2)$, 3 $\to O(n^3)$, halbieren/rekursiv $\to \log n$.
+\end{itemize}
+\end{tipbox}
+
+\begin{pitbox}{Stolperfallen}
+\begin{itemize}
+  \item $O$ ist \emph{nur} obere Schranke: auch $n \in O(n^2)$ ist korrekt! Für die \emph{exakte} Klasse $\Theta$ nehmen.
+  \item Bei der MC-Aufgabe im Zweifel \emph{nicht} ankreuzen — Falsches kostet einen Punkt.
+  \item Nicht verschachtelte Schleifen addieren sich nur ($O(n)+O(n)=O(n)$); nur \emph{verschachtelte} multiplizieren.
+\end{itemize}
+\end{pitbox}
+
+% ============================================================
+%  Weitere Kapitel folgen — je Foliensatz \clearpage + \kapitel{}{}
+% ============================================================
+
+\end{document}
