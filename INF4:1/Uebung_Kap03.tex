@@ -1,0 +1,124 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=2.3cm]{geometry}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{titlesec}
+
+\titleformat{\section}{\large\bfseries\color{blue!55!black}}{Aufgabe \thesection}{0.6em}{}
+\setlist{nosep}
+
+\newcommand{\pt}[1]{\hfill\textnormal{\small\color{gray}(#1\,P)}}
+\newcommand{\korr}[1]{\par\smallskip{\color{red}\textbf{Korrektur:} #1}}
+\newcommand{\loes}[1]{\par\smallskip{\color{blue!55!black}\textbf{Lösung Lena:} #1}}
+
+\begin{document}
+
+\begin{center}
+  {\Large\bfseries INF4:1 -- Übungsblatt Kapitel 03}\\[2pt]
+  {\normalsize Elementares Sortieren \quad(passend zu Praktikum 2: Merge Sort)}\\[2pt]
+  {\small\itshape Erst selbst lösen -- Lösungen besprechen wir danach gemeinsam.}
+\end{center}
+\vspace{0.6em}
+
+%--------------------------------------------------
+\section{SELECT-Sort von Hand tracen \pt{5}}
+Sortiere das Feld $[\,7,\ 3,\ 9,\ 2,\ 5\,]$ aufsteigend mit \textbf{Selection Sort}.
+Schreibe den Feldzustand \textbf{nach jedem Tausch} auf (nicht nach jedem Vergleich) und gib
+am Ende an, \textbf{wie viele Tausche} insgesamt nötig waren.
+
+\loes{(notiert nach jedem \emph{Durchlauf}):
+$73925 \to 23975 \to 23975 \to 23579 \to 23579 \to 23579$.}
+
+\korr{Endergebnis $[2,3,5,7,9]$ und alle Zwischenzustände \textbf{richtig}. Gefragt war aber
+\emph{nach jedem Tausch} -- du hast \emph{nach jedem Durchlauf} notiert (inkl.\ der Leerläufe
+ohne Tausch). Nur die echten Tausche:
+\[
+  73925 \;\to\; \underbrace{23975}_{\text{Tausch 1: }7\leftrightarrow2}
+         \;\to\; \underbrace{23579}_{\text{Tausch 2: }9\leftrightarrow5}.
+\]
+In den Durchläufen $i=1$ (Min $3$) und $i=3$ (Min $7$) stand das Minimum schon richtig
+$\Rightarrow$ kein Tausch. \textbf{Anzahl Tausche $=2$} (fehlte in deiner Antwort).
+\emph{Merke:} „nach jedem Tausch`` $\neq$ „nach jedem Durchlauf`` $\neq$ „nach jedem Vergleich`` -- genau lesen!}
+
+%--------------------------------------------------
+\section{Eigenschaften einordnen \pt{5}}
+Fülle die Tabelle aus (stabil ja/nein, in-place ja/nein, Best- und Worst-Case):
+
+\smallskip
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}l c c c c@{}}
+\toprule
+\textbf{Verfahren} & \textbf{stabil} & \textbf{in-place} & \textbf{Best} & \textbf{Worst} \\
+\midrule
+Selection & {\color{red}true $\to$ \textbf{false}} & true & $n^2$ & $n^2$ \\
+Insertion & true & true & $n$ & $n^2$ \\
+Merge     & true & false & $n\log n$ & $n\log n$ \\
+\bottomrule
+\end{tabular}
+
+\korr{Bis auf \textbf{eine} Zelle alles richtig. \textbf{Selection Sort ist NICHT stabil}
+($\to$ false): der Tausch des Minimums nach vorne kann gleichwertige Elemente überholen,
+z.\,B.\ $[5_a,5_b,1]\to[1,5_b,5_a]$. Insertion \& Merge sind stabil, in-place korrekt
+(Merge braucht $O(n)$ Hilfsspeicher $\Rightarrow$ nicht in-place), Best/Worst alle richtig --
+inkl.\ Merge $n\log n$ in \emph{allen} Fällen.}
+
+%--------------------------------------------------
+\section{Verständnis -- mit Begründung \pt{4}}
+Ein Kommilitone sagt: \emph{„Wenn das Feld schon sortiert ist, braucht Selection Sort nur
+$O(n)$, weil ja nichts mehr getauscht werden muss.``} -- Stimmt das? \textbf{Begründe.}
+
+\loes{Nein, der Algorithmus läuft ganz normal weiter und vergleicht jedes unsortierte Element mit dem letzten sortierten Element bis es kein unsortiertes Element mehr gibt. Es bleibt bei $n^2$.}
+
+\korr{\textbf{Ergebnis richtig} (bleibt $n^2$), aber die Mechanik verwechselt: „mit dem
+\emph{letzten sortierten} Element vergleichen`` ist \textbf{Insertion Sort}. Selection Sort
+sucht in jedem Durchlauf das \emph{Minimum des unsortierten Rests} -- und dafür muss es
+\emph{immer den ganzen Rest absuchen}, egal ob schon sortiert oder nicht. Die Kosten stecken
+also in den \textbf{Vergleichen} (datenunabhängig, $\approx n^2/2$), nicht in den Tauschen.
+Dass „nichts getauscht werden muss``, hilft nichts -- Selection hat \emph{sowieso} nur $O(n)$
+Tausche; das $n^2$ kommt von der Minimumsuche.}
+
+%--------------------------------------------------
+\section{Invariante \& Induktion (aus Praktikum 2) \pt{4}}
+Erkläre in ein, zwei Sätzen, warum man für die Korrektheit von Merge Sort \textbf{zwei}
+Bausteine braucht -- die \textbf{Schleifeninvariante} \emph{und} einen \textbf{Induktionsbeweis}.
+Was beweist welcher?
+
+\loes{Da die Schleifeninvariante nur die Korrektheit der Sortierung eines kleinen Abschnitts im Alg beweist, braucht es noch den Induktionsbeweis. Der beweist, dass auch bei einer kleinen Anzahl an Elementen (bis zu 1 Element) der Algorithmus korrekt funktioniert.}
+
+\korr{Erster Teil \textbf{richtig}: die Schleifeninvariante beweist nur den \emph{Merge-Schritt}
+(zwei sortierte Teile $\to$ ein sortierter). Zweiter Teil zu eng: der Induktionsbeweis zeigt
+\emph{nicht nur} den Fall „1 Element`` -- das ist bloß der \textbf{Basisfall}. Er beweist die
+\textbf{ganze Rekursion für jedes $n$}: Basisfall (1 Element trivial) $+$ \emph{Annahme}, dass
+die rekursiven Aufrufe für kleinere Teile korrekt sortieren, $+$ \emph{Schritt}: zwei korrekt
+sortierte Hälften $+$ korrekter Merge $\Rightarrow$ ganzes Feld sortiert. Der \emph{Schritt}
+ist der Kern, nicht der Basisfall.}
+
+%--------------------------------------------------
+\section{Stabilität konkret \pt{3}}
+Gegeben $[\,5_a,\ 2,\ 5_b,\ 1\,]$ (Indizes $a,b$ markieren nur die Herkunft gleicher Werte).
+In welcher Reihenfolge stehen $5_a$ und $5_b$ nach dem Sortieren mit einem \textbf{stabilen}
+Verfahren? Und warum kann \textbf{Selection Sort} das verletzen?
+
+\loes{Nach stabilem Verfahren: $[\,1,\ 2,\ 5_a,\ 5_b\,]$. Selection Sort könnte die
+Stabilität verletzen, da das hinterste Minimum vertauscht wird.}
+
+\korr{Reihenfolge \textbf{richtig}: stabil $\to 5_a$ vor $5_b$. Die Selection-Begründung
+konkret: 1.~Durchlauf sucht das Minimum $1$ (ganz hinten) und tauscht es mit der ersten
+Position -- dabei wandert das dort stehende $5_a$ \emph{nach hinten, an $5_b$ vorbei}:
+$[5_a,2,5_b,1]\to[1,2,5_b,5_a]$. Ergebnis $5_b$ vor $5_a$ $\Rightarrow$ instabil. Kernpunkt:
+nicht „das Minimum``, sondern das \emph{verdrängte vordere Element} springt über ein
+gleichwertiges hinweg.}
+
+\vfill
+\hrule
+\smallskip
+{\footnotesize \textit{Tipp:} Bei Aufgabe 1 sind die exakten Zwischenzustände das Wertvolle --
+genau dort vergibt die Klausur die Punkte.}
+
+\end{document}

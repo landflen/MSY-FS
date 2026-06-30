@@ -113,10 +113,17 @@
     \mathbf{x}=\begin{bmatrix}3\\4\end{bmatrix}\\[0.1em]
     \|\mathbf{x}\|_2=\sqrt{9+16}=5} \\[0.3em]
 
-  \formelblock{Stabil nach Lyapunov (iSvL)}{%
-    \forall\varepsilon>0\;\exists\,\delta>0:\\
-    \|\mathbf{x}(0)-\mathbf{x}_R\|<\delta\\
-    \Rightarrow\|\mathbf{x}(t)-\mathbf{x}_R\|<\varepsilon\;\forall t\geq0} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Stabil nach Lyapunov (iSvL)}{%
+      \forall\varepsilon>0\;\exists\,\delta>0:\\
+      \|\mathbf{x}(0)-\mathbf{x}_R\|<\delta\\
+      \Rightarrow\|\mathbf{x}(t)-\mathbf{x}_R\|<\varepsilon\;\forall t\geq0}\\[0.2em]%
+    {\scriptsize\scshape\color{gray!65!black} Wann iSvL? (Kriterien)}\\[0.03em]%
+    \scriptsize
+    \textbf{Anschaulich:} kleine Anfangsauslenkung $\Rightarrow$ Traj.\ bleibt \emph{nahe} der RL — muss \textbf{nicht} zurückkehren. Grenzfall zw.\ asym.\ stabil \& instabil.\\[0.08em]
+    \textbf{Lyapunov:} $\exists\,V$ pos.\,def.\ mit $\dot V\leq0\;\forall\mathbf{x}$ (Satz\,1).\\[0.05em]
+    \textbf{EW (LZI/linear.):} alle $\operatorname{Re}(\lambda_i)\leq0$ \emph{und} EW auf $j\omega$-Achse \textbf{einfach}.\\[0.05em]
+    \textbf{Typisch:} rein imag.\ EW $\pm j\omega$ (ungedämpfte Schwingung, konst.\ Amplitude) $\Rightarrow$ iSvL, aber \emph{nicht} asym.} &
   \parbox[t]{\linewidth}{%
     \formelblock{Asymptotisch stabil}{%
       \text{iSvL-stabil PLUS:}\\
@@ -127,14 +134,38 @@
     \infoblock{\textbf{Absolut stabil:} glob.\,asym.\,stabil\\
       mit $\mathbf{x}_R=\mathbf{0}$ (RL im Nullpunkt)}} &
   \beispielblock{Stabilitäten}{%
-    \text{Pendel m. Reib.:}\\
-    \text{asym. stabil}\\[0.1em]
-    \text{PT1: global}\\
-    \text{asym. stabil}} \\
+    \text{Pendel m. Reib.: asym. stab.}\\[0.08em]
+    \text{PT1: glob. asym. stab.}\\[0.08em]
+    \text{Ungedämpft. Pendel /}\\
+    \text{Oszillator, EW }\pm j\omega:\\
+    \text{nur iSvL (grenzstabil)}\\[0.08em]
+    \text{EW mit Re}>0:\text{ instabil}} \\
 \end{formelreihe}
 \bereichende
 
 % ============================================================
+
+\bereich[cKap4]{Rezept: Ruhelagen \& Betriebspunkt bestimmen}
+
+\begin{rezept}
+\rs{\textbf{Autonom?} Kein Eingang in den Gln.\ $\Rightarrow$ autonom. Ruhelage: $u\equiv0$;\; Betriebspunkt: $u\equiv u_B=$ const.}
+\rs{Alle $\dot x_i\stackrel{!}{=}0$ setzen (stationär).}
+\rs{Gleichungssystem $\mathbf{f}(\mathbf{x}_R,\mathbf{0})=\mathbf{0}$ bzw.\ $\mathbf{f}(\mathbf{x}_B,u_B)=\mathbf{0}$ nach $x_{i}$ lösen.\;
+  \textbf{Mehrere} Lösungen $=$ mehrere isolierte Ruhelagen $\Rightarrow$ \emph{alle} angeben.}
+\end{rezept}
+
+\noindent\footnotesize\textbf{Betriebspunkt aus Soll-Ausgang $y_B$} (typ.\ Klausurform): Ausgangsgl.\ $y_B=h(\mathbf{x}_B,u_B)$ und alle $\dot x_i=0$ als Gleichungssystem; gegebene Größe einsetzen, übrige schrittweise auflösen (meist: Ausgangsgl.\ $\to x_{jB}$, dann $\dot x_2=0\to$ weitere, dann $\dot x_1=0\to u_B$).\par\vspace{0.1em}
+
+\miniexample{$\dot x_1=-x_1+2+u(x_1^2-2)$,\; $\dot x_2=2x_1-x_2(3-x_1)$,\; $y=2x_2$;\; Soll $y_B=4$}{%
+$y_B=2x_{2B}=4\Rightarrow x_{2B}=2$.\quad
+$\dot x_2=0:\;2x_{1B}-2(3-x_{1B})=0\Rightarrow x_{1B}=1{,}5$.\quad
+$\dot x_1=0:\;-1{,}5+2+u_B(1{,}5^2-2)=0\Rightarrow u_B=-2$.}
+
+\fallstrick{$\sin,\cos$ im \textbf{Bogenmaß (rad)} auswerten!\quad
+\textbullet\ \emph{alle} isolierten Ruhelagen angeben.\quad
+\textbullet\ Betriebspunkt $\mathbf{x}_B$ wird im $\Delta$-System zur Ruhelage $\Delta\mathbf{x}=\mathbf{0}$.}
+
+\bereichende
 
 \bereich[cKap5]{Transformation in Betriebspunkt}
 
@@ -268,6 +299,33 @@
 
 % ============================================================
 
+\bereich[cKap5]{Rezept: Linearisierung $\to$ Kleinsignal-ZR $(\mathbf{A},\mathbf{b},\mathbf{c}^T,d)$ + BIBO}
+
+\begin{rezept}
+\rs{Betriebspunkt $(\mathbf{x}_B,u_B)$ bestimmen (s.\ oben).}
+\rs{Jacobi-Matrizen bilden:\;
+  $\mathbf{A}=\tfrac{\partial\mathbf{f}}{\partial\mathbf{x}}$,\;
+  $\mathbf{b}=\tfrac{\partial\mathbf{f}}{\partial u}$,\;
+  $\mathbf{c}^T=\tfrac{\partial h}{\partial\mathbf{x}}$,\;
+  $d=\tfrac{\partial h}{\partial u}$\;
+  (Ausgangsgl.\ $y=h$ nicht vergessen!).}
+\rs{Zahlenwerte $(\mathbf{x}_B,u_B)$ \textbf{einsetzen} $\Rightarrow$ konstante $\mathbf{A},\mathbf{b},\mathbf{c}^T,d$.}
+\rs{Kleinsignal-ZR:\;
+  $\Delta\dot{\mathbf{x}}=\mathbf{A}\Delta\mathbf{x}+\mathbf{b}\Delta u$,\;
+  $\Delta y=\mathbf{c}^T\Delta\mathbf{x}+d\Delta u$.}
+\rs{\textbf{BIBO:} EW von $\mathbf{A}$ aus $\det(s\mathbf{I}-\mathbf{A})=0$ (=Pole). Alle $\operatorname{Re}<0\Rightarrow$ stabil; ein EW mit $\operatorname{Re}\geq0\Rightarrow$ instabil. (Routh statt EW-Rechnung möglich.)}
+\end{rezept}
+
+\miniexample{$\mathbf{f}$ wie oben, BP $x_{1B}=x_{2B}=u_B=1$,\; $h=2x_2$}{%
+$\tfrac{\partial f_1}{\partial x_1}=-1+2ux_1=1$,\; $\tfrac{\partial f_1}{\partial x_2}=0$,\; $\tfrac{\partial f_1}{\partial u}=x_1^2-2=-1$;\quad
+$\tfrac{\partial f_2}{\partial x_1}=2+x_2=3$,\; $\tfrac{\partial f_2}{\partial x_2}=-(3-x_1)=-2$,\; $\tfrac{\partial f_2}{\partial u}=0$.\quad
+$\Rightarrow\mathbf{A}=\begin{bsmallmatrix}1&0\\3&-2\end{bsmallmatrix}$,\;
+$\mathbf{b}=\begin{bsmallmatrix}-1\\0\end{bsmallmatrix}$,\;
+$\mathbf{c}^T=[\,0\;\;2\,]$,\; $d=0$.\quad
+EW: $s=1,\,-2$ $\Rightarrow$ ein EW $+1$ $\Rightarrow$ \textbf{instabil}.}
+
+\bereichende
+
 \bereich[cKap5]{Teil 5: Linearisierung im Betriebspunkt \& Direkte Methode von Lyapunov}
 
 \begin{formelreihe}
@@ -385,4 +443,54 @@
     \text{(beide global)}\\[0.05em]
     \text{Lin.: nur lokal!}} \\
 \end{formelreihe}
+\bereichende
+
+% ============================================================
+
+\bereich[cKap5]{Rezept: Definitheit mit Parametern $(a,b)$ — Hauptunterdeterminanten}
+
+\begin{rezept}
+\rs{$\mathbf{Q}$ \textbf{symmetrisch}? Sonst indefinit. ($P=\mathbf{x}^T\mathbf{Q}\mathbf{x}$ erbt Definitheit von $\mathbf{Q}$; nicht-diagonale Symmetrie kann Parameter festlegen.)}
+\rs{Führende Hauptunterdet.\ $D_1=q_{11},\;D_2=\det\mathbf{Q}_2,\;\dots,\;D_n=\det\mathbf{Q}$.}
+\rs{\textbf{pos.\ def.:} alle $D_k>0$.\quad
+  \textbf{neg.\ def.:} $(-1)^k D_k>0$ (Vorz.\ $-,+,-,\dots$), äquiv.\ $-\mathbf{Q}$ pos.\ def.}
+\rs{Ungleichungen nach $a,b$ auflösen.}
+\end{rezept}
+
+\miniexample{$\mathbf{Q}=\protect\begin{bsmallmatrix}a&1\\1&b\protect\end{bsmallmatrix}$ (2$\times$2) \;und\; $\mathbf{Q}=\protect\begin{bsmallmatrix}a&2&0\\2&3&2\\b&2&4\protect\end{bsmallmatrix}$ (3$\times$3)}{%
+\textbf{2$\times$2:} pos.\ def.\ $\Leftrightarrow a>0$ \emph{und} $D_2=ab-1>0$ ($b>\tfrac1a$);\;
+neg.\ def.\ $\Leftrightarrow a<0$ \emph{und} $ab-1>0$ ($b<\tfrac1a$).\\[0.15em]
+\textbf{3$\times$3:} Symmetrie $q_{13}=q_{31}\Rightarrow b=0$. Dann $D_1=a$, $D_2=3a-4$, $D_3=8a-16$;\;
+pos.\ def.\ $\Leftrightarrow a>2$ (und $b=0$).}
+
+\bereichende
+
+\bereich[cKap5]{Rezept: Direkte Methode von Lyapunov \& Einzugsgebiet}
+
+\begin{rezept}
+\rs{$V(\mathbf{x})$ pos.\ def.\ wählen, $V(\mathbf{0})=0$\;
+  (Ansatz $V=\mathbf{x}^T\mathbf{Q}\mathbf{x}$ mit $\mathbf{Q}$ pos.\ def., oder $V=\textstyle\sum_i\lambda_i x_i^2$, $\lambda_i>0$).}
+\rs{$\dot V=\bigl(\tfrac{\partial V}{\partial\mathbf{x}}\bigr)^{\!T}\mathbf{f}(\mathbf{x})=\textstyle\sum_i\tfrac{\partial V}{\partial x_i}\dot x_i$ berechnen, $\dot x_i$ einsetzen.}
+\rs{Definitheit von $\dot V$ prüfen:\;
+  $\dot V\leq0\;\forall\mathbf{x}\Rightarrow$ global \emph{stabil} (Satz\,1);\;
+  $\dot V<0\;\forall\mathbf{x}\neq\mathbf{0}\Rightarrow$ global \emph{asym.}\ stabil (Satz\,2).}
+\end{rezept}
+
+\noindent\footnotesize\textbf{Einzugsgebiet} (lokal, wenn $\dot V$ \emph{nicht} überall neg.\ ist):\par\vspace{0.05em}
+\begin{rezept}
+\rs{$\dot V$ nach Quadrat-Termen sortieren $\Rightarrow$ Gebiet $\{\dot V<0\}$ als Bedingung an $x_i$.}
+\rs{Größte Niveaumenge $\{V(\mathbf{x})<c\}$, die \textbf{ganz} in $\{\dot V<0\}$ liegt $=$ nachgewiesenes Einzugsgebiet.}
+\rs{In $x_1$-$x_2$-Ebene skizzieren (Kreis bei $V=\sum x_i^2$, Ellipse bei $V=\sum\lambda_i x_i^2$).}
+\end{rezept}
+
+\miniexample{$\dot x_1=-x_1$,\; $\dot x_2=-x_2+5x_1x_2$,\; $V=\tfrac12 x_1^2+\tfrac12 x_2^2$}{%
+$\dot V=x_1(-x_1)+x_2(-x_2+5x_1x_2)=-x_1^2-x_2^2(1-5x_1)$.\quad
+$\dot V<0$ falls $1-5x_1>0$, d.\,h.\ $x_1<\tfrac15$.\quad
+Größter Kreis um $\mathbf{0}$ darin: $r=\tfrac15=0{,}2$ $\Rightarrow$ EZG $=$ Kreis mit $r=0{,}2$.}
+
+\fallstrick{$\dot V\leq0$ (semidef.)\ liefert nur \emph{stabil}, \textbf{nicht} asymptotisch.\quad
+\textbullet\ Lyapunov ist nur \textbf{hinreichend}: kein Nachweis $\not\Rightarrow$ instabil (anderes $V$ probieren).\quad
+\textbullet\ $V$ muss pos.\ def.\ sein, sonst keine Aussage.\quad
+\textbullet\ EZG ist nur der \emph{nachgewiesene} Teil (hängt von $V$ ab), nicht zwingend das gesamte.}
+
 \bereichende

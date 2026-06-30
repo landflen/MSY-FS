@@ -76,6 +76,65 @@
 \end{formelreihe}
 \bereichende
 
+\bereich[cKap7]{Rezept: Dauerschwingung (GZ) bestimmen \& Amplituden}
+
+\begin{rezept}
+\rs{\textbf{Standardregelkreis bilden:} alle LZI-Blöcke zu
+  $G(s)=V_1 V_2\,F(s)$ zusammenfassen (statische Verstärker $\cdot$ dynam.\ Teil), NL als Block $K_N(v_0)$ separat.}
+\rs{$G(j\omega)$-Ortskurve (beziffert mit $\omega$) in kompl.\ Ebene eintragen.}
+\rs{Neg.\ inv.\ BF $-\tfrac{1}{K_N(v_0)}$ eintragen (Lage s.\ BF-Tabelle: reelle Achse / Hysterese-Parallele).}
+\rs{\textbf{Schwingungsbed.}\ $G(j\omega_0)=-\tfrac{1}{K_N(v_0)}$ = \textbf{Schnittpunkt} beider Kurven:\;
+  $\omega_0$ an der $G$-Kurve ablesen,\; $v_0$ an der $-1/K_N$-Kurve ablesen.}
+\rs{Periodendauer $T_0=\tfrac{2\pi}{\omega_0}$.}
+\rs{\textbf{Stabilität:} $v_0$ leicht erhöhen ($+\varepsilon$). Liegt $-\tfrac{1}{K_N(v_0+\varepsilon)}$ \textbf{links} der $G(j\omega)$-Kurve (Durchlaufsinn wachsender $\omega$)?\; Ja $\Rightarrow$ stabiler GZ, Nein $\Rightarrow$ instabil.}
+\end{rezept}
+
+\miniexample{Zweipunkt-Schalter (Höhe $h$), $V_1\!=\!V_2\!=\!1$}{%
+$F(j\omega)$ schneide die neg.\ reelle Achse bei $-1$; dort sei $\omega_0=0{,}65$ abgelesen.
+Schalter: $K_N=\tfrac{4h}{\pi v_0}$, also $-\tfrac{1}{K_N}=-\tfrac{\pi v_0}{4h}$ (reell).
+Schnittpunkt: $-\tfrac{\pi v_0}{4h}=-1\;\Rightarrow\;v_0=\tfrac{4h}{\pi}$.\quad
+$T_0=\tfrac{2\pi}{0{,}65}\approx 9{,}7$. Schalter $\Rightarrow$ stets stabiler GZ.}
+
+\bereichende
+
+\bereich[cKap7]{Rezept: Signal-Amplituden im Regelkreis (Propagation)}
+
+\noindent\footnotesize $v_0$ aus der HB ist die Amplitude am \textbf{NL-Eingang} (Argument von $K_N$). Übrige Signal\-amplituden durch \textbf{Zurück-/Vorwärtsrechnen} durch die Blöcke (jeweils Grundschwingung, Frequenz $\omega_0$):\par\vspace{0.15em}
+\begin{rezept}
+\rs{Statischer Verstärker $V$:\; Ausgangsamplitude $=V\cdot$ Eingangsamplitude.}
+\rs{Dynam.\ Block $F$:\; Ausgangsamplitude $=|F(j\omega_0)|\cdot$ Eingangsamplitude.\;
+  $|F(j\omega_0)|$ aus Ortskurve (Betrag des Zeigers) bzw.\ $=\tfrac{|G(j\omega_0)|}{V_1V_2}$.}
+\rs{Kette $b\!\to\!V_1\!\to\!u\!\to\!F\!\to\!x\!\to\!V_2\!\to\!v$:\;
+  $x_0=\tfrac{v_0}{V_2}$,\;\; $u_0=\tfrac{x_0}{|F(j\omega_0)|}$,\;\; $b_0=\tfrac{u_0}{V_1}$.}
+\end{rezept}
+
+\miniexample{$V_1\!=\!V_2\!=\!2$, abgelesen $v_0=5$, $|F(j\omega_0)|=1$}{%
+$x_0=\tfrac{v_0}{V_2}=2{,}5$;\quad $u_0=\tfrac{x_0}{|F(j\omega_0)|}=2{,}5$;\quad $b_0=\tfrac{u_0}{V_1}=1{,}25$.}
+
+\bereichende
+
+\bereich[cKap7]{Rezept: Entwurf — Verstärkung / Schalthöhe für Soll-Amplitude}
+
+\begin{rezept}
+\rs{Soll-Amplitude (z.\,B.\ $x_0$) über die Blockkette in $v_0$ am NL-Eingang umrechnen (s.\ Propagation).}
+\rs{$K_N(v_0)$ aus BF bestimmen (Graph ablesen oder Formel einsetzen).}
+\rs{Schwingungsbed.\ am Schnittpunkt erzwingen: freie Verstärkung so wählen, dass $G(j\omega_0)=-\tfrac{1}{K_N(v_0)}$.
+  Schneidet $F$ die neg.\ reelle Achse beim Wert $r$, gilt $V_1V_2\,r=-\tfrac{1}{K_N(v_0)}$ $\Rightarrow$ freie Verstärkung lösen.}
+\end{rezept}
+
+\miniexample{Dreipunkt-Schalter ($h\!=\!d\!=\!1$), $V_2\!=\!1$: welches $V_1$ für $x_0=4$?}{%
+$V_2=1\Rightarrow v_0=x_0=4$. BF-Graph: $K_N(4)=0{,}3$ $\Rightarrow -\tfrac{1}{K_N}=-3{,}33$.
+$F$ schneidet neg.\ reelle Achse bei $-1$ $\Rightarrow V_1\cdot(-1)=-3{,}33$ $\Rightarrow \boxed{V_1=3{,}33}$.}
+
+\fallstrick{%
+\textbullet\ $v_0$ ist Amplitude am \textbf{NL-Eingang}, nicht am Ausgang $x$ — Blöcke umrechnen!\quad
+\textbullet\ \textbf{Zweipunkt-Schalter:} neg.-inv.\ BF deckt die \emph{ganze} neg.\ reelle Achse ab $\Rightarrow$ $\omega_0$ (und $T_0$) liegt fest durch $G$; $h$ ändert nur $v_0$, \textbf{nicht} $T_0$.\quad
+\textbullet\ \textbf{Dreipunkt/Begrenzer/Totzone:} $K_N=0$ für $v_0<d$; neg.-inv.\ BF beginnt erst bei endlichem Wert $\Rightarrow$ evtl.\ \textbf{kein Schnittpunkt} $\Rightarrow$ HB sagt keine Dauerschwingung.\quad
+\textbullet\ \textbf{Kein Schnittpunkt $\not\Rightarrow$ kein GZ!} HB ist Näherung, exakt nur bei ausgeprägter TP-Wirkung von $G$ (Oberwellen gedämpft).\quad
+\textbullet\ \textbf{Hysterese:} $K_N\in\mathbb{C}$ $\Rightarrow$ neg.-inv.\ BF \emph{nicht} auf der reellen Achse ($\operatorname{Im}=-\tfrac{d\pi}{4h}=$ const).}
+
+\bereichende
+
 \bereich[cKap7]{Beschreibungsfunktionen — Übersicht}
 
 \noindent\footnotesize\textit{Statische, symm.\,Kennlinie \textbf{ohne Gedächtnis}: $K_N\in\mathbb{R}$ $\Rightarrow$ neg.\,inv.\,BF liegt auf neg.\,reeller Achse.\quad\textbf{Mit Gedächtnis} (Hysterese): $K_N\in\mathbb{C}$, Im$\!\left(-\tfrac{1}{K_N}\right)=-\tfrac{d\pi}{4h}=\mathrm{konst.}$}\par\vspace{0.12em}
@@ -127,8 +186,8 @@
     \textbf{Kein Schnittpunkt} $\not\Rightarrow$ kein GZ!\\[0.03em]
     Bsp.: PT1\,+\,Schalter\,m.\,Hyst.\\
     $\Rightarrow$ GZ existiert trotzdem\\[0.04em]
-    Keine Aussage über Schwingung\\
-    wenn keine Schnittpur.} &
+    Keine Aussage über Schwingung,\\
+    wenn kein Schnittpunkt existiert.} &
   \beispielblock{Vorgehen kompakt}{%
     \text{1. }G(j\omega)\text{-Ortskurve}\\[0.03em]
     \text{2. }-\tfrac{1}{K_N(v_0)}\text{-Kurve}\\[0.03em]

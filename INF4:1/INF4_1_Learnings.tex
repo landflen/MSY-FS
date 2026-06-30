@@ -171,6 +171,16 @@ $f \in \Theta(g)$ & genauso schnell (\textbf{scharfe} Schranke) & $0 \le c_1 g(n
 \vspace{2pt}
 \par\textbf{Beziehungen:}\quad
 $\Theta(f) = O(f) \cap \Omega(f)$,\quad $\Theta(f) \subseteq O(f)$,\quad $\Theta(f) \subseteq \Omega(f)$.
+\vspace{3pt}
+\par\textbf{Mengenschreibweise} (denke $O,\Omega,\Theta$ als \emph{Mengen von Funktionen}):
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}p{1.5cm}p{14.4cm}@{}}
+$A \subseteq B$ & „$A$ ist \textbf{Teilmenge von oder gleich} $B$`` — jedes Element von $A$ liegt auch in $B$ (Gleichheit erlaubt, wie $\le$). \\
+$A \not\subseteq B$ & „$A$ ist \textbf{keine} Teilmenge von $B$`` — es gibt ein Element in $A$, das \emph{nicht} in $B$ liegt. \\
+$A \cap B$ & \textbf{Schnitt}: alles, was in $A$ \emph{und} $B$ liegt. \\
+$A \cup B$ & \textbf{Vereinigung}: alles, was in $A$ \emph{oder} $B$ liegt. \\
+\end{tabular}
+\par\small Bsp.: $\Theta(f)\subseteq O(f)$ = „alles, was genau $f$-schnell ist, ist auch \emph{höchstens} $f$-schnell``.
 \end{defbox}
 
 \begin{tipbox}{Klausurtipps (laut Probeklausur)}
@@ -190,6 +200,103 @@ $\Theta(f) = O(f) \cap \Omega(f)$,\quad $\Theta(f) \subseteq O(f)$,\quad $\Theta
   \item $O$ ist \emph{nur} obere Schranke: auch $n \in O(n^2)$ ist korrekt! Für die \emph{exakte} Klasse $\Theta$ nehmen.
   \item Bei der MC-Aufgabe im Zweifel \emph{nicht} ankreuzen — Falsches kostet einen Punkt.
   \item Nicht verschachtelte Schleifen addieren sich nur ($O(n)+O(n)=O(n)$); nur \emph{verschachtelte} multiplizieren.
+\end{itemize}
+\end{pitbox}
+
+\clearpage
+% ============================================================
+%  KAP 03 — ELEMENTARES SORTIEREN
+% ============================================================
+\kapitel{03 — Elementares Sortieren}{Selection, Insertion, Bubble Sort + Eigenschaften}
+
+\textbf{Kernidee.} Ein Sortierverfahren bringt ein Feld in eine Ordnung. Bewertet wird es
+nach drei Eigenschaften, die in der Klausur abgefragt werden:
+
+\begin{defbox}{Drei Eigenschaften eines Sortierverfahrens}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}p{2.6cm}p{11.6cm}@{}}
+\textbf{korrekt} & terminiert (finit) \emph{und} liefert am Ende eine sortierte Permutation der Eingabe \\
+\textbf{in-place} & Zusatzspeicher \textbf{wächst nicht mit $n$} $\Rightarrow O(1)$ (ein paar Hilfsvariablen erlaubt) \\
+\textbf{stabil} & gleichwertige Elemente behalten ihre \emph{relative} Reihenfolge über die ganze Laufzeit \\
+\end{tabular}
+\end{defbox}
+
+\begin{defbox}{Die drei elementaren Verfahren (alle in-place)}
+\renewcommand{\arraystretch}{1.3}
+\small
+\begin{tabular}{@{}p{2.3cm}cccp{6.3cm}@{}}
+\textbf{Verfahren} & \textbf{Best} & \textbf{Avg} & \textbf{Worst} & \textbf{Mechanik} \\
+\hline
+Selection & $n^2$ & $n^2$ & $n^2$ & sucht Minimum des unsortierten Rests, hängt es an den sortierten Teil an \\
+Insertion & $\boldsymbol{n}$ & $n^2$ & $n^2$ & nimmt 1. unsort. Element, schiebt es von hinten an die richtige Stelle des sort. Teils \\
+Bubble & $\boldsymbol{n}$ & $n^2$ & $n^2$ & vertauscht benachbarte Paare, „blubbert`` das Größte nach oben; mehrere Durchläufe \\
+\end{tabular}
+\vspace{2pt}
+\par\textbf{stabil:} Insertion \checkmark, Bubble \checkmark, Selection \textbf{nein}.\quad
+\textbf{Swaps:} Selection nur $O(n)$, Bubble bis $O(n^2)$.
+\end{defbox}
+
+\textbf{Best-/Worst-/Average-Case allgemein:}
+Best = Feld bereits sortiert · Worst = umgekehrt sortiert (allg.: jedes Element muss mit
+jedem verglichen werden) · Average = zufällig.
+
+\begin{defbox}{Korrektheitsnachweis über Schleifeninvariante}
+\textbf{Invariante} (= „un-veränderlich``): eine Aussage, die \emph{vor jedem} Schleifendurchlauf
+wahr ist — egal in welcher Runde. Wie ein \emph{Versprechen, das die Schleife nie bricht},
+während sich Index und Feldinhalt drumherum ändern. Korrektheit zeigt man in \textbf{drei Schritten}:
+\begin{enumerate}
+  \item \textbf{Initialisierung:} Die Invariante gilt vor dem 1. Durchlauf.
+  \item \textbf{Aufrechterhaltung:} Gilt sie vor einem Durchlauf, so gilt sie auch danach (vor dem nächsten).
+  \item \textbf{Terminierung:} Die Schleife endet, und aus der Invariante folgt die gewünschte Korrektheitsaussage.
+\end{enumerate}
+\textit{Beispiel Insertion Sort} — Versprechen: „Der linke Teil $A[1..\,j{-}1]$ ist immer schon
+\emph{sortiert} (und enthält die ursprünglichen Elemente).``
+\begin{itemize}
+  \item \emph{Init} ($j{=}2$): $A[1..1]$ ist ein Element $\to$ trivial sortiert. \checkmark
+  \item \emph{Erhaltung:} Der Durchlauf schiebt $A[j]$ an die richtige Stelle $\to$ $A[1..\,j]$ sortiert.
+  \item \emph{Terminierung} ($j{=}n{+}1$): der „linke Teil`` ist das ganze Feld $A[1..\,n]$ $\to$ sortiert. \checkmark
+\end{itemize}
+Durchgespielt an $[5,2,4,1]$: $[\underline{5}]\,2\,4\,1 \to [\underline{2,5}]\,4\,1 \to [\underline{2,4,5}]\,1 \to [\underline{1,2,4,5}]$
+— der unterstrichene linke Teil bleibt in jedem Schritt sortiert.
+(Gleiches Muster wie Euklid-ggT in Kap. 01: Terminierung + Invariante.)
+\end{defbox}
+
+\begin{defbox}{Korrektheit der Rekursion: (strukturelle) Induktion — aus Praktikum 02}
+Bei \emph{rekursiven} Verfahren reicht die Schleifeninvariante nicht: sie beweist nur einen
+Teilschritt. Die Rekursion drumherum zeigt man per \textbf{Induktion über die Eingabegröße $n$}
+(Dominoprinzip), wobei Rekursion und Induktion dieselbe Form haben:
+\begin{itemize}
+  \item \textbf{Basisfall:} kleinste Eingabe ($n{=}1$) ist trivial korrekt = Abbruchbedingung der Rekursion.
+  \item \textbf{Annahme:} die rekursiven Aufrufe für \emph{kleinere} Teile ($<n$) arbeiten bereits korrekt.
+  \item \textbf{Schritt:} aus den korrekten Teil-Ergebnissen folgt das korrekte Gesamt-Ergebnis.
+\end{itemize}
+\textit{Bsp. Merge Sort (Kap. 04):} Annahme liefert zwei sortierte Hälften $\to$ der (per
+Invariante bewiesene) Merge fügt sie zu einem sortierten Feld $\to$ Länge $n$ sortiert.
+\par\textbf{Kernaussage:} \emph{Schleifeninvariante} (innerer Schritt) + \emph{Induktion}
+(Rekursion drumherum) ergeben \textbf{zusammen} den vollständigen Korrektheitsnachweis.
+\end{defbox}
+
+\begin{tipbox}{Klausurtipps (laut Probeklausur)}
+\begin{itemize}
+  \item \textbf{SELECT-Sort von Hand tracen} (5 P): Feld \emph{nach jedem Tausch} aufschreiben.
+        Vorgehen: Min im Rest suchen, mit erstem unsortierten Element tauschen, Grenze um 1 nach rechts.
+  \item Verfahren \textbf{einordnen}: stabil ja/nein, in-place ja/nein, Best/Avg/Worst nennen.
+  \item Best-Case \textbf{begründen}, nicht nur nennen (Insertion/Bubble brechen bei sortiert früh ab).
+\end{itemize}
+\end{tipbox}
+
+\begin{pitbox}{Stolperfallen}
+\begin{itemize}
+  \item \textbf{in-place $=O(1)$ unabhängig von $n$} — nicht „Variable ja, Array nein``! Ein Hilfsarray
+        \emph{fester} Größe wäre auch in-place; $n$ einzelne Variablen wären es \emph{nicht}.
+        \textbf{Merge Sort} braucht ein Hilfsarray der Größe $n$ $\Rightarrow O(n)$ $\Rightarrow$ \emph{nicht} in-place.
+  \item \textbf{Selection Sort hat keinen guten Best-Case:} auch bei sortiertem Feld $n^2$, weil das
+        Min-Suchen \emph{immer} den ganzen Rest durchläuft (datenunabhängig, $\approx n^2/2$ Vergleiche).
+        Die Regel „Best = sortiert $\Rightarrow n$`` gilt \emph{nur} für Insertion/Bubble!
+  \item \textbf{Selection Sort ist meist nicht stabil:} der Min-Swap kann Gleiche überspringen,
+        z.\,B. $[5_a,5_b,1]\to[1,5_b,5_a]$.
+  \item \textbf{Bubble-Best $n$ nur mit „swapped``-Flag:} ohne Abbruch-Optimierung (kein Tausch im
+        Durchlauf $\Rightarrow$ fertig) läuft naives Bubble immer $n^2$.
 \end{itemize}
 \end{pitbox}
 

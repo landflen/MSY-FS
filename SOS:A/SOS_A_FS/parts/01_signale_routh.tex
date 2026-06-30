@@ -139,3 +139,30 @@
     a,b,c>0\Rightarrow\text{stabil}} \\
 \end{formelreihe}
 \bereichende
+
+\bereich[cKap2]{Rezept: Routh aufstellen, Sonderfälle \& Pole zählen}
+
+\begin{rezept}
+\rs{Tableau mit $a_n,a_{n-2},\dots$ (1.\ Zeile) und $a_{n-1},a_{n-3},\dots$ (2.\ Zeile) starten, Kreuzprodukt-Regel bis $s^0$.}
+\rs{\textbf{Pole zählen:} \#\,Vorzeichenwechsel in der 1.\ Spalte $=$ \#\,Pole in der \textbf{rechten} HE; Rest in der linken HE (abzügl.\ Pole auf $j\omega$-Achse).}
+\rs{\textbf{Null nur im 1.\ Element} (Zeile sonst $\neq0$): durch $\varepsilon>0$ ersetzen, weiterrechnen, Vorzeichen für $\varepsilon\to0^+$ betrachten.}
+\rs{\textbf{Ganze Nullzeile:} symmetrische Pole. Hilfspolynom $A(s)$ aus der Zeile \emph{darüber} bilden, $A'(s)$ ableiten, dessen Koeff.\ in die Nullzeile einsetzen, weiterrechnen. Nullstellen von $A(s)$ $=$ die symm.\ Pole (oft $\pm j\omega$ auf der Achse).}
+\end{rezept}
+
+\miniexample{$N=s^4+2s^3+2s^2+2s+1$ — Nullzeile $\to$ Hilfspolynom}{%
+$\begin{array}{r|ccc}
+ s^4 & 1 & 2 & 1\\
+ s^3 & 2 & 2 & \\
+ s^2 & 1 & 1 & \\
+ s^1 & \mathbf{0} & & \leftarrow\text{Nullzeile}\\
+ s^0 & 1 & &
+\end{array}$\quad
+Hilfspol.\ aus $s^2$: $A(s)=s^2+1$, $A'(s)=2s\Rightarrow$ $s^1$-Zeile $=[\,2,\,0\,]$; $s^0=1$.\;
+1.\ Spalte $1,2,1,2,1$: \textbf{0 Vorz.-Wechsel} $\Rightarrow$ 0 Pole rechts.\;
+$A(s)=0\Rightarrow s=\pm j$: \textbf{2 Pole auf $j\omega$-Achse}, übrige \textbf{2 links} $\Rightarrow$ \textbf{nicht BIBO-stabil}.}
+
+\fallstrick{Pol auf $j\omega$-Achse $\Rightarrow$ \textbf{nicht} BIBO-stabil (grenzstabil zählt nicht als stabil).\quad
+\textbullet\ Hilfspolynom immer aus der Zeile \emph{über} der Nullzeile.\quad
+\textbullet\ Regel\,1 (alle $a_i$ gleiches VZ) ist für $n>2$ nur \emph{notwendig}.}
+
+\bereichende

@@ -54,7 +54,18 @@ Template/Stilregeln: `/Users/Lena1/Documents/TH Nürnberg/MSY/Formelsammlung_Pro
 \formelblock{Label}{Formel}     % Formel in $\displaystyle...$
 \infoblock{Text}                % kursiver Hinweistext
 \beispielblock{Titel}{Inhalt}   % orange Box — NUR Spalte 3!
+
+% Operations-Makros (volle Breite, AUSSERHALB von formelreihe):
+\begin{rezept}\rs{...}\rs{...}\end{rezept}  % nummerierte Schritte
+\miniexample{Titel}{Inhalt}     % gelbe Box, volle Breite (Text-Modus!)
+\fallstrick{Text}               % rote Hinweiszeile
+\ergbox{Text} / \ergmark        % rot markierte Ergänzung (nicht im Skript)
 ```
+
+**Operationsorientiert:** Zu jeder klausurrelevanten Theorie ein `\rezept`
+(Schritte) + `\miniexample` (konkrete Zahlen) direkt unter dem Theorieblock;
+Fallstricke rot via `\fallstrick`. `\miniexample`/`\fallstrick` sind Text-Modus
+→ Mathe in `$...$` setzen.
 
 ## Kritische Layoutregeln
 
