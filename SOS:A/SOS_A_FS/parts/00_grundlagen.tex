@@ -37,6 +37,28 @@
     &\lambda_1=3,\quad\lambda_2=1
   \end{aligned}} \\
 \end{formelreihe}
+
+\begin{formelreihe}
+  \formelblock{Standard-Bausteine in $G(s)$/$G(j\omega)$}{\begin{aligned}
+    \text{P}&:\; G=K\;\;{\scriptstyle(\text{stabil})}\\
+    \text{I}&:\; G=\tfrac{K}{s}\;\;{\scriptstyle(\text{grenzstabil, Pol }0)}\\
+    \text{D}&:\; G=K\,s\;\;{\scriptstyle(\text{nicht BIBO})}\\
+    \text{PT1}&:\; G=\tfrac{K}{1+sT}\;\;{\scriptstyle(\text{stabil für }T>0)}\\
+    \text{PT2}&:\; G=\tfrac{K}{1+2DTs+(Ts)^2}\\
+    &\hphantom{:\;}{\scriptstyle(\text{stabil für }D>0,\;T>0)}
+  \end{aligned}} &
+  \infoblock{\textbf{Anteil am Term erkennen}\\[0.05em]
+    $\tfrac{1}{s}=\tfrac{1}{j\omega}\Rightarrow$ \textbf{I} (Integrator, Pol bei $s\!=\!0$)\\[0.03em]
+    $s=j\omega$ im Zähler $\Rightarrow$ \textbf{D}\\[0.03em]
+    konstanter Summand $\Rightarrow$ \textbf{P}\\[0.03em]
+    $\tfrac{1}{1+sT}\Rightarrow$ \textbf{PT1}\\[0.03em]
+    Summe von Termen $\Rightarrow$ Anteile \emph{addieren} (z.\,B. P\,+\,I $=$ PI)} &
+  \beispielblock{$G(j\omega)\!=\!\tfrac{9}{j\omega}\!+\!27$}{%
+    \tfrac{9}{j\omega}\to\text{I-Anteil}\\[0.04em]
+    (\text{Pol bei }\omega\!=\!0)\\[0.04em]
+    27\to\text{P-Anteil}\\[0.05em]
+    \Rightarrow\text{PI-Glied}} \\
+\end{formelreihe}
 \bereichende
 
 % ============================================================

@@ -46,6 +46,7 @@
     h(t)=\mathcal{L}^{-1}\{G(s)\}\\[0.05em]
     \text{PT1: }h(t)=\tfrac{K}{T}e^{-t/T}} \\
 \end{formelreihe}
+\fallstrick{$G(s)$ setzt \textbf{LTI} voraus: $Y\!=\!G\,U$ gilt nur bei linear + zeitinvariant. Nichtlin.\ System $\Rightarrow$ \textbf{kein} globales $G(s)$ (erst um Ruhelage linearisieren, dann nur lokal).}
 \bereichende
 
 % ============================================================
@@ -90,9 +91,9 @@
   \formelblock{Betriebspunkt $\mathbf{x}_B$}{%
     u_B=\mathrm{const},\quad
     \mathbf{f}(\mathbf{x}_B,\,u_B)=\mathbf{0}} &
-  \infoblock{$\mathbf{x}_B$ wird zur Ruhelage\\
-    des linearisierten $\Delta$-Systems\\
-    (s. Teil\,5:
+  \infoblock{$\mathbf{x}_B$ $=$ RL des\\
+    linearisierten $\Delta$-Systems\\
+    (Teil\,5:
     $\Delta\mathbf{x}=\mathbf{0}$
     $\Leftrightarrow\mathbf{x}=\mathbf{x}_B$)} &
   \beispielblock{BP: $\dot{x}=u-x^2$}{%
@@ -120,7 +121,7 @@
       \Rightarrow\|\mathbf{x}(t)-\mathbf{x}_R\|<\varepsilon\;\forall t\geq0}\\[0.2em]%
     {\scriptsize\scshape\color{gray!65!black} Wann iSvL? (Kriterien)}\\[0.03em]%
     \scriptsize
-    \textbf{Anschaulich:} kleine Anfangsauslenkung $\Rightarrow$ Traj.\ bleibt \emph{nahe} der RL — muss \textbf{nicht} zurückkehren. Grenzfall zw.\ asym.\ stabil \& instabil.\\[0.08em]
+    \textbf{Anschaulich:} kleine Auslenk.\ $\Rightarrow$ Traj.\ bleibt \emph{nahe} RL, kehrt \textbf{nicht} zwingend zurück; Grenzfall asym.\,stab.$\leftrightarrow$instab.\\[0.08em]
     \textbf{Lyapunov:} $\exists\,V$ pos.\,def.\ mit $\dot V\leq0\;\forall\mathbf{x}$ (Satz\,1).\\[0.05em]
     \textbf{EW (LZI/linear.):} alle $\operatorname{Re}(\lambda_i)\leq0$ \emph{und} EW auf $j\omega$-Achse \textbf{einfach}.\\[0.05em]
     \textbf{Typisch:} rein imag.\ EW $\pm j\omega$ (ungedämpfte Schwingung, konst.\ Amplitude) $\Rightarrow$ iSvL, aber \emph{nicht} asym.} &
@@ -141,6 +142,9 @@
     \text{nur iSvL (grenzstabil)}\\[0.08em]
     \text{EW mit Re}>0:\text{ instabil}} \\
 \end{formelreihe}
+\fallstrick{\textbf{Hat das System einen Eingang $u$?}\quad
+\textbullet\ \textbf{JA} (auch $G(s)$, $G(j\omega)$): nur \textbf{BIBO} (Pole/EW alle $\operatorname{Re}<0$?). Lyapunov-Ruhelage $=$ ``nicht anwendbar, da nicht autonom''.\quad
+\textbullet\ \textbf{NEIN} ($\dot{\mathbf{x}}\!=\!\mathbf{A}\mathbf{x}$, kein $u$): nur \textbf{Lyapunov-Ruhelage} (EW alle $\operatorname{Re}<0$). BIBO $=$ ``nicht anwendbar''.}
 \bereichende
 
 % ============================================================
@@ -154,7 +158,10 @@
   \textbf{Mehrere} Lösungen $=$ mehrere isolierte Ruhelagen $\Rightarrow$ \emph{alle} angeben.}
 \end{rezept}
 
-\noindent\footnotesize\textbf{Betriebspunkt aus Soll-Ausgang $y_B$} (typ.\ Klausurform): Ausgangsgl.\ $y_B=h(\mathbf{x}_B,u_B)$ und alle $\dot x_i=0$ als Gleichungssystem; gegebene Größe einsetzen, übrige schrittweise auflösen (meist: Ausgangsgl.\ $\to x_{jB}$, dann $\dot x_2=0\to$ weitere, dann $\dot x_1=0\to u_B$).\par\vspace{0.1em}
+\noindent\footnotesize\textbf{Betriebspunkt aus Soll-Ausgang $y_B$} (typ.\ Klausurform) $=$ Gleichungssystem aus $y_B{=}h(\mathbf{x}_B,u_B)$ \& allen $\dot x_i{=}0$; schrittweise lösen:\quad
+\textbullet\ $y_B\to x_{jB}$\quad
+\textbullet\ $\dot x_2{=}0\to$ weitere $x_{iB}$\quad
+\textbullet\ $\dot x_1{=}0\to u_B$.\par\vspace{0.1em}
 
 \miniexample{$\dot x_1=-x_1+2+u(x_1^2-2)$,\; $\dot x_2=2x_1-x_2(3-x_1)$,\; $y=2x_2$;\; Soll $y_B=4$}{%
 $y_B=2x_{2B}=4\Rightarrow x_{2B}=2$.\quad
@@ -182,13 +189,12 @@ $\dot x_1=0:\;-1{,}5+2+u_B(1{,}5^2-2)=0\Rightarrow u_B=-2$.}
     &\quad\text{Terme ohne }\Delta\text{ kürzen}\\
     &\quad(\,f(\mathbf{x}_B,u_B)=\mathbf{0}\,)
   \end{aligned}} &
-  \infoblock{Terme ohne $\Delta$ fallen\\
-    heraus, da im BP gilt:\\
-    $f(\mathbf{x}_B,u_B)=\mathbf{0}$\\[0.1em]
-    Ergebnis: $\Delta$-System\\
-    mit Ruhelage $\Delta\mathbf{x}=\mathbf{0}$\\
+  \infoblock{Terme ohne $\Delta$ fallen weg\\
+    (im BP: $f(\mathbf{x}_B,u_B)=\mathbf{0}$)\\[0.1em]
+    Ergebnis: $\Delta$-System,\\
+    RL $\Delta\mathbf{x}=\mathbf{0}$\\
     $(\Leftrightarrow\mathbf{x}=\mathbf{x}_B)$\\[0.05em]
-    \textup{= Trafo in die Ruhelage}\\[0.07em]
+    \textup{= Trafo in die RL}\\[0.07em]
     \textbf{Nachweis:} $\Delta x_i\!=\!0\;\forall i$:\\
     r.\,S.\,$=0\Rightarrow\Delta\mathbf{x}_R\!=\!\mathbf{0}$\\[0.08em]
     \textbf{Exakt} — NL-Terme\\
@@ -227,8 +233,8 @@ $\dot x_1=0:\;-1{,}5+2+u_B(1{,}5^2-2)=0\Rightarrow u_B=-2$.}
       \mathbf{b}_B =
         \begin{bsmallmatrix}b_{B,1}\\[0.04em]b_{B,2}\end{bsmallmatrix}
     \end{aligned}}\\[0.25em]
-    \infoblock{$A_{B,ij}$: part. Abl. von $f_i$\\
-      nach $x_j$, ausgewertet im BP.\\[0.06em]
+    \infoblock{$A_{B,ij}=\tfrac{\partial f_i}{\partial x_j}\big|_{BP}$\\
+      (im BP ausgewertet).\\[0.06em]
       \textbf{Einsetzen nie vergessen!}}} &
   \beispielblock{Pendel, $u_B\!=\!0$}{%
     {\scriptstyle f_2=(u\cos x_1-g\sin x_1-dx_2)/\ell}\\[0.06em]
@@ -409,12 +415,12 @@ EW: $s=1,\,-2$ $\Rightarrow$ ein EW $+1$ $\Rightarrow$ \textbf{instabil}.}
     &= \left(\frac{\partial V}{\partial\mathbf{x}}\right)^{\!T}
        \mathbf{f}(\mathbf{x})
   \end{aligned}} &
-  \infoblock{\textbf{Einzugsgebiet:} Gesamtheit aller
-    $\mathbf{x}(0)$, von denen aus
-    $\mathbf{x}(t)\to\mathbf{x}_R$ für $t\to\infty$.\\[0.1em]
+  \infoblock{\textbf{Einzugsgebiet:} alle
+    $\mathbf{x}(0)$ mit
+    $\mathbf{x}(t)\to\mathbf{x}_R$ ($t\to\infty$).\\[0.1em]
     \textbf{Nachweis:} Inneres einer
-    Äqui-$V$-Linie $V(\mathbf{x})=c$, die
-    vollständig in $\{\dot{V}(\mathbf{x})<0\}$ liegt.} &
+    Äqui-$V$-Linie $V(\mathbf{x}){=}c$
+    ganz in $\{\dot{V}{<}0\}$.} &
   \beispielblock{Einzugsgebiet}{%
     \dot{x}_1=-x_1+2x_1^3 x_2\\
     \dot{x}_2=-x_2\\[0.05em]

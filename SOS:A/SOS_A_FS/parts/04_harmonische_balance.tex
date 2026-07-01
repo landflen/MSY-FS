@@ -10,9 +10,8 @@
     {\scriptsize\scshape\color{gray!65!black} Def.: Grenzzyklus}\\[0.03em]%
     \scriptsize
     Period.\,Lösung der Zustandsgl.\\
-    (geschlossene Trajektorie),\\
-    in deren Nähe keine weitere\\
-    period.\,Lösung existiert.\\[0.06em]
+    (geschl.\,Trajektorie); in Nähe\\
+    keine weitere period.\,Lösung.\\[0.06em]
     {\scriptsize\scshape\color{gray!65!black} Arten}\\[0.03em]%
     \textbf{Stabil:} Traj.\,konvergieren\\
     von innen \& außen auf GZ\\[0.03em]
@@ -46,9 +45,9 @@
     {\scriptsize\scshape\color{gray!65!black} Grundschwingungsnäherung}\\[0.03em]%
     \scriptsize
     $v(t)\!\approx\!v_0\cos(\omega_0 t)$\\[0.03em]
-    Bei statischer, symm.\,Kennlinie:\\
-    Grundschw.\,von $a(t)$ hat\\
-    gleiche Phasenlage wie $v(t)$\\[0.06em]
+    stat., symm.\,Kennlinie $\Rightarrow$\\
+    Grundschw.\,$a(t)$ phasengleich\\
+    mit $v(t)$\\[0.06em]
     {\scriptsize\scshape\color{gray!65!black} Beschreibungsfunktion $K_N(v_0)$}\\[0.03em]%
     $\displaystyle K_N(v_0)=\frac{a_1}{v_0}$\\[0.04em]
     {\scriptsize Fourier-Grundkoeff.\,von $a(t)$:}\\[0.02em]
@@ -99,7 +98,7 @@ $T_0=\tfrac{2\pi}{0{,}65}\approx 9{,}7$. Schalter $\Rightarrow$ stets stabiler G
 
 \bereich[cKap7]{Rezept: Signal-Amplituden im Regelkreis (Propagation)}
 
-\noindent\footnotesize $v_0$ aus der HB ist die Amplitude am \textbf{NL-Eingang} (Argument von $K_N$). Übrige Signal\-amplituden durch \textbf{Zurück-/Vorwärtsrechnen} durch die Blöcke (jeweils Grundschwingung, Frequenz $\omega_0$):\par\vspace{0.15em}
+\noindent\footnotesize $v_0$ (HB) $=$ Amplitude am \textbf{NL-Eingang} (Arg.\ von $K_N$).\; Übrige Amplituden per \textbf{Zurück-/Vorwärtsrechnen} durch die Blöcke (je Grundschw., Frequenz $\omega_0$):\par\vspace{0.15em}
 \begin{rezept}
 \rs{Statischer Verstärker $V$:\; Ausgangsamplitude $=V\cdot$ Eingangsamplitude.}
 \rs{Dynam.\ Block $F$:\; Ausgangsamplitude $=|F(j\omega_0)|\cdot$ Eingangsamplitude.\;
@@ -137,7 +136,7 @@ $F$ schneidet neg.\ reelle Achse bei $-1$ $\Rightarrow V_1\cdot(-1)=-3{,}33$ $\R
 
 \bereich[cKap7]{Beschreibungsfunktionen — Übersicht}
 
-\noindent\footnotesize\textit{Statische, symm.\,Kennlinie \textbf{ohne Gedächtnis}: $K_N\in\mathbb{R}$ $\Rightarrow$ neg.\,inv.\,BF liegt auf neg.\,reeller Achse.\quad\textbf{Mit Gedächtnis} (Hysterese): $K_N\in\mathbb{C}$, Im$\!\left(-\tfrac{1}{K_N}\right)=-\tfrac{d\pi}{4h}=\mathrm{konst.}$}\par\vspace{0.12em}
+\noindent\footnotesize\textit{\textbf{ohne Gedächtnis} (stat., symm.): $K_N\in\mathbb{R}$ $\Rightarrow$ neg.\,inv.\,BF auf neg.\,reeller Achse.\quad\textbf{mit Gedächtnis} (Hyst.): $K_N\in\mathbb{C}$, $\operatorname{Im}\!\left(-\tfrac{1}{K_N}\right)=-\tfrac{d\pi}{4h}=\mathrm{konst.}$}\par\vspace{0.12em}
 \noindent\footnotesize\setlength{\tabcolsep}{2pt}%
 {\renewcommand{\arraystretch}{1.15}%
 \begin{tabular}{@{}p{0.16\linewidth}@{\hspace{2pt}}p{0.50\linewidth}@{\hspace{3pt}}p{0.30\linewidth}@{}}
@@ -180,14 +179,13 @@ $F$ schneidet neg.\ reelle Achse bei $-1$ $\Rightarrow V_1\cdot(-1)=-3{,}33$ $\R
   \parbox[t]{\linewidth}{%
     {\scriptsize\scshape\color{gray!65!black} Gültigkeit der Methode}\\[0.03em]%
     \scriptsize
-    Genau dann genau, wenn $G(s)$\\
-    ausgeprägte Tiefpasswirkung hat\\
-    (Oberwellen stark gedämpft)\\[0.04em]
+    exakt nur bei ausgepr.\,TP-Wirkung\\
+    von $G(s)$ (Oberwellen gedämpft)\\[0.04em]
     \textbf{Kein Schnittpunkt} $\not\Rightarrow$ kein GZ!\\[0.03em]
     Bsp.: PT1\,+\,Schalter\,m.\,Hyst.\\
-    $\Rightarrow$ GZ existiert trotzdem\\[0.04em]
-    Keine Aussage über Schwingung,\\
-    wenn kein Schnittpunkt existiert.} &
+    $\Rightarrow$ GZ trotzdem\\[0.04em]
+    ohne Schnittpunkt: keine\\
+    Aussage über Schwingung.} &
   \beispielblock{Vorgehen kompakt}{%
     \text{1. }G(j\omega)\text{-Ortskurve}\\[0.03em]
     \text{2. }-\tfrac{1}{K_N(v_0)}\text{-Kurve}\\[0.03em]
