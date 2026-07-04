@@ -98,9 +98,10 @@
     }}%
 }
 
-% ---- Info-Block: Fließtext in Spalte ---------------------
+% ---- Info-Block: erklärender Fließtext, tritt farblich zurück ----
+% Grau statt schwarz → Formeln bleiben optisch vorne (Lookup vor Lehrtext)
 \newcommand{\infoblock}[1]{%
-  \parbox[t]{\linewidth}{\scriptsize\itshape #1}%
+  \parbox[t]{\linewidth}{\scriptsize\itshape\color{black!60} #1}%
 }
 
 % ==========================================================
