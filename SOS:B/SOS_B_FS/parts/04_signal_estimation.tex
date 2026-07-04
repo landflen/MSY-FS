@@ -105,7 +105,7 @@
 \end{formelreihe}
 \par\vspace{0.3em}\centering
 {\scriptsize\scshape\color{gray!65!black} Strukturbild · Wiener-Filter (MSE-optimal, stationär)}\par\vspace{0.12em}
-\begin{tikzpicture}[font=\scriptsize,color=teal!72!black,line width=0.6pt,
+\begin{tikzpicture}[font=\scriptsize,color=cDiag!72!black,line width=0.6pt,
     blk/.style={draw,fill=white,inner sep=2pt,minimum height=4.6mm,minimum width=5.2mm},
     sj/.style={draw,circle,inner sep=0pt,minimum size=3.8mm}]
   % --- Strecke (Verzerrung G + Rauschen n)  |  Rekonstruktion H  |  Fehlerbildung
@@ -201,7 +201,7 @@ Pro Verzögerer-Eingang: Summe aller einlaufenden Pfade.
   nicht mit $\mathbf B$ verwechseln.}
 \par\vspace{0.3em}
 \centering
-\begin{tikzpicture}[font=\scriptsize,color=teal!72!black,line width=0.6pt,
+\begin{tikzpicture}[font=\scriptsize,color=cDiag!72!black,line width=0.6pt,
     blk/.style={draw,fill=white,inner sep=2pt,minimum height=4.6mm,minimum width=5mm},
     sj/.style={draw,circle,inner sep=0pt,minimum size=3.7mm}]
   % --- Hauptpfad:  (+) -> z^{-1} -> x[k] -> C -> (+) -> y
@@ -315,7 +315,7 @@ rohe ACF-Wert von $n$.\par
 % ---- Strukturbilder der Filterstruktur (Klausur: zu vorgeg. System zeichnen) ----
 \par\vspace{0.2em}\centering
 {\scriptsize\scshape\color{gray!65!black} Strukturbild · Variante A — OHNE Innovationsterm (a-priori $\hat x[k]$)}\par\vspace{0.12em}
-\begin{tikzpicture}[font=\scriptsize,color=teal!72!black,line width=0.6pt,
+\begin{tikzpicture}[font=\scriptsize,color=cDiag!72!black,line width=0.6pt,
     blk/.style={draw,fill=white,inner sep=2pt,minimum height=4.6mm,minimum width=5.2mm},
     sj/.style={draw,circle,inner sep=0pt,minimum size=3.8mm}]
   % --- Hauptpfad
@@ -363,7 +363,7 @@ $\hat{\mathbf x}[k{+}1]=\mathbf A\hat{\mathbf x}[k]+\mathbf B u[k]
 $\mathbf A$ im \emph{Rückführzweig}; $\mathbf K e$ in dieselbe Summe wie $\mathbf A\hat{\mathbf x},\mathbf B u$.\; kein a-posteriori-Knoten.}\par
 \vspace{0.55em}
 {\scriptsize\scshape\color{gray!65!black} Strukturbild · Variante B — MIT Innovationsterm (a-posteriori $\hat x^{+}[k]$)}\par\vspace{0.12em}
-\begin{tikzpicture}[font=\scriptsize,color=teal!72!black,line width=0.6pt,
+\begin{tikzpicture}[font=\scriptsize,color=cDiag!72!black,line width=0.6pt,
     blk/.style={draw,fill=white,inner sep=2pt,minimum height=4.6mm,minimum width=5.2mm},
     sj/.style={draw,circle,inner sep=0pt,minimum size=3.8mm}]
   % --- Hauptpfad: y -> s1(Innov.) -> M -> sc(Korrektur) -> Ausgang x^+[k]
