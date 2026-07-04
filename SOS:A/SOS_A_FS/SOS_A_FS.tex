@@ -14,6 +14,13 @@
 \usepackage{multirow}
 \usepackage{microtype}
 \usepackage{needspace}
+\usepackage{tikz}        % kleine Skizzen (Höhenlinien Kreis/Ellipse beim Einzugsgebiet)
+\usetikzlibrary{arrows.meta,decorations.markings,calc,positioning}
+% Mittelpfeil auf Kurven (Durchlaufsinn Ortskurve)
+\tikzset{
+  ortspfeil/.style={decoration={markings,
+      mark=at position #1 with {\arrow{Stealth[length=4pt]}}},postaction={decorate}},
+  ortspfeil/.default=0.5}
 \geometry{top=10mm,bottom=14mm,left=10mm,right=10mm,includefoot}
 \setlength{\parskip}{0pt}
 \setlength{\parindent}{0pt}
@@ -127,7 +134,8 @@
 \input{parts/00_grundlagen}
 \input{parts/01_signale_routh}
 \input{parts/02_zustandsraum_lyapunov}
-\input{parts/03_kreiskriterium}
 \input{parts/04_harmonische_balance}
+\clearpage
+\input{parts/03_kreiskriterium}
 
 \end{document}

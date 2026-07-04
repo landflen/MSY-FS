@@ -91,7 +91,8 @@
     \varphi_{XX}(0)=\sigma_X^2+\mu_X^2\quad\text{(Leistung)}\\[0.1em]
     \varphi_{XX}(\tau)=\varphi_{XX}(-\tau)\quad\text{(gerade)}\\[0.1em]
     |\varphi_{XX}(\tau)|\le\varphi_{XX}(0)\\[0.1em]
-    \varphi_{XX}(\tau\to\infty)=\mu_X^2} &
+    \varphi_{XX}(\tau\to\infty)=\mu_X^2\\[0.1em]
+    \text{weiß}\Leftrightarrow\varphi_{XX}(\tau)=X_0\delta(\tau)\;\text{(reiner Dirac)}} &
   \beispielblock{$X{=}A_0\cos(\omega t{+}\varphi(\eta))$,\;$\varphi{\sim}\mathcal{U}[0,2\pi]$}{%
     \mu_X=0\quad\sigma_X^2=\dfrac{A_0^2}{2}\\[0.2em]
     \varphi_{XX}(\tau)=\dfrac{A_0^2}{2}\cos(\omega\tau)\\[0.1em]
@@ -206,47 +207,6 @@
   Rauschen wird zum \textbf{Dreieck} (Basis $\pm T$, Spitze $X_0/T$).\;
   Block mit „$T_d$" $=$ \emph{reine Verzögerung}, $h(t){=}\delta(t{-}T_d)$
   $\Rightarrow$ nur Verschieben, kein Dreieck.}
-\ergbox{\textbf{Summe zweier Pfade aus DERSELBEN Quelle} (korreliert/verzögert).
-  \emph{Konvention:} Eingang $x$, Ausgang $y$, Summanden $s_1,s_2$.\;
-  Mit $y{=}s_1{+}s_2$ (beide aus demselben Prozess):
-  \[\varphi_{yy}=\varphi_{s_1s_1}+\varphi_{s_2s_2}+\varphi_{s_1s_2}+\varphi_{s_2s_1}\]
-  Die \textbf{Kreuzterme} $\varphi_{s_1s_2},\varphi_{s_2s_1}$ dürfen NICHT entfallen
-  (nur bei Unkorreliertheit/Orthogonalität fallen sie weg).\par
-  \vspace{0.15em}
-  \textit{Beispiel} (Kette $x\to g\to a\to h\to b$), Ausgang
-  $y{=}b(t{-}T_d){+}a(t)$, also $s_1{=}b(t{-}T_d)$, $s_2{=}a(t)$:
-  \[\varphi_{yy}=\varphi_{bb}+\varphi_{aa}+\varphi_{ba}(\tau{-}T_d)+\varphi_{ab}(\tau{+}T_d)\]
-  ($\varphi_{s_1s_1}{=}\varphi_{bb}$, da Verzögerung die AKF nicht ändert;
-  $\varphi_{s_2s_2}{=}\varphi_{aa}$.)\par
-  \vspace{0.25em}
-  \centering
-  \begin{tikzpicture}[font=\tiny,color=teal!72!black,line width=0.5pt,
-      blk/.style={draw,fill=white,inner sep=1.3pt,minimum height=3mm},
-      sj/.style={draw,circle,inner sep=0pt,minimum size=3.2mm}]
-    % obere (direkte) Linie:  x -> g -> a ---> (+) -> y
-    \node (x) at (0,0.8) {$x$};
-    \node[blk] (g) at (0.8,0.8) {$g$};
-    \coordinate (a) at (1.6,0.8);
-    \node[sj]  (s) at (4.7,0.8) {$+$};
-    \node (y) at (5.35,0.8) {$y$};
-    % unterer Pfad:  a -> h -> b -> [Verz. Td] -> (+)
-    \node[blk] (h)  at (2.4,0) {$h$};
-    \node[blk] (vz) at (3.7,0) {Verz.\,$T_d$};
-    \coordinate (al) at (1.6,0);
-    \coordinate (sl) at (4.7,0);
-    % Verbindungen
-    \draw[->] (x)--(g);
-    \draw (g)--(a);
-    \node[above=0pt] at (a) {$a$};
-    \fill (a) circle (0.5pt);                       % Abgriff bei a
-    \draw[->] (a)-- node[above,pos=0.55]{$s_2$} (s);
-    \draw[->] (s)--(y);
-    \draw (a)--(al);
-    \draw[->] (al)--(h);
-    \draw[->] (h)-- node[above]{$b$} (vz);
-    \draw (vz)--(sl);
-    \draw[->] (sl)-- node[left=1pt,pos=0.5]{$s_1$} (s);
-  \end{tikzpicture}}
 \bereichende
 
 \bereich[cProzess]{Konstanter Offset $c$ am Summenknoten}
@@ -451,6 +411,59 @@ Verzög./Verstärker-Netz $\to$ Dirac-Kamm $h=\sum_i w_i\,\delta(t{-}d_i)$.\par
   \multicolumn{3}{l|}{} &
   $\varphi_{yx}$ & $=$ & $\varphi_{xx}*g*h$ \\
 \end{tabular}\par
+\bereichende
+
+\bereich[cProzess]{Summe zweier Pfade · gleiche Quelle (Kreuzterme!) vs.\ verschiedene Quellen (KKF$=0$)}
+\noindent\footnotesize
+\textbf{(A) Beide Summanden aus DERSELBEN Quelle} (korreliert/verzögert).\;
+  \emph{Konvention:} Eingang $x$, Ausgang $y$, Summanden $s_1,s_2$.\;
+  Mit $y{=}s_1{+}s_2$ (beide aus demselben Prozess):
+  \[\varphi_{yy}=\varphi_{s_1s_1}+\varphi_{s_2s_2}+\varphi_{s_1s_2}+\varphi_{s_2s_1}\]
+  Die \textbf{Kreuzterme} $\varphi_{s_1s_2},\varphi_{s_2s_1}$ dürfen NICHT entfallen
+  (nur bei Unkorreliertheit/Orthogonalität fallen sie weg).\par
+  \vspace{0.15em}
+  \textit{Beispiel} (Kette $x\to g\to a\to h\to b$), Ausgang
+  $y{=}b(t{-}T_d){+}a(t)$, also $s_1{=}b(t{-}T_d)$, $s_2{=}a(t)$:
+  \[\varphi_{yy}=\varphi_{bb}+\varphi_{aa}+\varphi_{ba}(\tau{-}T_d)+\varphi_{ab}(\tau{+}T_d)\]
+  ($\varphi_{s_1s_1}{=}\varphi_{bb}$, da Verzögerung die AKF nicht ändert;
+  $\varphi_{s_2s_2}{=}\varphi_{aa}$.)\par
+  \vspace{0.25em}
+  {\centering
+  \begin{tikzpicture}[font=\tiny,color=teal!72!black,line width=0.5pt,
+      blk/.style={draw,fill=white,inner sep=1.3pt,minimum height=3mm},
+      sj/.style={draw,circle,inner sep=0pt,minimum size=3.2mm}]
+    % obere (direkte) Linie:  x -> g -> a ---> (+) -> y
+    \node (x) at (0,0.8) {$x$};
+    \node[blk] (g) at (0.8,0.8) {$g$};
+    \coordinate (a) at (1.6,0.8);
+    \node[sj]  (s) at (4.7,0.8) {$+$};
+    \node (y) at (5.35,0.8) {$y$};
+    % unterer Pfad:  a -> h -> b -> [Verz. Td] -> (+)
+    \node[blk] (h)  at (2.4,0) {$h$};
+    \node[blk] (vz) at (3.7,0) {Verz.\,$T_d$};
+    \coordinate (al) at (1.6,0);
+    \coordinate (sl) at (4.7,0);
+    % Verbindungen
+    \draw[->] (x)--(g);
+    \draw (g)--(a);
+    \node[above=0pt] at (a) {$a$};
+    \fill (a) circle (0.5pt);                       % Abgriff bei a
+    \draw[->] (a)-- node[above,pos=0.55]{$s_2$} (s);
+    \draw[->] (s)--(y);
+    \draw (a)--(al);
+    \draw[->] (al)--(h);
+    \draw[->] (h)-- node[above]{$b$} (vz);
+    \draw (vz)--(sl);
+    \draw[->] (sl)-- node[left=1pt,pos=0.5]{$s_1$} (s);
+  \end{tikzpicture}\par}
+  \vspace{0.3em}
+  \textbf{(B) Summanden aus VERSCHIEDENEN Quellen.}\;
+  \textbf{KKF zweier Signale $=0$} (getrennte Quellen unabh.\ \emph{und} mind.\ eine mw-frei)
+  $\Rightarrow$ Kreuzterme entfallen: $\varphi_{yy}=\varphi_{s_1s_1}+\varphi_{s_2s_2}$.\par
+  \vspace{0.1em}
+  \emph{Rezept:} KKF in \textbf{Quellen-Paare} zerlegen; ein Paarterm $\neq0$ nur,
+  wenn \textbf{beide} Anteile aus \emph{derselben} Quelle stammen.\;
+  \textbf{Merke:} \emph{Quellen} vergleichen, nicht Signale.
 \bereichende
 
 \bereich[cProzess]{REZEPT · Korrelationsfunktionen durch eine Strecke}

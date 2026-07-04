@@ -82,7 +82,7 @@
 \begin{formelreihe}
   \infoblock{$x(t)$: $s(t)$ verzerrt (LTI) $+$ Rauschen.\\
     $H$: min.\ Fehlerleistung $E\{|e|^2\}$.\\
-    $e(t)=y(t)-s(t)$} &
+    $e(t)=s(t)-\hat s(t)$} &
   \formelblock{LDS des Fehlers}{\Phi_{ee}
     =\Phi_{xx}|H|^2-\Phi_{xs}H-\Phi_{sx}H^*+\Phi_{ss}} &
   \formelblock{Wiener-Filter (kontinuierlich)}{H(j\omega)
@@ -118,8 +118,8 @@
   % --- Labels auf Leitungen
   \node[above=0pt,font=\tiny] at (3.55,1.28){$x(t)$};
   \node[above=0pt,font=\tiny] at (5.7,1.28) {$\hat s(t)$};
-  \node[font=\tiny] at (6.27,1.52){$+$};
-  \node[font=\tiny] at (6.62,0.96){$-$};
+  \node[font=\tiny] at (6.27,1.52){$-$};
+  \node[font=\tiny] at (6.62,0.96){$+$};
   % --- Verbindungen Hauptpfad
   \draw[->] (s)--(G);
   \draw[->] (G)--(sn);
@@ -136,7 +136,7 @@
 \end{tikzpicture}\par
 \vspace{0.12em}
 \parbox{0.97\linewidth}{\footnotesize $x=G*s+n\to$ Rekonstruktionsfilter $H\to$ Schätzung $\hat s(t)$.\;
-Fehler $e{=}\hat s-s$ ggü.\ (unbekannt) Nutzsignal $s$.\;
+Fehler $e{=}s-\hat s$ ggü.\ (unbekannt) Nutzsignal $s$.\;
 $\min E\{|e|^2\}\Rightarrow$ \emph{Orthogonalität} $e\perp x\Rightarrow H{=}\Phi_{sx}/\Phi_{xx}$.\;
 \itshape vs.\ Kalman: festes (zeitinvar.)\ $H$, kein Zustand/Rekursion.}\par\raggedright
 \bereichende
@@ -356,59 +356,64 @@ $\mathbf A$ im \emph{Rückführzweig}; $\mathbf K e$ in dieselbe Summe wie $\mat
 \begin{tikzpicture}[font=\scriptsize,color=teal!72!black,line width=0.6pt,
     blk/.style={draw,fill=white,inner sep=2pt,minimum height=4.6mm,minimum width=5.2mm},
     sj/.style={draw,circle,inner sep=0pt,minimum size=3.8mm}]
-  % --- Hauptpfad: s1(Innov.) -> M -> sc(Korrektur, x^+) -> A -> s2(Prädiktion) -> z^{-1}
+  % --- Hauptpfad: y -> s1(Innov.) -> M -> sc(Korrektur) -> Ausgang x^+[k]
   \node      (y)   at (0,1.4)    {$y[k]$};
-  \node[sj]  (s1)  at (1.25,1.4) {};
-  \node[blk] (M)   at (2.55,1.4) {$\mathbf M[k]$};
-  \node[sj]  (sc)  at (3.95,1.4) {$+$};
-  \node[blk] (A)   at (5.25,1.4) {$\mathbf A$};
-  \node[sj]  (s2)  at (6.55,1.4) {$+$};
-  \node[blk] (vz)  at (7.85,1.4) {$z^{-1}$};
-  \coordinate      (tap) at (9.0,1.4);
-  \node      (xh)  at (9.9,1.4)  {$\hat{\mathbf x}[k]$};
-  \node[above=1pt,font=\tiny] at (4.6,1.42){$\hat{\mathbf x}^{+}[k]$};
-  % --- Eingang u über B (in s2)
-  \node      (u)   at (5.4,2.35) {$u[k]$};
-  \node[blk] (B)   at (6.55,2.35){$\mathbf B$};
-  % --- Messabgriff C (Rückführung in s1)
-  \node[blk] (C)   at (4.0,-0.55){$\mathbf C$};
+  \node[sj]  (s1)  at (1.2,1.4)  {};
+  \node[blk] (M)   at (2.5,1.4)  {$\mathbf M[k]$};
+  \node[sj]  (sc)  at (4.0,1.4)  {$+$};
+  \coordinate      (tap) at (7.3,1.4);
+  \node      (xhp) at (8.2,1.4)  {$\hat{\mathbf x}^{+}[k]$};
+  % --- Rückführung/Prädiktion: x^+ -> A -> (+Bu) -> z^{-1} -> a-priori x[k]
+  \node[blk] (A)   at (6.6,0.4)  {$\mathbf A$};
+  \node[sj]  (s2)  at (5.5,0.4)  {$+$};
+  \node[blk] (vz)  at (4.7,0.4)  {$z^{-1}$};
+  \coordinate      (nx) at (4.0,0.4);
+  % --- Eingang u über B (von unten in s2)
+  \node      (u)   at (6.6,-0.55){$u[k]$};
+  \node[blk] (B)   at (5.5,-0.55){$\mathbf B$};
+  % --- Messabgriff C (a-priori-Rückführung in s1)
+  \node[blk] (C)   at (2.7,0.4)  {$\mathbf C$};
   % --- Vorzeichen
-  \node[font=\tiny] at (0.92,1.62){$+$};
-  \node[font=\tiny] at (1.18,1.08){$-$};
-  \node[font=\tiny] at (3.7,1.1)  {$+$};
-  % --- Verbindungen forward
+  \node[font=\tiny] at (0.9,1.62) {$+$};
+  \node[font=\tiny] at (1.14,1.06){$-$};
+  \node[font=\tiny] at (3.72,1.1) {$+$};
+  % --- Vorwärtspfad
   \draw[->] (y)--(s1);
   \draw[->] (s1)-- node[above,font=\tiny,pos=0.5]{$e[k]$} (M);
   \draw[->] (M)--(sc);
-  \draw[->] (sc)--(A);
+  \draw (sc)--(tap); \fill (tap) circle (0.7pt);
+  \draw[->] (tap)--(xhp);
+  % --- Rückführung von x^+ nach unten in A
+  \draw (tap)--(7.3,0.4);
+  \draw[->] (7.3,0.4)--(A);
   \draw[->] (A)--(s2);
-  \draw[->] (s2)-- node[above,font=\tiny,pos=0.46]{$\hat{\mathbf x}[k{+}1]$} (vz);
-  \draw (vz)--(tap); \fill (tap) circle (0.7pt);
-  \draw[->] (tap)--(xh);
+  \draw[->] (s2)--(vz);
+  \draw (vz)--(nx); \fill (nx) circle (0.7pt);
+  \node[font=\tiny] at (5.15,0.82){$\hat{\mathbf x}[k{+}1]$};
+  % --- a-priori x[k]: hoch in sc (+)  und  links über C in s1 (-)
+  \draw[->] (nx)--(sc);
+  \node[font=\tiny] at (3.62,0.82){$\hat{\mathbf x}[k]$};
+  \draw[->] (nx)--(C);
+  \draw (C)--(1.2,0.4);
+  \draw[->] (1.2,0.4)-- node[right,font=\tiny,pos=0.22]{$\mathbf C\hat{\mathbf x}[k]$} (s1);
+  % --- Eingang u über B
   \draw[->] (u)--(B);
   \draw[->] (B)--(s2);
-  % --- direkte x̂[k]-Rückführung in sc (+1)
-  \draw (tap)--(9.0,0.5); \fill (9.0,0.5) circle (0.7pt);
-  \draw (9.0,0.5)--(3.95,0.5);
-  \draw[->] (3.95,0.5)--(sc);
-  % --- C-Rückführung in s1
-  \draw (9.0,0.5)--(9.0,-0.55);
-  \draw[->] (9.0,-0.55)--(C);
-  \draw (C)--(1.25,-0.55);
-  \draw[->] (1.25,-0.55)-- node[right,font=\tiny,pos=0.22]{$\mathbf C\hat{\mathbf x}[k]$} (s1);
 \end{tikzpicture}\par
 \vspace{0.12em}
 \parbox{0.97\linewidth}{\footnotesize Zwei Stufen, \emph{expliziter} a-posteriori-Knoten:\;
 \textbf{Korrektur} $\hat{\mathbf x}^{+}[k]=\hat{\mathbf x}[k]+\mathbf M[k]\,e[k]$ ($e{=}y-\mathbf C\hat{\mathbf x}$),\;
 \textbf{Prädiktion} $\hat{\mathbf x}[k{+}1]=\mathbf A\hat{\mathbf x}^{+}[k]+\mathbf B u[k]$.\;
-$\mathbf A$ jetzt im \emph{Vorwärtszweig} (hinter $\hat{\mathbf x}^{+}$), nicht Rückführung;\; $\mathbf K=\mathbf A\mathbf M$.}\par\raggedright
+$\hat{\mathbf x}^{+}[k]$ bildet den \emph{Ausgang}; $\mathbf A$ wirkt im Prädiktions-/Rückführzweig auf $\hat{\mathbf x}^{+}$;\; $\mathbf K=\mathbf A\mathbf M$.}\par\raggedright
 \bereichende
 
 \bereich[cSchaetz]{Kalman-Filter — Stationärer Endwert \& Dimensionen}
 \begin{formelreihe}
   \formelblock{Stationärer Endwert $f_\infty$ (Skalar)}{%
-    f_\infty=\dfrac{A^2 N_0\,f_\infty}{N_0+C^2 f_\infty}+G Z_0 G^{T}\\[0.15em]
-    \text{quadr.\ Gl.\ lösen, }R_\infty{=}N_0{+}C^2 f_\infty\\[0.1em]
+    f_\infty=\dfrac{A^2 N_0\,f_\infty}{N_0+C^2 f_\infty}+G Z_0 G^{T}\\[0.1em]
+    \text{\scriptsize\itshape Fixpunkt, ausmult.\ ($S{\equiv}GZ_0G^T$):}\\[0.15em]
+    C^2 f_\infty^2+\big[N_0(1{-}A^2){-}C^2 S\big]f_\infty-N_0 S=0\\[0.15em]
+    \text{pos.\ Lös.\ nehmen, }R_\infty{=}N_0{+}C^2 f_\infty\\[0.1em]
     \Rightarrow K_\infty=\dfrac{A\,C\,f_\infty}{R_\infty}} &
   \parbox[t]{\linewidth}{%
     {\scriptsize\scshape\color{gray!65!black} Endwert bestimmen}\par\vspace{0.05em}

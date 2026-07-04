@@ -288,7 +288,7 @@ $\dot x_1=0:\;-1{,}5+2+u_B(1{,}5^2-2)=0\Rightarrow u_B=-2$.}
     2.\ EW: $\det(s\mathbf{I}-\mathbf{A}_B)=0$ lösen $\Rightarrow s_\infty$\\[0.02em]
     3.\ RT aller $s_\infty$ prüfen:\\[0.01em]
     {\scriptsize
-    \quad alle neg.\,RT $\Rightarrow$ as.\,stab.\,(lok.)\\[0.01em]
+    \quad alle neg.\,RT $\Rightarrow$ asym.\,stab.\,(lok.)\\[0.01em]
     \quad pos.\,RT vorh. $\Rightarrow$ instab.\\[0.03em]
     \quad lokal (nahe BP); LZI: global\\[0.01em]
     \quad neg.\,RT: kehrt zurück\\
@@ -331,6 +331,31 @@ $\mathbf{c}^T=[\,0\;\;2\,]$,\; $d=0$.\quad
 EW: $s=1,\,-2$ $\Rightarrow$ ein EW $+1$ $\Rightarrow$ \textbf{instabil}.}
 
 \bereichende
+
+% ============================================================
+
+\bereich[cKap5]{Rezept: Stabilität nach Lyapunov prüfen — welcher Weg?}
+
+\noindent\footnotesize
+\textbf{Zuerst Begriff vs.\ Methode trennen:} „stabil \emph{im Sinne von} Lyapunov (iSvL)`` ist die \emph{Definition} (kleine Auslenkung $\Rightarrow$ Trajektorie bleibt nahe RL, Teil 4). \emph{Nachweisen} kannst du das auf zwei Wegen — beide heißen „Lyapunov``:\par\vspace{0.15em}
+
+\begin{rezept}
+\rs{\textbf{Autonom?} $\dot{\mathbf{x}}=\mathbf{f}(\mathbf{x})$ ohne Eingang $\Rightarrow$ Lyapunov (Ruhelagen-Stab.).\newline
+  Mit Eingang $u$ (auch $G(s)$/$G(j\omega)$) $\Rightarrow$ stattdessen \textbf{BIBO} (Pole/EW alle $\operatorname{Re}<0$?); Lyapunov ``nicht anwendbar``.}
+\rs{\textbf{Weg A — indirekt (Linearisierung $+$ Eigenwerte):} schnell, aber \textbf{nur lokal}.\newline
+  $\mathbf{A}_B$ (Jacobi) $\to$ EW aus $\det(s\mathbf{I}-\mathbf{A}_B)=0$ $\to$ Realteile ansehen:\newline
+  \quad alle $\operatorname{Re}<0\Rightarrow$ lokal asym.\ stabil;\quad ein $\operatorname{Re}>0\Rightarrow$ instabil;\newline
+  \quad EW auf $j\omega$-Achse ($\operatorname{Re}=0$) $\Rightarrow$ \textbf{keine Aussage} $\to$ Weg B nötig.}
+\rs{\textbf{Weg B — direkt (Ljapunow-Funktion $V$):} aufwändiger, dafür \textbf{global} \& für echte NL.\newline
+  $V(\mathbf{x})$ pos.\ def.\ wählen ($V(\mathbf{0}){=}0$) $\to$ $\dot V=\bigl(\tfrac{\partial V}{\partial\mathbf{x}}\bigr)^{\!T}\mathbf{f}(\mathbf{x})$ $\to$ Vorzeichen von $\dot V$:\newline
+  \quad $\dot V\leq0\;\forall\mathbf{x}\Rightarrow$ stabil (Satz 1);\quad $\dot V<0\;\forall\mathbf{x}\neq\mathbf{0}\Rightarrow$ asym.\ stabil (Satz 2).\newline
+  (Ausführliches Rezept $+$ Einzugsgebiet: s.\ unten.)}
+\end{rezept}
+
+\noindent\footnotesize\textbf{Entscheidung:} lokale Aussage genügt \& System linearisierbar $\to$ \textbf{Weg A} (Eigenwerte, schneller). Globale Aussage nötig, echte Nichtlinearität, oder Weg A stumm (EW rein imaginär) $\to$ \textbf{Weg B} ($V$-Funktion). Lyapunov ist nur \emph{hinreichend}: gelingt kein Nachweis, ist das System \emph{nicht} automatisch instabil (anderes $V$ probieren).
+\bereichende
+
+% ============================================================
 
 \bereich[cKap5]{Teil 5: Linearisierung im Betriebspunkt \& Direkte Methode von Lyapunov}
 
@@ -398,7 +423,7 @@ EW: $s=1,\,-2$ $\Rightarrow$ ein EW $+1$ $\Rightarrow$ \textbf{instabil}.}
     &\dot{V}(\mathbf{x})\leq0\;\forall\mathbf{x}\neq\mathbf{0}\\
     &\Rightarrow\text{Ruhelage global stabil}
   \end{aligned}} &
-  \formelblock{Satz 2: global asympt. stabil}{\begin{aligned}
+  \formelblock{Satz 2: global asym. stabil}{\begin{aligned}
     &V(\mathbf{x})\text{ pos. def., }V(\mathbf{0})=0\\
     &\dot{V}(\mathbf{x})<0\;\forall\mathbf{x}\neq\mathbf{0}\\
     &\Rightarrow\text{global asym. stabil}
@@ -493,6 +518,52 @@ pos.\ def.\ $\Leftrightarrow a>2$ (und $b=0$).}
 $\dot V=x_1(-x_1)+x_2(-x_2+5x_1x_2)=-x_1^2-x_2^2(1-5x_1)$.\quad
 $\dot V<0$ falls $1-5x_1>0$, d.\,h.\ $x_1<\tfrac15$.\quad
 Größter Kreis um $\mathbf{0}$ darin: $r=\tfrac15=0{,}2$ $\Rightarrow$ EZG $=$ Kreis mit $r=0{,}2$.}
+
+% ---- Skizze: Höhenlinien-Form folgt aus den Vorfaktoren von V ----
+\par\vspace{0.14em}\noindent
+\fcolorbox{cKap5!45}{cKap5!6}{%
+  \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+    {\footnotesize\scshape\color{cKap5!82!black} Skizze: Höhenlinien-Form $=$ Vorfaktoren von $V$}\\[0.25em]
+    \centering
+    % ---- links: Kreis (gleiche Vorfaktoren) ----
+    \begin{minipage}[t]{0.48\linewidth}\centering
+      \begin{tikzpicture}[scale=0.58,font=\tiny,line width=0.5pt]
+        \fill[cKap5!8] (-3,-2.5) rectangle (2,2.5);              % erlaubtes Gebiet {Vdot<=0}
+        \draw[->,gray!55] (-3.7,0)--(2.9,0) node[right,black]{$x_1$};
+        \draw[->,gray!55] (0,-2.65)--(0,2.75) node[above,black]{$x_2$};
+        \draw[cKap5!80!black,line width=0.7pt] (-3,-2.5)--(-3,2.5);
+        \draw[cKap5!80!black,line width=0.7pt] ( 2,-2.5)--( 2,2.5);
+        \foreach \y in {-2.3,-1.8,...,2.2}{                       % Schraffur = verbotene Seite
+          \draw[cKap5!70!black,line width=0.3pt] (2,\y)--(2.35,\y+0.35);
+          \draw[cKap5!70!black,line width=0.3pt] (-3,\y)--(-3.35,\y+0.35);}
+        \draw[cKap5,line width=0.9pt] (0,0) circle (2);          % größter Kreis, rechts tangential
+        \fill (0,0) circle (1.1pt);
+        \draw[->] (0,0)--(2,0);
+        \node[above,black] at (1,0.03){$r=2$};
+      \end{tikzpicture}\\[0.15em]
+      {\scriptsize $V=x_1^2+x_2^2$ (gleiche Vorf.) $\Rightarrow$ \textbf{Kreis}.\\
+       $r=$ min.\ Abstand zum Rand ($=2$, re.\ tangential).}
+    \end{minipage}\hfill
+    % ---- rechts: Ellipse (verschiedene Vorfaktoren) ----
+    \begin{minipage}[t]{0.48\linewidth}\centering
+      \begin{tikzpicture}[scale=0.58,font=\tiny,line width=0.5pt]
+        \fill[cKap5!8] (-2.6,-2.5) rectangle (2,2.5);
+        \draw[->,gray!55] (-3.3,0)--(2.9,0) node[right,black]{$x_1$};
+        \draw[->,gray!55] (0,-2.65)--(0,2.75) node[above,black]{$x_2$};
+        \draw[cKap5!80!black,line width=0.7pt] (-2.6,-2.5)--(-2.6,2.5);
+        \draw[cKap5!80!black,line width=0.7pt] ( 2,-2.5)--( 2,2.5);
+        \foreach \y in {-2.3,-1.8,...,2.2}{
+          \draw[cKap5!70!black,line width=0.3pt] (2,\y)--(2.35,\y+0.35);
+          \draw[cKap5!70!black,line width=0.3pt] (-2.6,\y)--(-2.95,\y+0.35);}
+        \draw[cKap5,line width=0.9pt] (0,0) ellipse (2 and 1.2); % größte Niveau-Ellipse
+        \fill (0,0) circle (1.1pt);
+        \draw[->] (0,0)--(2,0);   \node[below,black] at (1.15,-0.05){$\sqrt{c/\lambda_1}$};
+        \draw[->] (0,0)--(0,1.2); \node[right,black] at (0.06,0.72){$\sqrt{c/\lambda_2}$};
+      \end{tikzpicture}\\[0.15em]
+      {\scriptsize $V=\lambda_1x_1^2+\lambda_2x_2^2$ $\Rightarrow$ \textbf{Ellipse}.\\
+       Halbachse $\sqrt{c/\lambda_i}$: großes $\lambda\to$ kurze Achse.}
+    \end{minipage}
+  }}\par
 
 \fallstrick{$\dot V\leq0$ (semidef.)\ liefert nur \emph{stabil}, \textbf{nicht} asymptotisch.\quad
 \textbullet\ Lyapunov ist nur \textbf{hinreichend}: kein Nachweis $\not\Rightarrow$ instabil (anderes $V$ probieren).\quad

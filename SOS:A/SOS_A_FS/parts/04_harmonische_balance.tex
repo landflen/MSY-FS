@@ -38,6 +38,60 @@
 \end{formelreihe}
 \bereichende
 
+\bereich[cKap7]{Grafik: NL-Standardregelkreis \& Grenzzyklus-Typen}
+
+\noindent
+\begin{minipage}[c]{0.52\linewidth}\centering
+\footnotesize NL-Standardregelkreis (autonom, $w{=}0$):\\[0.3em]
+\begin{tikzpicture}[>=Stealth,font=\scriptsize,
+    blk/.style={draw,minimum height=6.5mm,minimum width=15mm,inner sep=1pt}]
+  \node (sum) [draw,circle,minimum size=4.5mm,inner sep=0pt] {};
+  \draw (sum.north)--(sum.south) (sum.west)--(sum.east);
+  \node[left=5.5mm of sum] (w) {$w{=}0$};
+  \node[blk,right=7mm of sum,align=center] (nl) {Kennlinie\\[-0.2em]\footnotesize $K_N(v_0)$};
+  \node[blk,right=8mm of nl,align=center,fill=cKap7!12] (g) {LZI\\[-0.2em]\footnotesize $G(j\omega)$};
+  \coordinate[right=8mm of g] (out);
+  \draw[->] (w)--(sum);
+  \draw[->] (sum)--(nl) node[pos=0.42,above]{$v$};
+  \draw[->] (nl)--(g) node[midway,above]{$a$}
+     node[midway,below=0.3mm,cKap7!80!black,font=\tiny]{Eing.};
+  \draw[->] (g)--(out) node[midway,above]{$x$}
+     node[pos=0.28,below=0.3mm,cKap7!80!black,font=\tiny]{Ausg.};
+  \node[above left=-0.5mm and 0.2mm of sum] {\tiny$+$};
+  \node[below left=-0.5mm and 0.2mm of sum] {\tiny$-$};
+  \fill (g.east)++(4mm,0) coordinate (fb) circle (0.5pt);
+  \draw[->] (fb) -- ++(0,-8mm) -| (sum.south);
+\end{tikzpicture}\\[0.2em]
+{\scriptsize $v$ = NL-Eing.\ (Arg.\ von $K_N$);\; \textbf{LZI $G$: Eingang $a$} ($=$ NL-Ausg.), \textbf{Ausgang $x$} ($\to$ Rückf.);\; alle stat.\ Verstärker $\in G$.}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.44\linewidth}\centering
+\footnotesize Grenzzyklus-Arten (Phasenebene):\\[0.3em]
+\begin{tikzpicture}[>=Stealth,font=\scriptsize,scale=0.92]
+  % --- stabil: Traj. konvergieren von innen & außen auf GZ ---
+  \begin{scope}
+    \draw[gray,ortspfeil=0.9] plot[domain=0:250,samples=50,variable=\t]
+       ({(1.28-0.55*\t/250)*cos(\t)},{(1.28-0.55*\t/250)*sin(\t)});
+    \draw[gray,ortspfeil=0.9] plot[domain=0:250,samples=50,variable=\t]
+       ({(0.26+0.44*\t/250)*cos(\t)},{(0.26+0.44*\t/250)*sin(\t)});
+    \draw[very thick,cKap7!80!black] (0,0) circle (0.72);
+    \node[cKap7!80!black] at (0,0) {\tiny GZ};
+    \node at (0,-1.15) {\scriptsize\textbf{stabil} $\bigcirc$};
+  \end{scope}
+  % --- instabil: Traj. divergieren vom GZ weg ---
+  \begin{scope}[xshift=2.9cm]
+    \draw[gray,ortspfeil=0.9] plot[domain=0:250,samples=50,variable=\t]
+       ({(0.75+0.53*\t/250)*cos(\t)},{(0.75+0.53*\t/250)*sin(\t)});
+    \draw[gray,ortspfeil=0.9] plot[domain=0:250,samples=50,variable=\t]
+       ({(0.68-0.52*\t/250)*cos(\t)},{(0.68-0.52*\t/250)*sin(\t)});
+    \draw[very thick,cKap7!80!black] (0,0) circle (0.72);
+    \node[cKap7!80!black] at (0,0) {\tiny GZ};
+    \node at (0,-1.15) {\scriptsize\textbf{instabil} $\triangle$};
+  \end{scope}
+\end{tikzpicture}\\[0.2em]
+{\scriptsize Traj.\ von innen \& außen: konvergent $\Rightarrow$ stabil, divergent $\Rightarrow$ instabil.}
+\end{minipage}
+\bereichende
+
 \bereich[cKap7]{Beschreibungsfunktion \& Schwingungsbedingung}
 
 \begin{formelreihe}
@@ -73,6 +127,56 @@
     \Rightarrow T_0\!\approx\!3{,}7\\[0.02em]
     \Rightarrow v_0\!\approx\!0{,}16} \\[0.3em]
 \end{formelreihe}
+\bereichende
+
+\bereich[cKap7]{Grafik: Zwei-Ortskurven-Methode (grafische GZ-Bestimmung)}
+
+\noindent
+\begin{minipage}[c]{0.53\linewidth}\centering
+\begin{tikzpicture}[>=Stealth,font=\scriptsize,scale=0.92]
+  % --- Achsen ---
+  \draw[->] (-3.7,0)--(1.0,0) node[below]{$\operatorname{Re}$};
+  \draw[->] (0,-3.2)--(0,1.0) node[left]{$\operatorname{Im}$};
+  % --- Ortskurve G(jw) ---
+  \draw[cKap7!80!black,thick,ortspfeil=0.5]
+     plot[smooth,tension=0.7] coordinates{
+       (-0.15,-2.95)(-1.5,-2.55)(-2.6,-1.6)(-2.95,-0.7)
+       (-2.75,0.0)(-2.15,0.5)(-1.05,0.72)(-0.25,0.32)(0.02,0.0)};
+  \node[cKap7!80!black] at (-0.75,-2.95) {$G(j\omega)$};
+  \draw[cKap7!80!black,fill=white] (-1.5,-2.55) circle (1.3pt);
+  \node[cKap7!80!black] at (-1.15,-2.2) {$\omega{\uparrow}$};
+  % --- Neg. inv. BF (Schalter: neg. reelle Achse) ---
+  \draw[red!75!black,very thick,->] (0,0)--(-3.55,0);
+  \node[red!75!black,align=center] at (-1.55,0.32)
+     {$-\tfrac{1}{K_N},\;v_0{\uparrow}$};
+  % --- Schnittpunkt = GZ ---
+  \fill (-2.75,0) circle (1.7pt);
+  \node[fill=white,inner sep=1pt,align=center] at (-3.0,0.55)
+     {\scriptsize\textbf{GZ}\\[-0.15em]\scriptsize$\omega_0,v_0$};
+\end{tikzpicture}\\[0.1em]
+{\scriptsize\textbf{Schnittpunkt} $G(j\omega_0){=}-\tfrac1{K_N(v_0)}$:\;
+$\omega_0$ an $G$-Kurve,\; $v_0$ an $-1/K_N$-Kurve ablesen;\; $T_0{=}\tfrac{2\pi}{\omega_0}$.}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.44\linewidth}\centering
+\footnotesize Stabilitätsregel am Schnittpunkt:\\[0.3em]
+\begin{tikzpicture}[>=Stealth,font=\scriptsize,scale=1.0]
+  % G-Kurve mit omega-Pfeil (aufwärts)
+  \draw[cKap7!80!black,thick,ortspfeil=0.62]
+     (0.75,-1.15) .. controls (0.18,-0.35) and (0.72,0.35) .. (0.42,1.15);
+  \node[cKap7!80!black] at (1.05,1.05) {$G,\,\omega{\uparrow}$};
+  % -1/K_N mit v0-Pfeil (nach links)
+  \draw[red!75!black,very thick,->] (1.45,-0.1)--(-1.25,-0.1);
+  \node[red!75!black] at (-0.9,0.18){$v_0{\uparrow}$};
+  % Schnittpunkt
+  \fill (0.42,-0.1) circle (1.5pt);
+  % eps-Punkt links (stabil)
+  \draw[fill=white] (-0.35,-0.1) circle (1.7pt);
+  \node[align=center] at (-0.55,0.55) {\scriptsize \textbf{links}\\[-0.2em]\scriptsize$\Rightarrow$ stabil $\bigcirc$};
+  \node[align=center] at (1.15,-0.62) {\scriptsize \textbf{rechts}\\[-0.2em]\scriptsize$\Rightarrow$ instab.\ $\triangle$};
+\end{tikzpicture}\\[0.1em]
+{\scriptsize $v_0$ um $\varepsilon$ erhöhen: liegt $-\tfrac1{K_N}(v_0{+}\varepsilon)$
+\textbf{links} der $G$-Kurve (in $\omega$-Richtung) $\Rightarrow$ \textbf{stabiler} GZ.}
+\end{minipage}
 \bereichende
 
 \bereich[cKap7]{Rezept: Dauerschwingung (GZ) bestimmen \& Amplituden}
@@ -134,30 +238,101 @@ $F$ schneidet neg.\ reelle Achse bei $-1$ $\Rightarrow V_1\cdot(-1)=-3{,}33$ $\R
 
 \bereichende
 
+\needspace{17\baselineskip}
 \bereich[cKap7]{Beschreibungsfunktionen — Übersicht}
 
-\noindent\footnotesize\textit{\textbf{ohne Gedächtnis} (stat., symm.): $K_N\in\mathbb{R}$ $\Rightarrow$ neg.\,inv.\,BF auf neg.\,reeller Achse.\quad\textbf{mit Gedächtnis} (Hyst.): $K_N\in\mathbb{C}$, $\operatorname{Im}\!\left(-\tfrac{1}{K_N}\right)=-\tfrac{d\pi}{4h}=\mathrm{konst.}$}\par\vspace{0.12em}
+\noindent
+\begin{minipage}[c]{0.45\linewidth}\centering
+\begin{tikzpicture}[>=Stealth,font=\scriptsize,scale=1.0]
+  \draw[->] (-4.1,0)--(0.8,0) node[below]{$\operatorname{Re}$};
+  \draw[->] (0,-1.25)--(0,0.7) node[left]{$\operatorname{Im}$};
+  % Schalter: ganze neg. reelle Achse
+  \draw[red!75!black,very thick,->] (0,0)--(-3.95,0);
+  % Dreipunkt/Begrenzer/Totzone: ab endlichem Wert (leicht versetzt)
+  \draw[orange!85!black,very thick,->] (-1.35,0.16)--(-3.95,0.16);
+  \fill[orange!85!black] (-1.35,0.16) circle (1.2pt);
+  % Schalter mit Hysterese: Parallele zur reellen Achse
+  \draw[blue!70!black,very thick,->] (0,-0.85)--(-3.95,-0.85);
+  \node[blue!70!black,right] at (0.05,-0.85) {$-\tfrac{d\pi}{4h}$};
+\end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.53\linewidth}\footnotesize
+{\color{red!75!black}\rule{9pt}{2.4pt}}\; \textbf{Schalter:} ganze neg.\ reelle Achse ($0\!\to\!-\infty$).\\[0.25em]
+{\color{orange!85!black}\rule{9pt}{2.4pt}}\; \textbf{Dreipkt./Begr./Totzone:} reelle Achse \emph{ab endl.\ Wert} ($K_N{=}0$ für $v_0{<}d$).\\[0.25em]
+{\color{blue!70!black}\rule{9pt}{2.4pt}}\; \textbf{Schalter m.\ Hyst.:} Parallele zur reellen Achse, $\operatorname{Im}{=}-\tfrac{d\pi}{4h}{=}$const.\\[0.25em]
+\textit{ohne Gedächtnis $\Rightarrow K_N\in\mathbb{R}$ (reelle Achse); mit Gedächtnis $\Rightarrow K_N\in\mathbb{C}$.}
+\end{minipage}\par\vspace{0.2em}
 \noindent\footnotesize\setlength{\tabcolsep}{2pt}%
 {\renewcommand{\arraystretch}{1.15}%
-\begin{tabular}{@{}p{0.16\linewidth}@{\hspace{2pt}}p{0.50\linewidth}@{\hspace{3pt}}p{0.30\linewidth}@{}}
-  \scriptsize\scshape\color{gray!65!black}Nichtlinearität &
+% --- Mini-Kennlinien (einheitlicher Stil) ---
+\newcommand{\knlaxes}{\draw[->,gray!55](-1.5,0)--(1.5,0);\draw[->,gray!55](0,-1.25)--(0,1.5);}
+\begin{tabular}{@{}>{\centering\arraybackslash}m{0.19\linewidth}@{\hspace{2pt}}m{0.48\linewidth}@{\hspace{3pt}}m{0.29\linewidth}@{}}
+  \scriptsize\scshape\color{gray!65!black}Kennlinie \& NL &
   \scriptsize\scshape\color{gray!65!black}Beschreibungsfunktion $K_N(v_0)$ &
   \scriptsize\scshape\color{gray!65!black}Neg.\,inv.\,BF\;$-1/K_N$ \\[0.1em]
-  Schalter &
+  % --- Schalter (Zweipunkt) ---
+  \begin{tikzpicture}[scale=0.34,>=Stealth,line width=0.6pt]
+    \knlaxes
+    \draw[very thick](-1.3,-0.9)--(0,-0.9)--(0,0.9)--(1.3,0.9);
+    \node[font=\tiny] at (-0.32,1.18){$h$};
+    \node[font=\footnotesize,anchor=north] at (0,-1.55){Schalter};
+    \node[font=\footnotesize,anchor=south,opacity=0] at (0,1.55){Schalter};
+  \end{tikzpicture} &
   $\tfrac{4h}{\pi v_0}$ &
   $-\tfrac{\pi v_0}{4h}$ (reell)\\[0.2em]
-  Schalter m.\,Hyst. &
-  $\tfrac{4h}{\pi v_0}\sqrt{1\!-\!\tfrac{d^2}{v_0^2}}-j\tfrac{4dh}{\pi v_0^2}$ &
-  $-\tfrac{\pi v_0}{4h}\sqrt{1\!-\!\tfrac{d^2}{v_0^2}}-j\tfrac{d\pi}{4h}$\\[0.04em]
-  & \scriptsize\itshape $v_0\!\geq\!d$ (sonst kommt $v_0\!<\!d$ nicht vor) &
-    \scriptsize\itshape $\operatorname{Im}=-\tfrac{d\pi}{4h}=\mathrm{konst.}$\\[0.15em]
-  Dreipunktschalter &
+  % --- Schalter mit Hysterese ---
+  \begin{tikzpicture}[scale=0.34,>=Stealth,line width=0.6pt]
+    \knlaxes
+    \draw[very thick](-1.3,-0.9)--(0.55,-0.9)--(0.55,0.9)--(1.3,0.9);
+    \draw[very thick](1.3,0.9)--(-0.55,0.9)--(-0.55,-0.9)--(-1.3,-0.9);
+    \draw[very thick,->](-0.45,-0.9)--(-0.15,-0.9);
+    \draw[very thick,->](0.45,0.9)--(0.15,0.9);
+    \node[font=\tiny] at (-0.32,1.18){$h$};
+    \node[font=\tiny] at (0.78,-1.12){$d$};
+    \node[font=\footnotesize,anchor=north] at (0,-1.55){Schalter m.\,Hyst.};
+    \node[font=\footnotesize,anchor=south,opacity=0] at (0,1.55){Schalter m.\,Hyst.};
+  \end{tikzpicture} &
+  \begin{minipage}[c]{\linewidth}
+    \phantom{\scriptsize$v_0$}\\[0.12em]
+    $\tfrac{4h}{\pi v_0}\sqrt{1\!-\!\tfrac{d^2}{v_0^2}}-j\tfrac{4dh}{\pi v_0^2}$\\[0.12em]
+    {\scriptsize\itshape $v_0\!\geq\!d$ (sonst kommt $v_0\!<\!d$ nicht vor)}
+  \end{minipage} &
+  \begin{minipage}[c]{\linewidth}
+    \phantom{\scriptsize$v_0$}\\[0.12em]
+    $-\tfrac{\pi v_0}{4h}\sqrt{1\!-\!\tfrac{d^2}{v_0^2}}-j\tfrac{d\pi}{4h}$\\[0.12em]
+    {\scriptsize\itshape $\operatorname{Im}=-\tfrac{d\pi}{4h}=\mathrm{konst.}$}
+  \end{minipage}\\[0.2em]
+  % --- Dreipunktschalter ---
+  \begin{tikzpicture}[scale=0.34,>=Stealth,line width=0.6pt]
+    \knlaxes
+    \draw[very thick](-1.3,-0.9)--(-0.45,-0.9)--(-0.45,0)--(0.45,0)--(0.45,0.9)--(1.3,0.9);
+    \node[font=\tiny] at (-0.32,1.18){$h$};
+    \node[font=\tiny] at (0.62,-0.26){$d$};
+    \node[font=\footnotesize,anchor=north] at (0,-1.55){Dreipunktschalter};
+    \node[font=\footnotesize,anchor=south,opacity=0] at (0,1.55){Dreipunktschalter};
+  \end{tikzpicture} &
   $\begin{cases}0 & v_0\!<\!d\\\tfrac{4h\sqrt{v_0^2-d^2}}{\pi v_0^2} & v_0\!\geq\!d\end{cases}$ &
   reell ($v_0\!\geq\!d$)\\[0.5em]
-  Begrenzer &
+  % --- Begrenzer (Sättigung) ---
+  \begin{tikzpicture}[scale=0.34,>=Stealth,line width=0.6pt]
+    \knlaxes
+    \draw[very thick](-1.3,-0.9)--(-0.55,-0.9)--(0.55,0.9)--(1.3,0.9);
+    \node[font=\tiny] at (-0.32,1.18){$h$};
+    \node[font=\tiny] at (0.72,0.22){$d$};
+    \node[font=\footnotesize,anchor=north] at (0,-1.55){Begrenzer};
+    \node[font=\footnotesize,anchor=south,opacity=0] at (0,1.55){Begrenzer};
+  \end{tikzpicture} &
   $\begin{cases}\tfrac{h}{d} & v_0\!<\!d\\[0.1em]\tfrac{2h}{d\pi}\!\left(\arcsin\tfrac{d}{v_0}\!+\!\tfrac{d}{v_0}\sqrt{1\!-\!\tfrac{d^2}{v_0^2}}\right) & v_0\!\geq\!d\end{cases}$ &
   reell\\[0.65em]
-  Totzone &
+  % --- Totzone ---
+  \begin{tikzpicture}[scale=0.34,>=Stealth,line width=0.6pt]
+    \knlaxes
+    \draw[very thick](-1.3,-0.85)--(-0.45,0)--(0.45,0)--(1.3,0.85);
+    \node[font=\tiny] at (1.12,1.15){$m$};
+    \node[font=\tiny] at (0.6,-0.26){$d$};
+    \node[font=\footnotesize,anchor=north] at (0,-1.55){Totzone};
+    \node[font=\footnotesize,anchor=south,opacity=0] at (0,1.55){Totzone};
+  \end{tikzpicture} &
   $\begin{cases}0 & v_0\!<\!d\\[0.1em]m\!-\!\tfrac{2m}{\pi}\!\left(\arcsin\tfrac{d}{v_0}\!+\!\tfrac{d}{v_0}\sqrt{1\!-\!\tfrac{d^2}{v_0^2}}\right) & v_0\!\geq\!d\end{cases}$ &
   reell\\
 \end{tabular}}\par
@@ -175,7 +350,8 @@ $F$ schneidet neg.\ reelle Achse bei $-1$ $\Rightarrow V_1\cdot(-1)=-3{,}33$ $\R
     Liegt $-\tfrac{1}{K_N(v_0\!+\!\varepsilon)}$\\
     \quad\textbf{links} der $G(j\omega)$-Ortskurve?\\[0.04em]
     $\Rightarrow$ \textbf{Ja}: stabiler GZ\;$\bigcirc$\\[0.03em]
-    $\Rightarrow$ \textbf{Nein}: instabiler GZ\;$\triangle$} &
+    $\Rightarrow$ \textbf{Nein}: instabiler GZ\;$\triangle$\\[0.05em]
+    \textit{\color{red!70!black} Stabil: System zeigt nach dem Einschalten eine nichtlin.\ Dauerschwingung.}} &
   \parbox[t]{\linewidth}{%
     {\scriptsize\scshape\color{gray!65!black} Gültigkeit der Methode}\\[0.03em]%
     \scriptsize
@@ -193,4 +369,51 @@ $F$ schneidet neg.\ reelle Achse bei $-1$ $\Rightarrow V_1\cdot(-1)=-3{,}33$ $\R
     \text{4. }T_0=\tfrac{2\pi}{\omega_0}\\[0.04em]
     \text{5. }v_0{\uparrow}\!:\text{ links?}\Rightarrow\!\text{stab.}} \\[0.3em]
 \end{formelreihe}
+\bereichende
+
+\bereich[cKap7]{Sonderfall: mehrere Schnittpunkte (schneller \& langsamer GZ)}
+
+\noindent
+\begin{minipage}[c]{0.52\linewidth}\centering
+\begin{tikzpicture}[>=Stealth,font=\scriptsize,scale=0.92]
+  \draw[->] (-3.1,0)--(0.7,0) node[below]{$\operatorname{Re}$};
+  \draw[->] (0,-2.45)--(0,1.15) node[left]{$\operatorname{Im}$};
+  % -1/K_N = ganze neg. reelle Achse (Zweipunktschalter, Hyst -> 0)
+  \draw[red!75!black,very thick,->] (0,0)--(-3.0,0);
+  % Ortskurve G(jw): schneidet neg. reelle Achse zweimal
+  \draw[cKap7!80!black,thick,ortspfeil=0.45]
+     plot[smooth,tension=0.75] coordinates{
+       (-2.0,0.85)(-2.5,0.0)(-2.78,-1.15)(-1.8,-2.05)
+       (-0.7,-1.55)(-0.2,-0.55)(-0.13,0.0)(0.0,0.03)};
+  \node[cKap7!80!black] at (-1.5,-2.15) {$G(j\omega),\,\omega{\uparrow}$};
+  % Schnittpunkt B (weit außen, langsam, instabil)
+  \fill (-2.5,0) circle (1.7pt);
+  \node[align=center,fill=white,inner sep=1pt] at (-2.5,0.5)
+     {\scriptsize$\triangle$ instabil\\[-0.15em]\scriptsize langsam ($\omega{\downarrow}$)};
+  % Detail-Box um Null
+  \draw[gray,dashed] (-0.45,-0.4) rectangle (0.2,0.4);
+  \node[gray] at (-0.15,-0.62) {\scriptsize Detail};
+\end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.44\linewidth}\centering
+\footnotesize Detail nahe $0$ ($\times 10^{-3}$):\\[0.2em]
+\begin{tikzpicture}[>=Stealth,font=\scriptsize,scale=1.0]
+  \draw[->] (-2.2,0)--(0.6,0) node[below]{$\operatorname{Re}$};
+  \draw[->] (0,-0.95)--(0,0.85) node[left]{$\operatorname{Im}$};
+  \draw[red!75!black,very thick,->] (0,0)--(-2.1,0);
+  \draw[cKap7!80!black,thick,ortspfeil=0.55]
+     plot[smooth,tension=0.7] coordinates{
+       (-1.95,0.55)(-1.4,0.0)(-0.8,-0.42)(-0.2,-0.2)(0.0,0.0)};
+  \node[cKap7!80!black] at (-1.75,0.6) {$G,\,\omega{\uparrow}$};
+  % Schnittpunkt A (nahe 0, schnell, stabil)
+  \fill (-1.4,0) circle (1.7pt);
+  \node[align=center,fill=white,inner sep=1pt] at (-0.75,0.5)
+     {\scriptsize$\bigcirc$ stabil\\[-0.15em]\scriptsize schnell ($\omega{\uparrow}$)};
+\end{tikzpicture}
+\end{minipage}\par\vspace{0.25em}
+\noindent\footnotesize
+\textbf{Zweipunktschalter, Hyst.\ $\to 0$} $\Rightarrow -\tfrac1{K_N}$ = \emph{ganze} neg.\ reelle Achse.
+Ortskurve schneidet sie \textbf{zweimal} $\Rightarrow$ \textbf{zwei GZ}. Links/Rechts-Regel je Schnittpunkt:
+\textbullet\ \textbf{schneller} GZ nahe $0$ (großes $\omega$, $T_0{\to}0$): \textbf{stabil} $\bigcirc$ — stellt sich \emph{ohne} Anregung ein.\quad
+\textbullet\ \textbf{langsamer} GZ weit außen (kleines $\omega$, großes $T_0$): \textbf{instabil} $\triangle$ — nur mit Anfangs-Anregung erreichbar (Schwelle zwischen den Einzugsgebieten).
 \bereichende
