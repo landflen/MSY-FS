@@ -15,8 +15,8 @@
 \usepackage{needspace}
 \usepackage{tikz}    % kleine Skizzen (Dirac/Rechteck/Dreieck) für Faltungs-Mechanik
 \usepackage{fancyhdr}  % laufende Kopf-/Fußzeile zur Orientierung
-\geometry{top=9mm,bottom=7mm,left=10mm,right=10mm,includehead,includefoot}
-\setlength{\headheight}{11pt}\setlength{\headsep}{1.4mm}\setlength{\footskip}{6mm}
+\geometry{top=8mm,bottom=4mm,left=10mm,right=10mm,includehead,includefoot}
+\setlength{\headheight}{11pt}\setlength{\headsep}{1.2mm}\setlength{\footskip}{3.4mm}
 \setlength{\parskip}{0pt}
 \setlength{\parindent}{0pt}
 \renewcommand{\baselinestretch}{0.9}
@@ -38,8 +38,10 @@
 % Verwendung am Anfang jeder parts/-Datei: \teilkopf{1}{Säule A · WDF & Grundlagen}
 \newcounter{bereichnr}
 \newcommand{\teilnr}{}
+\newcommand{\teilname}{}
 \newcommand{\teilkopf}[2]{%
   \renewcommand{\teilnr}{#1}%
+  \renewcommand{\teilname}{#2}%
   \setcounter{bereichnr}{0}%
   \markboth{#2}{#2}%
 }
@@ -50,6 +52,7 @@
 \newcommand{\bereich}[2][cGrundl]{%
   \needspace{4\baselineskip}%
   \refstepcounter{bereichnr}%
+  \markboth{\teilname}{\teilname}% Marke je Abschnitt → Kopfzeile zeigt Teil am Seitenanfang
   \vspace{0.5em}%
   \noindent\colorbox{#1!10}{%
     \makebox[\dimexpr\linewidth-2\fboxsep\relax][l]{%
@@ -162,7 +165,7 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\small\bfseries Formelsammlung SOS:B}
-\fancyhead[R]{\small\color{gray!45!black}\leftmark}
+\fancyhead[R]{\small\color{gray!45!black}\rightmark}
 \fancyfoot[C]{\small\color{gray!55!black}Seite \thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0pt}
