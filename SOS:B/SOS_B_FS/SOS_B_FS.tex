@@ -14,7 +14,9 @@
 \usepackage{microtype}
 \usepackage{needspace}
 \usepackage{tikz}    % kleine Skizzen (Dirac/Rechteck/Dreieck) für Faltungs-Mechanik
-\geometry{top=10mm,bottom=14mm,left=10mm,right=10mm,includefoot}
+\usepackage{fancyhdr}  % laufende Kopf-/Fußzeile zur Orientierung
+\geometry{top=9mm,bottom=11mm,left=10mm,right=10mm,includehead,includefoot}
+\setlength{\headheight}{11pt}\setlength{\headsep}{1.4mm}\setlength{\footskip}{9mm}
 \setlength{\parskip}{0pt}
 \setlength{\parindent}{0pt}
 \renewcommand{\baselinestretch}{0.9}
@@ -30,15 +32,27 @@
 \colorlet{cDiskret}{violet}         % 03 Diskrete ZP
 \colorlet{cSchaetz}{orange!90!red}  % 04 Schätzung / Estimation
 
+% ---- Teil-Kopf: setzt Nummernpräfix + Kolumnentitel ------
+% Verwendung am Anfang jeder parts/-Datei: \teilkopf{1}{Säule A · WDF & Grundlagen}
+\newcounter{bereichnr}
+\newcommand{\teilnr}{}
+\newcommand{\teilkopf}[2]{%
+  \renewcommand{\teilnr}{#1}%
+  \setcounter{bereichnr}{0}%
+  \markboth{#2}{#2}%
+}
+
 % ---- Bereichskopf ----------------------------------------
 % Farbiger Balken statt \section* → spart ~2 Zeilen pro Abschnitt
-% Verwendung: \bereich[Farbe]{Titel}
+% Verwendung: \bereich[Farbe]{Titel}  → nummeriert automatisch als \teilnr.N
 \newcommand{\bereich}[2][cGrundl]{%
   \needspace{4\baselineskip}%
+  \refstepcounter{bereichnr}%
   \vspace{0.5em}%
   \noindent\colorbox{#1!10}{%
     \makebox[\dimexpr\linewidth-2\fboxsep\relax][l]{%
-      \small\bfseries\color{#1!80!black}\strut\enspace #2}}%
+      \small\bfseries\color{#1!80!black}\strut\enspace
+      \colorbox{#1!25}{\textcolor{#1!75!black}{\,\teilnr.\thebereichnr\,}}\enspace #2}}%
   \nopagebreak%
   \vspace{0.1em}\par\noindent%
 }
@@ -118,15 +132,6 @@
       {\footnotesize\scshape\color{orange!82!black} Mini-Beispiel: #1}\\[0.12em]%
       \footnotesize #2}}\par}
 
-% ---- Ergänzung: sichtbar markierter Zusatz (nicht im Orig.)
-\newcommand{\ergmark}{{\scriptsize\color{red!75!black}\,[\textbf{+}]\,}}
-\newcommand{\ergbox}[1]{%
-  \par\vspace{0.1em}%
-  \fcolorbox{red!55}{red!7}{%
-    \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
-      {\footnotesize\color{red!72!black}\textbf{Ergänzung:}}\;%
-      \footnotesize #1}}\par}
-
 % ---- Skizzen-Box: volle Breite, TikZ-Diagramm + Worterklärung
 % Verwendung:  \begin{skizzebox}{Titel} ... \begin{tikzpicture}...\end{tikzpicture} ... \end{skizzebox}
 % ---- TikZ-Helfer für die Faltungs-Skizzen (nur in tikzpicture verwenden) -------
@@ -150,12 +155,17 @@
   \end{lrbox}%
   \noindent\fcolorbox{teal!45}{teal!6}{\usebox{\skizzebuffer}}\par}
 
+% ---- Laufende Kopf-/Fußzeile -----------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\bfseries Formelsammlung SOS:B}
+\fancyhead[R]{\small\color{gray!45!black}\leftmark}
+\fancyfoot[C]{\small\color{gray!55!black}Seite \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
 % ==========================================================
 \begin{document}
-\begin{center}
-  {\large\bfseries Formelsammlung SOS:B}
-\end{center}
-\vspace{0.3em}
 
 % ---- Kapitel einbinden -----------------------------------
 \input{parts/01_grundlagen}

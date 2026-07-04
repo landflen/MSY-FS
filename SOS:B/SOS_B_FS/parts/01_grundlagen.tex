@@ -2,6 +2,7 @@
 %  01 · Grundlagen zur Anwendung von Zufallsvariablen
 %      Quelle: 01_Grundlagen.pdf
 % ============================================================
+\teilkopf{1}{Teil 1 · Grundlagen (Säule A: WDF \& Transformation)}
 
 \bereich[cMath]{Mathematische Grundregeln}
 \noindent\footnotesize\setlength{\tabcolsep}{6pt}%
@@ -271,10 +272,24 @@
   nicht $x$-Grenzen übernehmen.\;
   \textbf{Rückwärts}: Steigung so wählen, dass $Y$
   \emph{gleichverteilt} wird $\Rightarrow g'=\dfrac{f_X}{f_Y}$ mit $f_Y=$const.}
-\miniexample{stückw.\ lineare Kennlinie \;/\; Kennlinie $g(x){=}\sqrt{x}$}{%
+\par\vspace{0.15em}\noindent\footnotesize
+\textbf{Begrenzer / waagrechter Kennlinienast ($g'{=}0$):} ein ganzer
+$x$-Bereich wird auf \emph{einen} $y$-Wert $y_c$ abgebildet $\Rightarrow$
+\textbf{Dirac} in $f_Y$ bei $y_c$, Gewicht $=$ Wahrscheinlichkeit dieses Bereichs
+$w=\int_{\text{Klippbereich}}\! f_X(x)\,\mathrm dx$.\;
+Formel $f_Y{=}f_X/|g'|$ versagt dort ($g'{=}0$, Division durch Null) —
+Fläche stattdessen als Punktmasse aufsammeln.\;
+Schräge Äste ($g'{\neq}0$) wie gewohnt; typische Klausur-Kombination
+\emph{Begrenzer} $=$ mittlere Rampe $+$ zwei Diracs an den Sättigungswerten.\par
+\miniexample{stückw.\ lineare Kennlinie \;/\; Kennlinie $g(x){=}\sqrt{x}$
+  \;/\; Begrenzer auf $[-1,1]$}{%
   $X{\sim}\mathcal U[-2,2]$ ($f_X{=}\tfrac14$), $g'{=}2\,(x{<}0),\,4\,(x{>}0)\Rightarrow
   f_Y{=}\tfrac{1/4}{2}{=}\tfrac18\,(-4{<}y{<}0),\;\tfrac{1/4}{4}{=}\tfrac1{16}\,(0{<}y{<}8)$.\\
-  $g{=}\sqrt{x}\,(x{>}0):\;g'{=}\tfrac{1}{2\sqrt{x}}$, $x{=}y^2\Rightarrow f_Y(y)=f_X(y^2)\cdot 2y$.}
+  $g{=}\sqrt{x}\,(x{>}0):\;g'{=}\tfrac{1}{2\sqrt{x}}$, $x{=}y^2\Rightarrow f_Y(y)=f_X(y^2)\cdot 2y$.\\
+  Begrenzer $y{=}x$ für $|x|{\le}1$, sonst $\pm1$, $X{\sim}\mathcal U[-2,2]$ ($f_X{=}\tfrac14$):\;
+  Rampe $f_Y{=}\tfrac14$ auf $(-1,1)$ $+$ Diracs bei $y{=}{\pm}1$ mit Gewicht
+  $w{=}P(x{>}1){=}\tfrac14$ bzw.\ $P(x{<}{-}1){=}\tfrac14$
+  $\Rightarrow \tfrac14\delta(y{-}1)+\tfrac14\delta(y{+}1)$ (Kontrolle: $\int f_Y=\tfrac12+\tfrac14+\tfrac14=1$).}
 \bereichende
 
 \bereich[cGrundl]{Gemeinsame Verteilungen \& Korrelation}
@@ -292,7 +307,7 @@
     =E\bigl\{(X{-}\mu_X)(Y{-}\mu_Y)\bigr\}
     =E\{XY\}-\mu_X\mu_Y\\[0.1em]
     {>}0\text{: steigen zus.}\\[-0.05em]
-    {<}0\text{: gegläufig}\quad
+    {<}0\text{: gegenläufig}\quad
     {=}0\text{: unkorr.}} &
   \formelblock{Korrelationskoeff.}{\rho_{XY}
     =\dfrac{\mathrm{Cov}(X,Y)}{\sigma_X\cdot\sigma_Y}\in[-1,1]\\[0.15em]

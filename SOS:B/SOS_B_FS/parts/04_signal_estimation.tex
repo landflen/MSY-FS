@@ -2,6 +2,7 @@
 %  04 · Signalschätzung / Estimation
 %      Quelle: 04_signal_estimation.pdf + 01_Grundlagen.pdf
 % ============================================================
+\teilkopf{4}{Teil 4 · Signalschätzung (Säule C: Wiener \& Kalman)}
 
 \bereich[cSchaetz]{Schätztheorie — Grundbegriffe}
 \begin{formelreihe}
@@ -298,6 +299,15 @@ $f[k{+}1]=A^2 f[k]-\dfrac{A^2 f^2[k]}{N_0+f[k]}+G^2 Z_0$.\;
   vertauschen.\; $F[0]{=}0\Rightarrow K[0]{=}0\Rightarrow F[1]=G Z_0 G^{T}$ (immer!).\;
   Bei $C{\neq}1$: $C F C^{T}$ und $C\hat x$ nicht vergessen.\;
   $u[k]=\cos(k\pi)=(-1)^k$ erzeugt die Folge $1,-1,1,\dots$}
+\par\vspace{0.15em}\noindent\footnotesize
+\textbf{Vorfaktor auf dem Rausch-Pfad (häufig!):} steht im Blockschaltbild
+ein Faktor $d$ am Messrauschen ($y{=}Cx+d\,n$), geht \emph{nicht} $N_0$, sondern
+$d^2N_0$ in $R$ ein: $\boxed{R=d^2N_0+C\,F\,C^{T}}$.\;
+Ein Block \emph{nach} dem Messabgriff (z.\,B.\ $\cdot d$ hinter dem $+n$-Knoten)
+skaliert $C$ \emph{und} $n$ gemeinsam $\Rightarrow C\!\to\!dC$, $N_0\!\to\!d^2N_0$.\;
+Analog Systemrauschen: Faktor auf $z$ steckt in $\mathbf G$ (skalar $G^2Z_0$).\;
+Faustregel: $N_0$ ist die \emph{am Messpunkt wirksame} Rauschleistung, nicht der
+rohe ACF-Wert von $n$.\par
 
 \bereichende
 
