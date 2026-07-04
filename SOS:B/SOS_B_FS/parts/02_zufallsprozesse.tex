@@ -176,40 +176,6 @@
 \end{formelreihe}
 \bereichende
 
-\bereich[cProzess]{OPERATIONSTABELLE · eine Zeile pro Blocktyp (WSS-Eingang)}
-\noindent\scriptsize\setlength{\tabcolsep}{4pt}%
-\renewcommand{\arraystretch}{1.25}%
-\begin{tabular}{@{}p{0.20\linewidth}|c|c|c|c|c@{}}
-  \textbf{Block} & $\mu_Y$ & $\sigma_Y^2$ & $\varphi_{YX}(\tau)$ &
-    $\varphi_{YY}(\tau)$ & $\Phi_{YY}(\omega)$ \\\hline
-  Verstärkung $Y{=}aX$ & $a\,\mu_X$ & $a^2\sigma_X^2$ & $a\,\varphi_{XX}(\tau)$ &
-    $a^2\varphi_{XX}(\tau)$ & $a^2\Phi_{XX}$ \\
-  Offset $Y{=}X{+}c$ & $\mu_X{+}c$ & $\sigma_X^2$ &
-    $\varphi_{XX}{+}c\mu_X$ & $\varphi_{XX}{+}2c\mu_X{+}c^2$ &
-    $\Phi_{XX}{+}2\pi(2c\mu_X{+}c^2)\delta(\omega)$ \\
-  Verzögerung $Y{=}X(t{-}T_d)$ & $\mu_X$ & $\sigma_X^2$ &
-    $\varphi_{XX}(\tau{-}T_d)$ & $\varphi_{XX}(\tau)$ & $\Phi_{XX}$ \\
-  Gleit.\ MWB (Dauer $T$) & $\mu_X$ & $\varphi_{YY}(0)$ &
-    $\varphi_{XX}{*}h$ & $\varphi_{XX}{*}\varphi_{hh}$ &
-    $\Phi_{XX}\!\cdot\mathrm{si}^2\!\left(\frac{\omega T}{2}\right)$ \\
-  Summe $Z{=}X{+}Y$ (unabh.) & $\mu_X{+}\mu_Y$ & $\sigma_X^2{+}\sigma_Y^2$ &
-    \textit{--} & $\varphi_{XX}{+}\varphi_{YY}{+}2\mu_X\mu_Y$ & $\Phi_{XX}{+}\Phi_{YY}$ \\
-  LTI $Y{=}h{*}X$ & $\mu_X H(0)$ & $\varphi_{YY}(0)$ &
-    $\varphi_{XX}{*}h$ & $\varphi_{XX}{*}\varphi_{hh}$ & $\Phi_{XX}|H|^2$ \\
-\end{tabular}\par
-\vspace{0.2em}
-{\scriptsize\itshape MWB: $h(t)=\frac1T$ für $0{\le}t{\le}T$;\;
-  $\varphi_{hh}(\tau)=h{*}h(-\tau)$ ist ein \textbf{Dreieck}, Breite $2T$, Höhe
-  $\frac1T$.\; Weißes Rauschen ($\varphi_{XX}{=}X_0\delta$) durch MWB
-  $\Rightarrow \varphi_{YY}=X_0\,\varphi_{hh}$ = Dreieck, Spitze $X_0/T$.}
-\fallstrick{\textbf{MWB $\neq$ Verzögerung} (häufiger Lesefehler im
-  Blockschaltbild): Block mit „$T$" / Symbol $\frac1T$ $=$ \emph{gleitender
-  Mittelwertbildner}, $h(t){=}\frac1T\,\mathrm{rect}_{[0,T]}$ $\Rightarrow$ weißes
-  Rauschen wird zum \textbf{Dreieck} (Basis $\pm T$, Spitze $X_0/T$).\;
-  Block mit „$T_d$" $=$ \emph{reine Verzögerung}, $h(t){=}\delta(t{-}T_d)$
-  $\Rightarrow$ nur Verschieben, kein Dreieck.}
-\bereichende
-
 \bereich[cProzess]{Konstanter Offset $c$ am Summenknoten}
 \begin{formelreihe}
   \infoblock{Konstante $c$ $=$ \textbf{kein} gefiltertes $x$ $\Rightarrow$ \textbf{nicht}
@@ -366,7 +332,10 @@ Höhe $=$ Gewicht.\; Regel \emph{was${*}$was}: s.\ Master-Regel.\par
   Rechteck$*$Rechteck $=$ gleitende Überlappungsfläche $\to$ lineare Flanken.\par}
 \end{skizzebox}
 \noindent\footnotesize\emph{Merke:} ein Dreieck entsteht \textbf{erst} aus
-Rechteck$*$Rechteck (z.\,B.\ weiß durch \emph{einen} MWB), nie aus Rechteck$*$Dirac.
+Rechteck$*$Rechteck (z.\,B.\ weiß durch \emph{einen} MWB), nie aus Rechteck$*$Dirac.\;
+\textbf{Blockschaltbild-Lesehilfe:} Block „$T$"\,/\,$\tfrac1T$ $=$ \emph{MWB}
+($h{=}\tfrac1T\mathrm{rect}_{[0,T]}$, weiß $\to$ Dreieck, Spitze $X_0/T$),\;
+Block „$T_d$" $=$ \emph{reine Verzögerung} ($h{=}\delta(t{-}T_d)$, nur Verschieben).
 \miniexample{Weiß $X_0{=}3$, MWB $T{=}20$, dann Kamm $h{=}\delta{+}2\delta(t{-}80){+}\delta(t{-}200)$ (Skizze 3)}{%
   $\varphi_{xx}{=}3\,\delta(\tau)$ $\to$ MWB: $\varphi_{aa}$ = Dreieck, Basis
   $\pm20$, Spitze $X_0/T{=}0{,}15$.\; Kamm: $\varphi_{hh}$ wie Skizze 3
