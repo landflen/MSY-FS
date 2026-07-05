@@ -13,6 +13,21 @@
 \usepackage{multirow}
 \usepackage{microtype}
 \usepackage{needspace}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,decorations.pathmorphing,calc}
+
+% ---- Grafik-Stile (kompakt) ------------------------------
+\tikzset{
+  vec/.style={-{Stealth[length=1.4mm]},line width=0.4pt},
+  fld/.style={-{Stealth[length=1.1mm]},line width=0.25pt,gray!70!black},
+  plus/.style={circle,draw=red!70!black,fill=red!12,inner sep=0.5pt,font=\tiny,text=red!70!black},
+  minus/.style={circle,draw=blue!70!black,fill=blue!12,inner sep=0.9pt,font=\tiny,text=blue!70!black},
+}
+% Kleine Grafik am rechten Rand einer Spalte, minimaler Platz
+\newcommand{\grafik}[2][]{%
+  \begin{center}\vspace{-0.1em}%
+  \begin{tikzpicture}[baseline,font=\tiny,#1]#2\end{tikzpicture}%
+  \vspace{-0.2em}\end{center}}
 \geometry{top=10mm,bottom=14mm,left=10mm,right=10mm,includefoot}
 \setlength{\parskip}{0pt}
 \setlength{\parindent}{0pt}
@@ -76,6 +91,13 @@
 \newcommand{\infoblock}[1]{%
   \parbox[t]{\linewidth}{\scriptsize\itshape #1}}
 
+% ---- Merk-/Hervorhebungs-Block (klausurrelevant) ---------
+\newcommand{\merkblock}[3][cKap7]{%
+  \fcolorbox{#1!60}{#1!8}{%
+    \parbox[t]{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+      {\scriptsize\scshape\color{#1!80!black} #2}\\[0.05em]%
+      $\displaystyle #3$}}}
+
 % ==========================================================
 \begin{document}
 \begin{center}
@@ -87,9 +109,9 @@
 \input{parts/01_elektrostatik}
 \input{parts/02_magnetfeld}
 \input{parts/03_stroemungsfeld}
-%\input{parts/04_zeitveraenderlich}
-%\input{parts/05_em_wellen}
-%\input{parts/06_wellenleiter}
-%\input{parts/07_antennen}
+\input{parts/04_zeitveraenderlich}
+\input{parts/05_em_wellen}
+\input{parts/06_wellenleiter}
+\input{parts/07_antennen}
 
 \end{document}

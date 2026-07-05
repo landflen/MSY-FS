@@ -14,11 +14,18 @@
       H\sim I\;,\quad H\sim\tfrac{1}{r}}\\[0.25em]%
     \infoblock{analog zu $E=U/d$:\\
       $H=U_{\mathrm{mag}}/l_{\mathrm{Feldlinie}}$}} &
-  \beispielblock{Langer gerader Leiter}{%
-    \begin{aligned}
-      H(r)&=\tfrac{I}{2\pi r}\\[0.1em]
-      [H]&=1\,\tfrac{\mathrm{A}}{\mathrm{m}}
-    \end{aligned}} \\[0.3em]
+  \parbox[t]{\linewidth}{%
+    \beispielblock{Langer gerader Leiter}{%
+      \begin{aligned}
+        H(r)&=\tfrac{I}{2\pi r}\\[0.1em]
+        [H]&=1\,\tfrac{\mathrm{A}}{\mathrm{m}}
+      \end{aligned}}\\[0.25em]
+    \grafik[scale=0.85]{%
+      \filldraw[fill=orange!15,draw=orange!80!black] (0,0) circle(0.09);
+      \fill[orange!80!black] (0,0) circle(0.02);
+      \node[right,font=\tiny,orange!80!black] at (0.1,0.0){$I\!\odot$};
+      \foreach \r in {0.28,0.52}{\draw[fld] (\r,0) arc(0:305:\r);}
+      \node[font=\tiny] at (0.0,0.68){$\vec H$};}} \\[0.3em]
 \end{formelreihe}
 \bereichende
 
@@ -85,11 +92,20 @@
         =\oint\!\left(\vec{v}\times\vec{B}\right)\mathrm{d}\vec{s}}\\[0.25em]%
     \formelblock{Induktive Spannung an Klemmen}{%
       U_q=-U_i\quad\text{(EMK)}}} &
-  \beispielblock{Betrag $E_i$}{%
-    \begin{aligned}
-      &\vec{v}\perp\vec{B}:\;E_{max}=v\cdot B\\[0.1em]
-      &\vec{v}\parallel\vec{B}:\;E_i=0
-    \end{aligned}} \\[0.3em]
+  \parbox[t]{\linewidth}{%
+    \beispielblock{Betrag $E_i$}{%
+      \begin{aligned}
+        &\vec{v}\perp\vec{B}:\;E_{max}=v\cdot B\\[0.1em]
+        &\vec{v}\parallel\vec{B}:\;E_i=0
+      \end{aligned}}\\[0.25em]
+    \grafik[scale=0.9]{%
+      \draw[gray!55] (0,0) rectangle (0.95,0.62);
+      \foreach \x in {0.18,0.5}{\foreach \y in {0.18,0.44}{\node[font=\tiny,gray!70] at (\x,\y){$\times$};}}
+      \node[font=\tiny,gray] at (0.34,-0.16){$\vec B$ (rein)};
+      \draw[line width=1pt,red!70!black] (0.7,0)--(0.7,0.62);
+      \draw[vec] (0.72,0.31)--(0.97,0.31) node[right,font=\tiny]{$\vec v$};
+      \draw[vec,blue!70!black] (0.7,0.12)--(0.7,0.54);
+      \node[font=\tiny,blue!70!black] at (0.86,0.55){$\vec E_i$};}} \\[0.3em]
 \end{formelreihe}
 \bereichende
 

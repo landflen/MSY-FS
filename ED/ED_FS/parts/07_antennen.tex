@@ -1,0 +1,219 @@
+% ---- EDy8: Antennen --------------------------------------
+
+% 8.1  Ersatzschaltbild & Wirkungsgrad
+\bereich[cKap8]{8.1 Antenne — Ersatzschaltbild \& Wirkungsgrad}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \infoblock{Antenne wandelt Leitungswelle $\leftrightarrow$ Freiraumwelle
+      ($Z_L\!\leftrightarrow\!Z_{F0}$). Passive Antennen sind
+      \emph{reziprok} (Sende- = Empfangsverhalten).}\\[0.2em]%
+    \formelblock{Antennenimpedanz}{%
+      \underline Z_A=\underbrace{R_V}_{\text{Verlust}}
+        +\underbrace{R_S}_{\text{Strahlung}}+jX_A}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Abgestrahlte / Verlustleistung}{%
+      P_S=\tfrac{1}{2}\hat\imath_A^2 R_S\;,\quad
+      P_V=\tfrac{1}{2}\hat\imath_A^2 R_V}\\[0.25em]%
+    \merkblock[cKap8]{Wirkungsgrad}{%
+      \eta=\tfrac{P_S}{P_S+P_V}=\tfrac{R_S}{R_S+R_V}}} &
+  \parbox[t]{\linewidth}{%
+    \infoblock{$R_V$ hängt ab von: Oberflächenwiderstand
+      (Skineffekt), dielektr.\ Verluste, Erdströme.\\[0.2em]
+      Bauformen: Dipol, Stab ($\lambda/4$), Yagi, Helix,
+      Loop/Ferrit, Horn, Parabol, Patch, Schlitz.}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 8.2  Elementardipol
+\bereich[cKap8]{8.2 Elementardipol (Hertzscher Dipol, $l\ll\lambda$)}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \merkblock[cKap8]{Fernfeld ($r\gg\lambda$)}{%
+      \begin{aligned}
+        E_\vartheta&=\tfrac{\hat\imath\,l}{2\varepsilon_0 c_0\lambda}
+          \cdot\tfrac{\sin\vartheta}{r}\;,\quad E_r=0\\[0.1em]
+        H_\varphi&=\tfrac{\hat\imath\,l}{2\lambda}\cdot\tfrac{\sin\vartheta}{r}
+      \end{aligned}}\\[0.15em]%
+    \infoblock{$E,H$ in Phase $\Rightarrow$ Kugelwelle,
+      Wirkleistung radial nach außen.}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Feldwellenwiderstand (Fernfeld)}{%
+      Z_F=\tfrac{E_\vartheta}{H_\varphi}=\tfrac{1}{\varepsilon_0 c_0}
+        =Z_{F0}=120\pi\,\Omega\approx377\,\Omega}\\[0.25em]%
+    \formelblock{Nahfeld ($r\ll\lambda$)}{%
+      \underline Z_{F,nah}=-j\tfrac{\lambda}{2\pi r}Z_{F0}}\\[0.15em]%
+    \infoblock{Nahfeld: $E,H$ um $90^\circ$ verschoben
+      $\Rightarrow$ Blindleistungsfeld.}} &
+  \parbox[t]{\linewidth}{%
+    \merkblock{Nah-/Fernfeld-Grenze}{%
+      r<\tfrac{\lambda}{4\pi}:\text{Nahfeld}\;,\quad
+      r>\tfrac{\lambda}{\pi}:\text{Fernfeld}}\\[0.2em]%
+    \infoblock{\emph{Elektrischer} Strahler (Dipol): im Nahfeld
+      \emph{kapazitiv}.\\
+      \emph{Magnetischer} Strahler (Schleife, $\pi d\!\ll\!\lambda$):
+      im Nahfeld \emph{induktiv}.}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 8.3  Richtcharakteristik & Kenngrößen
+\bereich[cKap8]{8.3 Richtcharakteristik \& Kenngrößen}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \merkblock[cKap8]{Richtcharakteristik (feldnormiert)}{%
+      C(\vartheta,\varphi)=\tfrac{E(\vartheta,\varphi)}{E_{max}}
+        =\tfrac{H(\vartheta,\varphi)}{H_{max}}=\tfrac{U(\vartheta,\varphi)}{U_{max}}}\\[0.2em]%
+    \formelblock{Leistungsbezogen}{%
+      D(\vartheta,\varphi)=\tfrac{S_r(\vartheta,\varphi)}{S_{r,max}}=C^2}} &
+  \parbox[t]{\linewidth}{%
+    \infoblock{\textbf{Begriffe:}\\
+      \textbullet\ Hauptstrahlrichtung: Richtung von $E_{max}$\\
+      \textbullet\ \emph{Öffnungswinkel} (Halbwertsbr., 3dB-Breite):
+      $E$ um $\le3$\,dB abgesunken\\
+      \textbullet\ Nebenkeulendämpfung [dB]\\
+      \textbullet\ Vor-Rück-Verhältnis / Rückdämpfung}} &
+  \parbox[t]{\linewidth}{%
+    \infoblock{Diagramme nach Schnittebene / Feldkomponente:\\
+      \textbullet\ \emph{E-Ebenen}-Diagramm\\
+      \textbullet\ \emph{H-Ebenen}-Diagramm\\[0.2em]
+      Wegen hoher Dynamik oft in dB. In dB verschwindet
+      Unterschied zwischen $C$ und $D$.}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 8.4  Antennengewinn
+\bereich[cKap8]{8.4 Antennengewinn}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \merkblock[cKap8]{Gewinn (Hauptstrahlrichtung)}{%
+      G=\tfrac{S_{r,max}}{S_{r,max}(\text{Bezugsant.})}\;,\quad
+      g=10\,\mathrm{dB}\cdot\lg G}\\[0.2em]%
+    \formelblock{Isotroper Kugelstrahler}{%
+      S_r=\tfrac{P}{4\pi r^2}\quad(\text{fiktive Bezugsant.})}} &
+  \parbox[t]{\linewidth}{%
+    \infoblock{Bezugsantennen:\\
+      \textbullet\ \textbf{dBi}: isotroper Kugelstrahler\\
+      \textbullet\ \textbf{dBd}: Halbwellendipol\\[0.2em]
+      Umrechnung: Dipol strahlt $1{,}64\times$ ($+2{,}15$\,dB)
+      stärker als Kugelstrahler:\\
+      $g_{[\mathrm{dBi}]}=g_{[\mathrm{dBd}]}+2{,}15$\,dB}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Elementardipol}{%
+      G=1{,}5\;\mathrel{\widehat{=}}\;1{,}76\,\mathrm{dBi}}\\[0.2em]%
+    \infoblock{Energieerhaltung: mehr Gewinn $\Rightarrow$ kleinerer
+      Öffnungswinkel (SAT-Antennen: wenige Grad).\\[0.15em]
+      ERP/EIRP: fiktive Sendeleistung für gleiche Leistungsdichte
+      (Bezug Dipol bzw.\ Kugelstrahler).}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 8.5  Wirkfläche, effektive Länge, Strahlungswiderstand
+\bereich[cKap8]{8.5 Wirkfläche, effektive Länge, Strahlungswiderstand}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \formelblock{Antennenwirkfläche (Empfang)}{%
+      A_w=\tfrac{P_e}{S_r}}\\[0.2em]%
+    \merkblock[cKap8]{Zusammenhang mit Gewinn}{%
+      A_w=\tfrac{\lambda^2}{4\pi}\,G}\\[0.15em]%
+    \infoblock{Flächenstrahler (Horn, Parabol): $A_w\!\approx\!A_{geom}$
+      $\Rightarrow$ $G=\tfrac{4\pi}{\lambda^2}A$.}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Effektive Länge (Empfang)}{%
+      U_0=l_{e\!f\!f}\cdot E}\\[0.2em]%
+    \formelblock{aus Wirkfläche}{%
+      l_{e\!f\!f}=\sqrt{\tfrac{4R_S\,A_w}{Z_{F0}}}}\\[0.15em]%
+    \infoblock{$l_{e\!f\!f}$: reale Stromverteilung umgerechnet
+      auf konstante über $l_{e\!f\!f}$.}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Strahlungswiderstand (Def.)}{%
+      R_S=\tfrac{2P_S}{\hat\imath^2}}\\[0.2em]%
+    \merkblock{Elementardipol}{%
+      R_S=80\pi^2\,\Omega\cdot\big(\tfrac{l}{\lambda}\big)^2}\\[0.15em]%
+    \infoblock{$l/\lambda\!=\!1/100$: $R_S\!=\!0{,}08\,\Omega$
+      $\Rightarrow$ schlechter Wirkungsgrad.}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 8.6  Dipol
+\bereich[cKap8]{8.6 Dipol ($\lambda/2$, Ganzwelle, $\lambda/4$)}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \merkblock[cKap8]{$\lambda/2$-Dipol (ideal dünn)}{%
+      \underline Z_A=R_S+jX_A=73{,}13\,\Omega+j\,42{,}54\,\Omega}\\[0.2em]%
+    \infoblock{Induktiv $\Rightarrow$ Kürzen um Faktor $0{,}96$
+      $\to$ reell $73\,\Omega$. Reale Dipole: $R_S\!\approx\!50\text{--}60\,\Omega$.}\\[0.15em]%
+    \formelblock{Tatsächliche Länge}{%
+      l=0{,}96\cdot\tfrac{\lambda}{2}-d}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Mittlerer Wellenwiderstand}{%
+      Z_M=120\,\Omega\cdot\ln\!\big(0{,}575\tfrac{l}{d}\big)}\\[0.2em]%
+    \formelblock{Güte (Serienschwingkreis)}{%
+      Q=\tfrac{1}{R_S}\sqrt{\tfrac{L}{C}}}\\[0.15em]%
+    \infoblock{Dickere Dipole: kleinere Güte $\Rightarrow$
+      \emph{höhere} Bandbreite (Breitbanddipol).\\[0.15em]
+      $\lambda/4$-Strahler über leitender Ebene: $+3$\,dB Gewinn
+      (real $\approx-3$\,dBd bei $\kappa<\infty$).}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Richtcharakteristiken $C(\vartheta)$}{%
+      \begin{array}{@{}l@{}}
+        \text{Elem.dipol: }|\sin\vartheta|\;(90^\circ,1{,}76\,\text{dBi})\\[0.2em]
+        \tfrac{\lambda}{2}: \big|\tfrac{\cos(\frac{\pi}{2}\cos\vartheta)}{\sin\vartheta}\big|\;(78^\circ,2{,}15\,\text{dBi})\\[0.2em]
+        \text{Ganzw.: }\big|\tfrac{\cos(\pi\cos\vartheta)+1}{2\sin\vartheta}\big|\;(47^\circ,3{,}8\,\text{dBi})
+      \end{array}}\\[0.15em]%
+    \grafik[scale=0.8]{%
+      \draw[cKap8,line width=0.5pt] (0,0.45) circle (0.45);
+      \draw[cKap8,line width=0.5pt] (0,-0.45) circle (0.45);
+      \draw[dashed,line width=0.2pt] (-0.7,0)--(0.7,0);
+      \node[font=\tiny] at (0,-1.05){$|\sin\vartheta|$};}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 8.7  Gruppenantennen
+\bereich[cKap8]{8.7 Gruppenantennen (Fernfeld)}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \merkblock[cKap8]{Multiplikatives Gesetz}{%
+      C_{ges}=C_{E}\cdot C_{Gr}}\\[0.2em]%
+    \infoblock{Gesamt-Richtcharakteristik = Einzelstrahler $\times$
+      Gruppen-Charakteristik. Voraussetzung: baugleiche Strahler,
+      gleicher Abstand $b$, gleiche Amplitude, konst.\
+      Phasendifferenz $\delta$.}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Gruppengewinn ($N$ Strahler)}{%
+      \sqrt{G_{Gr}}=\tfrac{1}{\sqrt N}
+        \left|\tfrac{\sin(N u/2)}{\sin(u/2)}\right|}\\[0.2em]%
+    \merkblock{mit}{%
+      u=\delta+\tfrac{2\pi}{\lambda_0}\,b\cos\vartheta}\\[0.15em]%
+    \infoblock{$\Delta l=n\lambda$: konstruktiv (doppelte Feldst.);
+      $\Delta l=(2n\!+\!1)\tfrac{\lambda}{2}$: Auslöschung.}} &
+  \parbox[t]{\linewidth}{%
+    \infoblock{$\delta=0$ (gleichphasig): Maximum \emph{quer} zur Zeile.\\[0.15em]
+      Variable Phase $\delta$ $\Rightarrow$ Hauptkeule schwenkt
+      \emph{ohne} mechanische Bewegung (\emph{Phased Array}).\\[0.2em]
+      Verdopplung der Antennenzahl: max.\ $+3$\,dB Gewinn.\\[0.15em]
+      \emph{Yagi-Uda}: Strahlungskopplung (Reflektor $l\!>\!\tfrac{\lambda}{2}$,
+      Direktoren $l\!<\!\tfrac{\lambda}{2}$).}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 8.8  Unerwünschte Abstrahlung (EMV)
+\bereich[cKap8]{8.8 Unerwünschte Abstrahlung (EMV)}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \merkblock[cKap8]{Empfindlichkeit Funkempfänger}{%
+      P_E\approx1\,\mathrm{pW}\;\mathrel{\widehat{=}}\;-90\,\mathrm{dBm}}\\[0.2em]%
+    \formelblock{Nötige Leistungsdichte}{%
+      S_E=\tfrac{P_E}{A_w}=\tfrac{4\pi\,P_E}{\lambda^2\,G}}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Leistungsdichte am Empfänger ($r$)}{%
+      S_r=\tfrac{P_S}{4\pi r^2}\quad(\text{Kugelstrahler})}\\[0.2em]%
+    \formelblock{Gewinn der Störquelle}{%
+      G=\tfrac{S_E}{S_r}}} &
+  \parbox[t]{\linewidth}{%
+    \infoblock{\textbf{Merke:} Selbst eine \glqq Antenne\grqq,
+      die $100\times$ schlechter ist als ein Kugelstrahler
+      ($G\!=\!-20$\,dB), kann einen $100$\,m entfernten
+      Rundfunkempfänger stören.\\[0.2em]
+      Gute Strahler: Drähte/Stäbe, Leitungen gegen Masse,
+      Schlitze, Öffnungen $\Rightarrow$ klein/kurz halten!}} \\[0.3em]
+\end{formelreihe}
+\bereichende

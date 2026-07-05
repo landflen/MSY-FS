@@ -1,0 +1,132 @@
+% ---- EDy5: Zeitveränderliches Feld (Wechselstrom) --------
+
+% 5.1  Maxwellsche Gleichungen — klausurrelevant
+\bereich[cKap5]{5.1 Maxwellsche Gleichungen \; (klausurrelevant!)}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \merkblock[cKap5]{Differenzielle Form}{%
+      \begin{aligned}
+        \nabla\times\vec H &= \tfrac{\mathrm{d}\vec D}{\mathrm{d}t}+\vec J\\[0.15em]
+        \nabla\times\vec E &= -\tfrac{\mathrm{d}\vec B}{\mathrm{d}t}\\[0.15em]
+        \nabla\cdot\vec D &= \varrho\\[0.15em]
+        \nabla\cdot\vec B &= 0
+      \end{aligned}}\\[0.25em]%
+    \formelblock{Kontinuitätsgleichung}{%
+      \nabla\cdot\vec J=-\tfrac{\mathrm{d}\varrho}{\mathrm{d}t}}} &
+  \parbox[t]{\linewidth}{%
+    \merkblock[cKap5]{Integrale Form}{%
+      \begin{aligned}
+        \oint\vec H\,\mathrm{d}\vec s &= \int_A\!\tfrac{\mathrm{d}\vec D}{\mathrm{d}t}\,\mathrm{d}\vec A+I\\[0.15em]
+        \oint\vec E\,\mathrm{d}\vec s &= -\int_A\!\tfrac{\mathrm{d}\vec B}{\mathrm{d}t}\,\mathrm{d}\vec A\\[0.15em]
+        \oint_A\!\vec D\,\mathrm{d}\vec A &= Q\\[0.15em]
+        \oint_A\!\vec B\,\mathrm{d}\vec A &= 0
+      \end{aligned}}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Bedeutung (von oben nach unten)}{%
+      \begin{aligned}
+        &\text{1. Durchflutungsgesetz}\\
+        &\text{2. Induktionsgesetz}\\
+        &\text{3. Ladungen sind Quellen}\\
+        &\text{4. } \vec B \text{ quellenfrei}
+      \end{aligned}}\\[0.25em]%
+    \formelblock{Materialgleichungen}{%
+      \vec D=\varepsilon_0\varepsilon_r\vec E\;,\quad
+      \vec B=\mu_0\mu_r\vec H}\\[0.2em]%
+    \formelblock{Lokales Ohmsches Gesetz}{%
+      \vec J=\kappa\cdot\vec E}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 5.2  Ausbreitung im Leiter — Fortpflanzungskonstante
+\bereich[cKap5]{5.2 Ausbreitung im Leiter — Fortpflanzungskonstante}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \formelblock{Komplexer Ansatz (Wechselstrom)}{%
+      \underline{\vec E}=\vec E(\vec r)\,e^{j\varphi}\cdot e^{j\omega t}
+        \quad(\text{ebenso } \underline{\vec H},\underline{\vec J})}\\[0.25em]%
+    \infoblock{Quaderleiter, Strom in $z$, $x\!\ge\!0$ in den Leiter:\\
+      $\underline{\vec J}=\underline J_z(x)\vec e_z$,\;
+      $\underline{\vec H}=\underline H_y(x)\vec e_y$,\;
+      $\underline{\vec E}=\underline E_z(x)\vec e_z$.\\
+      Kein Verschiebungsstrom im Leiter ($\kappa\!\gg\!\omega\varepsilon$).}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{(1) Durchflutungsgesetz}{%
+      \underline J_z=\tfrac{\mathrm{d}\underline H_y}{\mathrm{d}x}
+        =\kappa\,\underline E_z}\\[0.25em]%
+    \formelblock{(2) Induktionsgesetz}{%
+      \tfrac{\mathrm{d}\underline E_z}{\mathrm{d}x}=j\omega\mu\,\underline H_y}\\[0.25em]%
+    \formelblock{Kombiniert (DGL 2.\ Ordnung)}{%
+      \tfrac{\mathrm{d}^2\underline E_z}{\mathrm{d}x^2}=j\omega\mu\kappa\,\underline E_z}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Lösung (abklingend in $+x$)}{%
+      \underline E_z(x)=\underline E_1\,e^{-\underline\gamma x}}\\[0.25em]%
+    \merkblock[cKap5]{Fortpflanzungskonstante}{%
+      \underline\gamma=\sqrt{j\omega\mu\kappa}
+        =\sqrt{\tfrac{\omega\mu\kappa}{2}}\,(1+j)=\alpha+j\beta}\\[0.2em]%
+    \infoblock{$\alpha=\beta=\sqrt{\tfrac{\omega\mu\kappa}{2}}=\tfrac{1}{\delta}$\\
+      $\alpha$: Amplitudenabnahme,\; $\beta$: Phasendrehung.}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 5.3  Skineffekt / Skintiefe
+\bereich[cKap5]{5.3 Skineffekt — Skintiefe (Eindringtiefe) $\delta$}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \merkblock[cKap5]{Skintiefe (äquiv.\ Leitschichtdicke)}{%
+      \delta=\sqrt{\tfrac{2}{\omega\mu\kappa}}\;,\qquad [\delta]=\mathrm{m}}\\[0.25em]%
+    \formelblock{Reale Feldstärkeverteilung}{%
+      E_z(x,t)=E_1\,e^{-x/\delta}\cos\!\big(\omega t+\varphi_E-\tfrac{x}{\delta}\big)}\\[0.2em]%
+    \infoblock{Amplitude fällt auf $e^{-1}$ nach Tiefe $x=\delta$.\\
+      Strom fließt überwiegend in der Randschicht
+      ($\to$ \emph{Hauteffekt}).}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{$\delta$ ist abhängig von}{%
+      \begin{aligned}
+        &\omega:\ \text{Frequenz}\ (\delta\!\sim\!1/\!\sqrt{f})\\
+        &\mu:\ \text{magn.\ Eigenschaften}\\
+        &\kappa:\ \text{Leitfähigkeit}
+      \end{aligned}}\\[0.2em]%
+    \infoblock{$\to$ hohe $f$, hohe $\kappa$, hohe $\mu$
+      $\Rightarrow$ kleine $\delta$.}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Beispielwerte $\delta$ (Kupfer $\kappa_{\mathrm{Cu}}$)}{%
+      \begin{array}{@{}l l@{}}
+        50\,\text{Hz}: & \delta_{\mathrm{Cu}}\approx9{,}5\,\text{mm}\\
+        & \delta_{\mathrm{Al}}\approx12\,\text{mm},\ \delta_{\mathrm{Fe}}\!\approx\!0{,}6\,\text{mm}\\
+        100\,\text{MHz}: & \delta_{\mathrm{Cu}}\approx6{,}7\,\mu\mathrm{m}
+      \end{array}}\\[0.2em]%
+    \infoblock{Eisen trotz kleinem $\kappa$ dünn, da $\mu_r\!\gg\!1$.}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 5.4  Wechselstromwiderstand
+\bereich[cKap5]{5.4 Wechselstromwiderstand — innere Induktivität}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \formelblock{Gleichstromwiderstand ($b\times d$, Länge $l$)}{%
+      R_{=}=\tfrac{l}{\kappa\,b\,d}
+        \qquad(\text{Runddraht: } \tfrac{4l}{\pi d^2\kappa})}\\[0.25em]%
+    \merkblock[cKap5]{Impedanz (dicker Leiter, $\delta\!\ll\!d$)}{%
+      \underline Z=\tfrac{l}{\kappa\,b\,\delta}(1+j)=R_{\approx}+jX_i}\\[0.2em]%
+    \infoblock{Real- und Imaginärteil betragsgleich.\\
+      $X_i$: \emph{innere Induktivität} des Leiters.}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Wechselstromwiderstand}{%
+      R_{\approx}=\tfrac{l}{\kappa\,b\,\delta}
+        =\tfrac{l}{b}\cdot R_F}\\[0.25em]%
+    \formelblock{Oberflächen-/Flächenwiderstand}{%
+      R_F=\tfrac{1}{\kappa\,\delta}=R_{\square}\;,\quad[R_F]=\Omega}\\[0.2em]%
+    \merkblock{Äquivalenz}{d=\delta\;\Rightarrow\;R_{\approx}(d\!\to\!\infty)=R_{=}(\text{Dicke }\delta)}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Runddraht — Näherung ($R_{=}=\tfrac{4l}{\pi d^2\kappa}$)}{%
+      \begin{array}{@{}l@{\;}l@{}}
+        d<2\delta: & R_{\approx}\!\approx\!R_{=}\\[0.15em]
+        2\delta\!\le\!d\!<\!4\delta: & R_{\approx}\!\approx\!R_{=}\!\big[1\!+\!(\tfrac{d}{5{,}3\delta})^4\big]\\[0.15em]
+        4\delta\!\le\!d\!<\!10\delta: & R_{\approx}\!\approx\!R_{=}\!\big[\tfrac{d}{4\delta}\!+\!0{,}25\big]\\[0.15em]
+        10\delta\!\le\!d: & R_{\approx}\!\approx\!R_{=}\tfrac{d}{4\delta}
+      \end{array}}\\[0.2em]%
+    \infoblock{$\to$ bei hohen $f$ viele dünne Leiter statt
+      eines dicken (\emph{HF-Litze}); massive Leiter $>\!20$\,mm
+      auch bei 50\,Hz nicht mehr optimal.}} \\[0.3em]
+\end{formelreihe}
+\bereichende

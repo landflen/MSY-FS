@@ -1,0 +1,213 @@
+% ---- EDy6: Elektromagnetische Wellen --------------------
+
+% 6.1  Wellengleichungen
+\bereich[cKap6]{6.1 Wellengleichungen}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \formelblock{Ausgangsgleichungen ($\varepsilon,\mu,\kappa=$const)}{%
+      \begin{aligned}
+        \nabla\times\vec H&=\kappa\vec E+\varepsilon\tfrac{\partial\vec E}{\partial t}\\[0.1em]
+        \nabla\times\vec E&=-\mu\tfrac{\partial\vec H}{\partial t}
+      \end{aligned}}\\[0.2em]%
+    \infoblock{Herleitung wie beim Skineffekt: pro Feld\-komponente
+      eine DGL 2.\ Ordnung ($\mathrm{rot\,rot}=\mathrm{grad\,div}-\Delta$).}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Allg.\ Wellengleichung (Zeitbereich)}{%
+      \begin{aligned}
+        \Delta\vec H-\kappa\mu\tfrac{\partial\vec H}{\partial t}
+          -\varepsilon\mu\tfrac{\partial^2\vec H}{\partial t^2}&=0\\[0.1em]
+        \Delta\vec E-\kappa\mu\tfrac{\partial\vec E}{\partial t}
+          -\varepsilon\mu\tfrac{\partial^2\vec E}{\partial t^2}&=\mathrm{grad}\tfrac{\varrho}{\varepsilon}
+      \end{aligned}}\\[0.2em]%
+    \merkblock[cKap6]{Helmholtz-Gl.\ (Frequenzbereich)}{%
+      \Delta\underline{\vec H}-(\kappa\mu\, j\omega-\varepsilon\mu\,\omega^2)\underline{\vec H}=0}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Isolator / Vakuum ($\kappa=0$)}{%
+      \Delta\vec H=\varepsilon\mu\tfrac{\partial^2\vec H}{\partial t^2}
+        \quad(\text{Wellen})}\\[0.25em]%
+    \formelblock{Sehr guter Leiter ($\kappa\gg0$)}{%
+      \Delta\vec H=\kappa\mu\tfrac{\partial\vec H}{\partial t}
+        \quad(\text{Diffusion, Skineff.})}\\[0.15em]%
+    \infoblock{$\varrho=0$ im ladungsfreien Raum
+      $\Rightarrow$ rechte Seite $=0$.}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 6.2  Ebene Welle — Fortpflanzungskonstante
+\bereich[cKap6]{6.2 Ebene Welle — Fortpflanzungskonstante}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \infoblock{\textbf{Ebene Welle:} Flächen konst.\ Phase = Ebenen $\perp$
+      Ausbreitung ($z$). Es gilt:\\[0.15em]
+      \textbullet\ $\vec E\perp\vec H$, beide $\perp$ Ausbreitung\\
+      \textbullet\ keine Feldkomp.\ in Ausbreitungsricht.\\
+      \textbullet\ bei $\kappa=0$: $\vec E,\vec H$ gleichphasig}\\[0.2em]%
+    \formelblock{Ansatz}{%
+      \underline{\vec E}=\underline{\vec E}_1 e^{-\underline\gamma z}+\underline{\vec E}_2 e^{+\underline\gamma z}}} &
+  \parbox[t]{\linewidth}{%
+    \merkblock[cKap6]{Fortpflanzungskonstante}{%
+      \underline\gamma=\sqrt{j\omega\mu(\kappa+j\omega\varepsilon)}=\alpha+j\beta}\\[0.25em]%
+    \formelblock{Dämpfungskonstante}{%
+      \alpha=\omega\sqrt{\tfrac{\mu\varepsilon}{2}\Big(\sqrt{1+\tfrac{\kappa^2}{\omega^2\varepsilon^2}}-1\Big)}}\\[0.2em]%
+    \formelblock{Phasenkonstante}{%
+      \beta=\omega\sqrt{\tfrac{\mu\varepsilon}{2}\Big(\sqrt{1+\tfrac{\kappa^2}{\omega^2\varepsilon^2}}+1\Big)}}} &
+  \parbox[t]{\linewidth}{%
+    \merkblock{Verlustloses Dielektrikum ($\kappa=0$)}{%
+      \begin{aligned}
+        \alpha&=0\\[0.1em]
+        \beta&=\omega\sqrt{\mu\varepsilon}=\omega\sqrt{\mu_0\mu_r\varepsilon_0\varepsilon_r}\\[0.1em]
+        &=\tfrac{\omega}{c_0}\sqrt{\mu_r\varepsilon_r}
+      \end{aligned}}\\[0.2em]%
+    \infoblock{$\alpha$: Dämpfung, $\beta$: Phasendrehung.\\
+      Verlustlos $\Rightarrow$ keine Dämpfung.}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 6.3  Geschwindigkeit, Wellenlänge, Dispersion
+\bereich[cKap6]{6.3 Ausbreitungsgeschwindigkeit, Wellenlänge, Dispersion}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \merkblock[cKap6]{Lichtgeschw.\ / Vakuum}{%
+      c_0=\tfrac{1}{\sqrt{\mu_0\varepsilon_0}}\approx3\cdot10^8\,\tfrac{\mathrm{m}}{\mathrm{s}}}\\[0.25em]%
+    \formelblock{Phasengeschwindigkeit}{%
+      v_{ph}=\tfrac{\lambda}{T}=\lambda f=\tfrac{\omega}{\beta}
+        =\tfrac{c_0}{\sqrt{\mu_r\varepsilon_r}}}} &
+  \parbox[t]{\linewidth}{%
+    \merkblock{Wellenlänge}{%
+      \lambda=\tfrac{2\pi}{\beta}=\tfrac{c_0}{f}\cdot\tfrac{1}{\sqrt{\mu_r\varepsilon_r}}}\\[0.25em]%
+    \infoblock{$\lambda$ ist material\emph{ab}hängig: in Materie
+      ($\varepsilon_r,\mu_r\!>\!1$) stets \emph{kleiner} als im Vakuum.}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Gruppengeschwindigkeit}{%
+      v_g=\tfrac{1}{\mathrm{d}\beta/\mathrm{d}\omega}
+        =\tfrac{v_{ph}}{1-\tfrac{f}{v_{ph}}\tfrac{\mathrm{d}v_{ph}}{\mathrm{d}f}}}\\[0.2em]%
+    \infoblock{$v_g\!\neq\!v_{ph}$, falls $v_{ph}=f(\omega)$
+      $\Rightarrow$ \emph{Dispersion}. $v_g$ = Geschw.\ der
+      Energie-/Informationsübertragung.}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 6.4  Feldwellenwiderstand & Poynting
+\bereich[cKap6]{6.4 Feldwellenwiderstand \& Energie (Poynting)}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \formelblock{Feldwellenwiderstand (allgemein)}{%
+      \underline Z_F=\tfrac{\underline E_{\mathrm{trans}}}{\underline H_{\mathrm{trans}}}
+        =\sqrt{\tfrac{j\omega\mu}{\kappa+j\omega\varepsilon}}}\\[0.2em]%
+    \formelblock{Dielektrikum ($\kappa=0$, reell)}{%
+      Z_F=\sqrt{\tfrac{\mu}{\varepsilon}}=Z_{F0}\sqrt{\tfrac{\mu_r}{\varepsilon_r}}}} &
+  \parbox[t]{\linewidth}{%
+    \merkblock[cKap6]{Freiraum-Wellenwiderstand}{%
+      Z_{F0}=\sqrt{\tfrac{\mu_0}{\varepsilon_0}}=120\pi\,\Omega\approx377\,\Omega}\\[0.2em]%
+    \infoblock{$\kappa\!\neq\!0$: $\underline Z_F$ komplex
+      $\Rightarrow$ Phasenverschiebung zw.\ $E$ und $H$.}} &
+  \parbox[t]{\linewidth}{%
+    \merkblock{Poynting-Vektor (Leistungsfluss)}{%
+      \vec S=\vec E\times\vec H\;,\quad[S]=\tfrac{\mathrm{W}}{\mathrm{m}^2}}\\[0.2em]%
+    \formelblock{Energiedichte}{%
+      \mathrm{d}w=\vec E\,\mathrm{d}\vec D+\vec H\,\mathrm{d}\vec B}\\[0.15em]%
+    \formelblock{Energieerhaltung}{%
+      \tfrac{\partial W}{\partial t}=\underbrace{-\oint\vec S\,\mathrm{d}\vec A}_{\text{Strahlung}}
+        \underbrace{-\int\kappa E^2\,\mathrm{d}V}_{\text{Verluste}}}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 6.5  Polarisation
+\bereich[cKap6]{6.5 Polarisation (bezieht sich auf $\vec E$)}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \formelblock{Lineare Polarisation}{%
+      \text{Endpunkt von }\vec E\text{ auf einer Geraden}}\\[0.15em]%
+    \infoblock{Bez.\ Erdoberfläche: \emph{horizontal} / \emph{vertikal}.
+      $\vec E$ liegt in der Phasenfront-Ebene.}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Elliptische Polarisation}{%
+      \text{Endpunkt von }\vec E\text{ beschreibt Ellipse}}\\[0.15em]%
+    \infoblock{Ellipse $\to$ Kreis: \emph{zirkulare} Pol.\\
+      links-/rechtsdrehend je nach Umlaufsinn
+      (in Ausbreitungsrichtung betrachtet).}} &
+  \parbox[t]{\linewidth}{%
+    \infoblock{Eine ebene Welle setzt sich zusammen aus $E_x,H_y$
+      und/oder $E_y,H_x$. Überlagerung zweier senkrechter,
+      phasenverschobener Linearwellen $\Rightarrow$ ellipt./zirk.\ Pol.}\\[0.2em]
+    \grafik[scale=0.8]{%
+      \draw[vec,cKap6] (0,0)--(30:0.9);
+      \draw[vec,cKap6] (0,0)--(90:0.9);
+      \draw[vec,cKap6] (0,0)--(150:0.9);
+      \draw[cKap6,line width=0.3pt] (0.9,0) arc (0:180:0.9);
+      \node[font=\tiny] at (0,-0.18){zirkular};}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 6.6  Senkrechter Einfall auf Metall
+\bereich[cKap6]{6.6 Grenzfläche: senkrechter Einfall auf Metall ($\kappa\to\infty$)}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \formelblock{Randbedingung ideales Metall}{%
+      \vec E_t=0\;\Rightarrow\;E_{xh}=-E_{xr}\;,\quad H_{yh}=H_{yr}}\\[0.2em]%
+    \infoblock{Hin- + rücklaufende Welle überlagern sich zur
+      \emph{stehenden Welle} (vollständige Reflexion).}} &
+  \parbox[t]{\linewidth}{%
+    \merkblock[cKap6]{Stehende Welle ($z=0$ an Metallfl.)}{%
+      \begin{aligned}
+        E_x&=2E_{xh}\,\sin\omega t\,\sin\beta z\\[0.1em]
+        H_y&=2H_{yh}\,\cos\omega t\,\cos\beta z
+      \end{aligned}}} &
+  \parbox[t]{\linewidth}{%
+    \infoblock{$\vec E$ und $\vec H$ um $90^\circ$ phasenverschoben
+      (zeitlich \emph{und} örtlich) $\Rightarrow$
+      \textbf{kein} Leistungsfluss (Leistungsbilanz $=0$).\\[0.15em]
+      Knoten von $E$ und $H$ um $\lambda/4$ versetzt.\\[0.15em]
+      Anwendung: Parabolantenne (\glqq Sat-Schüssel\grqq).}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 6.7  Senkrechter Einfall auf Dielektrikum
+\bereich[cKap6]{6.7 Grenzfläche: senkrechter Einfall auf Dielektrikum ($\mu_r=1$)}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \merkblock[cKap6]{Reflexionsfaktor (Feldstärke)}{%
+      r_e=r_m=\dfrac{\sqrt{\varepsilon_{r2}}-\sqrt{\varepsilon_{r1}}}{\sqrt{\varepsilon_{r2}}+\sqrt{\varepsilon_{r1}}}}\\[0.25em]%
+    \formelblock{Transmissionsfaktoren}{%
+      t_e=\tfrac{2}{1+\sqrt{\varepsilon_{r2}/\varepsilon_{r1}}}\;,\quad
+      t_m=\tfrac{2}{1+\sqrt{\varepsilon_{r1}/\varepsilon_{r2}}}}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Leistungsbezogen}{%
+      \begin{aligned}
+        r&=-\sqrt{r_e r_m}=\tfrac{\sqrt{\varepsilon_{r1}}-\sqrt{\varepsilon_{r2}}}{\sqrt{\varepsilon_{r2}}+\sqrt{\varepsilon_{r1}}}\\[0.15em]
+        t&=\sqrt{t_e t_m}=\tfrac{2\sqrt[4]{\varepsilon_{r1}\varepsilon_{r2}}}{\sqrt{\varepsilon_{r2}}+\sqrt{\varepsilon_{r1}}}
+      \end{aligned}}\\[0.15em]%
+    \merkblock{Leistungsbilanz}{r_e r_m+t_e t_m=1}} &
+  \parbox[t]{\linewidth}{%
+    \infoblock{$0<t_e\le2$,\; $-1<r_e<1$.\\
+      $r$ negativ $\Rightarrow$ $180^\circ$-Phasensprung des $\vec E$
+      (bei Übergang ins dichtere Medium $\varepsilon_{r2}>\varepsilon_{r1}$).\\[0.2em]
+      Reflekt.\ = durchgel.\ Leistung erst bei
+      $\varepsilon_{r2}/\varepsilon_{r1}\approx34$.\\[0.15em]
+      Glas ($\varepsilon_r\!\approx\!2{,}2$): $\approx95\%$ Transmission.}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 6.8  Schräger Einfall
+\bereich[cKap6]{6.8 Schräger Einfall — Brechung, Totalreflexion, Brewster}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \merkblock[cKap6]{Brechungsgesetz ($n=\sqrt{\varepsilon_r}$)}{%
+      \tfrac{\sin\beta}{\sin\alpha}=\sqrt{\tfrac{\varepsilon_{r1}}{\varepsilon_{r2}}}=\tfrac{n_1}{n_2}}\\[0.2em]%
+    \infoblock{$\alpha$ = Einfalls-/Reflexionswinkel,
+      $\beta$ = Brechungswinkel. Welle wird im dichteren
+      Medium \glqq abgebremst\grqq\ ($v_{ph}=c_0/\sqrt{\varepsilon_r}$).}} &
+  \parbox[t]{\linewidth}{%
+    \merkblock{Totalreflexion (nur $\varepsilon_{r1}>\varepsilon_{r2}$)}{%
+      \alpha_g=\arcsin\sqrt{\tfrac{\varepsilon_{r2}}{\varepsilon_{r1}}}}\\[0.2em]%
+    \infoblock{Für $\alpha>\alpha_g$ (vom dichten ins dünne Medium):
+      Welle wird komplett reflektiert.\\
+      Anwendung: \emph{Glasfaser}.}} &
+  \parbox[t]{\linewidth}{%
+    \merkblock[cKap6]{Brewster-Winkel}{%
+      \alpha_B=\arctan\sqrt{\tfrac{\varepsilon_{r2}}{\varepsilon_{r1}}}}\\[0.2em]%
+    \infoblock{Bei Einfall unter $\alpha_B$ wird der reflektierte
+      Anteil $=0$ $\Rightarrow$ Welle tritt vollständig über.\\
+      Anwendung: \emph{Brewster-Fenster} (Gas-Laser).}} \\[0.3em]
+\end{formelreihe}
+\bereichende

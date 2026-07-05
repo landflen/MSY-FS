@@ -44,11 +44,18 @@ ED_FS/
     ├── 01_elektrostatik.tex     ← EDy2: Elektrostatik (2.1–2.7)
     ├── 02_magnetfeld.tex        ← EDy3: Magnetisches Feld (3.1–3.7) ✓
     ├── 03_stroemungsfeld.tex    ← EDy4: Stationäres Strömungsfeld (4.1–4.7) ✓
-    ├── 04_zeitveraenderlich.tex ← EDy5: TODO
-    ├── 05_em_wellen.tex         ← EDy6: TODO
-    ├── 06_wellenleiter.tex      ← EDy7: TODO
-    └── 07_antennen.tex          ← EDy8: TODO
+    ├── 04_zeitveraenderlich.tex ← EDy5: Maxwell, Fortpfl.konst., Skineffekt, R~ ✓
+    ├── 05_em_wellen.tex         ← EDy6: EM-Wellen (Wellengl., ebene Welle, Grenzflächen) ✓
+    ├── 06_wellenleiter.tex      ← EDy7 komplett: Koax, Hohlleiter (Rechteck/Rund), Resonatoren, Leitungstheorie ✓
+    └── 07_antennen.tex          ← EDy8 komplett: Ersatzschaltbild, Elementardipol, Kenngrößen, Gewinn, Dipol, Gruppenantennen, EMV ✓
 ```
+
+## Grafiken (TikZ, seit 2026-07-05)
+- `ED_FS.tex` lädt jetzt `tikz` (+ arrows.meta, decorations.pathmorphing, calc).
+- Helper: `\grafik[opts]{tikz-code}` = kompakte, zentrierte Mini-Grafik (minimaler Platz).
+- Stile: `vec`, `fld`, `plus`, `minus`. Merk-/Hervorhebungsbox: `\merkblock[farbe]{Titel}{Formel}`.
+- Eingebaute Skizzen: Dipol-Feldlinien (2.1), Platten-+Zylinderkond. (2.4),
+  Leiter mit Ring-H-Feld (3.1), bewegter Leiter im B-Feld (3.4.1), H10-Feldbild (7.1).
 
 ## Bekannte LaTeX-Fallstricke
 - `"` ist in ngerman babel aktiv — niemals ASCII-Anführungszeichen in LaTeX-Code
@@ -56,15 +63,20 @@ ED_FS/
 - Deutsche Umlaute in `\text{}` innerhalb von Formelblöcken: ö → oe etc. als Fallback,
   aber UTF-8 mit inputenc funktioniert normalerweise; Probleme entstehen nur durch `"`
 
-## Status (Stand 2026-06-10)
+## Status (Stand 2026-07-05) — ALLE KAPITEL FERTIG ✓
 | Datei | Status |
 |-------|--------|
-| ED_FS.tex | fertig, kompiliert ✓ |
+| ED_FS.tex | fertig, kompiliert ✓ (7 Seiten, 0 Overfull, TikZ aktiv, EDy0–EDy8 komplett) |
 | 00_einteilung.tex | fertig, kompiliert ✓ |
-| 01_elektrostatik.tex | fertig, kompiliert ✓ (2.1–2.7) |
-| 02_magnetfeld.tex | fertig, kompiliert ✓ (3.1–3.7) |
-| 03_stroemungsfeld.tex | fertig, kompiliert ✓ (4.1–4.7) |
-| 04_zeitveraenderlich.tex | ausstehend |
-| 05_em_wellen.tex | ausstehend |
-| 06_wellenleiter.tex | ausstehend |
-| 07_antennen.tex | ausstehend |
+| 01_elektrostatik.tex | fertig ✓ (2.1–2.7) + Grafiken |
+| 02_magnetfeld.tex | fertig ✓ (3.1–3.7) + Grafiken |
+| 03_stroemungsfeld.tex | fertig ✓ (4.1–4.7) |
+| 04_zeitveraenderlich.tex | fertig ✓ (5.1 Maxwell [Klausur!], 5.2 Fortpfl.konst. γ, 5.3 Skineffekt/δ, 5.4 R~ + innere Induktivität) |
+| 05_em_wellen.tex | fertig ✓ (6.1 Wellengl./Helmholtz, 6.2 γ/α/β, 6.3 v/λ/Dispersion, 6.4 Z_F/Poynting, 6.5 Polarisation, 6.6 Metall-Stehwelle, 6.7 Dielektr. r/t, 6.8 Brechung/Totalrefl./Brewster) |
+| 06_wellenleiter.tex | fertig ✓ komplett EDy7 (7.1 Koax, 7.2 Hohlleiter-Grundl., 7.3 Rechteck Hmn/Emn, 7.4 H10+Leistung, 7.5 Rundhohlleiter/Bessel, 7.6 Resonatoren+EMV, 7.7 Telegrafengl., 7.8 λ/4-Trafo+Reflexionsfaktor) |
+| 07_antennen.tex | fertig ✓ komplett EDy8 (8.1 Ersatzschaltbild/η, 8.2 Elementardipol/Nah-Fernfeld, 8.3 Richtcharakteristik C/D, 8.4 Gewinn dBi/dBd, 8.5 Wirkfläche/leff/RS, 8.6 Dipol λ/2·Ganzwelle·λ/4, 8.7 Gruppenantennen/Phased Array/Yagi, 8.8 EMV-Abstrahlung) |
+
+## Klausur-Kernformel Hohlleiter H10 (übertragene Leistung)
+`P = a·b·E0² / (4·Z_FH) = a·b·E0²/(4·Z_F0)·√(1−(λ/2a)²)` mit `λc=2a`,
+`Z_FH = Z_F0/√(1−(λ/λc)²)`, `Z_F0≈377 Ω`. War **nicht** in der Referenz-FS
+`ED/Formelsammlung Elektrodynamik.pdf` → in 06_wellenleiter.tex ergänzt.

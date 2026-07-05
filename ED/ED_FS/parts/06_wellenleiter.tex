@@ -1,0 +1,245 @@
+% ---- EDy7: Wellenleiter ----------------------------------
+
+% 7.1  Koaxialkabel (TEM)
+\bereich[cKap7]{7.1 Koaxialkabel (TEM-Welle)}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \formelblock{Felder ($d$ innen, $D$ außen)}{%
+      \vec E=\tfrac{U}{r\,\ln(D/d)}\vec e_r\;,\quad
+      \vec H=\tfrac{I}{2\pi r}\vec e_\varphi}\\[0.2em]%
+    \merkblock[cKap7]{Leitungswellenwiderstand}{%
+      Z_L=Z_{F0}\tfrac{\ln(D/d)}{2\pi\sqrt{\varepsilon_r}}
+        =\tfrac{60\,\Omega}{\sqrt{\varepsilon_r}}\ln\tfrac{D}{d}}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Dämpfung — Leiterverluste}{%
+      \alpha_L=\sqrt{\tfrac{f\mu\varepsilon_r}{\pi\kappa}}
+        \cdot\tfrac{1}{120\,\Omega}\cdot\tfrac{1}{D}\cdot\tfrac{1+D/d}{\ln(D/d)}}\\[0.2em]%
+    \formelblock{Dämpfung — dielektr.\ ($\tan\delta$ klein)}{%
+      \alpha_D\approx\tfrac{\pi f}{c_0}\sqrt{\varepsilon_r}\,\tan\delta}\\[0.15em]%
+    \infoblock{Niedrige $f$: Leiterverluste dominieren;
+      ab GHz: dielektr.\ Verluste $\to$ Luft/Schaum.}} &
+  \parbox[t]{\linewidth}{%
+    \merkblock{Optimum (min.\ Dämpfung)}{%
+      (D/d)_{opt}=3{,}59\;\Rightarrow\;Z_L=\tfrac{77\,\Omega}{\sqrt{\varepsilon_r}}}\\[0.2em]%
+    \infoblock{$\to$ $Z_L\!\approx\!50\,\Omega$ (PE, $\varepsilon_r\!=\!2{,}2$),
+      $75\,\Omega$ (Luft).\\
+      $60\,\Omega/\!\sqrt{\varepsilon_r}$: max.\ Spannungsfestigkeit,
+      $30\,\Omega/\!\sqrt{\varepsilon_r}$: max.\ Leistung.}\\[0.15em]%
+    \formelblock{Obere Grenzfrequenz (Eindeutigkeit)}{%
+      f_g\approx\tfrac{0{,}174\,\text{GHz}\cdot\text{m}}{D\sqrt{\varepsilon_r}}}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 7.2  Hohlleiter — Grundlagen
+\bereich[cKap7]{7.2 Hohlleiter — Grundlagen (Hochpass-Charakter)}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \infoblock{Hohles Metallrohr. Kein TEM möglich (nur mit Innenleiter).
+      Es existieren:\\[0.15em]
+      \textbullet\ \textbf{H-Welle} (TE): $H_z\neq0,\;E_z=0$\\
+      \textbullet\ \textbf{E-Welle} (TM): $E_z\neq0,\;H_z=0$}\\[0.2em]%
+    \merkblock[cKap7]{Grenzfrequenz / cut-off}{%
+      f_c=\tfrac{c}{\lambda_c}\;,\quad c=\tfrac{c_0}{\sqrt{\varepsilon_r\mu_r}}}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Durchlass (Ausbreitung)}{%
+      f>f_c\;\Leftrightarrow\;\lambda<\lambda_c\;:\;
+      \beta=\tfrac{2\pi}{\lambda}\sqrt{1-\big(\tfrac{\lambda}{\lambda_c}\big)^2}}\\[0.2em]%
+    \formelblock{Sperrbereich (Dämpfung)}{%
+      f<f_c\;:\;\alpha=\tfrac{2\pi}{\lambda}\sqrt{\big(\tfrac{\lambda}{\lambda_c}\big)^2-1}}\\[0.15em]%
+    \merkblock{Hohlleiterwellenlänge}{%
+      \lambda_H=\tfrac{\lambda}{\sqrt{1-(\lambda/\lambda_c)^2}}}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Phasen-/Gruppengeschwindigkeit}{%
+      \begin{aligned}
+        v_{ph}&=\tfrac{f\lambda}{\sqrt{1-(\lambda/\lambda_c)^2}}>c\\[0.1em]
+        v_g&=f\lambda\sqrt{1-(\lambda/\lambda_c)^2}<c
+      \end{aligned}}\\[0.15em]%
+    \infoblock{$v_{ph}\cdot v_g=c^2$. Anwendung Dämpfung:
+      \emph{Wabenkamin} (Lüftung geschirmter Räume).}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 7.3  Rechteckhohlleiter — Hmn/Emn
+\bereich[cKap7]{7.3 Rechteckhohlleiter — H$_{mn}$/E$_{mn}$-Wellen}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \merkblock[cKap7]{Grenzwellenlänge (Breite $a$, Höhe $b$)}{%
+      \lambda_c=\tfrac{2}{\sqrt{(m/a)^2+(n/b)^2}}}\\[0.2em]%
+    \formelblock{Phasenkonstante}{%
+      \beta=\sqrt{\omega^2\mu\varepsilon-(\tfrac{m\pi}{a})^2-(\tfrac{n\pi}{b})^2}}\\[0.15em]%
+    \infoblock{$m$: Max./Nullst.\ über $a$, $n$: über $b$.
+      $f_c$ hängt nur von $m,n$ ab (E \& H mit gleichen Indizes
+      $\Rightarrow$ gleiches $f_c$).}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Grundwelle H$_{10}$}{%
+      \lambda_c=2a\;,\qquad f_c=\tfrac{c}{2a}}\\[0.2em]%
+    \infoblock{H-Wellen: auch H$_{01}$, H$_{20}$, H$_{11}$ \dots\\
+      E-Wellen: \textbf{kein} E$_{m0}$/E$_{0n}$
+      (dann $E_z\!=\!0$) $\Rightarrow$ Grundwelle \textbf{E$_{11}$}.}\\[0.15em]%
+    \formelblock{Feldwellenwiderstände}{%
+      \begin{aligned}
+        Z_{FH}&=\tfrac{Z_{F0}}{\sqrt{1-(\lambda/\lambda_c)^2}}\\[0.1em]
+        Z_{FE}&=Z_{F0}\sqrt{1-(\lambda/\lambda_c)^2}
+      \end{aligned}}} &
+  \parbox[t]{\linewidth}{%
+    \merkblock{Eindeutigkeitsbereich ($a\ge2b$)}{%
+      f_{cH10}<f<f_{cH20}=2f_{cH10}}\\[0.2em]%
+    \infoblock{Nur \emph{ein} Modus (H$_{10}$) ausbreitungsfähig
+      $\Rightarrow$ keine Modenverzerrung.\\
+      Praktisch genutzt (Sicherheitsabstand):}\\[0.15em]%
+    \merkblock[cKap7]{Betriebsfrequenzbereich}{%
+      1{,}25\,f_{cH10}<f<1{,}9\,f_{cH10}}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 7.4  H10-Welle + Leistung (klausurrelevant)
+\bereich[cKap7]{7.4 H$_{10}$-Grundwelle — Feldbild \& übertragene Leistung \; (klausurrelevant!)}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \formelblock{Feldkomponenten (nur $E_y,H_x,H_z$)}{%
+      \begin{aligned}
+        E_y&=E_0\,\sin\!\tfrac{\pi x}{a}\,e^{-j\beta z}\\[0.1em]
+        H_x&=-\tfrac{E_y}{Z_{FH}}\;,\quad H_z\sim\cos\tfrac{\pi x}{a}
+      \end{aligned}}\\[0.15em]%
+    \grafik[scale=0.9]{%
+      \draw[line width=0.8pt] (0,0) rectangle (2.0,1.0);
+      \foreach \x in {0.2,0.45,...,1.85}{%
+        \pgfmathsetmacro\h{0.86*sin(90*\x)}
+        \draw[vec,blue!70!black] (\x,0.07)--(\x,{0.07+\h});}
+      \draw[<->,line width=0.3pt] (0,-0.12)--(2.0,-0.12) node[midway,below,font=\tiny]{$a$};
+      \draw[<->,line width=0.3pt] (-0.12,0)--(-0.12,1.0) node[midway,left,font=\tiny]{$b$};
+      \node[font=\tiny,blue!70!black] at (1.0,1.16){$\vec E=E_y$};}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Wirkleistungsdichte in $z$}{%
+      \langle S_z\rangle=\tfrac{E_0^2}{2Z_{FH}}\sin^2\!\tfrac{\pi x}{a}}\\[0.2em]%
+    \merkblock[cKap7]{Übertragene Leistung H$_{10}$}{%
+      P=\dfrac{a\,b\,E_0^2}{4\,Z_{FH}}
+        =\dfrac{a\,b\,E_0^2}{4\,Z_{F0}}\sqrt{1-\big(\tfrac{\lambda}{2a}\big)^2}}\\[0.15em]%
+    \infoblock{$E_0$ = Amplitude in Rohrmitte.
+      $P\!\to\!0$ bei $f\!\to\!f_c$ ($Z_{FH}\!\to\!\infty$).}} &
+  \parbox[t]{\linewidth}{%
+    \merkblock{Maximale (Durchbruch-)Leistung}{%
+      P_{max}=\tfrac{a\,b\,E_D^2}{4\,Z_{F0}}\sqrt{1-\big(\tfrac{\lambda}{2a}\big)^2}}\\[0.2em]%
+    \formelblock{Wanddämpfung H$_{10}$}{%
+      \alpha_{Wand}=\tfrac{2R_F}{Z_{F0}}\cdot
+        \tfrac{a/2b+(\lambda_0/2a)^2}{a\sqrt{1-(\lambda_0/2a)^2}}}\\[0.15em]%
+    \infoblock{$E_D$ = Durchbruchfeldstärke.
+      $R_F=\tfrac{1}{\kappa\delta}$ (Skineffekt) steigt mit $f$.}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 7.5  Rundhohlleiter
+\bereich[cKap7]{7.5 Rundhohlleiter (Zylinderkoord., Besselfunktionen)}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \merkblock[cKap7]{Grenzwellenlängen (Durchm.\ $D$)}{%
+      \begin{aligned}
+        \text{H}_{mn}:\;&\lambda_{c}=\tfrac{\pi D}{\eta'_{mn}}\\[0.1em]
+        \text{E}_{mn}:\;&\lambda_{c}=\tfrac{\pi D}{\eta_{mn}}
+      \end{aligned}}\\[0.15em]%
+    \infoblock{$\eta'_{mn}$: $n$-te Nullst.\ der \emph{Ableitung} der
+      Besselfkt.\ $m$-ter Ordnung; $\eta_{mn}$: der Besselfkt.\ selbst.}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Nullstellen (klein $\to$ groß)}{%
+      \begin{array}{@{}l@{\;}l@{}}
+        \text{H}: & \eta'_{11}\!=\!1{,}84,\ \eta'_{21}\!=\!3{,}05,\ \eta'_{01}\!=\!3{,}83\\
+        \text{E}: & \eta_{01}\!=\!2{,}40,\ \eta_{11}\!=\!3{,}83,\ \eta_{21}\!=\!5{,}13
+      \end{array}}\\[0.2em]%
+    \merkblock{Grundwelle}{%
+      \text{H}_{11}\;(\eta'_{11}=1{,}84,\ \text{kleinstes }f_c)}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Eindeutigkeitsbereich}{%
+      1{,}306\,D<\lambda<1{,}706\,D}\\[0.2em]%
+    \infoblock{$m$: Max.\ über halben Umfang, $n$: Nullst.\ über Radius.\\[0.15em]
+      H$_{01}$ hat \emph{geringere} Dämpfung als H$_{11}$
+      (nimmt mit $f$ ab!) $\Rightarrow$ verlustarme Fernübertragung.
+      Rundhohlleiter: kleinere Wandverluste als Rechteck.}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 7.6  Hohlraumresonatoren
+\bereich[cKap7]{7.6 Hohlraumresonatoren}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \infoblock{Beidseitig leitend abgeschlossener Hohlleiter
+      ($d=p\cdot\lambda_H/2$) wirkt wie $LC$-Schwingkreis.}\\[0.2em]%
+    \merkblock[cKap7]{Resonanzfrequenzen (Quader $a\!\times\!b\!\times\!d$)}{%
+      f_{mnp}=\tfrac{c_0}{2\sqrt{\varepsilon_r\mu_r}}
+        \sqrt{(\tfrac{m}{a})^2+(\tfrac{n}{b})^2+(\tfrac{p}{d})^2}}} &
+  \parbox[t]{\linewidth}{%
+    \infoblock{Güten bis $\approx10000$, nutzbar bis $100$\,GHz.
+      Anregung nur über Koppelöffnungen (Schlitze/Löcher).}\\[0.2em]%
+    \formelblock{Anwendungen}{%
+      \begin{aligned}
+        &\text{Duplexfilter (GSM/UMTS-Basisstation)}\\
+        &\text{Frequenzmesser (variabler Hohlraum)}
+      \end{aligned}}\\[0.15em]%
+    \infoblock{Vorteil ggü.\ $LC$: hohe Güte im GHz-Bereich
+      ($LC$ dort nicht mehr baubar). Nachteil: größer/schwerer.}} &
+  \parbox[t]{\linewidth}{%
+    \merkblock{EMV-Merksatz}{%
+      \text{Jeder geschl.\ leitf.\ Hohlraum hat Resonanzfrequenzen}}\\[0.2em]%
+    \infoblock{PC-Gehäuse: interne Taktfreq.\ regen Gehäuseresonanzen
+      an $\Rightarrow$ Feldüberhöhung ($\sim$Güte) $\Rightarrow$ Abstrahlung.\\[0.15em]
+      Abhilfe: viele \emph{kleine} Löcher statt weniger großer,
+      Kontaktfedern, geschirmte Kabel, Ferritkerne/Netzfilter.}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 7.7  Leitungstheorie — Telegrafengleichungen
+\bereich[cKap7]{7.7 Leitungstheorie — Telegrafengleichungen \; (klausurrelevant!)}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \formelblock{Leitungsbeläge (längenbezogen)}{%
+      R',L'\ (\text{längs}),\quad G',C'\ (\text{quer})}\\[0.2em]%
+    \merkblock[cKap7]{Leitungswellenwiderstand}{%
+      \underline Z_L=\sqrt{\tfrac{R'+j\omega L'}{G'+j\omega C'}}}\\[0.15em]%
+    \formelblock{Fortpflanzungskonstante}{%
+      \underline\gamma=\alpha+j\beta=\sqrt{(R'+j\omega L')(G'+j\omega C')}}} &
+  \parbox[t]{\linewidth}{%
+    \merkblock{Verlustlose Leitung ($R'=G'=0$)}{%
+      \begin{aligned}
+        Z_L&=\sqrt{\tfrac{L'}{C'}}\quad(\text{reell})\\[0.1em]
+        \beta&=\omega\sqrt{L'C'}\\[0.1em]
+        v_{ph}&=\tfrac{1}{\sqrt{L'C'}}=\tfrac{c_0}{\sqrt{\varepsilon_r\mu_r}}
+      \end{aligned}}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Telegrafengl.\ ($z$ vom Ende gezählt)}{%
+      \begin{aligned}
+        \underline U(z)&=\underline U(0)\cos\beta z+jZ_L\underline I(0)\sin\beta z\\[0.1em]
+        \underline I(z)&=\underline I(0)\cos\beta z+j\tfrac{\underline U(0)}{Z_L}\sin\beta z
+      \end{aligned}}\\[0.15em]%
+    \infoblock{Kurzschluss ($U(0)\!=\!0$) / Leerlauf
+      ($I(0)\!=\!0$): stehende Wellen, $U,I$ um $\lambda/4$ versetzt.}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% 7.8  Leitungstransformation & Reflexion
+\bereich[cKap7]{7.8 Leitungstransformation \& Reflexionsfaktor \; (klausurrelevant!)}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \formelblock{Impedanztransformation (verlustlos)}{%
+      \underline Z(z)=Z_L\cdot
+        \tfrac{\underline Z(0)+jZ_L\tan\beta z}{Z_L+j\underline Z(0)\tan\beta z}}\\[0.2em]%
+    \merkblock[cKap7]{$\lambda/4$-Transformator}{%
+      \underline Z(\tfrac{\lambda}{4})=\tfrac{Z_L^2}{\underline Z(0)}}\\[0.15em]%
+    \infoblock{$z=n\tfrac{\lambda}{2}$: $Z(z)=Z(0)$ (keine Transf.).}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{$\lambda/4$-Sonderfälle}{%
+      \begin{aligned}
+        \text{Leerlauf}&\to\text{Kurzschluss}\\
+        \text{Kurzschluss}&\to\text{Leerlauf}\\
+        C&\to L=C Z_L^2\\
+        L&\to C=L/Z_L^2
+      \end{aligned}}\\[0.15em]%
+    \infoblock{$\Rightarrow$ Blindelemente aus Leitungsstücken.}} &
+  \parbox[t]{\linewidth}{%
+    \merkblock{Reflexionsfaktor}{%
+      \underline r(z)=\tfrac{\underline Z(0)-Z_L}{\underline Z(0)+Z_L}\,e^{-2j\beta z}}\\[0.2em]%
+    \infoblock{$|r|$ ändert sich längs (verlustloser) Leitung nicht.\\
+      \textbf{Anpassung} $\underline Z(0)=Z_L$: $r=0$, keine Reflexion,
+      keine Transformation.\\[0.15em]
+      Rückflussdämpfung $=-20\lg|r|$ [dB].\\
+      $\Rightarrow$ lange Digitalleitungen mit $Z_L$ abschließen!}} \\[0.3em]
+\end{formelreihe}
+\bereichende
