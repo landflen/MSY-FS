@@ -140,6 +140,19 @@
 Fehler $e{=}s-\hat s$ ggü.\ (unbekannt) Nutzsignal $s$.\;
 $\min E\{|e|^2\}\Rightarrow$ \emph{Orthogonalität} $e\perp x\Rightarrow H{=}\Phi_{sx}/\Phi_{xx}$.\;
 \itshape vs.\ Kalman: festes (zeitinvar.)\ $H$, kein Zustand/Rekursion.}\par\raggedright
+\par\vspace{0.25em}\noindent\footnotesize
+\textbf{Mehrere unkorrelierte Störquellen} (Wiener-Gegenstück zum Vektor-$z$ des Kalman): enthält die
+Beobachtung mehrere \emph{untereinander} und zu $s$ unkorrelierte Störungen
+$x=G*s+n_1+n_2+\dots+n_M$, so \emph{addieren} sich nur ihre Leistungsdichten:\;
+$\Phi_{xx}=\Phi_{ss}|G|^2+\sum_{i=1}^{M}\Phi_{n_in_i}$,\quad $\Phi_{sx}=\Phi_{ss}G^*$ (unverändert)
+$\Rightarrow\;\boxed{H=\dfrac{\Phi_{ss}\,G^*}{\Phi_{ss}|G|^2+\sum_i\Phi_{n_in_i}}}$.\;
+Zeitbereich ($\hat s{=}h_0 x$): im $E\{e^2\}$ steht der Rauschterm als $\sum_i\varphi_{n_in_i}(0)$.
+\par\vspace{0.12em}\noindent
+\textbf{Wichtiger Unterschied zum Kalman:} der Wiener-Filter bleibt \emph{ein} $H$ — \textbf{kein}
+neues Strukturbild, \emph{kein} Zweig pro Quelle (er trennt Quellen nur über ihre LDS, nicht über
+getrennte Pfade). Erst \emph{mehrere Beobachtungskanäle} $x_1\dots x_p$ machen $H$ vektoriell:
+Matrix-Wiener-Hopf $\boldsymbol\Phi_{xx}\mathbf H=\boldsymbol\Phi_{xs}$ (Skalar-Spezialfall $=$
+redundante Messung, siehe „Schätztheorie — Grundbegriffe").
 \bereichende
 
 \bereich[cSchaetz]{REZEPT · Wiener-Filter als MSE-Minimierung im Zeitbereich}
@@ -311,6 +324,7 @@ rohe ACF-Wert von $n$.\par
 
 \bereichende
 
+
 \bereich[cSchaetz]{Kalman-Filter — Strukturbilder (Variante A \& B)}
 % ---- Strukturbilder der Filterstruktur (Klausur: zu vorgeg. System zeichnen) ----
 \par\vspace{0.2em}\centering
@@ -343,6 +357,8 @@ rohe ACF-Wert von $n$.\par
   \draw[->] (s2)-- node[above,font=\tiny,pos=0.46]{$\hat{\mathbf x}[k{+}1]$} (vz);
   \draw (vz)--(tap); \fill (tap) circle (0.7pt);
   \draw[->] (tap)--(xh);
+  % --- Abgriff-Markierung: nur a-priori verfügbar
+  \node[font=\tiny,gray!55!black] at (7.65,1.02) {\itshape a-priori};
   \draw[->] (u)--(B);
   \draw[->] (B)--(s2);
   % A-Rückführung
@@ -393,6 +409,8 @@ $\mathbf A$ im \emph{Rückführzweig}; $\mathbf K e$ in dieselbe Summe wie $\mat
   \draw[->] (M)--(sc);
   \draw (sc)--(tap); \fill (tap) circle (0.7pt);
   \draw[->] (tap)--(xhp);
+  % --- Abgriff-Markierung: a-posteriori am Ausgang
+  \node[font=\tiny,gray!55!black] at (8.2,1.02) {\itshape a-posteriori};
   % --- Rückführung von x^+ nach unten in A
   \draw (tap)--(7.3,0.4);
   \draw[->] (7.3,0.4)--(A);
@@ -403,6 +421,7 @@ $\mathbf A$ im \emph{Rückführzweig}; $\mathbf K e$ in dieselbe Summe wie $\mat
   % --- a-priori x[k]: hoch in sc (+)  und  links über C in s1 (-)
   \draw[->] (nx)--(sc);
   \node[font=\tiny] at (3.62,0.82){$\hat{\mathbf x}[k]$};
+  \node[font=\tiny,gray!55!black] at (3.55,0.12) {\itshape a-priori};
   \draw[->] (nx)--(C);
   \draw (C)--(1.2,0.4);
   \draw[->] (1.2,0.4)-- node[right,font=\tiny,pos=0.22]{$\mathbf C\hat{\mathbf x}[k]$} (s1);
@@ -414,7 +433,14 @@ $\mathbf A$ im \emph{Rückführzweig}; $\mathbf K e$ in dieselbe Summe wie $\mat
 \parbox{0.97\linewidth}{\footnotesize Zwei Stufen, \emph{expliziter} a-posteriori-Knoten:\;
 \textbf{Korrektur} $\hat{\mathbf x}^{+}[k]=\hat{\mathbf x}[k]+\mathbf M[k]\,e[k]$ ($e{=}y-\mathbf C\hat{\mathbf x}$),\;
 \textbf{Prädiktion} $\hat{\mathbf x}[k{+}1]=\mathbf A\hat{\mathbf x}^{+}[k]+\mathbf B u[k]$.\;
-$\hat{\mathbf x}^{+}[k]$ bildet den \emph{Ausgang}; $\mathbf A$ wirkt im Prädiktions-/Rückführzweig auf $\hat{\mathbf x}^{+}$;\; $\mathbf K=\mathbf A\mathbf M$.}\par\raggedright
+$\hat{\mathbf x}^{+}[k]$ bildet den \emph{Ausgang}; $\mathbf A$ wirkt im Prädiktions-/Rückführzweig auf $\hat{\mathbf x}^{+}$;\; $\mathbf K=\mathbf A\mathbf M$.\;
+\textbf{Abgriffe:} \emph{a-priori} $\hat{\mathbf x}[k]$ $=$ Ausgang des $z^{-1}$ (vor der Korrektur); \emph{a-posteriori} $\hat{\mathbf x}^{+}[k]$ $=$ hinter dem Korrektur-Summierer $\oplus$ (nur Variante B).}\par\raggedright
+\vspace{0.15em}
+\parbox{0.97\linewidth}{\footnotesize\itshape
+Bei \emph{mehreren} nicht messbaren $z$ (Vektor-$z$, eigener Abschnitt am Ende): das Filterbild bleibt
+\textbf{unverändert} — es enthält \emph{kein} $z$! Nur die Blöcke $\mathbf A,\mathbf C,\mathbf K/\mathbf M$
+werden größer ($\mathbf K,\mathbf M$ als $n{\times}1$-Spalten), und die zu zeichnende Streckenseite
+bekommt pro $z_i$ einen eigenen Rauschpfad (Spalte $\mathbf g_i$ von $\mathbf G$).}\par\raggedright
 \bereichende
 
 \bereich[cSchaetz]{Kalman-Filter — Stationärer Endwert \& Dimensionen}
@@ -465,4 +491,226 @@ $\hat{\mathbf x}^{+}[k]$ bildet den \emph{Ausgang}; $\mathbf A$ wirkt im Prädik
   $\Rightarrow \mathbf F[1]{=}\mathbf G\,\mathbf Z_0\,\mathbf G^{T}
   {=}\!\begin{psmallmatrix}0&0&0\\0&2&0\\0&0&0{,}64\end{psmallmatrix}$.\quad
   $\dim\mathbf K[1]=3{\times}1$.}
+\bereichende
+
+% ==========================================================
+%  MEHRERE nicht messbare z  (Vektor-z, mehrere G-Spalten) — Aufgabe-5-Typ
+% ==========================================================
+\bereich[cSchaetz]{Kalman-Filter — Mehrere nicht messbare $z$ (Vektor-$z$, beide Varianten)}
+\noindent\footnotesize
+Liegen $m$ nicht messbare, weiße, mw-freie, \emph{untereinander unkorrelierte} Signale
+$z_1\dots z_m$ vor, so wird $z$ zum \emph{Vektor} — der Algorithmus (beide Varianten
+oben) bleibt \textbf{formgleich}, nur $\mathbf G,\mathbf Z_0$ werden größer.
+\par\vspace{0.35em}
+\begin{formelreihe}
+  \formelblock{Vektor-Systemrauschen}{%
+    \mathbf z[k]{=}\begin{psmallmatrix}z_1[k]\\\vdots\\z_m[k]\end{psmallmatrix}\;(m\text{ Quellen})\\[0.4em]
+    \mathbf x[k{+}1]{=}\mathbf A\mathbf x[k]{+}\mathbf B u[k]{+}\mathbf G\,\mathbf z[k]\\[0.15em]
+    \mathbf G{=}[\,\mathbf g_1\;\cdots\;\mathbf g_m\,]\quad(n{\times}m)} &
+  \formelblock{Kovarianz $\mathbf Z_0$ (unkorr.\ $\to$ diagonal)}{%
+    \mathbf Z_0{=}E\{\mathbf z\mathbf z^{T}\}{=}\begin{psmallmatrix}Z_{0,1}&&\\&\ddots&\\&&Z_{0,m}\end{psmallmatrix}\\[0.4em]
+    \varphi_{z_iz_j}[\kappa]{=}\delta[\kappa]\,Z_{0,i}\,\delta_{ij}\\
+    \text{\scriptsize\itshape Kreuzterme }{=}0\Rightarrow\text{Diagonalform}} &
+  \formelblock{Einziger geänderter Term}{%
+    \mathbf G\,\mathbf Z_0\,\mathbf G^{T}{=}\sum_{i=1}^{m} Z_{0,i}\,\mathbf g_i\mathbf g_i^{T}\;(n{\times}n)\\[0.3em]
+    \text{\scriptsize\itshape Summe von Rang-1-Termen; steckt}\\
+    \text{\scriptsize\itshape unverändert in der $\mathbf F$-Rekursion.}} \\
+\end{formelreihe}
+\par\vspace{0.25em}\noindent
+\textbf{Dimensionen:} $m$ Quellen $z$, $n$ Zustände, $p$ Messungen.\;
+$\mathbf G{:}n{\times}m$,\; $\mathbf Z_0{:}m{\times}m$,\; $\mathbf G\mathbf Z_0\mathbf G^{T}{:}n{\times}n$;\;
+\textbf{zu invertierende Matrix $R{:}p{\times}p$ — unabhängig von $m$!}\;
+(Eine \emph{skalare} Messung $y$ $\Rightarrow$ $R$ bleibt $1{\times}1$, egal wie viele $z$.)\;
+$\mathbf M,\mathbf K{:}n{\times}p$.
+\par\vspace{0.15em}
+\fallstrick{Jedes $z_i$ $\to$ eigene \emph{Spalte} $\mathbf g_i$ von $\mathbf G$ (Faktor in der
+Zeile des getroffenen Zustands, sonst 0), \emph{nicht} in $\mathbf A$!\;
+Untereinander unkorreliert $\Rightarrow\mathbf Z_0$ diagonal (Kreuzterme 0).\;
+Mehr $z$ vergrößern nur $\mathbf G\mathbf Z_0\mathbf G^{T}$, \emph{nicht} $R$/die Inversion.}
+\par\vspace{0.15em}\noindent
+\textbf{Ausgeschrieben (Bild zeichnen!):} matrix-abstrakt ist es \emph{ein} Block $\mathbf A$/$\mathbf G$
+— im \emph{Signalfluss} zerfällt jede Matrix in einzelne Gewichte: die Einträge $a_{ij}$ von $\mathbf A$
+werden \emph{mehrere} Rückführ-/Kopplungszweige, jedes $z_i$ trifft über die Spalte $\mathbf g_i$
+(Eintrag $g_{ji}$) \emph{seinen} Zustand $x_j$, die $c_j$ von $\mathbf C$ sind die Messabgriffe.
+Template-Strecke unten ($\hat x_1{\leftarrow}u_1$, $z_1{\to}x_2$, $z_2{\to}x_3$, $y{=}c_2x_2{+}c_3x_3{+}r$).
+\par\vspace{0.3em}\centering
+{\scriptsize\scshape\color{gray!65!black} 1) Strecke ausgeschrieben — 3 Zustände, 2 Rauschquellen $z_1,z_2$}\par\vspace{0.05em}
+\begin{tikzpicture}[font=\scriptsize,color=cDiag!72!black,line width=0.5pt,
+    blk/.style={draw,fill=white,inner sep=1.2pt,minimum height=4mm,minimum width=4.8mm},
+    g/.style={draw,fill=white,inner sep=0.8pt,minimum height=3.2mm,minimum width=4.6mm,font=\tiny},
+    sj/.style={draw,circle,inner sep=0pt,minimum size=3mm}]
+  \node (u1) at (0,1.6) {$u_1$};
+  \node[blk] (x1) at (1.1,1.6) {$z^{-1}$}; \node[font=\tiny] at (1.1,2.02){$x_1$};
+  \node[sj] (s1) at (2.3,1.6) {};
+  \node[blk] (x2) at (3.4,1.6) {$z^{-1}$}; \node[font=\tiny] at (3.4,2.02){$x_2$};
+  \coordinate (tA) at (4.4,1.6);
+  \node[sj] (s3) at (6.4,1.6) {};
+  \node[blk] (x3) at (7.5,1.6) {$z^{-1}$}; \node[font=\tiny] at (7.5,2.02){$x_3$};
+  \coordinate (tC) at (8.55,1.6);
+  \node (z1) at (2.3,2.55) {$z_1$}; \draw[->](z1)-- node[right,font=\tiny,pos=0.55]{$g_{21}$} (s1);
+  \node (z2) at (6.4,2.9) {$z_2$};
+  \node[g] (p9) at (6.4,2.2) {$g_{32}$}; \draw[->](z2)--(p9); \draw[->](p9)--(s3);
+  \draw[->](u1)--(x1); \draw[->](x1)-- node[above,font=\tiny,pos=0.5]{$a_{21}$} (s1); \draw[->](s1)--(x2);
+  \draw(x2)--(tA); \fill(tA) circle(0.7pt);
+  \draw[->](s3)--(x3); \draw(x3)--(tC); \fill(tC) circle(0.7pt);
+  % feedback a22 (x2 -> s1)
+  \node[g] (p7) at (3.4,0.85) {$a_{22}$};
+  \draw(tA)--(4.4,0.85); \fill(4.4,0.85) circle(0.55pt); \draw[->](4.4,0.85)--(p7);
+  \draw(p7)--(2.3,0.85); \draw[->](2.3,0.85)--(s1);
+  % feedback a33 (x3 -> s3)
+  \node[g] (p81) at (7.5,0.85) {$a_{33}$};
+  \draw(tC)--(8.55,0.85); \fill(8.55,0.85) circle(0.55pt); \draw[->](8.55,0.85)--(p81);
+  \draw(p81)--(6.4,0.85); \draw[->](6.4,0.85)--(s3);
+  % output y = c2*x2 + c3*x3 + r
+  \node[g] (gc2) at (4.4,0.4){$c_2$};
+  \node[g] (gc3) at (8.55,0.4){$c_3$};
+  \node[sj] (sMy) at (5.4,-0.15){};
+  \draw(4.4,0.85)--(gc2); \draw(gc2)--(4.4,-0.15); \draw[->](4.4,-0.15)--(sMy);
+  \draw(8.55,0.85)--(gc3); \draw(gc3)--(8.55,-0.15); \draw[->](8.55,-0.15)--(sMy);
+  \node (y) at (5.4,-0.75){$y$}; \draw[->](sMy)--(y);
+  \node[sj] (sr) at (5.4,-1.35){}; \draw[->](y)--(sr);
+  \node (rr) at (4.55,-1.35){$r$}; \draw[->](rr)--(sr);
+  \node (ym) at (5.4,-1.95){$y_m$}; \draw[->](sr)--(ym);
+\end{tikzpicture}\par\raggedright
+\vspace{0.1em}
+{\footnotesize Jeder Block $=$ ein \emph{Matrixeintrag}: Rückführungen $a_{22}$ (um $x_2$), $a_{33}$ (um $x_3$),
+Kopplung $a_{21}$ ($x_1{\to}x_2$); $z$-Pfade $g_{21}$ ($z_1{\to}x_2$), $g_{32}$ ($z_2{\to}x_3$); Messabgriffe
+$c_2,c_3$. So liest man $\mathbf A,\mathbf G,\mathbf C$ \emph{direkt} ab.\; \emph{Bsp-Werte (Rechnung unten):}
+$a_{21}{=}1,\,a_{22}{=}0{,}7,\,a_{33}{=}0{,}81$; $g_{21}{=}1,\,g_{32}{=}0{,}9$; $c_2{=}c_3{=}2$.\; — Der Filter
+kopiert die Strecke \emph{ohne} $z$-Pfade und ergänzt pro Zustand einen Korrekturzweig $K_i$/$M_i$:}\par
+\vspace{0.35em}\centering
+{\scriptsize\scshape\color{gray!65!black} 2) Filter Variante A — OHNE Innovationsterm: $K_i\,e$ in die Zustands-Eingänge; nur a-priori $\hat x_i[k]$}\par\vspace{0.05em}
+\begin{tikzpicture}[font=\scriptsize,color=cDiag!72!black,line width=0.5pt,
+    blk/.style={draw,fill=white,inner sep=1.2pt,minimum height=4mm,minimum width=4.8mm},
+    g/.style={draw,fill=white,inner sep=0.8pt,minimum height=3.2mm,minimum width=4.6mm,font=\tiny},
+    kk/.style={draw,fill=cSchaetz!15,inner sep=0.8pt,minimum height=3.7mm,minimum width=6.2mm,font=\tiny},
+    sj/.style={draw,circle,inner sep=0pt,minimum size=3mm},
+    apri/.style={font=\tiny,color=green!45!black}]
+  \node (u1) at (0,1.6) {$u_1$};
+  \node[sj] (e1) at (0.8,1.6) {};
+  \node[blk] (x1) at (1.75,1.6) {$z^{-1}$}; \node[font=\tiny] at (1.75,2.02){$\hat x_1$};
+  \coordinate (ta1) at (2.55,1.6);
+  \node[sj] (s1) at (3.15,1.6) {};
+  \node[blk] (x2) at (4.25,1.6) {$z^{-1}$}; \node[font=\tiny] at (4.25,2.02){$\hat x_2$};
+  \coordinate (ta2) at (5.05,1.6);
+  \node[sj] (s3) at (7.0,1.6) {};
+  \node[blk] (x3) at (8.1,1.6) {$z^{-1}$}; \node[font=\tiny] at (8.1,2.02){$\hat x_3$};
+  \coordinate (ta3) at (8.9,1.6);
+  \draw[->](u1)--(e1); \draw[->](e1)--(x1); \draw(x1)--(ta1); \fill(ta1) circle(0.55pt);
+  \draw[->](ta1)--(s1); \draw[->](s1)--(x2); \draw(x2)--(ta2); \fill(ta2) circle(0.55pt);
+  \draw[->](s3)--(x3); \draw(x3)--(ta3); \fill(ta3) circle(0.55pt);
+  \node[apri] at (2.55,1.28){$\hat x_1[k]$};
+  \node[apri] at (5.05,1.28){$\hat x_2[k]$};
+  \node[apri] at (8.9,1.28){$\hat x_3[k]$};
+  % feedback a22
+  \node[g] (p7) at (4.25,0.7){$a_{22}$};
+  \draw(ta2)--(5.05,0.7); \fill(5.05,0.7) circle(0.5pt); \draw[->](5.05,0.7)--(p7);
+  \draw(p7)--(3.15,0.7); \draw[->](3.15,0.7)--(s1);
+  % feedback a33
+  \node[g] (p81) at (8.1,0.7){$a_{33}$};
+  \draw(ta3)--(8.9,0.7); \fill(8.9,0.7) circle(0.5pt); \draw[->](8.9,0.7)--(p81);
+  \draw(p81)--(7.0,0.7); \draw[->](7.0,0.7)--(s3);
+  % yhat = c2*x2 + c3*x3
+  \node[g] (gc2) at (5.05,0.2){$c_2$};
+  \node[g] (gc3) at (8.9,0.2){$c_3$};
+  \node[sj] (sMy) at (6.0,-0.35){};
+  \draw(5.05,0.7)--(gc2); \draw(gc2)--(5.05,-0.35); \draw[->](5.05,-0.35)--(sMy);
+  \draw(8.9,0.7)--(gc3); \draw(gc3)--(8.9,-0.35); \draw[->](8.9,-0.35)--(sMy);
+  % yhat runter, dann rechts UNTER der c3-Zuführung zum Innovations-Summierer (keine Überlappung)
+  \node[sj] (sInn) at (10.3,-0.95){};
+  \draw(sMy)--(6.0,-0.95); \draw[->](6.0,-0.95)--(sInn);
+  \node[apri] (yh) at (7.15,-0.78){$\hat y[k]$};
+  \node[font=\tiny] at (9.9,-0.77){$-$}; \node[font=\tiny] at (10.12,-1.32){$+$};
+  \node (ym) at (10.3,-1.72){$y_m$}; \draw[->](ym)--(sInn);
+  \draw(sInn)--(10.3,3.25); \node[font=\tiny,color=cSchaetz!80!black] at (10.55,1.4){$e$};
+  \draw(10.3,3.25)--(0.8,3.25);
+  \node[kk] (K3) at (7.0,2.85){$K_3\,e$}; \draw(7.0,3.25)--(K3); \draw[->](K3)--(s3);
+  \node[kk] (K2) at (3.15,2.85){$K_2\,e$}; \draw(3.15,3.25)--(K2); \draw[->](K2)--(s1);
+  \node[kk] (K1) at (0.8,2.85){$K_1\,e$}; \draw(0.8,3.25)--(K1); \draw[->](K1)--(e1);
+\end{tikzpicture}\par\raggedright
+\vspace{0.1em}
+{\footnotesize $e[k]{=}y_m[k]-\hat y[k]$, $\hat y{=}c_2\hat x_2{+}c_3\hat x_3$.\; Jeder Zustand bekommt $K_i\,e$
+\emph{in seinen} $z^{-1}$-Eingang (Prädiktions-Summierer). Verfügbar sind \textbf{nur a-priori}
+$\hat x_i[k]$ (Ausgänge der $z^{-1}$). $\mathbf K{=}[K_1,K_2,K_3]^{T}$ ($3{\times}1$).}\par
+\vspace{0.35em}\centering
+{\scriptsize\scshape\color{gray!65!black} 3) Filter Variante B — MIT Innovationsterm (a-priori {\color{green!45!black}$\hat x_i[k]$} · a-posteriori {\color{blue!65!black}$\hat x_i^{+}[k]$})}\par\vspace{0.05em}
+\begin{tikzpicture}[font=\scriptsize,color=cDiag!72!black,line width=0.5pt,
+    blk/.style={draw,fill=white,inner sep=1.2pt,minimum height=4mm,minimum width=4.8mm},
+    g/.style={draw,fill=white,inner sep=0.8pt,minimum height=3.2mm,minimum width=4.6mm,font=\tiny},
+    mm/.style={draw,fill=cSchaetz!15,inner sep=0.8pt,minimum height=3.7mm,minimum width=6.2mm,font=\tiny},
+    sj/.style={draw,circle,inner sep=0pt,minimum size=3mm},
+    apri/.style={font=\tiny,color=green!45!black},
+    apost/.style={font=\tiny,color=blue!65!black}]
+  \node (u1) at (0,1.6) {$u_1$};
+  \node[blk] (x1) at (1.0,1.6) {$z^{-1}$}; \node[font=\tiny] at (1.0,2.02){$\hat x_1$};
+  \coordinate (ta1) at (1.75,1.6);
+  \node[sj] (c1) at (2.3,1.6) {};
+  \node[sj] (s2) at (3.05,1.6) {};
+  \node[blk] (x2) at (4.05,1.6) {$z^{-1}$}; \node[font=\tiny] at (4.05,2.02){$\hat x_2$};
+  \coordinate (ta2) at (4.8,1.6);
+  \node[sj] (c2) at (5.35,1.6) {};
+  \node[sj] (s3) at (6.7,1.6) {};
+  \node[blk] (x3) at (7.7,1.6) {$z^{-1}$}; \node[font=\tiny] at (7.7,2.02){$\hat x_3$};
+  \coordinate (ta3) at (8.45,1.6);
+  \node[sj] (c3) at (9.0,1.6) {};
+  % forward
+  \draw[->](u1)--(x1); \draw(x1)--(ta1); \fill(ta1) circle(0.55pt); \draw[->](ta1)--(c1);
+  \draw[->](c1)--(s2); \draw[->](s2)--(x2); \draw(x2)--(ta2); \fill(ta2) circle(0.55pt); \draw[->](ta2)--(c2);
+  \draw[->](s3)--(x3); \draw(x3)--(ta3); \fill(ta3) circle(0.55pt); \draw[->](ta3)--(c3);
+  % a-priori (green)
+  \node[apri] at (1.75,1.28){$\hat x_1[k]$};
+  \node[apri] at (4.8,1.28){$\hat x_2[k]$};
+  \node[apri] at (8.45,1.28){$\hat x_3[k]$};
+  % a-posteriori (blue) small taps below the c-nodes
+  \draw[->,blue!55!black](c1)--(2.3,0.95); \node[apost] at (2.35,0.72){$\hat x_1^{+}$};
+  \draw[->,blue!55!black](c3)--(9.0,0.95); \node[apost] at (9.05,0.72){$\hat x_3^{+}$};
+  % feedback a22 (from x2+ = after c2) -> s2
+  \node[g] (p7) at (4.05,0.55){$a_{22}$};
+  \draw(c2)--(5.35,0.55); \fill(5.35,0.55) circle(0.5pt); \draw[->](5.35,0.55)--(p7);
+  \draw(p7)--(3.05,0.55); \draw[->](3.05,0.55)--(s2);
+  \node[apost] at (5.72,1.3){$\hat x_2^{+}$};
+  % feedback a33 (from x3+ = after c3) -> s3
+  \node[g] (p81) at (7.7,0.55){$a_{33}$};
+  \draw(c3)--(9.0,0.55); \draw[->](9.0,0.55)--(p81); \fill(9.0,0.55) circle(0.5pt);
+  \draw(p81)--(6.7,0.55); \draw[->](6.7,0.55)--(s3);
+  % yhat = c2*x2 + c3*x3 from a-priori taps ta2, ta3
+  \node[g] (gc2) at (4.8,-0.35){$c_2$};
+  \node[g] (gc3) at (8.45,-0.35){$c_3$};
+  \node[sj] (sMy) at (6.0,-0.75){};
+  \draw(ta2)--(gc2); \draw(gc2)--(4.8,-0.75); \draw[->](4.8,-0.75)--(sMy);
+  \draw(ta3)--(gc3); \draw(gc3)--(8.45,-0.75); \draw[->](8.45,-0.75)--(sMy);
+  % yhat runter, dann rechts UNTER der c3-Zuführung zum Innovations-Summierer (keine Überlappung)
+  \node[sj] (sInn) at (10.4,-1.35){};
+  \draw(sMy)--(6.0,-1.35); \draw[->](6.0,-1.35)--(sInn);
+  \node[apri] (yh) at (7.15,-1.18){$\hat y[k]$};
+  \node[font=\tiny] at (9.9,-1.17){$-$}; \node[font=\tiny] at (10.22,-1.72){$+$};
+  \node (ym) at (10.4,-2.12){$y_m$}; \draw[->](ym)--(sInn);
+  \draw(sInn)--(10.4,3.25); \node[font=\tiny,color=cSchaetz!80!black] at (10.65,1.4){$e$};
+  \draw(10.4,3.25)--(2.3,3.25);
+  \node[mm] (M3) at (9.0,2.85){$M_3\,e$}; \draw(9.0,3.25)--(M3); \draw[->](M3)--(c3);
+  \node[mm] (M2) at (5.35,2.85){$M_2\,e$}; \draw(5.35,3.25)--(M2); \draw[->](M2)--(c2);
+  \node[mm] (M1) at (2.3,2.85){$M_1\,e$}; \draw(2.3,3.25)--(M1); \draw[->](M1)--(c1);
+\end{tikzpicture}\par\raggedright
+\vspace{0.1em}
+{\footnotesize Zwei Stufen: \textbf{Korrektur} $\hat x_i^{+}{=}\hat x_i{+}M_i\,e$ (an den $c$-Knoten,
+{\color{blue!65!black}blau}), \textbf{Prädiktion} füttert die $z^{-1}$ mit $\mathbf A\hat{\mathbf x}^{+}{+}\mathbf B u$
+(Rückführungen $a_{22}$/$a_{33}$ und Kopplung $a_{21}\hat x_1^{+}{\to}x_2$ laufen über $\hat{\mathbf x}^{+}$).
+$\hat y$ nutzt die \textbf{a-priori} {\color{green!45!black}$\hat x_i[k]$}.\;
+\emph{Beide} Schätzwerte abgreifbar; $\mathbf K{=}\mathbf A\mathbf M$.}\par
+\miniexample{Mehrere $z$ — stationäre Verstärkung (Vektor-$z$, MIT Innov.)}{%
+  Zwei nicht messbare $z_1,z_2$ $\Rightarrow$ $\mathbf G$ hat \textbf{2 Spalten}, $\mathbf Z_0$ ist $2{\times}2$:\\[0.2em]
+  $\mathbf A{=}\!\begin{psmallmatrix}0&0&0\\1&0{,}7&0\\0&0&0{,}81\end{psmallmatrix}$,\;
+  $\mathbf G{=}\!\begin{psmallmatrix}0&0\\1&0\\0&0{,}9\end{psmallmatrix}$,\;
+  $\mathbf C{=}\!\begin{psmallmatrix}0&2&2\end{psmallmatrix}$,\;
+  $\mathbf Z_0{=}\!\begin{psmallmatrix}1&0\\0&2\end{psmallmatrix}$,\; $R_0{=}3$.\\[0.2em]
+  Eingeschwungen: $\mathbf F_\infty{=}\!\begin{psmallmatrix}0&0&0\\0&1{,}7&-0{,}7\\0&-0{,}7&2{,}7\end{psmallmatrix}$.\quad
+  $\mathbf M_\infty{=}\mathbf F_\infty\mathbf C^{T}R_\infty^{-1}$, \; $R_\infty{=}R_0{+}\mathbf C\mathbf F_\infty\mathbf C^{T}$.\\[0.25em]
+  $\mathbf F_\infty\mathbf C^{T}{=}\!\begin{psmallmatrix}0\\2\\4\end{psmallmatrix}$,\quad
+  $R_\infty{=}3{+}\begin{psmallmatrix}0&2&2\end{psmallmatrix}\!\begin{psmallmatrix}0\\2\\4\end{psmallmatrix}{=}3{+}12{=}15$
+  \;(\textbf{$R_\infty$ ist $1{\times}1$!}),\\[0.2em]
+  $\Rightarrow\;\mathbf M_\infty{=}\tfrac{1}{15}\!\begin{psmallmatrix}0\\2\\4\end{psmallmatrix}
+   {=}\!\begin{psmallmatrix}0\\0{,}133\\0{,}267\end{psmallmatrix}$.\qquad
+  \emph{Ohne} Innov.: $\mathbf K_\infty{=}\mathbf A\,\mathbf M_\infty
+   {=}\!\begin{psmallmatrix}0\\0{,}093\\0{,}216\end{psmallmatrix}$
+   — direkt aus $\mathbf M_\infty$, keine Neurechnung.}
 \bereichende
