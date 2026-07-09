@@ -15,10 +15,14 @@
 \usepackage[table]{xcolor}
 \usepackage[margin=18mm]{geometry}
 \usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 \usepackage{enumitem}
 \usepackage{tcolorbox}
 \usepackage{fancyhdr}
 \usepackage{lastpage}
+\usepackage{fancyvrb}
 \tcbuselibrary{skins,breakable}
 \setlist{nosep,leftmargin=1.4em,topsep=2pt}
 
@@ -59,18 +63,95 @@
 \begin{document}
 \thispagestyle{fancy}
 
-% ---- Titelblock ---------------------------------------------
-\begin{center}
-  {\Huge\bfseries\color{ohmred} Algorithmen \& Datenstrukturen}\\[4pt]
-  {\large Wichtigste Learnings der Vorlesung — Klausurvorbereitung}\\[2pt]
-  {\small TH Nürnberg · INF4/1 · Prüfung 13.07.2026}
-\end{center}
+% ---- Übersichtsseite: alle Algorithmen auf einen Blick ------
+\kapitel{Algorithmen auf einen Blick}{Wie jedes Verfahren funktioniert — anschaulich erklärt, mit durchgerechnetem Mini-Beispiel}
+
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{longtable}[l]{@{}L{2.5cm}L{7.4cm}L{6.6cm}@{}}
+\toprule
+\textbf{Algorithmus} & \textbf{So funktioniert es} & \textbf{Beispiel Schritt für Schritt} \\
+\midrule
+\endhead
+\multicolumn{3}{@{}l}{\color{ohmred}\bfseries Grundlagen} \\
+\addlinespace[2pt]
+Euklid-ggT &
+Sucht die größte Zahl, die zwei Zahlen ohne Rest teilt. Trick: der ggT ändert sich \emph{nicht}, wenn man die kleinere von der größeren Zahl abzieht. Das wiederholt man, bis beide Zahlen gleich sind — dieser Wert ist der ggT. &
+$\mathrm{ggT}(12,8)$:\newline $12{-}8{=}4\Rightarrow(4,8)$\newline $8{-}4{=}4\Rightarrow(4,4)$\newline beide gleich $\Rightarrow\mathbf{4}$ \\
+\addlinespace[3pt]
+Max-Abschnitts\-summe \newline\textnormal{\footnotesize(Sliding Window)} &
+Sucht das zusammenhängende Teilstück mit der größten Summe. Einmal von links durchgehen und aufsummieren; wird die laufende Summe negativ, hat der bisherige Anlauf nur geschadet $\to$ bei $0$ neu beginnen. Die größte je gesehene Summe ist die Antwort. &
+$[\,3,\,-4,\,5,\,-1,\,2\,]$\newline $3$; dann $3{-}4{=}-1<0\Rightarrow$ Neustart\newline $5;\;5{-}1{=}4;\;4{+}2=\mathbf{6}$\newline bestes Stück $5,-1,2$ \\
+\addlinespace[3pt]
+\multicolumn{3}{@{}l}{\color{ohmred}\bfseries Sortieren} \\
+\addlinespace[2pt]
+Selection Sort &
+Sucht in jedem Durchlauf das \emph{kleinste} Element des noch unsortierten Rests und tauscht es an dessen Anfang. Der sortierte Bereich wächst so von links um je ein Element. &
+$[4,1,3,2]$\newline kleinstes $=1$ nach vorn: $[\mathbf{1},4,3,2]$\newline kleinstes des Rests $=2$: $[1,\mathbf{2},3,4]$\newline Rest schon sortiert $\Rightarrow$ fertig \\
+\addlinespace[3pt]
+Insertion Sort &
+Wie Karten auf der Hand sortieren: nimm das nächste Element und schiebe es an die passende Stelle im bereits sortierten linken Teil; größere rücken dabei nach rechts. &
+\underline{Teil} $=$ sortiert:\newline $[\underline{5}\mid 2,4,1]\to[\underline{2,5}\mid 4,1]$\newline $\to[\underline{2,4,5}\mid 1]\to[\underline{1,2,4,5}]$ \\
+\addlinespace[3pt]
+Bubble Sort &
+Geht in Durchläufen über alle benachbarten Paare und tauscht, wenn links größer als rechts ist. Pro Durchlauf wandert das jeweils Größte ganz nach hinten (es „blubbert`` hoch). &
+$[5,1,4,2]$\newline Durchlauf 1: $[1,4,2,\mathbf{5}]$ (5 hinten)\newline Durchlauf 2: $[1,2,4,5]$ \\
+\addlinespace[3pt]
+Merge Sort &
+Teilt das Feld immer wieder in zwei Hälften, bis nur Einzelstücke bleiben. Dann fügt es paarweise zusammen: von zwei sortierten Teilen jeweils das kleinere vordere Element zuerst nehmen. &
+$[5,2,4,1]$\newline teilen: $[5][2]\;[4][1]$\newline mischen: $[2,5]\;[1,4]$\newline mischen: $[1,2,4,5]$ \\
+\addlinespace[3pt]
+Quicksort &
+Wählt ein Pivot-Element und sortiert alles Kleinere nach links, alles Größere nach rechts — das Pivot steht danach endgültig richtig. Beide Seiten werden nach demselben Prinzip weiter sortiert. &
+$[4,2,7,1]$, Pivot $=4$\newline teilen: $[2,1]\;\mathbf{4}\;[7]$\newline links: $[2,1]\to[1,2]$\newline $\Rightarrow[1,2,4,7]$ \\
+\addlinespace[3pt]
+Heapsort &
+Baut aus dem Feld einen Max-Heap (jeder Elternknoten $\ge$ seine Kinder), sodass das Größte oben steht. Nimm es nach hinten, stelle die Heap-Eigenschaft wieder her, wiederhole — das Feld fällt von hinten sortiert heraus. &
+$[3,1,7,2]$\newline Max-Heap: $\mathbf{7}$ nach oben\newline $7$ ans Ende, Rest reparieren\newline $\dots\Rightarrow[1,2,3,7]$ \\
+\addlinespace[3pt]
+Counting Sort &
+Vergleicht \emph{nicht}, sondern zählt: wie oft kommt jeder Wert vor? Danach gibt es die Werte der Größe nach so oft aus, wie sie gezählt wurden. Nur bei kleinem, bekanntem Wertebereich sinnvoll. &
+$[2,0,2,1]$\newline zählen: $0{:}1,\;1{:}1,\;2{:}2$\newline ausgeben: $0,\,1,\,2,\,2$ \\
+\pagebreak
+\multicolumn{3}{@{}l}{\color{ohmred}\bfseries Bäume} \\
+\addlinespace[2pt]
+Binärer Suchbaum (BST) &
+Jeder Knoten: links hängt alles $\le$, rechts alles $\ge$. Suchen/Einfügen: ab der Wurzel vergleichen und links/rechts absteigen; bei NIL gefunden bzw.\ als Blatt einfügen. Inorder-Walk (links–Knoten–rechts) gibt alles sortiert aus. &
+einfügen $5,3,7,6$:\newline $5$ Wurzel; $3{<}5\to$ links;\newline $7{\ge}5\to$ rechts;\newline $6$: rechts von $5$, links von $7$ \\
+\addlinespace[3pt]
+BST: Löschen (2 Kinder) &
+Nachfolger $=$ kleinster Wert im \emph{rechten} Teilbaum (dort immer links absteigen). Sein rechtes Kind rückt an seine alte Stelle, er selbst übernimmt Platz \emph{und beide Kinder} des Gelöschten — „der Nachfolger zieht allein um``. &
+lösche Wurzel $8$, rechts $10{-}14$:\newline ab $10$ links absteigen $\to 10$\newline $10$ wird Wurzel, $14$ rückt nach\newline Rest bleibt unberührt \\
+\addlinespace[3pt]
+AVL-Baum: Einfügen &
+BST, der sich selbst balanciert: nach jedem Einfügen/Löschen vom Elternknoten zur Wurzel die
+Balancefaktoren prüfen ($BF=$ Höhe rechts $-$ Höhe links). Wird einer $\pm 2$, am \emph{untersten}
+verletzten Knoten rotieren — Knoten und Kind in gleicher Richtung schief $\to$ einfache Rotation,
+Knick $\to$ Doppelrotation. &
+Kette $20{-}10{-}5$:\newline $BF(20){=}{-}2$, $BF(10){=}{-}1\le 0$\newline $\to$ Rechtsrotation an $20$:\newline $10$ hoch, $20$ wird \emph{rechtes} Kind \\
+\addlinespace[3pt]
+AVL: Doppel\-rotation &
+Nötig, wenn der zu tiefe Teilbaum \emph{innen} liegt (Vorzeichen von Knoten und Kind entgegengesetzt
+$=$ „Knick``). Erst das \emph{Kind} in die Gegenrichtung rotieren — das begradigt den Knick —, dann
+den verletzten Knoten wie bei der einfachen Rotation. &
+einfügen $50,30,70,60,65$:\newline $BF(70){=}{-}2$, $BF(60){=}{+}1$ (Knick)\newline $60$ nach links, dann $70$ nach rechts\newline $\Rightarrow 65$ oben, Kinder $60$ und $70$ \\
+\addlinespace[3pt]
+B-Baum: Einfügen &
+Suchbaum mit dicken Knoten (Ordnung $m$: max.\ $2m{-}1$ Schlüssel). Neuer Schlüssel kommt \emph{immer} ins Blatt; \emph{volle} Knoten werden schon beim Abstieg gesplittet — der mittlere Schlüssel wandert in den Elternknoten. Nur ein Wurzel-Split macht den Baum höher. &
+$m{=}2$, Blatt $[3\,5\,8]$ voll, füge $6$:\newline Split: $5$ hoch zu den Eltern,\newline Blätter $[3]$ und $[8]$\newline $6$ ins passende Blatt: $[6\,8]$ \\
+\addlinespace[3pt]
+B-Baum: Löschen (Unterlauf) &
+Rutscht ein Knoten unter $m{-}1$ Schlüssel (Unterlauf), wird \emph{repariert}, nie gelöscht: kann ein Geschwister abgeben $\to$ \textbf{Verschieben} über den Elternknoten (Eltern-Schlüssel runter, Geschwister-Schlüssel rauf); sonst \textbf{Verschmelzen} mit Geschwister $+$ Trennschlüssel der Eltern. &
+$m{=}2$: Blatt leer, Geschwister $[3\,5]$\newline kann abgeben $\to$ Verschieben:\newline Eltern-$10$ runter ins Blatt,\newline $5$ hoch zu den Eltern \\
+\bottomrule
+\end{longtable}
+
 \vspace{6pt}
-\begin{tipbox}{So nutzt du dieses Dokument}
-Pro Foliensatz eine Seite. \textbf{Blau} = Definitionen/Fakten, die sitzen müssen ·
-\textbf{Grün} = Klausurtipps (aus Probeklausur abgeleitet) ·
-\textbf{Rot} = typische Stolperfallen. Erst aus dem Gedächtnis abrufen, dann hier abgleichen.
-\end{tipbox}
+{\footnotesize Fett markiert steht ein Element endgültig · \underline{unterstrichen} $=$ schon sortierter Teil.
+Komplexität, Stabilität und in-place stehen bei jedem Verfahren auf der jeweiligen Kapitelseite.\par
+\vspace{2pt}
+\textbf{Farblegende der Folgeseiten:} \textcolor{defblue}{\textbf{Blau}} $=$ Definitionen/Fakten ·
+\textcolor{tipgreen}{\textbf{Grün}} $=$ Klausurtipps · \textcolor{pitred}{\textbf{Rot}} $=$ Stolperfallen.}
 
 \clearpage
 % ============================================================
@@ -172,9 +253,9 @@ $f \in \Theta(g)$ & genauso schnell (\textbf{scharfe} Schranke) & $0 \le c_1 g(n
 \par\textbf{Beziehungen:}\quad
 $\Theta(f) = O(f) \cap \Omega(f)$,\quad $\Theta(f) \subseteq O(f)$,\quad $\Theta(f) \subseteq \Omega(f)$.
 \vspace{3pt}
-\par\textbf{Mengenschreibweise} (denke $O,\Omega,\Theta$ als \emph{Mengen von Funktionen}):
+\par\textbf{Mengenschreibweise} (denke $O,\Omega,\Theta$ als \emph{Mengen von Funktionen}):\par\nobreak\smallskip
 \renewcommand{\arraystretch}{1.25}
-\begin{tabular}{@{}p{1.5cm}p{14.4cm}@{}}
+\begin{tabular}{@{}l L{13.8cm}@{}}
 $A \subseteq B$ & „$A$ ist \textbf{Teilmenge von oder gleich} $B$`` — jedes Element von $A$ liegt auch in $B$ (Gleichheit erlaubt, wie $\le$). \\
 $A \not\subseteq B$ & „$A$ ist \textbf{keine} Teilmenge von $B$`` — es gibt ein Element in $A$, das \emph{nicht} in $B$ liegt. \\
 $A \cap B$ & \textbf{Schnitt}: alles, was in $A$ \emph{und} $B$ liegt. \\
@@ -297,6 +378,530 @@ Invariante bewiesene) Merge fügt sie zu einem sortierten Feld $\to$ Länge $n$ 
         z.\,B. $[5_a,5_b,1]\to[1,5_b,5_a]$.
   \item \textbf{Bubble-Best $n$ nur mit „swapped``-Flag:} ohne Abbruch-Optimierung (kein Tausch im
         Durchlauf $\Rightarrow$ fertig) läuft naives Bubble immer $n^2$.
+\end{itemize}
+\end{pitbox}
+
+\clearpage
+% ============================================================
+%  KAP 04 — FORTGESCHRITTENES SORTIEREN
+% ============================================================
+\kapitel{04 — Fortgeschrittenes Sortieren}{Quicksort, Heapsort, untere Schranke, Counting Sort}
+
+\textbf{Kernidee.} Über die elementaren $\Theta(n^2)$-Verfahren hinaus: zwei
+\emph{vergleichsbasierte} $n\log n$-Verfahren (Quicksort, Heapsort) und — wenn der Wertebereich
+bekannt ist — ein \emph{nicht} vergleichsbasiertes Linearverfahren (Counting Sort).
+
+\begin{defbox}{Überblick ($k$ = Größe des Wertebereichs bei Counting Sort)}
+\renewcommand{\arraystretch}{1.3}\small
+\begin{tabular}{@{}p{2.4cm}ccccp{5.4cm}@{}}
+\textbf{Verfahren} & \textbf{Best} & \textbf{Avg} & \textbf{Worst} & \textbf{stabil / in-place} & \textbf{Idee} \\
+\hline
+Quicksort & $n\log n$ & $n\log n$ & $\boldsymbol{n^2}$ & nein / ja ($O(\log n)$ Stack) & Pivot $\to$ partitionieren $\to$ rekursiv \\
+Heapsort & $n\log n$ & $n\log n$ & $n\log n$ & nein / ja & Max-Heap bauen, Wurzel abtragen \\
+Counting Sort & $n{+}k$ & $n{+}k$ & $n{+}k$ & \textbf{ja} / nein & zählen statt vergleichen \\
+\end{tabular}
+\end{defbox}
+
+\begin{defbox}{Quicksort — Rezept}
+\begin{enumerate}
+  \item \textbf{Pivot wählen} (oft \textbf{Median-of-Three} aus erstem/mittlerem/letztem Element) und
+        an die \textbf{letzte Stelle} tauschen.
+  \item \textbf{Zwei-Zeiger-Partition:} linker Zeiger $L$ läuft nach rechts bis Wert $\ge$ Pivot,
+        rechter Zeiger $R$ nach links bis Wert $\le$ Pivot — \textbf{beide vergleichen mit dem Pivot,
+        nicht miteinander}. Stehen beide $\Rightarrow$ \textbf{Tausch}.
+  \item \textbf{Kreuzen} sich die Zeiger ($L$ rechts von $R$) $\Rightarrow$ Pivot an die Position von
+        $L$ tauschen — jetzt \textbf{endgültig platziert}.
+  \item \textbf{Rekursion} auf linkem und rechtem Teil, jeweils \textbf{ohne} den Pivot.
+\end{enumerate}
+\textbf{Worst Case $n^2$} bei ungünstigem Pivot (immer kleinstes/größtes Element, z.\,B. bereits
+sortiertes Feld). Median-of-Three entschärft genau das.
+\end{defbox}
+
+\begin{defbox}{Quicksort-Trace (jeweils \emph{Moment vor dem Tausch})}
+\small\textbf{Pass 1} — Feld \texttt{4 2 7 1 6 3 8 5}, \textbf{Pivot = 6} (an letzte Stelle $\to$ 5 rutscht auf Idx 4):
+\begin{Verbatim}[fontsize=\small,xleftmargin=6pt]
+  4  2  7  1  5  3  8  6     L bei 7 (>=6), R bei 3 (<=6)
+        L        R     P     -> L < R:  Tausch 7 <-> 3
+
+  4  2  3  1  5  7  8  6     weiter: L bei 7 (Idx5), R bei 5 (Idx4)
+              R  L     P     -> gekreuzt:  Pivot setzen  7 <-> 6
+
+  Ergebnis:  [ 4 2 3 1 5 ]  6  [ 8 7 ]     (6 endgueltig platziert)
+\end{Verbatim}
+\textbf{Pass 2} — linkes Teilfeld \texttt{4 2 5 1 3}, \textbf{Pivot = 3} (schon letzte Stelle):
+\begin{Verbatim}[fontsize=\small,xleftmargin=6pt]
+  4  2  5  1  3     L bei 4 (>=3), R bei 1 (<=3)
+  L        R  P     -> L < R:  Tausch 4 <-> 1
+
+  1  2  5  4  3     weiter: L bei 5 (Idx2), R bei 2 (Idx1)
+     R  L     P     -> gekreuzt:  Pivot setzen  5 <-> 3
+
+  Ergebnis:  [ 1 2 ]  3  [ 4 5 ]     -> nach Rekursion fertig sortiert
+\end{Verbatim}
+\end{defbox}
+
+\begin{defbox}{Heapsort}
+\begin{enumerate}
+  \item Feld als \textbf{Max-Heap} aufbauen: Kind $\le$ Elternknoten. Als Array liegen die Kinder von
+        Index $i$ bei $2i{+}1$ und $2i{+}2$.
+  \item \textbf{Wurzel} (= Maximum) mit dem \emph{letzten} Heap-Element tauschen und die Heap-Größe um
+        1 \textbf{verkleinern} — das Max liegt jetzt endgültig hinten (``löschen'' = nur Größe$-1$).
+  \item \texttt{heapify}/\texttt{sift-down} von der Wurzel $\Rightarrow$ Max-Heap wiederhergestellt.
+  \item Schritte 2–3 wiederholen, bis der Heap leer ist.
+\end{enumerate}
+$\Theta(n\log n)$ in \emph{allen} Fällen, \textbf{in-place}, aber \textbf{nicht stabil}
+(Heap-Aufbau ist $O(n)$).
+\end{defbox}
+
+\begin{defbox}{Untere Schranke \& Counting Sort}
+\textbf{Untere Schranke.} Jedes \textbf{vergleichsbasierte} Sortierverfahren braucht im Worst Case
+$\Omega(n\log n)$ Vergleiche: der Entscheidungsbaum hat $n!$ Blätter (alle Permutationen) $\Rightarrow$
+Höhe $\ge \log_2(n!) = \Theta(n\log n)$. \emph{Schneller als $n\log n$ geht mit reinen Vergleichen nicht.}
+\vspace{4pt}
+\par\textbf{Counting Sort} umgeht die Schranke, weil es \textbf{nicht vergleicht, sondern zählt}
+(Wertebereich $0..k$ muss bekannt \& klein sein):
+\begin{enumerate}
+  \item \textbf{Zählen:} Hilfsarray $C$ — wie oft kommt jeder Wert vor.
+  \item \textbf{Präfixsumme} über $C$: danach ist $C[v]$ = Anzahl Elemente $\le v$ (= Endposition von $v$).
+  \item \textbf{Von hinten} durch die Eingabe (das sichert \textbf{Stabilität}): Element $v$ an
+        Ausgabeposition $C[v]-1$ schreiben, dann $C[v]$ um 1 verringern.
+\end{enumerate}
+$O(n+k)$, \textbf{stabil}, \textbf{nicht in-place} (zweites Feld nötig).
+\end{defbox}
+
+\begin{tipbox}{Klausurtipps}
+\begin{itemize}
+  \item \textbf{Quicksort/Heapsort von Hand tracen} — Zwischenzustände angeben (wie beim SELECT-Sort, §Kap.03).
+        Bei Quicksort: Pivot markieren, nach jedem Tausch das Feld notieren.
+  \item Verfahren \textbf{einordnen}: Best/Avg/Worst, stabil, in-place — besonders Quicksorts
+        \emph{Worst Case $n^2$} und Heapsorts \emph{immer $n\log n$}.
+  \item Frage nach der \textbf{$n\log n$-Grenze}: gilt nur für \emph{vergleichsbasierte} Verfahren;
+        Counting Sort ist die Ausnahme (setzt bekannten Wertebereich voraus).
+\end{itemize}
+\end{tipbox}
+
+\begin{pitbox}{Stolperfallen}
+\begin{itemize}
+  \item \textbf{Quicksort-Zeiger vergleichen mit dem \emph{Pivot}}, nicht miteinander: $L$ stoppt bei
+        $\ge$ Pivot, $R$ bei $\le$ Pivot; erst \emph{dann} wird getauscht.
+  \item \textbf{$\Omega(n\log n)$ ist eine \emph{untere} Schranke:} vergleichsbasierte Sortierer kommen
+        \emph{nicht darunter} (nicht besser als $n\log n$) — nicht „erreichen nur``.
+  \item \textbf{Counting-Sort-Zählarray wird am Ende \emph{nicht} komplett null:} jedes $C[v]$ endet bei
+        „Anzahl Elemente \emph{echt kleiner} als $v$``. Fertig ist man, wenn alle $n$ Eingabe-Elemente
+        einsortiert sind.
+  \item \textbf{Heapsort ist \emph{nicht} stabil}, obwohl in-place — gleiche Werte können ihre
+        Reihenfolge verlieren.
+\end{itemize}
+\end{pitbox}
+
+\clearpage
+% ============================================================
+%  KAP 06 — BINÄRE SUCHBÄUME
+% ============================================================
+\kapitel{06 — Binäre Suchbäume (BST)}{Binärbaum, Suchbaum-Eigenschaft, Suchen / Einfügen / Löschen}
+
+\textbf{Kernidee.} Statt eine Menge erst unsortiert in ein Array zu legen und später zu
+sortieren, wird sie schon \emph{beim Einfügen} in eine Baumstruktur einsortiert, die
+\textbf{effizientes Suchen} erlaubt und \textbf{dynamisch wächst} (Anzahl vorab unbekannt).
+
+\begin{defbox}{Binärbaum — Begriffe}
+\begin{itemize}
+  \item Jeder Knoten hat \textbf{höchstens zwei} Kinder (daher \emph{binär}); jeder Knoten
+        außer der \textbf{Wurzel} hat genau einen Elternknoten.
+  \item Knoten \textbf{ohne} Kinder $=$ \textbf{äußere Knoten} $=$ \textbf{Blätter}; die übrigen $=$ \emph{innere} Knoten.
+  \item \textbf{Höhe $h$} $=$ längster Weg von der Wurzel zu einem Blatt, gezählt in
+        \textbf{Knoten-Ebenen — die Wurzel zählt mit}: Kette aus $n$ Knoten $\Rightarrow h=n$
+        (Konvention laut AVL-Folien, Kap. 07).
+  \item Anders als beim Heap kann ein Binärbaum \textbf{sehr unbalanciert} sein $\Rightarrow$
+        \emph{kein} einfaches Abbilden auf ein Array; realisiert über \textbf{verkettete} Knoten
+        (Zeiger \texttt{left}, \texttt{right}).
+\end{itemize}
+\end{defbox}
+
+\begin{defbox}{Binäre-Suchbaum-Eigenschaft (BST)}
+Ein Binärbaum ist ein \textbf{Suchbaum}, wenn die Knoten vergleichbare Schlüssel (\emph{keys})
+tragen und für \emph{jeden} Knotenwert $x$ gilt:
+\[ \forall\,v \text{ im \textbf{linken} Teilbaum}:\ v \le x
+   \qquad
+   \forall\,w \text{ im \textbf{rechten} Teilbaum}:\ x \le w \]
+Die Bedingung gilt für den \textbf{gesamten Teilbaum}, nicht nur die direkten Kinder. Gleiche
+Werte dürfen laut Folie auf \emph{beide} Seiten. Ein BST zu einer Menge ist \textbf{nicht
+eindeutig} (die Einfügereihenfolge bestimmt die Form).
+\end{defbox}
+
+\begin{defbox}{Die drei Grund-Operationen}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{@{}p{2.5cm}p{11.5cm}@{}}
+\textbf{Sortieren} & \textbf{Inorder-Tree-Walk}: links $\to$ Knoten ausgeben $\to$ rechts. Gibt die
+  Werte \textbf{aufsteigend sortiert} aus (``inorder'', weil der Knoten \emph{zwischen} den
+  Teilbäumen verarbeitet wird). Jeder Knoten genau einmal $\Rightarrow O(n)$. \\
+\textbf{Suchen} & \textsc{Tree-Search}: mit Wurzel vergleichen; $key<x.key\to$ links, sonst rechts;
+  bei NIL nicht enthalten. Laufzeit $O(h)$. \\
+\textbf{Einfügen} & Von der Wurzel \textbf{absteigen} (wie beim Suchen) bis zu einem \textbf{NIL};
+  dort das neue Element als \textbf{Blatt} einhängen. Laufzeit $O(h)$. \\
+\end{tabular}
+\end{defbox}
+
+\begin{defbox}{Löschen — die drei Fälle (nach Foliensatz)}
+\begin{enumerate}
+  \item \textbf{Blatt} (kein Kind): einfach entfernen (auf NIL setzen) — die restliche Struktur bleibt unberührt.
+  \item \textbf{Genau ein Kind:} den Zeiger auf den zu löschenden Knoten auf dessen
+        \textbf{einziges (nicht-leeres) Kind umlenken} — der Teilbaum rückt hoch.
+  \item \textbf{Zwei Kinder:} durch den \textbf{symmetrischen Nachfolger} ersetzen $=$
+        \textbf{kleinster Wert im rechten Teilbaum} (im rechten Teilbaum immer nach links absteigen).
+        \begin{itemize}
+          \item Einfachster Fall: der Nachfolger ist ein \textbf{Blatt}.
+          \item Ist er ein \emph{innerer} Knoten, hat er \textbf{kein linkes Kind} (sonst wäre \emph{das}
+                der Nachfolger) $\Rightarrow$ sein \textbf{rechtes} Kind nachrücken lassen, dann den
+                Nachfolger an die Lücke setzen.
+        \end{itemize}
+\end{enumerate}
+\end{defbox}
+
+\begin{defbox}{Lösch-Trace (2 Kinder) — Nachfolger aus dem rechten Teilbaum}
+\small Baum, aufgebaut durch Einfügen von $50,30,70,20,40,60,80,35$:
+\begin{Verbatim}[fontsize=\small,xleftmargin=6pt]
+          50                Loesche 30  (hat zwei Kinder: 20 und 40)
+        /    \              Nachfolger = kleinster Wert im RECHTEN
+      30      70            Teilbaum von 30: ab 40 nach links -> 35
+     /  \    /  \           (35 ist hier ein Blatt)
+    20  40  60  80
+        /
+       35
+\end{Verbatim}
+$\Rightarrow$ 35 ersetzt die 30, das alte Blatt 35 verschwindet — Ergebnis ist wieder ein gültiger BST:
+\begin{Verbatim}[fontsize=\small,xleftmargin=6pt]
+          50
+        /    \
+      35      70
+     /  \    /  \
+    20  40  60  80
+\end{Verbatim}
+\end{defbox}
+
+\begin{defbox}{Laufzeit-Komplexität der Operationen}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}ll@{}}
+Traversieren & $O(n)$ \\
+Suchen / Einfügen / Löschen & $O(h)$ \\
+\end{tabular}
+\par\vspace{3pt} $h=$ Höhe des Baums: \textbf{balanciert} $h\approx\log_2 n \Rightarrow O(\log n)$;
+\textbf{entartet} (z.\,B. sortiert eingefügt $\to$ lineare Kette) $h=n \Rightarrow O(n)$.
+\par\vspace{2pt}\textbf{Herleitung über Rekurrenz (Praktikum 4):} entartet
+$T(n)=T(n{-}1)+c \Rightarrow O(n)$; balanciert $T(n)=T(n/2)+c \Rightarrow O(\log n)$
+(pro Schritt halbiert sich der Restbaum).
+\emph{Beispiel $n=8$, sortiert eingefügt:} \texttt{search(8)} braucht \textbf{8} Vergleiche,
+im ausgewogenen Baum nur \textbf{4}. Ausgewogen wird der BST nur bei günstiger
+Einfügereihenfolge (Median zuerst, dann rekursiv die Median-Hälften) — \emph{garantieren}
+kann $h=O(\log n)$ erst der AVL-Baum (Kap. 07).
+\end{defbox}
+
+\begin{tipbox}{Klausurtipps}
+\begin{itemize}
+  \item \textbf{Bäume von Hand} (8 P): Element einfügen bzw.\ löschen \emph{zeichnen}. Beim Löschen
+        zuerst den \textbf{Fall bestimmen} (0 / 1 / 2 Kinder).
+  \item \textbf{Inorder-Walk} liefert die sortierte Reihenfolge — ideal zum \emph{Nachprüfen}, ob dein
+        gezeichneter Baum noch ein gültiger BST ist.
+  \item \textbf{Inorder vs. Level-Order (Praktikum 4):} Inorder ist bei \emph{jeder} BST-Form gleich
+        (sortiert!) und verrät nichts über die Gestalt — ob der Baum \emph{balanciert oder entartet}
+        ist, sieht man erst am Level-Order-Walk (ebenenweise Ausgabe).
+  \item Beim 2-Kinder-Löschen die \textbf{Folien-Methode} nehmen: Nachfolger $=$ kleinster Wert im
+        \emph{rechten} Teilbaum.
+\end{itemize}
+\end{tipbox}
+
+\begin{pitbox}{Stolperfallen}
+\begin{itemize}
+  \item \textbf{BST-Eigenschaft gilt für den ganzen Teilbaum}, nicht nur die direkten Kinder — auch
+        ein Enkel im linken Teilbaum muss $\le x$ sein.
+  \item \textbf{2 Kinder $\to$ Nachfolger aus dem \emph{rechten} Teilbaum} (kleinster Wert dort),
+        \emph{nicht} das äußerste rechte Blatt des linken Teilbaums. (Der Vorgänger von links ergäbe
+        ebenfalls einen gültigen BST, ist aber nicht die Folien-Konvention.)
+  \item \textbf{Beim 2-Kinder-Löschen zieht NUR der Nachfolger um:} (1) sein rechtes Kind rückt an
+        seine \emph{alte} Stelle, (2) er selbst übernimmt Position \textbf{und beide Kinder} des
+        Gelöschten — der restliche Baum bleibt unberührt! \emph{Nicht} den übrigen Teilbaum unter
+        das nachrückende Kind hängen (ergäbe zwar oft einen gültigen BST, aber nicht das Ergebnis
+        des Verfahrens). Merksatz: \emph{„Der Nachfolger zieht allein um.``}
+  \item \textbf{Sortierte Eingabe erzeugt einen entarteten Baum} (lineare Kette) $\Rightarrow h=n$,
+        alle Operationen $O(n)$. Genau das behebt der AVL-Baum (Kap. 07).
+\end{itemize}
+\end{pitbox}
+
+\clearpage
+% ============================================================
+%  KAP 07 — AVL-BÄUME
+% ============================================================
+\kapitel{07 — AVL-Bäume}{Balancefaktor, Rotationen, Einfügen und Löschen mit Rebalancieren}
+
+\textbf{Kernidee.} Alle BST-Operationen kosten $O(h)$ — aber die Höhe hängt von der
+Einfügereihenfolge ab: eine \emph{sortierte} Folge entartet zur Kette mit $h=n$ (das Problem
+ist vergleichbar mit dem Worst Case von Quicksort). Ein \textbf{AVL-Baum} (nach
+\textbf{A}delson-\textbf{V}elski und \textbf{L}andis) ist ein binärer Suchbaum, der bei
+\emph{jedem} Einfügen oder Löschen „balanciert`` wird — so bleibt $h=O(\log n)$
+\textbf{garantiert}, unabhängig von der Eingabereihenfolge.
+
+\begin{defbox}{Balancefaktor (Folie 4)}
+Für einen Knoten $k$ ist der Balancefaktor definiert als
+\[ BF(k) \;=\; \mathrm{HEIGHT}(k.right) \;-\; \mathrm{HEIGHT}(k.left)
+   \qquad \text{(\textbf{rechts minus links}!)} \]
+und für \emph{jeden} Knoten des Baums muss gelten: \; $BF(k)\in\{-1,\,0,\,1\}$.
+\begin{itemize}
+  \item \textbf{Höhen-Konvention:} in \textbf{Knoten-Ebenen} gezählt — $\mathrm{HEIGHT}(\mathrm{NIL})=0$,
+        Blatt $=1$, die Wurzel zählt mit (Kette aus $n$ Knoten $\Rightarrow h=n$).
+  \item \textbf{Lesart:} $BF<0$ $=$ \textbf{linkslastig} · $BF>0$ $=$ \textbf{rechtslastig} · $\pm 2$ $=$ verletzt.
+  \item \textbf{Knoten-Datenstruktur} (Folie 5): \texttt{key}, \texttt{balance}, \texttt{left},
+        \texttt{right}, \texttt{parent} — der Eltern-Verweis ermöglicht das Aufsteigen beim Rebalancieren.
+\end{itemize}
+\end{defbox}
+
+\begin{defbox}{Rotation — die Mechanik (Rechtsrotation; Linksrotation spiegelbildlich)}
+\begin{Verbatim}[fontsize=\small,xleftmargin=6pt]
+        k                    l          l steigt auf, k wird RECHTES Kind von l.
+       / \                  / \         Der mittlere Teilbaum b wechselt die
+      l   c      ->        a   k        Seite: war rechtes Kind von l,
+     / \                      / \       wird linkes Kind von k.
+    a   b                    b   c      Inorder a,l,b,k,c bleibt unveraendert!
+\end{Verbatim}
+\end{defbox}
+
+\begin{defbox}{Welche Rotation? — Entscheidungstabelle (Folien 6--10)}
+\renewcommand{\arraystretch}{1.35}\small
+\begin{tabular}{@{}llp{6.6cm}@{}}
+\textbf{Verletzung} & \textbf{Kind} & \textbf{Rotation} \\
+\hline
+$BF(k)=-2$ (linkslastig) & $BF(k.left)\le 0$ (gleiche Ri.) & \textbf{einfach}: Rechtsrotation an $k$ \\
+$BF(k)=-2$ & $BF(k.left)>0$ (\textbf{Knick}) & \textbf{doppelt}: erst $k.left$ nach links, dann $k$ nach rechts \\
+$BF(k)=+2$ (rechtslastig) & $BF(k.right)\ge 0$ (gleiche Ri.) & \textbf{einfach}: Linksrotation an $k$ \\
+$BF(k)=+2$ & $BF(k.right)<0$ (\textbf{Knick}) & \textbf{doppelt}: erst $k.right$ nach rechts, dann $k$ nach links \\
+\end{tabular}
+\par\vspace{3pt}
+\textbf{Merkregel:} Knoten und Kind in \emph{gleicher} Richtung schief (oder Kind $0$) $\to$ \textbf{eine}
+Rotation in die Gegenrichtung der Schieflage. Kind in \emph{Gegenrichtung} schief („Knick``: der zu
+tiefe Teilbaum liegt \emph{innen}) $\to$ \textbf{Doppelrotation} — die erste begradigt den Knick,
+die zweite balanciert.
+\par\vspace{2pt}
+{\footnotesize (\textsc{Avl-Balance}, Folie 10, entscheidet äquivalent über Höhen: bei $-2$
+Rechtsrotation, falls $\mathrm{HEIGHT}(k.left.left)\ge\mathrm{HEIGHT}(k.left.right)$, sonst
+Doppelrotation — und steigt danach rekursiv zum Elternknoten auf, bis zur Wurzel.)}
+\end{defbox}
+
+\begin{defbox}{Rezept: Einfügen (Folie 11)}
+\begin{enumerate}
+  \item Neuen Knoten \textbf{wie im BST als Blatt} einfügen (Kap.-06-Seite).
+  \item Vom \textbf{Elternknoten des neuen Blatts} aufsteigend die Balancefaktoren neu berechnen.
+  \item Am \textbf{untersten} Knoten mit $BF=\pm 2$: Rotationstyp per Tabelle bestimmen, rotieren.
+  \item Weiter bis zur Wurzel prüfen (beim Einfügen heilt die eine Rotation i.\,d.\,R. den ganzen Pfad).
+  \item \textbf{Selbstcheck:} Inorder noch sortiert? Alle $BF\in\{-1,0,1\}$?
+\end{enumerate}
+\end{defbox}
+
+\begin{defbox}{Rezept: Löschen (Folie 12 + Praktikum 4)}
+\begin{enumerate}
+  \item Knoten \textbf{wie im BST löschen} — 3 Fälle (Kap.-06-Seite); bei 2 Kindern:
+        \emph{„der Nachfolger zieht allein um``}.
+  \item Rebalancieren beginnt beim \textbf{Elternknoten des (physisch) entfernten Knotens} — beim
+        2-Kinder-Fall also beim alten Elternknoten des \emph{Nachfolgers}. \emph{Warum dort?} Erst ab
+        diesem Knoten haben sich Höhen geändert; der gelöschte Knoten selbst ist weg
+        (Praktikum 4: \texttt{balance(parent)}, nicht \texttt{balance(node)}).
+  \item Aufsteigend bis zur Wurzel prüfen — die Verletzung kann \textbf{weit oberhalb} der Löschstelle
+        auftreten, und anders als beim Einfügen können \textbf{mehrere Rotationen} nötig werden.
+\end{enumerate}
+\end{defbox}
+
+\begin{defbox}{Zwei Mini-Traces}
+\small\textbf{Einfache Rotation} — $5$ in den linkslastigen Ast $20{-}10$ eingefügt:
+\begin{Verbatim}[fontsize=\small,xleftmargin=6pt]
+      20                    10        BF(20) = -2,  BF(10) = -1 <= 0
+     /                     /  \       -> gleiche Richtung -> EINFACHE
+   10           ->        5    20     Rechtsrotation an 20: 10 steigt
+   /                                  auf, 20 wird ihr RECHTES Kind
+  5
+\end{Verbatim}
+\textbf{Doppelrotation — durch Löschen ausgelöst} (Praktikum 4, nach Löschen von $1,3,10$):
+das \textbf{Blatt 20} wird gelöscht — die Verletzung erscheint \emph{zwei Ebenen höher} bei der Wurzel:
+\begin{Verbatim}[fontsize=\small,xleftmargin=6pt]
+      12                12                  7         BF(12) = -2, BF(5) = +1 > 0
+     /  \              /  \               /   \       -> Knick -> DOPPELROTATION:
+    5    15    ->     7    15    ->      5     12     erst 5 nach links
+   / \               / \                / \   /  \    (6 wechselt zu 5),
+  4   7             5   8              4   6 8    15  dann 12 nach rechts
+     / \           / \                                (8 wechselt zu 12)
+    6   8         4   6
+\end{Verbatim}
+End-BFs: \emph{alle} $0$. Elternknoten $15$ der Löschstelle blieb gültig — deshalb \textbf{bis zur Wurzel} prüfen!
+\end{defbox}
+
+\begin{defbox}{Laufzeit-Komplexität (Folien 11--12)}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}ll@{}}
+Suchen & $O(\log n)$ — die Höhe ist garantiert logarithmisch \\
+Balancieren (ein Aufstieg zur Wurzel) & $O(\log n)$ \\
+Einfügen inkl.\ Balancieren & $O(\log n)$ \textbf{auch im Worst Case} \\
+Löschen inkl.\ Balancieren & $O(\log n)$ \textbf{auch im Worst Case} \\
+\end{tabular}
+\par\vspace{3pt}
+\textbf{Rekurrenz der Suche} (Praktikum 4): $T(n)=T(n/2)+c \Rightarrow O(\log n)$ — im Gegensatz
+zum entarteten BST mit $T(n)=T(n{-}1)+c \Rightarrow O(n)$.
+\end{defbox}
+
+\begin{tipbox}{Klausurtipps}
+\begin{itemize}
+  \item \textbf{Der 8-P-Klassiker (Probeklausur):} Balancefaktor \emph{erklären} (Definition oben),
+        Element \emph{einfügen} und \emph{Rebalancieren zeichnen}.
+  \item Fürs volle Punktbild \textbf{explizit hinschreiben}: verletzten Knoten + seinen BF, das
+        Kriterium ($BF$ des Kindes $\to$ einfach/doppelt), den Rotationstyp und die
+        \textbf{End-Balancefaktoren} aller Knoten.
+  \item \textbf{Rotationsrichtung} $=$ Gegenrichtung der Schieflage: linkslastig ($-2$) $\to$ nach
+        \emph{rechts} rotieren.
+  \item Nach jeder Rotation \textbf{Inorder-Check} — fängt Links/Rechts-Dreher sofort ab.
+\end{itemize}
+\end{tipbox}
+
+\begin{pitbox}{Stolperfallen}
+\begin{itemize}
+  \item \textbf{Vorzeichen-Konvention:} $BF=$ \textbf{rechts $-$ links} (Folie 4) — viele Lehrbücher
+        rechnen andersrum! Linkslastig $\Rightarrow$ \emph{negativ}.
+  \item \textbf{Nach der Rechtsrotation wird der alte verletzte Knoten das \emph{rechte} Kind} des
+        aufgestiegenen Knotens (er ist der größere von beiden) — nicht das linke!
+  \item \textbf{Am untersten verletzten Knoten rotieren}, nicht an der Wurzel — auch wenn weiter
+        oben ebenfalls $\pm 2$ steht.
+  \item \textbf{Der mittlere Teilbaum ($b$) wechselt bei der Rotation die Seite} — beim Zeichnen
+        gern vergessen.
+  \item \textbf{Doppelrotation ist nicht „zweimal dieselbe Richtung``:} erst dreht sich das
+        \emph{Kind} (begradigt den Knick), dann der verletzte Knoten in die Gegenrichtung.
+\end{itemize}
+\end{pitbox}
+
+\clearpage
+% ============================================================
+%  KAP 08 — B-BÄUME
+% ============================================================
+\kapitel{08 — B-Bäume}{Ordnung, Suche, Einfügen mit Split, Löschen mit Verschieben/Verschmelzen}
+
+\textbf{Kernidee.} BST/AVL nehmen an, dass alles in den Hauptspeicher passt. Bei großen
+Datenmengen auf \textbf{externem Speicher} (Festplatte/SSD) zählt aber die Zahl der
+\emph{Seitenzugriffe}: Ein B-Baum-Knoten $=$ eine \textbf{Seite} (page) $\Rightarrow$ dicke
+Knoten mit vielen Schlüsseln $\Rightarrow$ flacher, breiter Baum $\Rightarrow$ wenige Zugriffe.
+(\textbf{B} $=$ balanciert, breit, buschig, Bayer — \emph{nicht} binär; Bayer \& McCreight.)
+
+\begin{defbox}{Ordnung $m$ — die Struktur-Regeln (Folien 5--7)}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}p{4.6cm}p{4.2cm}p{4.2cm}@{}}
+ & \textbf{Schlüssel} & \textbf{Kinder (innerer Knoten)} \\
+\hline
+je Knoten \textbf{mindestens} & $m-1$ & $m$ \\
+je Knoten \textbf{höchstens} & $2m-1$ & $2m$ \\
+\end{tabular}
+\par\vspace{3pt}
+\begin{itemize}
+  \item \textbf{Immer: Kinder $=$ Schlüssel $+$ 1} — zwischen $i$ Schlüsseln liegen $i{+}1$ Verweise.
+  \item \textbf{Wurzel-Ausnahme:} nur die Wurzel darf weniger als $m{-}1$ Schlüssel haben (min.\ 1).
+  \item Schlüssel im Knoten sind \textbf{sortiert}; links von $e_j$ nur kleinere, rechts nur größere.
+  \item \textbf{Alle Blätter liegen auf derselben Tiefe} — der Baum ist \emph{immer} balanciert.
+  \item \textbf{Höhe:} $h \le \log_m \frac{n+1}{2}$ — wächst nur logarithmisch, Basis $m$.
+\end{itemize}
+\end{defbox}
+
+\begin{defbox}{Suche (Folien 9--10)}
+Kombination aus \emph{Suche im sortierten Array} (innerhalb des Knotens) und
+\emph{Verweis-Verfolgen} (wie BST): im Knoten bis zum ersten Schlüssel $\ge key$ laufen —
+gefunden $\to$ fertig; Blatt $\to$ NIL; sonst in den Unterbaum \emph{davor} absteigen.
+\par\vspace{2pt}
+\textbf{Effizienz:} externe Zugriffe $=$ besuchte Knoten $= O(\log_m n)$;
+mit linearer Suche im Knoten insgesamt $O(\log_m n \cdot m)$.
+\end{defbox}
+
+\begin{defbox}{Rezept: Einfügen (Folien 11--17)}
+\begin{enumerate}
+  \item Neuer Schlüssel kommt \textbf{grundsätzlich in ein Blatt}.
+  \item Beim Abstieg \textbf{jeden vollen Knoten ($2m{-}1$ Schlüssel) sofort splitten}:
+        der \textbf{mittlere Schlüssel} wandert in den Elternknoten, links/rechts davon
+        entstehen zwei Knoten mit je $m{-}1$ Schlüsseln.
+  \item \emph{Warum beim Abstieg?} Der hochgereichte Schlüssel trifft so \textbf{nie auf einen
+        vollen Elternknoten} (der wurde gerade geprüft) — ein einziger Abwärts-Durchlauf genügt.
+  \item \textbf{Volle Wurzel} beim Start: erst splitten — neue Wurzel entsteht \emph{darüber},
+        der Baum wächst \textbf{nach oben}. \emph{Das ist der einzige Weg, wie er höher wird.}
+\end{enumerate}
+\textbf{Effizienz:} $O(\log_m n)$ externe Zugriffe; Split selbst $O(1)$ Zugriffe / $O(m)$ intern.
+\end{defbox}
+
+\begin{defbox}{Rezept: Löschen (Folien 18--30)}
+\textbf{Unterlauf} (underflow): Knoten fällt \emph{unter} $m{-}1$ Schlüssel $\to$ muss repariert
+werden — ein Knoten verschwindet \emph{nie} einfach!
+\begin{enumerate}
+  \item Schlüssel im \textbf{Blatt}, kein Unterlauf $\to$ einfach entfernen.
+  \item Blatt mit \textbf{Unterlauf}: kann ein \textbf{Geschwister abgeben} ($>m{-}1$ Schlüssel)
+        $\to$ \textbf{Verschieben über den Elternknoten}: Trennschlüssel der Eltern rutscht
+        \emph{runter}, äußerster Geschwister-Schlüssel rückt \emph{hoch}. Sonst
+        $\to$ \textbf{Verschmelzen}: Knoten $+$ Trennschlüssel aus den Eltern $+$ Geschwister
+        werden \emph{ein} Knoten (Eltern verlieren einen Schlüssel — kann sich nach oben fortsetzen).
+  \item Schlüssel in einem \textbf{inneren Knoten}: der \textbf{Vorgänger} (größter Schlüssel im
+        linken Kind) \textbf{rückt hoch} — geht direkt, wenn sein Knoten abgeben kann; sonst
+        \textbf{Verschmelzen der beiden Nachfolger-Knoten} um die Lücke.
+  \item Wird die \textbf{Wurzel leer} (letzter Schlüssel per Verschmelzen abgewandert):
+        Wurzel entfernen $\to$ \textbf{Höhe sinkt um 1}.
+\end{enumerate}
+\end{defbox}
+
+\begin{defbox}{Lösch-Trace (Ordnung $m=2$: min.\ 1, max.\ 3 Schlüssel) — alle vier Fälle}
+\begin{Verbatim}[fontsize=\small,xleftmargin=6pt]
+      [10 20]              loesche 12: kein Unterlauf -> einfach raus
+     /   |   \
+ [3 5] [12 15] [25 30]
+
+      [ 5 20]              loesche 15: Unterlauf! Geschwister [3 5] kann
+     /   |   \             abgeben -> VERSCHIEBEN ueber die Eltern:
+   [3] [10]  [25 30]       10 runter ins Blatt, 5 hoch in die Wurzel
+
+      [ 20 ]               loesche 3: Unterlauf, Geschwister [10] am Minimum
+     /      \              -> VERSCHMELZEN: leer + Trenner 5 + [10] = [5 10]
+  [5 10]   [25 30]         (Wurzel gibt die 5 ab -- Wurzel-Ausnahme ok)
+
+      [ 10 ]               loesche 20 (innerer Knoten): VORGAENGER 10 aus
+     /      \              dem linken Kind [5 10] rueckt hoch (kann abgeben,
+   [5]     [25 30]         2 > Minimum 1)
+\end{Verbatim}
+\end{defbox}
+
+\begin{defbox}{Praktikum 5 — Ordnung $m$ und Disk-I/O}
+\begin{itemize}
+  \item \textbf{Plattenzugriffe sinken} mit wachsendem $m$: Höhe $\log_m n$ schrumpft, weil die
+        Log-Basis wächst (mehr Schlüssel pro geladener Seite).
+  \item \textbf{Interne Vergleiche steigen} trotzdem: pro Knoten bis zu $m$ Vergleiche (lineare Suche)
+        $\Rightarrow$ insgesamt $O(m\log_m n)$ pro Einfügung — der Faktor $m$ wächst schneller,
+        als $\log_m n$ fällt. RAM-Vergleiche sind aber billig, Plattenzugriffe teuer $\to$ lohnt sich.
+  \item \textbf{Optimales $m$ für 4-KB-Block} (Schlüssel und Kindzeiger je 8 Byte): Knoten voll
+        $\Rightarrow$ $2m{-}1$ Schlüssel $+$ $2m$ Verweise:
+        $8(2m{-}1) + 8 \cdot 2m = 32m - 8 \le 4096 \Rightarrow m \le 128{,}25 \Rightarrow \mathbf{m = 128}$.
+\end{itemize}
+\end{defbox}
+
+\begin{tipbox}{Klausurtipps}
+\begin{itemize}
+  \item \textbf{Trace-Aufgaben:} Einfüge-Folge mit Splits bzw.\ Lösch-Folge zeichnen. Beim Löschen
+        \emph{zuerst den Fall bestimmen}: Unterlauf? Kann ein Geschwister abgeben? Blatt oder innerer Knoten?
+  \item \textbf{Selbstcheck nach jedem Schritt:} Kinder $=$ Schlüssel $+1$ in jedem Knoten?
+        Alle Blätter auf gleicher Tiefe? Jeder Nicht-Wurzel-Knoten $\ge m{-}1$ Schlüssel?
+  \item \textbf{Zahlen-Fragen:} Ordnung $m$ gegeben $\to$ min./max.\ Schlüssel \& Kinder nennen
+        ($m{-}1$ / $2m{-}1$ bzw.\ $m$ / $2m$); Höhenformel $h\le\log_m\frac{n+1}{2}$ nachschlagen statt herleiten.
+  \item \textbf{Merksatz:} \emph{„Unterlauf? Knoten bleibt! Erst beim Geschwister leihen (über die
+        Eltern), sonst verschmelzen.``}
+\end{itemize}
+\end{tipbox}
+
+\begin{pitbox}{Stolperfallen}
+\begin{itemize}
+  \item \textbf{Einen Unterlauf-Knoten nie einfach weglassen} — „Wurzel hat noch 2 Kinder`` ist das
+        falsche Kriterium; prüfe \textbf{Kinder $=$ Schlüssel $+$ 1}. Ein 2-Schlüssel-Knoten \emph{muss}
+        3 Kinder haben, sonst fehlt ein Wertebereich.
+  \item \textbf{Verschieben läuft immer über den Elternknoten} — nie ein Schlüssel direkt vom
+        Geschwister herüber (der Trennschlüssel würde die Sortierung verletzen).
+  \item \textbf{Innerer Knoten: B-Baum-Folien nehmen den \emph{Vorgänger von links}} — beim BST
+        (Kap.\ 06) war es der \emph{Nachfolger von rechts}. Nicht verwechseln!
+  \item \textbf{Der B-Baum wächst an der Wurzel} (nur beim Wurzel-Split), nicht „wenn alle Knoten
+        voll sind`` — und er schrumpft nur, wenn die Wurzel leer wird.
+  \item \textbf{Beim Split wandert der mittlere Schlüssel hoch} — er bleibt \emph{nicht} zusätzlich
+        in einem der beiden neuen Knoten.
 \end{itemize}
 \end{pitbox}
 
