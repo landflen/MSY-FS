@@ -1,0 +1,33 @@
+% ============================================================
+%  Teil 4 — Asymptotik & Relationen
+% ============================================================
+\teilkopf{4}{Asymptotik \& Relationen}
+
+\bereich[cRel]{Asymptotik}
+\begin{formelreihe}
+\formelblock{O-Definition}{T(n)\leq c\cdot f(n)\ \ \forall n\geq n_0,\ \ c>0}
+&
+\formelblock{bei Bit Wizardry}{n=\text{Bits im Wort (nicht Datenmenge!)}}
+&
+\beispielblock{Klassen erkennen}{\begin{aligned}[t]&\text{Schleife über Bits}\to O(n)\\ &\text{halbierende Masken}\to O(\log n)\\ &\text{feste Befehlszahl}\to O(1)\end{aligned}}
+\end{formelreihe}
+\infoblock{„O(1) hei\ss t nicht nur 1 Befehl``: Befehlszahl konstant \& unabh.\ von $n$ — 3 oder 12 Befehle sind auch O(1). $\Omega$/$\Theta$ analog mit $\geq$ / beidseitig (s.\ INF4/1).}
+\bereichende
+
+\bereich[cRel]{Relationen — „zeige: keine ÄR``}
+\begin{formelreihe}
+\formelblock{Äquivalenzrelation $\Leftrightarrow$ R+S+T}{\begin{aligned}[t]&\text{R: } a\sim a\ \forall a\\ &\text{S: } a\sim b\Rightarrow b\sim a\\ &\text{T: } a\sim b\ \&\ b\sim c\Rightarrow a\sim c\end{aligned}}
+&
+\formelblock{Widerlegungs-Strategie}{\begin{aligned}[t]&\text{\textbf{ein} Gegenbeispiel für}\\ &\text{\textbf{eine} Eigenschaft genügt}\end{aligned}}
+&
+\beispielblock{eps-Vergleich nicht transitiv}{\begin{aligned}[t]&a\sim b :\Leftrightarrow |a-b|\leq\varepsilon,\ \varepsilon{=}1{:}\\ &0\sim 1,\ 1\sim 2,\ \text{aber } |0-2|{=}2{>}1\ \Rightarrow\ 0\nsim 2\end{aligned}}
+\end{formelreihe}
+\begin{rezept}
+\rs{R prüfen: $a\sim a$? (Gegenbsp.\ oft $a=0$)}
+\rs{S prüfen: Ordnungsrelationen ($\leq$, $<$, teilt) scheitern hier}
+\rs{T prüfen: Toleranz-/Nachbarschaftsrelationen scheitern hier (Fehler addieren sich)}
+\rs{verletzte Eigenschaft + konkretes Zahlen-Gegenbeispiel hinschreiben — fertig}
+\end{rezept}
+\infoblock{Positivbeispiele: $a\equiv b \pmod m$ ($m\,|\,a{-}b$) ist ÄR mit Klassen $\{0,\dots,m{-}1\}$ $\cdot$ „$a{-}b$ gerade`` = mod 2 $\cdot$ ÄR zerlegt Menge in Äquivalenzklassen. $\cdot$ Auf $n$-elementiger Menge: $2^{n^2}$ Relationen.}
+\fallstrick{R \& S allein reichen nicht (eps-Bsp.\ erfüllt beide!) $\cdot$ $a\cdot b>0$ scheitert an R wegen $a{=}0$ $\cdot$ $\leq$ scheitert an S, nicht an R/T.}
+\bereichende

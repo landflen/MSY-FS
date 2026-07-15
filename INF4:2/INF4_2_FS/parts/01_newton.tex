@@ -1,0 +1,84 @@
+% ============================================================
+%  Teil 1 — Newton & Fixpunkte  (Klausurschwerpunkt, SS16-bestätigt)
+% ============================================================
+\teilkopf{1}{Newton \& Fixpunkte}
+
+\bereich[cNewton]{Fixpunkte \& Typen}
+\begin{formelreihe}
+\formelblock{Iteration / Fixpunkt}{x_{k+1}=\Phi(x_k),\quad \Phi(x_*)=x_*}
+&
+\formelblock{Fehler-Mechanik (Taylor)}{\Phi(x_*+\varepsilon)\approx x_*+\Phi'(x_*)\,\varepsilon}
+&
+\beispielblock{$\Phi=x^2$}{\begin{aligned}[t]&x_*{=}0{:}\ \Phi'{=}0\ \text{superattr.}\\ &x_*{=}1{:}\ \Phi'{=}2\ \text{repulsiv}\end{aligned}}
+\\[0.4em]
+\formelblock{attraktiv}{|\Phi'(x_*)|<1\ \Rightarrow\ \text{Konvergenz}}
+&
+\formelblock{repulsiv}{|\Phi'(x_*)|>1\ \Rightarrow\ \text{Divergenz}}
+&
+\formelblock{superattraktiv}{\Phi'(x_*)=0\ \Rightarrow\ \text{Ordnung}\ \geq 2}
+\end{formelreihe}
+\infoblock{Geometrie: FP = Schnitt $y{=}\Phi(x)$ mit Diagonale $y{=}x$. Basin der Attraktion = alle konvergenten $x_0$; Rand i.\,Allg.\ fraktal.}
+\bereichende
+
+\bereich[cNewton]{Konvergenzordnung — das Klausurschema}
+\begin{formelreihe}
+\formelblock{Def.\ (rel.\ Fehler, $x_*\neq 0$)}{\Phi\bigl(x_*(1{+}\varepsilon)\bigr)=x_*\bigl(1+\alpha\,\varepsilon^{n}+O(\varepsilon^{n+1})\bigr)}
+&
+\formelblock{äquivalent}{\Phi'(x_*){=}\dots{=}\Phi^{(n-1)}(x_*){=}0,\ \Phi^{(n)}(x_*){\neq}0}
+&
+\beispielblock{ablesen}{\begin{aligned}[t]&\Phi{=}x_*(1-\tfrac{3}{2}\varepsilon^2-\tfrac{1}{2}\varepsilon^3)\\ &\alpha_1{=}0,\ \alpha_2{\neq}0\ \Rightarrow\ \text{quadr.}\end{aligned}}
+\end{formelreihe}
+\begin{rezept}
+\rs{$x=x_*(1+\varepsilon)$ in $\Phi$ einsetzen}
+\rs{ausmultiplizieren, nach $\varepsilon$-Potenzen ordnen}
+\rs{kleinster nicht verschwindender Koeff.\ $\Rightarrow$ Ordnung $n$}
+\end{rezept}
+\infoblock{Ordnung 1 ($|\alpha|{<}1$): konst.\ viele Stellen/Schritt $\cdot$ Ordnung 2: Stellen \textbf{verdoppeln} sich $\cdot$ Ordnung 3: verdreifachen.}
+\fallstrick{Schema gilt nur für $x_*\neq 0$! Bei $x_*=0$ absoluten Fehler nehmen: $\varepsilon_{k+1}=\alpha\,\varepsilon_k^n$ (Bsp.\ $\Phi{=}x^2$: $\varepsilon_{k+1}{=}\varepsilon_k^2$).}
+\bereichende
+
+\bereich[cNewton]{Newton-Verfahren}
+\begin{formelreihe}
+\formelblock{Newton-Iteration für $f(r){=}0$}{N(x)=x-\tfrac{f(x)}{f'(x)}}
+&
+\formelblock{FP-Check}{N(r)=r-\tfrac{0}{f'(r)}=r\ \checkmark}
+&
+\beispielblock{NR-Helfer}{\bigl(\tfrac{f}{f'}\bigr)'=1-\tfrac{f\,f''}{(f')^2},\quad (x^{-2})'=-2x^{-3}}
+\\[0.4em]
+\formelblock{Superattraktivität allg.}{N'(x)=\tfrac{f(x)\,f''(x)}{f'(x)^2}\ \Rightarrow\ N'(r)=\tfrac{0\cdot f''(r)}{f'(r)^2}=0}
+&
+\formelblock{Voraussetzung}{f'(r)\neq 0\ \text{(einfache NS)}\ \Rightarrow\ \text{quadr.\ konv.}}
+&
+\beispielblock{Geometrie}{\begin{aligned}[t]&\text{Tangente: } y=f(x_k)+f'(x_k)(x-x_k)\\ &y{=}0 \Rightarrow x = N(x_k)\end{aligned}}
+\end{formelreihe}
+\bereichende
+
+\bereich[cNewton]{Die drei Klausur-Klassiker}
+\begin{formelreihe}
+\formelblock{$1/d$ (Division verboten)}{\begin{aligned}[t]f&=\tfrac1x-d,\ f'=-\tfrac{1}{x^2}\\ N&=x(2-dx)=x+x(1-dx)\end{aligned}}
+&
+\formelblock{$1/\sqrt d$ (Div.\ \& Wurzel verboten)}{\begin{aligned}[t]f&=\tfrac{1}{x^2}-d,\ f'=-\tfrac{2}{x^3}\\ N&=\tfrac{x}{2}(3-dx^2)=x+x\,\tfrac{1-dx^2}{2}\end{aligned}}
+&
+\beispielblock{$\varepsilon$-Nachweis $1/d$}{\begin{aligned}[t]&N\bigl(\tfrac1d(1{+}\varepsilon)\bigr)=\tfrac1d(1{+}\varepsilon)(2-1-\varepsilon)\\ &=\tfrac1d(1{+}\varepsilon)(1{-}\varepsilon)=\tfrac1d(1-\varepsilon^2)\ \Rightarrow\ \text{quadr.}\end{aligned}}
+\\[0.4em]
+\formelblock{$\sqrt d$ direkt (enthält Division!)}{\begin{aligned}[t]f&=x^2-d,\ f'=2x\\ N&=\tfrac12\bigl(x+\tfrac dx\bigr)\end{aligned}}
+&
+\formelblock{$\sqrt d$ ohne Division}{\sqrt d = d\cdot\tfrac{1}{\sqrt d}\quad\text{(rechte Spalte oben)}}
+&
+\beispielblock{$1/\sqrt d$: FP \& SA}{\begin{aligned}[t]&N'(x)=\tfrac32(1-dx^2)\\ &N'(\pm\tfrac{1}{\sqrt d})=\tfrac32(1-1)=0\ \text{(SA)}\end{aligned}}
+\\[0.4em]
+\formelblock{$1/\sqrt d$: $\varepsilon$-Entwicklung}{N\bigl(\tfrac{1}{\sqrt d}(1{+}\varepsilon)\bigr)=\tfrac{1}{\sqrt d}\bigl(1-\tfrac32\varepsilon^2-\tfrac12\varepsilon^3\bigr)}
+&
+\formelblock{allg.\ Schema $d^{-1/a}$}{\begin{aligned}[t]&\Phi_2(x)=x\bigl(1+\tfrac{1-x^a d}{a}\bigr)\\ &\beta=-\tfrac{a+1}{2}\ \text{(quadr.)}\end{aligned}}
+&
+\beispielblock{unerwünschte FP von $N{=}x(2{-}dx)$}{\begin{aligned}[t]&N(0)=0\ \text{FP, }N'(0){=}2\ \text{repulsiv (gut!)}\\ &N(-\tfrac1d)=-\tfrac3d\neq-\tfrac1d\ \text{kein FP}\end{aligned}}
+\end{formelreihe}
+\begin{rezept}
+\rs{NS formulieren: $f$ wählen mit $f(\text{gesucht})=0$; verbotene Op.\ darf in $N$ nicht auftauchen}
+\rs{$f'$ bilden, $N=x-f/f'$ aufstellen, vereinfachen}
+\rs{FP prüfen: $N(x_*)=x_*$ einsetzen}
+\rs{SA zeigen: $N'(x_*)=0$ \textbf{oder} $\varepsilon$-Entwicklung ($\alpha_1=0$)}
+\rs{ggf.\ weitere FP testen (0? $-x_*$?) und klassifizieren}
+\end{rezept}
+\fallstrick{$f=x-\tfrac1d$ ist sinnlos ($N\equiv\tfrac1d$ enthält Ergebnis) $\cdot$ $\sqrt d$ direkt enthält $\tfrac dx$ $\Rightarrow$ Division $\cdot$ Halbieren ($\tfrac x2$) ist erlaubt = Bit-Shift $\cdot$ SS16 fragt explizit FP bei $0$ und $-1/d$!}
+\bereichende

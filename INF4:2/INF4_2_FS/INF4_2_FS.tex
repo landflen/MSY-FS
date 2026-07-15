@@ -1,0 +1,139 @@
+% ============================================================
+%  Formelsammlung INF4/2 (Low level & seminumerische Algorithmen)
+%  Neue Kapitel als \input{parts/XX_name} einbinden.
+%  Layout-Template übernommen aus SOS_B_FS.
+% ============================================================
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{array}
+\usepackage{microtype}
+\usepackage{needspace}
+\usepackage{fancyhdr}
+\geometry{top=8mm,bottom=4mm,left=10mm,right=10mm,includehead,includefoot}
+\setlength{\headheight}{11pt}\setlength{\headsep}{1.2mm}\setlength{\footskip}{3.4mm}
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{0pt}
+\renewcommand{\baselinestretch}{0.9}
+\setlength{\emergencystretch}{2em}
+\hfuzz=3pt
+\setlength{\fboxsep}{0.18em}
+\setlength{\fboxrule}{0.3pt}
+
+% ---- Farbschema: eine Farbe pro Teil ---------------------
+\colorlet{cNewton}{blue}            % 1 Newton & Fixpunkte (Klausurschwerpunkt)
+\colorlet{cBits}{teal}              % 2 Bit Wizardry
+\colorlet{cOpt}{orange!90!red}      % 3 Code-Optimierung
+\colorlet{cRel}{violet}             % 4 Asymptotik & Relationen
+
+% ---- Teil-Kopf -------------------------------------------
+\newcounter{bereichnr}
+\newcommand{\teilnr}{}
+\newcommand{\teilname}{}
+\newcommand{\teilkopf}[2]{%
+  \renewcommand{\teilnr}{#1}%
+  \renewcommand{\teilname}{#2}%
+  \setcounter{bereichnr}{0}%
+  \markboth{#2}{#2}%
+}
+
+% ---- Bereichskopf -----------------------------------------
+\newcommand{\bereich}[2][cNewton]{%
+  \needspace{4\baselineskip}%
+  \refstepcounter{bereichnr}%
+  \markboth{\teilname}{\teilname}%
+  \vspace{0.5em}%
+  \noindent\colorbox{#1!10}{%
+    \makebox[\dimexpr\linewidth-2\fboxsep\relax][l]{%
+      \small\bfseries\color{#1!80!black}\strut\enspace
+      \colorbox{#1!25}{\textcolor{#1!75!black}{\,\teilnr.\thebereichnr\,}}\enspace #2}}%
+  \nopagebreak%
+  \vspace{0.1em}\par\noindent%
+}
+
+\newcommand{\bereichende}{%
+  \vspace{0.2em}%
+  {\color{gray!50}\hrule height 0.3pt}%
+  \vspace{0.2em}%
+}
+
+% ---- Drei-Spalten-Layout ----------------------------------
+\newenvironment{formelreihe}{%
+  \noindent\footnotesize%
+  \setlength{\tabcolsep}{0pt}%
+  \renewcommand{\arraystretch}{0.85}%
+  \begin{tabular}{@{}p{0.32\linewidth}@{\hspace{0.02\linewidth}}%
+                     p{0.32\linewidth}@{\hspace{0.02\linewidth}}%
+                     p{0.32\linewidth}@{}}%
+}{%
+  \end{tabular}\par%
+}
+
+\newcommand{\formelblock}[2]{%
+  \parbox[t]{\linewidth}{%
+    {\scriptsize\scshape\color{gray!65!black} #1}\\[0.03em]%
+    $\displaystyle #2$%
+  }%
+}
+
+\newcommand{\beispielblock}[2]{%
+  \fcolorbox{orange!50}{yellow!15}{%
+    \parbox[t]{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+      {\scriptsize\scshape\color{orange!80!black} Bsp: #1}\\[0.03em]%
+      $\displaystyle #2$%
+    }}%
+}
+
+\newcommand{\infoblock}[1]{%
+  \parbox[t]{\linewidth}{\scriptsize\itshape\color{black!60} #1}%
+}
+
+% ---- Rezept ------------------------------------------------
+\newcounter{rezeptnr}
+\newenvironment{rezept}{%
+  \par\nobreak\noindent
+  \setcounter{rezeptnr}{0}%
+  \footnotesize\setlength{\tabcolsep}{2pt}%
+  \renewcommand{\arraystretch}{1.05}%
+  \begin{tabular}{@{}r@{\;\,}p{\dimexpr\linewidth-1.6em\relax}@{}}%
+}{%
+  \end{tabular}\par%
+}
+\newcommand{\rs}[1]{\refstepcounter{rezeptnr}\therezeptnr.&#1\\}
+
+\newcommand{\fallstrick}[1]{%
+  \par\vspace{0.1em}\noindent
+  {\footnotesize\color{red!72!black}\textbf{Fallstricke:}}\;{\footnotesize #1}\par}
+
+\newcommand{\miniexample}[2]{%
+  \par\vspace{0.12em}%
+  \fcolorbox{orange!50}{yellow!15}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+      {\footnotesize\scshape\color{orange!80!black} Bsp: #1}\\[0.12em]%
+      \footnotesize #2}}\par}
+
+% ---- Code-Zeile kompakt, math- und textmode-tauglich -------
+\newcommand{\code}[1]{\text{\ttfamily\footnotesize #1}}
+
+% ---- Kopf-/Fußzeile ----------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\bfseries Formelsammlung INF4/2}
+\fancyhead[R]{\small\color{gray!45!black}\rightmark}
+\fancyfoot[C]{\small\color{gray!55!black}Seite \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% ==========================================================
+\begin{document}
+
+\input{parts/01_newton}
+\input{parts/02_bitwizardry}
+\input{parts/03_codeopt}
+\input{parts/04_asymptotik_relationen}
+
+\end{document}

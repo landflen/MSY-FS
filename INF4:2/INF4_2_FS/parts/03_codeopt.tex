@@ -1,0 +1,32 @@
+% ============================================================
+%  Teil 3 — Code-Optimierung (Floating Point nach Geschwindigkeit)
+% ============================================================
+\teilkopf{3}{Code-Optimierung}
+
+\bereich[cOpt]{Befehlskosten \& CPU}
+\begin{formelreihe}
+\formelblock{Kostenklassen (Latency)}{\begin{aligned}[t]&\text{1 Cycle: XOR, ADD, SUB, AND, SHIFT}\\ &\text{wenige: MUL}\\ &\textbf{50\text{--}300: DIV, MOD,}\\ &\textbf{pow, exp, log, sin, cos}\end{aligned}}
+&
+\formelblock{Latency vs.\ Throughput}{\begin{aligned}[t]&\text{Latency = Zeit \emph{ein} Befehl [Cycles]}\\ &\text{Throughput = fertige Befehle/Cycle}\end{aligned}}
+&
+\beispielblock{superskalar}{\begin{aligned}[t]&\text{ADD: Lat.\ 1, Thr.\ 4/Cycle}\\ &\Rightarrow\ 4\ \text{Addierer parallel}\end{aligned}}
+\end{formelreihe}
+\infoblock{Superskalar-Tricks (hidden logic): mehrere Execution Units $\cdot$ Register Renaming (mehr phys.\ als log.\ Reg.) $\cdot$ out-of-order execution $\cdot$ speculative execution \& branch prediction. Real: 5--7 Befehle/Cycle.}
+\bereichende
+
+\bereich[cOpt]{Optimier-Repertoire}
+\begin{formelreihe}
+\formelblock{pow ersetzen}{\begin{aligned}[t]&\code{pow(x,2)}\to\code{x*x}\\ &\code{pow(x,3)}\to\code{x*x*x}\\ &\code{pow(x,8)}\to 3\times\ \text{Quadrieren}\end{aligned}}
+&
+\formelblock{Division $\to$ Kehrwert-Mult.}{\begin{aligned}[t]&\code{inv = 1.0/d;}\ \text{(1$\times$ teuer)}\\ &\code{a[i]*inv}\ \forall i\ \text{(billig)}\end{aligned}}
+&
+\beispielblock{warum pow teuer}{\code{pow}=e^{y\ln x}\ \text{(transzendent)}}
+\\[0.4em]
+\formelblock{Loop Unrolling, 4 Akkus}{\begin{aligned}[t]&\code{s0+=A[j]; s1+=A[j+1];}\\ &\code{s2+=A[j+2]; s3+=A[j+3];}\end{aligned}}
+&
+\formelblock{Branchless (fxtbook §1.11)}{\begin{aligned}[t]&\code{if((unsigned)x > m)}\ \text{statt}\ x{<}0\,\|\,x{>}m\\ &\code{max0: x \& \textasciitilde(x>{}>(BPL-1))}\end{aligned}}
+&
+\beispielblock{warum 4 Akkus}{\begin{aligned}[t]&\text{1 Summe: Datenabhängigkeit blockiert}\\ &\text{4 unabh.\ $\Rightarrow$ parallel + L1-Cache}\end{aligned}}
+\end{formelreihe}
+\fallstrick{\code{==} auf double fast immer falsch $\to$ \code{abs(a-b)<=eps} $\cdot$ Branch-Fehlvorhersage verwirft Pipeline $\cdot$ MUL ist billig, DIV/MOD nicht — Modulo in Schleifen vermeiden.}
+\bereichende

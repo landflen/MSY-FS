@@ -1,0 +1,50 @@
+% ============================================================
+%  Teil 2 — Bit Wizardry
+% ============================================================
+\teilkopf{2}{Bit Wizardry}
+
+\bereich[cBits]{Grundtricks (alles O(1))}
+\begin{formelreihe}
+\formelblock{Zweierkomplement}{-w=\mathord{\sim}w+1}
+&
+\formelblock{niedrigstes gesetztes Bit}{\begin{aligned}[t]&\code{w \& -w}\ \text{isolieren}\\ &\code{w \& (w-1)}\ \text{löschen}\end{aligned}}
+&
+\beispielblock{$w{=}01011000$}{\begin{aligned}[t]&\mathord{\sim}w{=}10100111,\ -w{=}10101000\\ &w\,\&\,{-w}=00001000\end{aligned}}
+\\[0.4em]
+\formelblock{Zweierpotenz-Test}{\code{!(x \& (x-1))}\ \text{(true auch bei 0)}}
+&
+\formelblock{Rotation rechts (BPL $=$ Wortbreite)}{\code{(w>{}>s) | (w<{}<(BPL-s))}}
+&
+\beispielblock{BPL$=$6, $w{=}$\code{abcdef}, $s{=}2$}{\begin{aligned}[t]&\code{w>{}>2}=\code{00abcd}\\ &\code{w<{}<4}=\code{ef0000}\ \Rightarrow\ \code{efabcd}\end{aligned}}
+\end{formelreihe}
+\infoblock{1-Cycle-Befehle: XOR, AND, NOT, ADD, SUB, NEG, INC, DEC, SHIFT, ROTATE $\cdot$ mit \code{unsigned long} arbeiten (signed shift zieht Vorzeichenbit nach).}
+\bereichende
+
+\bereich[cBits]{popcount (ones\_count) — Divide \& Conquer}
+\begin{formelreihe}
+\formelblock{Masken-Schema (Hex-Ziffern 5, 3, f)}{\begin{aligned}[t]&k{=}1{:}\ \code{0x5555\dots}\ (0101\dots)\\ &k{=}2{:}\ \code{0x3333\dots}\ (0011\dots)\\ &k{=}4{:}\ \code{0x0f0f\dots}\\ &k{=}8{:}\ \code{0x00ff\dots},\ k{=}16{:}\ \code{0x0000ffff}\end{aligned}}
+&
+\formelblock{Schritt (Blöcke $k\to 2k$)}{\code{x = (M \& x) + (M \& (x>{}>k))}}
+&
+\beispielblock{4 Bit, $x{=}1011$}{\begin{aligned}[t]&(0101\,\&\,x)+(0101\,\&\,x{>{}>}1)\\ &=0001+0101\to 0110\ \text{(je 2er-Block)}\\ &(x{>{}>}2)+(x\,\&\,0011)=01+10=3\ \checkmark\end{aligned}}
+\end{formelreihe}
+\miniexample{64-Bit-Referenz (fxtbook §1.8) — je Zeile Maske vor \& nach Shift}{%
+\code{x = (0x5555555555555555 \& x) + (0x5555555555555555 \& (x>{}>~1));}\\
+\code{x = (0x3333333333333333 \& x) + (0x3333333333333333 \& (x>{}>~2));}\\
+\code{x = (0x0f0f0f0f0f0f0f0f \& x) + (0x0f0f0f0f0f0f0f0f \& (x>{}>~4));}\\
+\code{x = (0x00ff00ff00ff00ff \& x) + (0x00ff00ff00ff00ff \& (x>{}>~8));}\\
+\code{x = (0x0000ffff0000ffff \& x) + (0x0000ffff0000ffff \& (x>{}>16));}\\
+\code{x = (0x00000000ffffffff \& x) + (0x00000000ffffffff \& (x>{}>32));}}
+\infoblock{32 $\to$ 64 Bit: (1) Masken verdoppeln (Muster wiederholt sich, 8 $\to$ 16 Hex-Ziffern), (2) ein Schritt mehr (Maske \code{0x00000000ffffffff}, Shift 32). Schritte $=\log_2 n$: 5 bei 32, 6 bei 64 Bit.}
+\fallstrick{$n$ = \textbf{Bits im Wort}, nicht Array-Länge! $\cdot$ O(1) $\neq$ 1 Befehl (nur: Befehlszahl unabh.\ von $n$) $\cdot$ Schleife über Bits = O($n$), Masken-Kaskade = O($\log n$).}
+\bereichende
+
+\bereich[cBits]{Multiplikation \& Potenzen über Bits}
+\begin{formelreihe}
+\formelblock{Shift-and-Add-Mult.\ (O($n$))}{\begin{aligned}[t]&\code{while(b)\{ if(b\&1) r+=a;}\\ &\code{\ a<{}<=1; b>{}>=1; \}}\end{aligned}}
+&
+\formelblock{Binary Exponentiation (fxtbook §28.5)}{\begin{aligned}[t]&a^e=\textstyle\prod_{e_i=1} a^{2^i},\ \sim\!\log_2 e\ \text{Mult.}\\ &\code{if(e\&1) t*=s; s*=s; e>{}>=1;}\end{aligned}}
+&
+\beispielblock{$a^{13}$, $13{=}1101_2$}{\begin{aligned}[t]&t{:}\ a\to a\to a^5\to a^{13}\\ &6\ \text{Mult.\ statt}\ 12\end{aligned}}
+\end{formelreihe}
+\bereichende
