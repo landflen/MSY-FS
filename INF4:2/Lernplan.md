@@ -109,3 +109,4 @@ Die drei Klassiker aus `V8.pdf`, jeweils: N(x) aufstellen → Fixpunkt prüfen �
 - **O(log n)-Begründung:** Blockgröße verdoppelt sich pro Schritt ⇒ log₂(n) Schritte (64 Bit: 6)
 - **Selbsttest Rotation:** erhält die Anzahl der Einsen — Einsen zählen vor/nach!
 - **C-Klammern:** `+` und `==` binden stärker als `&` → immer `((x>>1) & m) + (x & m)` schreiben
+- **Maskenbreite:** *jede* Maske ist so breit wie das ganze Wort — bei 128 Bit hat auch die neue Maske 32 Hex-Ziffern (16× `0`, 16× `f`)
