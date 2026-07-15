@@ -1,0 +1,218 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage[margin=1.7cm,top=1.5cm,bottom=1.7cm]{geometry}
+\usepackage{titlesec}
+\titleformat*{\section}{\normalfont\large\bfseries}
+\titleformat*{\subsection}{\normalfont\normalsize\bfseries}
+\titlespacing*{\section}{0pt}{8pt}{3pt}
+\titlespacing*{\subsection}{0pt}{6pt}{2pt}
+\usepackage{amsmath,amssymb}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+\usepackage{needspace}
+
+\newcommand{\mcbox}{\raisebox{-1pt}{\fbox{\rule{0pt}{7pt}\rule{7pt}{0pt}}}\hspace{6pt}}
+\newcommand{\antwortlinien}[1]{%
+  \par\vspace{2pt}%
+  \newcount\zeilen \zeilen=#1
+  \loop
+    \noindent\rule{\linewidth}{0.4pt}\par\vspace{11pt}%
+    \advance\zeilen by -1
+  \ifnum\zeilen>0 \repeat
+}
+\lstset{language=Python,basicstyle=\ttfamily\footnotesize,keywordstyle=\bfseries,
+  commentstyle=\itshape\color{gray},showstringspaces=false,frame=single,
+  framerule=0.3pt,xleftmargin=8pt,framexleftmargin=6pt,aboveskip=6pt,belowskip=6pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small MDT5/2 -- Session 8: SVM, Kernel-Trick, OC-SVM, SVDD}
+\fancyhead[R]{\small Übungsaufgaben zur Klausurvorbereitung}
+\fancyfoot[C]{\small Seite \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+\begin{center}
+  {\Large\bfseries Übungsaufgaben Session 8}\\[4pt]
+  {\large Kapitel 8: SVM, Soft Margin, Kernel-Trick, OC-SVM, SVDD -- Praktikum 09}\\[4pt]
+  \small Stil der Übungssammlung MDT5/2 -- generierte Aufgaben, keine Originale
+\end{center}
+
+\vspace{4pt}
+
+\section*{Aufgabe 1 -- Multiple Choice mit Begründung}
+\emph{Markieren Sie jeweils die einzige richtige von drei Aussagen und begründen Sie Ihre Entscheidung.}
+
+\subsection*{1.1 \ Für die Support Vector Machine gilt:}
+\mcbox Die optimale Trennebene hängt von allen Trainingspunkten gleichermaßen ab.
+
+\mcbox Die optimale Trennebene maximiert den Abstand zu den nächsten Punkten beider
+Klassen und hängt nur von den Support Vektoren ab.
+
+\mcbox Die SVM liefert je nach Initialisierung unterschiedliche Trennebenen.
+
+Begründung:
+\antwortlinien{2}
+
+\subsection*{1.2 \ Für den Straffaktor $C$ (Soft Margin) gilt:}
+\mcbox Je größer $C$, desto stärker werden Verletzungen der Margin-Bedingungen bestraft,
+desto enger folgt die Ebene den Trainingsdaten.
+
+\mcbox Je größer $C$, desto mehr Fehlklassifikationen werden im Training toleriert.
+
+\mcbox $C$ bestimmt die Kernelgröße.
+
+Begründung:
+\antwortlinien{2}
+
+\subsection*{1.3 \ Für den RBF-Kernel gilt:}
+\mcbox Die zugehörige Transformation bildet alle Punkte auf eine Einheitskugel in einem
+Raum mit unendlich vielen Dimensionen ab.
+
+\mcbox Der RBF-Kernel entspricht einer Transformation in einen Raum mit genau drei Dimensionen.
+
+\mcbox Für den RBF-Kernel spielt die Skalierung der Eingabedaten keine Rolle.
+
+Begründung:
+\antwortlinien{2}
+
+\subsection*{1.4 \ Für OC-SVM und SVDD gilt:}
+\mcbox SVDD findet eine Kugel minimalen Volumens um die Normaldaten; bei Verwendung
+des Gauß-Kernels sind SVDD und OC-SVM äquivalent.
+
+\mcbox Die OC-SVM benötigt zwingend gelabelte Anomalien im Training.
+
+\mcbox Die OC-SVM mit linearem Kernel ist in der Praxis die Standardwahl.
+
+Begründung:
+\antwortlinien{2}
+
+\section*{Aufgabe 2 -- SVM von Hand (Zwei-Klassen-Fall)}
+
+Sie übernehmen die Rolle einer SVM mit linearem Kernel und sehr hohem Straffaktor
+(z.\,B. $C=1000$). Die Trainingspunkte sind unten eingezeichnet
+($\times$ = Klasse $+1$, $\bullet$ = Klasse $-1$).
+
+\begin{center}
+\begin{tikzpicture}[scale=1.0]
+\draw[->] (-0.5,0) -- (6.5,0) node[right] {$x_1$};
+\draw[->] (0,-0.5) -- (0,5.5) node[above] {$x_2$};
+\draw[help lines,step=1] (0,0) grid (6,5);
+\foreach \x in {1,...,6} \node[below] at (\x,0) {\small \x};
+\foreach \y in {1,...,5} \node[left] at (0,\y) {\small \y};
+\foreach \p in {(3,3),(4,4),(4,2),(5,3),(5,5)} \node at \p {$\times$};
+\foreach \p in {(1,1),(0.5,2),(2,0.5),(1.5,1.8),(0.7,0.7)} \fill \p circle (2.5pt);
+\end{tikzpicture}
+\end{center}
+
+a) Markieren Sie die Support Vektoren, zeichnen Sie die beiden durch sie definierten
+Parallelgeraden sowie die optimale Trennungsgerade ein.
+
+b) $C$ wird nun schrittweise stark reduziert. Beschreiben Sie die möglichen Auswirkungen
+auf Trenngerade und Klassifikationseigenschaften sowie die Gefahr eines zu kleinen $C$.
+\antwortlinien{4}
+
+c) Beschreiben Sie kurz den Kernel-Trick und begründen Sie, warum er in dieser Aufgabe
+nicht benötigt wird.
+\antwortlinien{3}
+
+d) Ein neuer Punkt liegt bei $(2{,}5,\ 2{,}5)$. Nahe an welcher Seite der Trenngeraden liegt
+er, und was folgt daraus für seine Klassifikation?
+\antwortlinien{2}
+
+\section*{Aufgabe 3 -- OC-SVM von Hand}
+
+Die 100 normalen Trainingspunkte bilden im Plot eine kompakte Wolke; es gibt keine
+zweite Klasse.
+
+\begin{center}
+\begin{tikzpicture}[scale=1.0]
+\draw[->] (-0.5,0) -- (6.5,0) node[right] {$x_1$};
+\draw[->] (0,-0.5) -- (0,5.5) node[above] {$x_2$};
+\foreach \p in {(3,3),(3.4,3.2),(2.8,3.5),(3.6,2.8),(3.1,2.6),(2.6,3.1),(3.8,3.4),(3.3,3.8),(2.9,2.9),(3.5,3.6),(2.7,2.7),(3.2,3.3),(3.7,3.1),(3.0,3.6),(2.5,3.3)}
+  \fill \p circle (2pt);
+\fill (1.2,1.0) circle (2pt);
+\node[below right] at (1.2,1.0) {\small $p_1$};
+\end{tikzpicture}
+\end{center}
+
+a) Skizzieren Sie qualitativ die Entscheidungsgrenze einer OC-SVM mit RBF-Kernel und gut
+gewähltem $\nu$ (z.\,B. $\nu = 0{,}05$) und markieren Sie, wo Normaldaten und wo Anomalien
+liegen würden.
+
+b) Welche Bedeutung hat $\nu$ (zwei Schranken aus der Vorlesung)? Was passiert qualitativ
+bei $\nu = 0{,}5$?
+\antwortlinien{4}
+
+c) Der Punkt $p_1$ liegt in den Trainingsdaten. Wie geht die OC-SVM mit solchen
+\glqq schwierigen\grqq{} Trainingspunkten um, wenn $\nu$ passend gewählt ist?
+\antwortlinien{2}
+
+d) Warum ist die OC-SVM mit \emph{linearem} Kernel meist nicht praktikabel?
+(Stichwort Trennung vom Ursprung)
+\antwortlinien{3}
+
+e) Warum ist der Kernel-Trick (RBF) für OC-SVMs in der Praxis notwendig?
+Gehen Sie auf die Abbildung auf die Einheitskugel ein.
+\antwortlinien{4}
+
+\section*{Aufgabe 4 -- Einfluss von $\boldsymbol{\gamma}$}
+
+Der RBF-Kernel lautet $k(\boldsymbol{a},\boldsymbol{b}) = e^{-\gamma\,\|\boldsymbol{a}-\boldsymbol{b}\|^2}$.
+
+a) Was beschreibt $\gamma$ anschaulich (Einfluss der Nachbarschaft)?
+\antwortlinien{2}
+
+b) Beschreiben Sie qualitativ die Entscheidungsgrenze einer OC-SVM bei viel zu großem
+und bei viel zu kleinem $\gamma$.
+\antwortlinien{3}
+
+c) In welchen Intervallen werden $C$ bzw. $\gamma$ bei der Metaparameteroptimierung
+typischerweise getestet?
+\antwortlinien{2}
+
+\section*{Aufgabe 5 -- Kernel-Trick nachrechnen}
+
+Für die Transformation
+$\phi(\boldsymbol{x}) = \bigl(x_1^2,\ x_2^2,\ \sqrt{2}\,x_1 x_2\bigr)^T$
+gilt $k(\boldsymbol{a},\boldsymbol{b}) = (\boldsymbol{a}^T\boldsymbol{b})^2 = \phi(\boldsymbol{a})^T\phi(\boldsymbol{b})$.
+
+a) Verifizieren Sie diese Gleichheit für $\boldsymbol{a}=(1,2)^T$ und $\boldsymbol{b}=(3,1)^T$,
+indem Sie beide Seiten ausrechnen.
+\antwortlinien{3}
+
+b) Worin liegt der rechnerische Vorteil des Kernel-Tricks allgemein?
+\antwortlinien{2}
+
+c) An welcher Stelle der SVM-Zielfunktion bzw. Entscheidungsfunktion tauchen die
+Trainingspunkte nur noch als Skalarprodukte auf -- und warum ermöglicht genau das den
+Kernel-Trick?
+\antwortlinien{3}
+
+\section*{Aufgabe 6 -- Eigenschaften einordnen}
+
+Nennen Sie aus der Vorlesung:
+
+a) drei Stärken der SVM,
+\antwortlinien{3}
+
+b) drei Schwächen bzw. Vorsichtspunkte (mindestens einen zur Datenvorverarbeitung),
+\antwortlinien{3}
+
+c) die passenden scikit-learn-Klassen für: Zwei-Klassen-SVM mit $C$, Zwei-Klassen-SVM mit
+$\nu$, One-Class-SVM.
+\antwortlinien{2}
+
+\vspace{10pt}
+\begin{center}
+\footnotesize\itshape
+Nach Bearbeitung: Antworten an Claude schicken (Foto genügt) -- Korrektur mit Begründungs-Check.
+\end{center}
+
+\end{document}

@@ -1,0 +1,187 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage[margin=1.7cm,top=1.5cm,bottom=1.7cm]{geometry}
+\usepackage{titlesec}
+\titleformat*{\section}{\normalfont\large\bfseries}
+\titleformat*{\subsection}{\normalfont\normalsize\bfseries}
+\titlespacing*{\section}{0pt}{8pt}{3pt}
+\titlespacing*{\subsection}{0pt}{6pt}{2pt}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+\usepackage{needspace}
+
+\definecolor{ampelrot}{RGB}{190,30,45}
+\definecolor{hellgrau}{RGB}{245,245,245}
+
+\newcommand{\stolper}{\textcolor{ampelrot}{\textbf{Stolperfalle:}} }
+\newcommand{\folie}[1]{\textcolor{gray}{\footnotesize(#1)}}
+\newcommand{\checkbox}{\raisebox{-1pt}{\fbox{\rule{0pt}{7pt}\rule{7pt}{0pt}}}\hspace{6pt}}
+
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\bfseries,
+  commentstyle=\itshape\color{gray},
+  showstringspaces=false,
+  frame=single,
+  framerule=0.3pt,
+  xleftmargin=8pt,
+  framexleftmargin=6pt,
+  aboveskip=4pt,
+  belowskip=4pt
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small MDT5/2 -- Session 1: Einführung \& Normalisierung}
+\fancyhead[R]{\small Nacharbeit \& Blatt-\textcircled{\footnotesize 1}-Ergänzungen}
+\fancyfoot[C]{\small Seite \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\setlist[itemize]{itemsep=2pt,topsep=2pt}
+
+\begin{document}
+
+\begin{center}
+  {\Large\bfseries Nacharbeit zu Übungsblatt 1}\\[4pt]
+  {\large Teil 1: Nacharbeiten \quad$\cdot$\quad Teil 2: Ergänzungen für das handschriftliche Blatt \textcircled{\small 1}}\\[4pt]
+  \small Basis: Korrektur vom 08.07.2026 -- Folienverweise auf Kapitel 1 (Einführung) und Kapitel 2 (Normalisierung)
+\end{center}
+
+\section*{Teil 1 -- Was nacharbeiten? (nach Priorität)}
+
+\subsection*{1. \ Einziger echter Fehler: Aufgabe 2e -- Hauptanwendungen der Outlier Detection \folie{Folie 32}}
+\begin{itemize}
+  \item[\checkbox] \textbf{1. Knowledge Discovery in Databases (KDD):} große ungelabelte Datenmenge (z.\,B. Kaufverhalten) $\to$ Auffälligkeiten finden $\to$ neue Einblicke gewinnen.
+  \item[\checkbox] \textbf{2. Bereinigung der Trainingsdaten:} vereinzelt falsche Labels verschlechtern Ergebnisse enorm $\to$ Ausreißer finden \& vom Training ausschließen (z.\,B. Outlier Detection pro Klasse).
+  \item Merkhilfe: Aufgabe 7b (Kreditkarten, \glqq lohnende Auffälligkeiten\grqq) \emph{ist} die KDD-Anwendung.
+\end{itemize}
+
+\subsection*{2. \ Aufgabe 2a war leer: Mengendiagramm einmal selbst zeichnen \folie{Folie 4}}
+\begin{itemize}
+  \item[\checkbox] Struktur: KI = große Menge; darin \textbf{zwei getrennte} Blasen: \glqq Wissensbasierte Systeme / Expertensysteme\grqq{} und \glqq Maschinelles Lernen\grqq; \textbf{Deep Learning vollständig innerhalb ML}.
+  \item \stolper Expertensysteme sind KI, aber \textbf{kein} ML.
+\end{itemize}
+
+\subsection*{3. \ Aufgabe 5 war leer: Verfahrenslandkarte aus dem Gedächtnis nachziehen \folie{Folie 33}}
+\begin{itemize}
+  \item[\checkbox] Merkregel anwenden: \textbf{Deep = tiefes neuronales Netz im Verfahren, Shallow = alles andere} (Statistik, Distanzen, Kernel). Tabelle siehe Teil 2 -- erst selbst ausfüllen, dann abgleichen.
+\end{itemize}
+
+\subsection*{4. \ Praktikum 01a/01b nachholen (noch offen) $\to$ schließt Aufgabe 6a--c}
+\begin{itemize}
+  \item[\checkbox] \texttt{a.shape} $=$ \texttt{(2, 3)} -- (Zeilen, Spalten).
+  \item[\checkbox] \texttt{np.mean(a, axis=0)} $=$ \texttt{[2.5, 3.5, 4.5]}, Shape \texttt{(3,)}; \ \texttt{axis=1} $=$ \texttt{[2., 5.]}, Shape \texttt{(2,)}. Merkregel: \textbf{axis = die Achse, die verschwindet}.
+  \item[\checkbox] \texttt{a + np.array([10, 20, 30])} $=$ \texttt{[[11, 22, 33], [14, 25, 36]]} -- \textbf{Broadcasting} (Zeilenvektor wird auf jede Zeile gestreckt).
+  \item[\checkbox] Notation: \texttt{a[:, 1]} ist \textbf{ein} flaches Array \texttt{[2 5]}, nicht zwei einzelne Werte.
+\end{itemize}
+
+\subsection*{5. \ Begründungs-Präzision (Punkte gibt es nur mit zutreffender Begründung!)}
+\begin{itemize}
+  \item[\checkbox] \textbf{fit vs.\ transform sprachlich trennen:} Scaler wird nur auf Trainingsdaten \emph{gefittet}, aber auf Train- \emph{und} Testdaten \emph{angewandt} (\texttt{transform}). \glqq Nur auf Trainingsdaten angewandt\grqq{} ist falsch formuliert.
+  \item[\checkbox] \textbf{Warum verlässt Min-Max den Bereich $[0;1]$?} Weil $10 >$ Trainings-Maximum $8$ -- \emph{nicht} wegen $\sigma$ ($\sigma$ gehört zur Z-Transformation). Bei Anomalieerkennung erwartet: neue Werte außerhalb des trainierten Normalbereichs.
+  \item[\checkbox] \textbf{Z-Transformation ist immer} $\frac{x-\mu}{\sigma}$ -- ohne Faktor 3. Die $3\sigma$-Regel ist eine \emph{Schwellwert-Konvention} zur Ausreißer-Entscheidung, nicht Teil der Transformation.
+  \item[\checkbox] \textbf{Aufgabe 4A sauber benennen:} Problem = \emph{Data Leakage} (Information aus Testdaten fließt in die Normalisierung $\to$ Evaluation nicht mehr aussagekräftig), nicht Overfitting des Modells.
+  \item[\checkbox] \textbf{2d nicht zirkulär begründen} \folie{Folie 28}: kein überwachtes Lernen, weil (1) im Training \emph{sehr wenige bis keine Anomaliedaten} vorliegen und (2) \emph{Ausprägungen der Anomalien zum Teil unbekannt} sind -- beide Klassen können gar nicht gelabelt bereitgestellt werden.
+  \item[\checkbox] \textbf{1.1-Widerlegung Expertensystem:} braucht \emph{kaum Daten} -- Regeln stammen aus Expertenwissen \folie{Folie 8}.
+  \item[\checkbox] \textbf{1.3-Feinheit:} Punktanomalien weichen \emph{isoliert} ab, nur Kontextanomalien brauchen den Kontext -- \glqq immer im Kontext\grqq{} ist zu pauschal \folie{Folie 27}.
+\end{itemize}
+
+\newpage
+
+\section*{Teil 2 -- Ergänzungen für das handschriftliche Blatt \textcircled{\small 1}}
+
+\emph{Reihenfolge = empfohlene Blatt-Anordnung. Deine m.H.-Stellen (1.1, 2b, 2c, 2d) sind unten alle abgedeckt -- damit entfällt das Suchen in den Notizen.}
+
+\subsection*{A \ Verfahrenslandkarte \folie{Folie 33} -- Kernstück des Blatts}
+
+\renewcommand{\arraystretch}{1.3}
+\begin{center}
+\begin{tabular}{|>{\bfseries}p{1.5cm}|p{2.9cm}|p{2.9cm}|p{2.9cm}|p{2.9cm}|}
+\hline
+ & \textbf{Distanz} & \textbf{Probabilistisch} & \textbf{Rekonstruktion} & \textbf{Klassifikation} \\
+\hline
+Deep & --- & \multicolumn{2}{c|}{f-AnoGAN \ $\cdot$ \ (VAE)$^{*}$} & CutPaste \\
+ & & \multicolumn{1}{r}{} & Autoencoder & GOAD \\
+ & & & & Deep SVDD \\
+\hline
+Shallow & k-NN & Histogramm & (PCA) & OC-SVM \\
+ & (LOF) & Mahalanobis & (k-Means) & SVDD \\
+ & iForest & KDE & & \\
+ & (Matrix Profiles) & GMM & & \\
+\hline
+\end{tabular}
+\end{center}
+{\footnotesize $^{*}$ f-AnoGAN und VAE auf der Folie als gestrichelte Kästen \emph{über beiden Spalten} Probabilistisch/Rekonstruktion -- genauso zeichnen. Klammern wie auf der Folie.}
+
+\begin{itemize}
+  \item \textbf{Merkregel:} Deep $\Leftrightarrow$ tiefes neuronales Netz im Verfahren.
+  \item \stolper SVDD \& OC-SVM sind \textbf{shallow} (Kernel-Methoden!), erst \textbf{Deep} SVDD ist deep.
+  \item \stolper PCA \& k-Means zählen als \textbf{Rekonstruktion} (Projektions-/Zentrumsfehler als Score).
+\end{itemize}
+
+\subsection*{B \ Mengendiagramm \folie{Folie 4}}
+KI $\supset$ \{Expertensysteme\} und \{ML $\supset$ DL\} -- zwei getrennte Blasen. Merksatz: \emph{Expertensysteme = KI, kein ML; Regeln aus Wissen, kaum Daten nötig.}
+
+\subsection*{C \ Lernparadigmen: Was wird wo gelernt? \folie{Folien 8, 15, 20} -- deine m.H.-Stelle 1.1}
+
+\renewcommand{\arraystretch}{1.2}
+\begin{center}
+\begin{tabular}{|p{3.4cm}|c|c|c|}
+\hline
+ & \textbf{Vorverarbeitung} & \textbf{Merkmale} & \textbf{Klassifikation} \\
+\hline
+Expertensystem & manuell & manuell & manuell \\
+Klassisches ML & manuell & manuell & \textbf{gelernt} \\
+Deep Learning & manuell & \textbf{gelernt} & \textbf{gelernt} \\
+\hline
+\end{tabular}
+\end{center}
+{\footnotesize Auch beim DL bleibt die Vorverarbeitung manuell! Expertensystem: kaum Daten nötig (wissensbasiert); DL: sehr viele Daten, kaum nachvollziehbar.}
+
+\subsection*{D \ Mustererkennungspipeline \folie{Folie 7} -- deine m.H.-Stelle 2b}
+\begin{itemize}
+  \item \textbf{Vorverarbeitung:} Normalisierung (z.\,B. $[0;1]$), Formatanpassung, Konvertierungen
+  \item \textbf{Merkmalsextraktion:} Reduzierung der Information, Hervorheben wichtiger Bestandteile, Dimensionsreduktion, bessere Trennung
+  \item \textbf{Klassifikation:} automatische Entscheidung, Zuweisung einer bekannten Kategorie/Klasse (hier: Normal oder Anomalie)
+\end{itemize}
+
+\subsection*{E \ Anomalie-Grundbegriffe \folie{Folien 25, 27, 28, 31, 32} -- deine m.H.-Stellen 2c, 2d}
+\begin{itemize}
+  \item \textbf{Chandola et al.:} \glqq Patterns in data that do not conform to a well defined notion of normal behavior.\grqq
+  \item \textbf{Punktanomalie} (weicht isoliert ab) vs.\ \textbf{Kontextanomalie} (erst im Kontext Anomalie oder eben keine -- Bsp.\ Weihnachtsausgaben).
+  \item \textbf{Kein überwachtes Lernen, weil:} kaum/keine Anomaliedaten im Training; Ausprägungen z.\,T. unbekannt ($\to$ unüberwachte Verfahren).
+  \item \textbf{Novelty Detection} (= OOD, Ein-Klassen-Problem): Training \emph{nur Normaldaten}; gelernt wird, was normal ist; erkennt auch das \emph{unbekannte Unbekannte}. $\to$ Schwerpunkt des Kurses!
+  \item \textbf{Outlier Detection:} Training ungelabelt, Normal/Anomalie auch im Training unbekannt. \textbf{Hauptanwendungen: 1.\ KDD, 2.\ Bereinigung der Trainingsdaten.}
+  \item \textbf{Entscheidungsfrage bei Transferaufgaben:} \emph{Datenlage beim Bau des Systems} -- nur Normaldaten vorhanden $\to$ Novelty; ungelabelt \& gemischt $\to$ Outlier.
+\end{itemize}
+
+\subsection*{F \ Normalisierung: Formeln + Code \folie{Kapitel 2, Folien 3, 5}}
+\begin{itemize}
+  \item \textbf{Min-Max auf $[0;1]$:} $x' = \frac{x - \min}{\max - \min}$ \quad ($\min/\max$ aus den \emph{Trainingsdaten}!) \quad sklearn: \texttt{MinMaxScaler}
+  \item \textbf{Z-Transformation:} $x' = \frac{x - \mu}{\sigma}$ \quad ($\mu/\sigma$ aus den \emph{Trainingsdaten}; Ergebnis = Faktor der Standardabweichung; kein garantierter Bereich!) \quad sklearn: \texttt{StandardScaler}
+  \item \textbf{Regel:} \texttt{fit()} nur auf Train $\cdot$ \texttt{transform()} auf Train \emph{und} Test $\cdot$ \texttt{fit} auf Test = \textbf{Data Leakage}.
+\end{itemize}
+\begin{lstlisting}
+scaler = StandardScaler()
+scaler.fit(train_x)                    # nur Train!
+train_n = scaler.transform(train_x)
+test_n  = scaler.transform(test_x)     # gleiche Parameter
+\end{lstlisting}
+
+\subsection*{G \ NumPy-Merkregeln (Praktikum 01b -- Notebooks nicht in der Klausur!)}
+\begin{itemize}
+  \item \texttt{shape} = (Zeilen, Spalten); \ \texttt{mean(axis=k)}: \textbf{Achse k verschwindet} (axis=0 $\to$ ein Wert pro Spalte).
+  \item \textbf{Broadcasting:} passender Zeilenvektor wird automatisch auf alle Zeilen gestreckt.
+  \item \texttt{reshape}: behält \emph{zeilenweise Lesereihenfolge}, füllt neu ein; \ \texttt{.T}: \emph{vertauscht Achsen} $\to$ verschiedene Ergebnisse trotz gleicher Shape.\\
+  Bsp.\ \texttt{[[1,2,3],[4,5,6]]}: \ reshape(3,2) $\to$ \texttt{[[1,2],[3,4],[5,6]]}, \ aber \texttt{.T} $\to$ \texttt{[[1,4],[2,5],[3,6]]}
+\end{itemize}
+
+\end{document}

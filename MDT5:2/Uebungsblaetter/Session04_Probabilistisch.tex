@@ -1,0 +1,211 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage[margin=1.7cm,top=1.5cm,bottom=1.7cm]{geometry}
+\usepackage{titlesec}
+\titleformat*{\section}{\normalfont\large\bfseries}
+\titleformat*{\subsection}{\normalfont\normalsize\bfseries}
+\titlespacing*{\section}{0pt}{8pt}{3pt}
+\titlespacing*{\subsection}{0pt}{6pt}{2pt}
+\usepackage{amsmath,amssymb}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+\usepackage{needspace}
+
+\newcommand{\mcbox}{\raisebox{-1pt}{\fbox{\rule{0pt}{7pt}\rule{7pt}{0pt}}}\hspace{6pt}}
+\newcommand{\antwortlinien}[1]{%
+  \par\vspace{2pt}%
+  \newcount\zeilen \zeilen=#1
+  \loop
+    \noindent\rule{\linewidth}{0.4pt}\par\vspace{11pt}%
+    \advance\zeilen by -1
+  \ifnum\zeilen>0 \repeat
+}
+\lstset{language=Python,basicstyle=\ttfamily\footnotesize,keywordstyle=\bfseries,
+  commentstyle=\itshape\color{gray},showstringspaces=false,frame=single,
+  framerule=0.3pt,xleftmargin=8pt,framexleftmargin=6pt,aboveskip=6pt,belowskip=6pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small MDT5/2 -- Session 4: Probabilistische Verfahren}
+\fancyhead[R]{\small Übungsaufgaben zur Klausurvorbereitung}
+\fancyfoot[C]{\small Seite \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+\begin{center}
+  {\Large\bfseries Übungsaufgaben Session 4}\\[4pt]
+  {\large Kapitel 6: 3$\sigma$-Regel, Mahalanobis, Histogramm, KDE, GMM -- Praktikum 04}\\[4pt]
+  \small Stil der Übungssammlung MDT5/2 -- generierte Aufgaben, keine Originale
+\end{center}
+
+\vspace{4pt}
+
+\section*{Aufgabe 1 -- Multiple Choice mit Begründung}
+\emph{Markieren Sie jeweils die einzige richtige von drei Aussagen und begründen Sie Ihre Entscheidung.}
+
+\subsection*{1.1 \ Für Wahrscheinlichkeitsdichtefunktionen (PDFs) gilt:}
+\mcbox Eine PDF kann an einzelnen Stellen Werte größer als 1 annehmen, solange die
+Gesamtfläche 1 ergibt.
+
+\mcbox PDF-Werte sind direkt Wahrscheinlichkeiten und liegen deshalb immer zwischen 0 und 1.
+
+\mcbox Die Wahrscheinlichkeit für einen exakten Einzelwert einer stetigen Zufallsvariablen
+ist gleich dem Funktionswert der PDF.
+
+Begründung:
+\antwortlinien{2}
+
+\subsection*{1.2 \ Für Kernel Density Estimation (KDE) gilt:}
+\mcbox Die Bandbreite $h$ ist der wichtigste Metaparameter und kann unüberwacht z.\,B.
+per GridSearchCV über die mittlere log-Dichte der Trainingspunkte eingestellt werden.
+
+\mcbox KDE kann nur unimodale Verteilungen schätzen.
+
+\mcbox Die Bandbreite spielt kaum eine Rolle, solange die Daten normalverteilt sind.
+
+Begründung:
+\antwortlinien{2}
+
+\subsection*{1.3 \ Für den Elliptic Envelope / Mahalanobis-Ansatz gilt:}
+\mcbox Er funktioniert nur bei unimodalen (Normal-)Verteilungen der Normaldaten zuverlässig.
+
+\mcbox Er berücksichtigt keine Abhängigkeiten zwischen den Merkmalen.
+
+\mcbox Der Parameter \texttt{contamination} gibt die Anzahl der Cluster an.
+
+Begründung:
+\antwortlinien{2}
+
+\subsection*{1.4 \ Für Gaussian Mixture Models (GMMs) gilt:}
+\mcbox Das EM-Training ist schnell und konvergiert garantiert im globalen Minimum.
+
+\mcbox Ein GMM schätzt die Dichte als Mischung aus so vielen unimodalen Normalverteilungen,
+wie Cluster gewählt wurden; neue Punkte erhalten die berechnete Dichte als Score.
+
+\mcbox Die Anzahl der Komponenten wird beim EM-Algorithmus automatisch mitgelernt.
+
+Begründung:
+\antwortlinien{2}
+
+\section*{Aufgabe 2 -- 3$\boldsymbol{\sigma}$-Daumenregel rechnen}
+
+Für ein skalares Merkmal wurden aus den normalen Trainingsdaten
+$\hat\mu = 10$ und $\hat\sigma = 2$ geschätzt.
+
+a) Beurteilen Sie mit der Daumenregel aus der Vorlesung die neuen Messwerte
+$x_1 = 13$, $x_2 = 17$ und $x_3 = 3{,}5$.
+\antwortlinien{3}
+
+b) Die Daumenregel wird nun auf jedes Merkmal eines 2D-Problems einzeln angewendet.
+Welche implizite Annahme über die Merkmale steckt dahinter, und welche geometrische Form
+hat der resultierende Normalbereich?
+\antwortlinien{3}
+
+c) Skizzieren Sie 2D-Normaldaten mit stark korrelierten Merkmalen und zeichnen Sie ein,
+warum die achsenparallele Box aus b) dann Anomalien \glqq durchlässt\grqq{} --
+und welche Form der Mahalanobis-Ansatz stattdessen liefert.
+
+\vspace{5cm}
+
+\section*{Aufgabe 3 -- Mahalanobis-Abstand}
+
+a) Geben Sie die Formel des Mahalanobis-Abstands an und erklären Sie die intuitive
+Interpretation (\glqq Abstand in \dots\grqq).
+\antwortlinien{3}
+
+b) Warum entsteht der Mahalanobis-Abstand auf natürliche Weise beim Logarithmieren der
+multivariaten Normalverteilungs-PDF?
+\antwortlinien{3}
+
+c) scikit-learn bietet \texttt{EmpiricalCovariance} und \texttt{MinCovDet} zur Schätzung
+der Kovarianzmatrix. Worin unterscheiden sie sich?
+\antwortlinien{2}
+
+d) Wozu dient beim \texttt{EllipticEnvelope} der Parameter \texttt{contamination}
+und warum verbessert er die Anpassung gegenüber der starren 3$\sigma$-Grenze?
+\antwortlinien{3}
+
+\section*{Aufgabe 4 -- KDE verstehen}
+
+Die KDE-Schätzung lautet
+$KDE(x) = \frac{1}{Nh}\sum_{i=1}^{N} k\!\left(\frac{x - t_i}{h}\right)$
+mit Gauß-Kernel $k$.
+
+a) Erklären Sie die Rolle der Trainingspunkte $t_i$, der Bandbreite $h$ und der
+Normalisierung $\frac{1}{Nh}$.
+\antwortlinien{3}
+
+b) Was passiert qualitativ mit der geschätzten Dichte, wenn $h$ viel zu klein bzw.
+viel zu groß gewählt wird? (Stichwort Overfitting/Underfitting)
+\antwortlinien{3}
+
+c) Wie werden bei \texttt{sklearn.neighbors.KernelDensity} Anomalie-Scores für neue
+Punkte gewonnen (welche Methode, welche Größe)?
+\antwortlinien{2}
+
+\section*{Aufgabe 5 -- Verfahrenswahl zu Plots}
+
+Skizziert sind normale Trainingsdaten zweier Szenarien:
+
+\begin{center}
+\begin{tikzpicture}[scale=0.62]
+% Szenario 1: banane
+\draw[->] (-0.5,0) -- (7,0) node[right] {\small $x_1$};
+\draw[->] (0,-0.5) -- (0,5) node[above] {\small $x_2$};
+\node at (3.5,-1.2) {\small Szenario 1};
+\foreach \a in {10,25,...,170} {
+  \fill ({3+2.6*cos(\a)},{0.6+2.9*sin(\a)}) circle (2pt);
+  \fill ({3+2.2*cos(\a)},{0.6+2.4*sin(\a)}) circle (2pt);
+}
+\begin{scope}[xshift=9.5cm]
+% Szenario 2: zwei kompakte Cluster
+\draw[->] (-0.5,0) -- (7,0) node[right] {\small $x_1$};
+\draw[->] (0,-0.5) -- (0,5) node[above] {\small $x_2$};
+\node at (3.5,-1.2) {\small Szenario 2};
+\foreach \p in {(1.2,1.0),(1.5,1.3),(1.0,1.5),(1.8,1.1),(1.4,0.8),(1.7,1.6),(1.1,1.2),(1.6,0.9)}
+  \fill \p circle (2pt);
+\foreach \p in {(5.2,3.6),(5.5,3.9),(5.0,4.1),(5.8,3.7),(5.4,3.4),(5.7,4.2),(5.1,3.8),(5.6,3.5)}
+  \fill \p circle (2pt);
+\end{scope}
+\end{tikzpicture}
+\end{center}
+
+Beurteilen Sie für beide Szenarien jeweils, ob (i) Elliptic Envelope / Mahalanobis,
+(ii) KDE und (iii) GMM eine dichte Beschreibung der Normaldaten erwarten lassen.
+Begründen Sie jede Entscheidung.
+
+Szenario 1:
+\antwortlinien{4}
+
+Szenario 2:
+\antwortlinien{4}
+
+\section*{Aufgabe 6 -- EM-Algorithmus sortieren}
+
+Bringen Sie die folgenden Schritte des GMM-Trainings in die richtige Reihenfolge
+(1--5) und beschreiben Sie kurz, was im Expectation- und im Maximization-Schritt passiert:
+
+\begin{itemize}
+  \item[$\square$] Aktualisiere die Verteilungsparameter per Maximum-Likelihood anhand der
+  Punkte mit den jeweils höchsten Wahrscheinlichkeiten (Maximization)
+  \item[$\square$] Wähle Anzahl an Clustern bzw. Modi
+  \item[$\square$] Berechne für jeden Datenpunkt die Wahrscheinlichkeit für jede Verteilung
+  (Expectation)
+  \item[$\square$] Wähle initiale Parameter pro Cluster (z.\,B. durch Vorlauf von k-Means)
+  \item[$\square$] Wiederhole bis Konvergenz oder maximale Iterationszahl erreicht
+\end{itemize}
+\antwortlinien{3}
+
+\vspace{10pt}
+\begin{center}
+\footnotesize\itshape
+Nach Bearbeitung: Antworten an Claude schicken (Foto genügt) -- Korrektur mit Begründungs-Check.
+\end{center}
+
+\end{document}

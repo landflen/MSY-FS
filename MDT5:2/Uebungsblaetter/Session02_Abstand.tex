@@ -1,0 +1,212 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage[margin=1.7cm,top=1.5cm,bottom=1.7cm]{geometry}
+\usepackage{titlesec}
+\titleformat*{\section}{\normalfont\large\bfseries}
+\titleformat*{\subsection}{\normalfont\normalsize\bfseries}
+\titlespacing*{\section}{0pt}{8pt}{3pt}
+\titlespacing*{\subsection}{0pt}{6pt}{2pt}
+\usepackage{amsmath,amssymb}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+\usepackage{needspace}
+
+\newcommand{\mcbox}{\raisebox{-1pt}{\fbox{\rule{0pt}{7pt}\rule{7pt}{0pt}}}\hspace{6pt}}
+\newcommand{\antwortlinien}[1]{%
+  \par\vspace{2pt}%
+  \newcount\zeilen \zeilen=#1
+  \loop
+    \noindent\rule{\linewidth}{0.4pt}\par\vspace{11pt}%
+    \advance\zeilen by -1
+  \ifnum\zeilen>0 \repeat
+}
+\lstset{language=Python,basicstyle=\ttfamily\footnotesize,keywordstyle=\bfseries,
+  commentstyle=\itshape\color{gray},showstringspaces=false,frame=single,
+  framerule=0.3pt,xleftmargin=8pt,framexleftmargin=6pt,aboveskip=6pt,belowskip=6pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small MDT5/2 -- Session 2: Abstandsbasierte Verfahren}
+\fancyhead[R]{\small Übungsaufgaben zur Klausurvorbereitung}
+\fancyfoot[C]{\small Seite \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+\begin{center}
+  {\Large\bfseries Übungsaufgaben Session 2}\\[4pt]
+  {\large Kapitel 3a/4: k-NN, LOF, Isolation Forest, Matrix Profiles -- Praktikum 02}\\[4pt]
+  \small Stil der Übungssammlung MDT5/2 -- generierte Aufgaben, keine Originale
+\end{center}
+
+\vspace{4pt}
+
+\section*{Aufgabe 1 -- Multiple Choice mit Begründung}
+\emph{Markieren Sie jeweils die einzige richtige von drei Aussagen und begründen Sie Ihre Entscheidung.}
+
+\subsection*{1.1 \ Für k-Nearest-Neighbor zur Novelty Detection gilt:}
+\mcbox Das Training ist aufwendig, dafür ist die Anwendung auf neue Punkte sehr schnell.
+
+\mcbox Im Training werden lediglich alle normalen Trainingspunkte gespeichert; als Anomalie-Score
+kann z.\,B. der mittlere Abstand eines neuen Punkts zu seinen $k$ nächsten Trainingspunkten dienen.
+
+\mcbox Das Verfahren funktioniert umso besser, je höher die Anzahl der Dimensionen ist.
+
+Begründung:
+\antwortlinien{2}
+
+\subsection*{1.2 \ Für den Local Outlier Factor (LOF) gilt:}
+\mcbox Ein LOF deutlich größer als 1 bedeutet, dass die lokale Dichte des Punkts deutlich
+niedriger ist als die seiner Nachbarn -- der Punkt ist ein Ausreißer.
+
+\mcbox Ein LOF nahe 0 kennzeichnet einen typischen Ausreißer.
+
+\mcbox Der LOF vergleicht die Gesamtdichte aller Daten mit einem globalen Schwellwert.
+
+Begründung:
+\antwortlinien{2}
+
+\subsection*{1.3 \ Für Isolation Forests gilt:}
+\mcbox Anomalien erzeugen in den Isolation Trees im Mittel längere Pfade als Normalpunkte.
+
+\mcbox Eine Normalisierung der Eingabedaten ist für Isolation Forests essentiell.
+
+\mcbox Die Splits erfolgen an zufälligen Merkmalen mit zufälligen Schwellwerten; Anomalien
+lassen sich dadurch im Mittel mit weniger Splits isolieren.
+
+Begründung:
+\antwortlinien{2}
+
+\subsection*{1.4 \ Für die Reachability Distance des LOF gilt:}
+\mcbox Sie ist symmetrisch: $reach\_dist_k(\boldsymbol{p},\boldsymbol{o}) = reach\_dist_k(\boldsymbol{o},\boldsymbol{p})$ gilt immer.
+
+\mcbox Sie ist definiert als $\max\bigl(d_k(\boldsymbol{o}),\, d(\boldsymbol{p},\boldsymbol{o})\bigr)$ und damit nicht kommutativ.
+
+\mcbox Sie ist immer gleich dem euklidischen Abstand der beiden Punkte.
+
+Begründung:
+\antwortlinien{2}
+
+\section*{Aufgabe 2 -- k-NN-Score von Hand rechnen}
+
+Die Normaldaten im Training sind die vier Punkte
+$(0,0)$, $(0,2)$, $(2,0)$, $(2,2)$.
+Als Anomalie-Score wird der \textbf{mittlere euklidische Abstand zu den $k=2$ nächsten
+Trainingspunkten} verwendet.
+
+a) Berechnen Sie den Score für den neuen Punkt $(1,1)$.
+\antwortlinien{2}
+
+b) Berechnen Sie den Score für den neuen Punkt $(6,1)$.
+\antwortlinien{2}
+
+c) Bei welchem Schwellwert würden Sie intuitiv die Grenze zwischen normal und Anomalie ziehen
+und warum ist die Wahl des Schwellwerts generell problematisch ohne Validierungsdaten mit Anomalien?
+\antwortlinien{3}
+
+d) Nennen Sie zwei Schwächen von k-NN aus der Vorlesung.
+\antwortlinien{2}
+
+\section*{Aufgabe 3 -- Isolation-Forest-Score interpretieren}
+
+Der normalisierte Anomalie-Score eines Isolation Forests ist
+$s(\boldsymbol{x},n) = 2^{-\frac{E(h(\boldsymbol{x}))}{c(n)}}$,
+wobei $E(h(\boldsymbol{x}))$ die mittlere Pfadlänge des Punkts über alle Bäume und
+$c(n)$ die mittlere Pfadlänge einer erfolglosen Suche im Binärbaum ist.
+Gegeben sei $c(n) = 10{,}2$.
+
+a) Berechnen Sie $s$ für einen Punkt mit $E(h) = 3{,}4$ und interpretieren Sie das Ergebnis.
+\antwortlinien{2}
+
+b) Berechnen Sie $s$ für einen Punkt mit $E(h) = 10{,}2$ und interpretieren Sie das Ergebnis.
+\antwortlinien{2}
+
+c) Welche drei Grenzfälle für $s$ kennt die Vorlesung ($E(h)\to 0$, $E(h)\to c(n)$, $E(h)\to n-1$)
+und was bedeuten sie?
+\antwortlinien{3}
+
+d) Warum wird pro Baum Subsampling verwendet (guter Standardwert $n_{sub}=256$),
+und warum wird die maximale Baumtiefe auf $\log_2(n_{sub})$ begrenzt?
+\antwortlinien{3}
+
+\section*{Aufgabe 4 -- Wann LOF statt globalem k-NN?}
+
+Skizziert sind Normaldaten mit zwei unterschiedlich dichten Clustern und zwei Kandidatenpunkten
+$A$ und $B$:
+
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+\draw[->] (-0.5,0) -- (10.5,0) node[right] {$x_1$};
+\draw[->] (0,-0.5) -- (0,6.5) node[above] {$x_2$};
+% dichtes Cluster links unten
+\foreach \p in {(1,1),(1.3,1.4),(1.6,1.1),(1.2,1.8),(1.8,1.6),(1.5,1.3),(2,1.2),(1.7,1.9),(2.1,1.7),(1.4,0.9)}
+  \fill \p circle (2pt);
+% weites Cluster rechts oben
+\foreach \p in {(6,3.5),(7,4.5),(8,3.8),(6.5,5),(7.5,5.5),(8.5,4.8),(9,5.8),(6.2,4.2),(8.2,5.2),(9.3,4.4)}
+  \fill \p circle (2pt);
+% Kandidaten
+\node[draw,circle,inner sep=1.5pt] at (3,1.5) {};
+\node[above] at (3,1.7) {$A$};
+\node[draw,circle,inner sep=1.5pt] at (7.5,4.6) {};
+\node[above] at (7.5,4.8) {$B$};
+\end{tikzpicture}
+\end{center}
+
+a) Punkt $A$ hat zu seinen nächsten Nachbarn einen \emph{kleineren} mittleren Abstand als Punkt $B$
+zu seinen. Warum würde ein globales k-NN-Verfahren mit einem einzigen Schwellwert hier
+falsch entscheiden?
+\antwortlinien{3}
+
+b) Erklären Sie anhand der lokalen Dichten, wie der LOF die Punkte $A$ und $B$ bewerten würde.
+\antwortlinien{3}
+
+c) Ordnen Sie zu: Welcher scikit-learn-Aufruf gehört zu Outlier Detection, welcher zu Novelty
+Detection beim \texttt{LocalOutlierFactor}?
+(\texttt{fit\_predict} \,--\, \texttt{novelty=True} mit getrenntem \texttt{fit}/\texttt{predict})
+\antwortlinien{2}
+
+\section*{Aufgabe 5 -- Code-Verständnis}
+
+\Needspace*{7cm}
+Beurteilen Sie, ob der folgende Code für \textbf{Novelty Detection} (Training nur mit Normaldaten,
+Anwendung auf neue Daten) geeignet ist, und begründen Sie:
+
+\begin{lstlisting}
+from sklearn.ensemble import IsolationForest
+
+clf = IsolationForest(n_estimators=100,
+                      max_samples=256,
+                      contamination=0.01,
+                      random_state=42)
+clf.fit(normal_train_x)
+predictions = clf.predict(test_x)   # +1 = normal, -1 = Anomalie
+\end{lstlisting}
+
+a) Erläutern Sie die Bedeutung der Parameter \texttt{n\_estimators}, \texttt{max\_samples}
+und \texttt{contamination}.
+\antwortlinien{3}
+
+b) Ist der Ablauf (fit auf Normaldaten, predict auf Testdaten) für Novelty Detection korrekt?
+\antwortlinien{2}
+
+\section*{Aufgabe 6 -- Matrix Profiles (Zeitreihen)}
+
+a) Beschreiben Sie in eigenen Worten das Prinzip eines Matrix Profiles
+(Fenstergröße, Distanzen, gespeicherter Wert pro Position).
+\antwortlinien{4}
+
+b) Was sind \emph{Motifs}, was sind \emph{Discords}, und woran erkennt man sie im Matrix Profile?
+\antwortlinien{3}
+
+\vspace{10pt}
+\begin{center}
+\footnotesize\itshape
+Nach Bearbeitung: Antworten an Claude schicken (Foto genügt) -- Korrektur mit Begründungs-Check.
+\end{center}
+
+\end{document}

@@ -1,0 +1,190 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage[margin=1.7cm,top=1.5cm,bottom=1.7cm]{geometry}
+\usepackage{titlesec}
+\titleformat*{\section}{\normalfont\large\bfseries}
+\titleformat*{\subsection}{\normalfont\normalsize\bfseries}
+\titlespacing*{\section}{0pt}{8pt}{3pt}
+\titlespacing*{\subsection}{0pt}{6pt}{2pt}
+\usepackage{amsmath,amssymb}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+\usepackage{needspace}
+
+\newcommand{\mcbox}{\raisebox{-1pt}{\fbox{\rule{0pt}{7pt}\rule{7pt}{0pt}}}\hspace{6pt}}
+\newcommand{\antwortlinien}[1]{%
+  \par\vspace{2pt}%
+  \newcount\zeilen \zeilen=#1
+  \loop
+    \noindent\rule{\linewidth}{0.4pt}\par\vspace{11pt}%
+    \advance\zeilen by -1
+  \ifnum\zeilen>0 \repeat
+}
+\lstset{language=Python,basicstyle=\ttfamily\footnotesize,keywordstyle=\bfseries,
+  commentstyle=\itshape\color{gray},showstringspaces=false,frame=single,
+  framerule=0.3pt,xleftmargin=8pt,framexleftmargin=6pt,aboveskip=6pt,belowskip=6pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small MDT5/2 -- Session 7: GANs, AnoGAN, f-AnoGAN}
+\fancyhead[R]{\small Übungsaufgaben zur Klausurvorbereitung}
+\fancyfoot[C]{\small Seite \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+\begin{center}
+  {\Large\bfseries Übungsaufgaben Session 7}\\[4pt]
+  {\large Kapitel 7: Generative Adversarial Networks, AnoGAN, f-AnoGAN -- Praktikum 08}\\[4pt]
+  \small Stil der Übungssammlung MDT5/2 -- generierte Aufgaben, keine Originale
+\end{center}
+
+\vspace{4pt}
+
+\section*{Aufgabe 1 -- Multiple Choice mit Begründung}
+\emph{Markieren Sie jeweils die einzige richtige von drei Aussagen und begründen Sie Ihre Entscheidung.}
+
+\subsection*{1.1 \ Für das GAN-Training gilt:}
+\mcbox Generator und Discriminator werden gemeinsam mit einer einzigen Kostenfunktion
+per \texttt{fit} trainiert.
+
+\mcbox Generator und Discriminator spielen ein Minimax-Spiel und werden pro Trainingsschritt
+abwechselnd optimiert; die Kosten bleiben idealerweise auf beiden Seiten ungefähr konstant.
+
+\mcbox Sinkende Generator-Kosten bedeuten immer, dass die generierten Daten realistischer werden.
+
+Begründung:
+\antwortlinien{2}
+
+\subsection*{1.2 \ Für die Richtung der Abbildungen gilt:}
+\mcbox Ein Standard-GAN liefert eine Abbildung vom Latent Space in den Datenraum,
+aber keine Abbildung vom Datenraum in den Latent Space.
+
+\mcbox Der Discriminator bildet Daten in den Latent Space ab.
+
+\mcbox Der Generator benötigt zur Inference den Discriminator.
+
+Begründung:
+\antwortlinien{2}
+
+\subsection*{1.3 \ Für die Balance der beiden Netze gilt:}
+\mcbox Es ist optimal, wenn der Discriminator deutlich schneller lernt als der Generator.
+
+\mcbox Lernt der Discriminator zu schnell, erhält der Generator dauerhaft hohe Kosten und
+lernt nie, realistische Daten zu erzeugen.
+
+\mcbox Die Lerngeschwindigkeit beider Netze ist für den Trainingserfolg unerheblich.
+
+Begründung:
+\antwortlinien{2}
+
+\subsection*{1.4 \ Für AnoGAN und f-AnoGAN gilt:}
+\mcbox f-AnoGAN ersetzt die iterative Optimierung von $\boldsymbol{z}$ pro Sample durch einen
+trainierten Encoder und ist dadurch beim Scoring deutlich schneller.
+
+\mcbox AnoGAN berechnet den Score eines Samples mit einem einzigen Vorwärtsdurchlauf.
+
+\mcbox Beim f-AnoGAN werden im Encoder-Training auch die GAN-Parameter weiter optimiert.
+
+Begründung:
+\antwortlinien{2}
+
+\section*{Aufgabe 2 -- GAN-Training beschreiben}
+
+a) Beschreiben Sie die Rollen von Generator (Eingabe? Ausgabe? Architektur vergleichbar
+mit\,\dots?) und Discriminator (Eingabe? Ausgabe? Aufgabe?).
+\antwortlinien{4}
+
+b) Beschreiben Sie mit eigenen Worten einen kompletten Trainingsschritt eines GANs:
+Was wird generiert, was klassifiziert der Discriminator, welche Kosten entstehen für
+welches Netz, und wie werden die Netze aktualisiert?
+\antwortlinien{6}
+
+c) Warum ist es schwierig, das Trainingsende eines GANs anhand der Kostenverläufe
+zu beurteilen, und was macht man in der Praxis stattdessen?
+\antwortlinien{3}
+
+\section*{Aufgabe 3 -- DCGAN-Empfehlungen}
+
+Vervollständigen Sie die Empfehlungen für Deep Convolutional GANs aus der Vorlesung:
+
+a) Statt Pooling-Schichten verwendet man im Discriminator \rule{5cm}{0.4pt}
+und im Generator \rule{5cm}{0.4pt}.
+
+b) Typische Kernelgröße: \rule{2.5cm}{0.4pt}
+
+c) Aktivierungen im Generator: \rule{5cm}{0.4pt} (Ausnahme Ausgabeschicht: \rule{2.5cm}{0.4pt})
+
+d) Aktivierungen im Discriminator: \rule{5cm}{0.4pt}
+
+e) Zwei weitere Empfehlungen (Normalisierung, Schichttyp):
+\antwortlinien{2}
+
+\section*{Aufgabe 4 -- Generator-Architektur in Keras schreiben}
+
+Vervollständigen Sie die Funktion, indem Sie die Architektur des Generators angeben.
+Der Generator soll einen $\boldsymbol{z}$-Vektor der Größe 64 einlesen und daraus ein
+Bild der Größe $32\times32\times1$ erzeugen. Beginnen Sie mit einem Dense-Layer, dessen
+Ausgabe zu einer Shape von $(4, 4, 128)$ umgeformt wird. Das Upsampling soll nur mit
+transponierten Faltungen (Schrittweite 2) erfolgen; mit jeder Auflösungsverdopplung wird
+die Anzahl der Filter halbiert. Vor jeder Aktivierung (außer in der Ausgabeschicht) soll
+Batch Normalization erfolgen; Aktivierung ist immer ReLU. Die Ausgabeschicht soll eine
+Aktivierung verwenden, die nur Werte zwischen 0 und 1 erlaubt.
+Kernelgröße immer $5\times5$.
+
+\begin{lstlisting}
+def load_generator_architecture():
+
+    generator =
+\end{lstlisting}
+
+\vspace{9cm}
+
+\begin{lstlisting}
+    return generator
+\end{lstlisting}
+
+\section*{Aufgabe 5 -- AnoGAN: Anomalie-Scores}
+
+a) Beschreiben Sie, wie AnoGAN (nicht f-AnoGAN) den Anomalie-Score für ein neues
+Sample $\boldsymbol{x}$ ermittelt. Gehen Sie auf die Initialisierung von $\boldsymbol{z}$,
+die Optimierung und den finalen Score ein.
+\antwortlinien{5}
+
+b) Die AnoGAN-Kostenfunktion besteht aus zwei Anteilen. Benennen und erklären Sie beide:
+\[
+L(\boldsymbol{x},\boldsymbol{z}) = (1-\lambda)\cdot L_{res}(\boldsymbol{x},\boldsymbol{z})
++ \lambda\cdot L_{disc}(\boldsymbol{x},\boldsymbol{z})
+\]
+\antwortlinien{4}
+
+c) Was bleibt bei der Score-Berechnung konstant, was wird optimiert?
+\antwortlinien{2}
+
+d) Warum ist AnoGAN in der Anwendung langsam, obwohl das GAN bereits trainiert ist?
+\antwortlinien{2}
+
+\section*{Aufgabe 6 -- f-AnoGAN: Encoder}
+
+a) Wie ist der Encoder des f-AnoGAN aufgebaut (Orientierung an welchem Netz?) und
+wozu wird er trainiert?
+\antwortlinien{3}
+
+b) Beschreiben Sie das Encoder-Training: Welche Netze bilden zusammen den
+\glqq Autoencoder\grqq, welche Parameter werden optimiert, welche bleiben fest?
+\antwortlinien{4}
+
+c) Wie wird nach dem Training der Anomalie-Score eines neuen Samples berechnet?
+\antwortlinien{2}
+
+\vspace{10pt}
+\begin{center}
+\footnotesize\itshape
+Nach Bearbeitung: Antworten an Claude schicken (Foto genügt) -- Korrektur mit Begründungs-Check.
+\end{center}
+
+\end{document}

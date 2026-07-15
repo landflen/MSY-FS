@@ -51,6 +51,11 @@ Verschlankte Lern-Sessions (moderat gekürzt — Verständnis-Lesen + Referenzse
 - **Quellen sind die PDFs in diesem Ordner** (Vorlesung + Praktika). Bei inhaltlichen
   Aussagen aus dem konkreten Foliensatz schöpfen, nicht aus Allgemeinwissen, wenn ein
   PDF das Thema abdeckt.
+  - **⚠️ Aufgaben nur mit Begriffen aus dem Stoff (12.07. vereinbart):** Übungsaufgaben dürfen
+    **keine Fachbegriffe einführen, die in Folien/Praktika nicht vorkommen**. Am 12.07. habe ich
+    zu Kap. 15 nach dem **Hamiltonkreis** gefragt — steht nirgends im Stoff (dort nur **SAT** und
+    **TSP** als NP-vollständige Beispiele) → unlösbar und demotivierend. Vor dem Aufgabenstellen:
+    Begriffe gegen den Foliensatz gegenchecken.
   - **⚠️ Erst Folien lesen, dann bewerten (08.07. vereinbart):** Bevor ich Lenas Kapitel-
     Zusammenfassung korrigiere oder Aufgaben stelle, **zuerst den zugehörigen Foliensatz per
     Read (PDF) öffnen**. Am 08.07. habe ich Kap. 06 aus dem Kopf „korrigiert" und lag zweimal
@@ -146,11 +151,11 @@ Reihenfolge = Foliennummerierung. Status: ⬜ offen · 🟡 angefangen · ✅ si
 | 06 | Binäre Suchbäume | ✅ | gelesen + 3 Lösch-Traces (08.07.): 1. Versuch Wiederanhäng-Fehler → §4.14, Blitz-Trace danach fehlerfrei. PDF-Seite + Übersichtszeilen gebaut. Praktikum 4 (= BST!) gesichtet: Entartungs-Drill + Rekurrenzen ins PDF; AVL-Löschen-Teil → Kap. 07 |
 | 07 | AVL-Bäume | ✅ | gelesen + Traces (08.07.): BF-Bestimmung, Einfügen (einfache + Doppelrotation), Löschen alle 3 Fälle inkl. lösch-ausgelöster Doppelrotation — fehlerfrei. PDF-Seite + Übersichtszeilen gebaut. Kein eigenes Praktikum (AVL-Teil = Praktikum 4, erledigt) |
 | 08 | B-Bäume | 🟡 | gelesen + Abfrage + Lösch-Traces (09.07.): 1. Versuch Unterlauf-Knoten weggelassen → §4.16, Blitz-Trace danach fehlerfrei, **aber laut Lena mit sehr langer Überlegungszeit → Lösch-Drill vor der Klausur wiederholen** (z.B. 10.07. nach der Probeklausur oder 12.07.). PDF-Seite + 2 Übersichtszeilen gebaut. Praktikum 05 gesichtet (m-vs-I/O + 4-KB-Block-Rechnung ins PDF; Graphviz/Code übersprungen) |
-| 09 | Hashtabellen | ⬜ | |
-| 10 | Suche in Graphen (BFS/DFS) | ⬜ | |
-| 11 | Kürzeste Wege | ⬜ | |
-| 12 | Aufspannende Bäume (MST) | ⬜ | |
-| 15 | Komplexität (P/NP) | ⬜ | |
+| 09 | Hashtabellen | 🟡 | gelesen + 3 Aufgaben (09.07.): Verkettung, Sondieren, DELETED-Falle — fast alles richtig, **aber Wrap-around-Fehler** (38 in „Slot 7" statt Slot 0 → §4.17); Blitz-Trace auf Lenas Wunsch übersprungen → vor Klausur 1 kurzen Sondier-Trace mit Wrap machen. PDF-Seite + 2 Übersichtszeilen gebaut. Praktikum 06 = Hashtabellen (Versatz passt hier) |
+| 10 | Suche in Graphen (BFS/DFS) | ✅ | gelesen + Aufgaben (09.07.): BFS-Trace (inkl. unerreichbarer Knoten) und DFS-Zeitmarken + Topo-Sortierung **fehlerfrei im ersten Versuch** — nur Kleinigkeiten (letzter Queue-Schritt, dist=∞ explizit). 2 Begriffs-Präzisierungen → §4.18–4.19. PDF-Seite + Rubrik „Graphen" (2 Zeilen) gebaut. Praktikum 07 = Graphen (Versatz k+3 hier) |
+| 11 | Kürzeste Wege | ✅ | gelesen + Aufgaben (12.07.): **Dijkstra-Trace fehlerfrei** (6 Knoten, alle Verbesserungen erwischt; nur Pfad-Angabe vergessen). A*-Trace 1. Versuch mit veraltetem $d$-Wert beim Expandieren → §4.23–4.24; **Blitz-Trace danach richtig** (Ergebnis+Pfad+Monotonie), Rest-Wackler: $f$ nach $d$-Verbesserung nicht nachgezogen. Multiple Choice 1/3 (nur (c); (b)+(d) verschenkt — **A\* mit $h\equiv0$ = Dijkstra**). PDF-Seite stand schon (10.07.) |
+| 12 | Aufspannende Bäume (MST) | ✅ | gelesen + Aufgaben (12.07.): Prim- und Kruskal-Trace (eigener 6-Knoten-Graph) **beide fehlerfrei**, gleicher MST, Gewicht 18. 2 Verständnis-Stolperfallen §4.20–4.21 (Zyklus-Erkennung via Union-Find; Prim/Kruskal dicht-vs-dünn vertauscht). PDF-Seite stand schon (10.07.) |
+| 15 | Komplexität (P/NP) | ⬜ | PDF-Seite gebaut (10.07., Venn-Landkarte, Halteproblem, Einordnungstabelle aus Praktikum 10); nur Verständnis-Lesen offen |
 
 Praktika 01–11 als Übungsmaterial / klausurnahe Aufgaben vorhanden.
 
@@ -419,6 +424,59 @@ erst Fall bestimmen. **Stolperfallen §4.12–4.13.**
     **Vorgänger von links** (BST Kap. 06: Nachfolger von rechts). Außerdem korrigiert: Baum wächst
     nur beim **Wurzel-Split** in die Höhe, nicht „wenn alle Knoten voll sind".
 
+**Kap. 09 (09.07., aus den Hash-Traces):**
+
+17. **Sondieren: mod m liefert 0 bis m−1 — Wrap-around nicht vergessen.** Lena beschriftete die
+    Tabelle mit Slots 1–7 und setzte die 38 bei (38+4) mod 7 in „Slot 7" statt Slot 0 — in ihrem
+    Schema existierte Slot 0 gar nicht, dadurch fiel der Fehler nicht auf. Gegenmittel: Tabelle
+    **immer 0 bis m−1** beschriften, dann erzwingt das Blatt den Wrap-around ans Tabellenende.
+    (Rest saß: Sondierungsfolgen/i-Werte korrekt, Clustering selbst erkannt, DELETED-Begründung sauber.)
+
+**Kap. 10 (09.07., aus dem Recap/Q&A — Traces selbst waren fehlerfrei):**
+
+18. **„adjazent" hat eine Richtung.** Lena: „1 ist adjazent zu 4, wenn ein Pfeil von 1 zur 4
+    zeigt" — andersrum: bei $(q,r)\in E$ ist **r adjazent zu q** (das *Ziel* zum *Start*;
+    Folie 7). Merkhilfe: „adjazent zu q" = „von q aus direkt erreichbar". Nur ungerichtet beidseitig.
+19. **DFS gibt Zeitmarken aus, keine „Tiefe".** Lena nannte begin/end „die Tiefe der Knoten" —
+    die globale Uhr tickt bei *jedem* grau-/schwarz-Werden, unabhängig von der Ebene (Knoten mit
+    begin 5 kann auf Ebene 3 liegen). Ebenen-Distanz liefert nur BFS. (Ihre Anwendung — höchste
+    end-Zeit = zuerst starten — war dagegen korrekt.)
+
+**Kap. 12 (12.07., aus den MST-Aufgaben — Traces selbst waren fehlerfrei):**
+
+20. **Kruskal erkennt Zyklen mit Union-Find, nicht „per Anschauung".** Lena beschrieb, *was* ein
+    Zyklus ist („Kreis, Knoten in gleicher Laufrichtung wieder erreichbar") statt *wie* der
+    Algorithmus ihn findet. Richtig: MAKE-SET je Knoten; für Kante $(u,v)$ prüfen
+    **FIND-SET(u) $\ne$ FIND-SET(v)** — gleiches kanonisches Element ⇒ selbe Komponente ⇒ Zyklus ⇒
+    verwerfen; sonst aufnehmen + **UNION(u,v)**. Nebenbei: MST-Graphen sind **ungerichtet**,
+    „Laufrichtung" spielt keine Rolle.
+21. **Prim ↔ Kruskal: dicht/dünn vertauscht.** Lena ordnete Prim den *dünnen*, Kruskal den *dichten*
+    Graphen zu — genau andersrum. **Kruskal $O(|E|\log|E|)$ ⇒ dünne** Graphen (wenig Kanten zu
+    sortieren); **Prim $O(|V|\log|V| + |E|)$ ⇒ dichte** Graphen (das $|E|$ steht ohne Logarithmus).
+    Merksatz: „Kruskal arbeitet auf den **Kanten**, Prim auf den **Knoten**."
+22. **Gleiches Ergebnis von Prim/Kruskal nur bei eindeutigen Gewichten.** Lenas Begründung zur
+    Reihenfolge war richtig; ergänzt: dass *dieselbe* Kantenmenge herauskommt, liegt an den
+    **paarweise verschiedenen Gewichten** (⇒ MST eindeutig). Bei Gewichts-Gleichständen können beide
+    Verfahren **verschiedene** MSTs liefern (gleiches Gesamtgewicht).
+
+**Kap. 11 (12.07., aus den Kürzeste-Wege-Aufgaben — Dijkstra war fehlerfrei):**
+
+23. **Beim Expandieren gilt der *aktuelle* $d$-Wert.** Lena hatte $c$ korrekt von 5 auf 3 verbessert,
+    beim Expandieren von $c$ dann aber wieder mit **5** gerechnet (Folgefehler bis ins Ergebnis:
+    Kosten 10 statt 8). Der Queue-Eintrag wird **überschrieben**, nicht ergänzt. Zweite Sicherung:
+    **RELAX übernimmt nur bei *kleiner*** — der aus dem alten Wert entstandene Vorschlag $b=6$ war
+    schlechter als das vorhandene $b=5$ und hätte ohnehin nicht eingetragen werden dürfen.
+24. **$v$ wie *von*, $u$ wie *nach*.** Lena las die Monotonie-Bedingung $h(v) \le w(v,u) + h(u)$ mit
+    $u$ *vor* $v$ und prüfte dadurch **nicht existierende Kanten** ($c \to a$, $b \to a$ statt
+    $a \to c$, $a \to b$). Foliensatz-Konvention durchgängig (RELAX Folie 11, Dijkstra Folie 21
+    Zeile 10 „$e: v \to u$``, Folie 34 „Vorgänger/Nachfolger``): **$v$ = Kantenstart, $u$ = Kantenziel.**
+    Monotonie nur **entlang existierender Kanten in Pfeilrichtung** prüfen. (Verwandt mit §4.18.)
+25. **A\*: $f = d + h$ bei jeder $d$-Verbesserung mitziehen.** Im Blitz-Trace $d(q)$ von 7 auf 5
+    verbessert, $f$ aber bei 10 belassen (statt 8) — hier folgenlos, weil die Entnahme-Reihenfolge
+    zufällig gleich blieb; bei knapperen $f$-Werten wird der falsche Knoten expandiert.
+    **Selbstcheck:** die $f$-Werte der *entnommenen* Knoten müssen **monoton steigen** — Lenas Folge
+    7, 8, **10**, 8, 9 hätte den Fehler selbst verraten.
+
 ## 5. Offene Fragen / noch klären
 
 - ~~Erlaubte Hilfsmittel?~~ → geklärt **30.06.: OPEN BOOK**, alle Hilfsmittel erlaubt.
@@ -544,8 +602,66 @@ erst Fall bestimmen. **Stolperfallen §4.12–4.13.**
   (Struktur-Regeln, Suche, Einfüge-/Lösch-Rezept, Session-Lösch-Trace alle 4 Fälle, Praktikum-Box,
   Tipps/Stolperfallen) + 2 B-Baum-Zeilen auf der Übersichtsseite → 14 Seiten, 2× kompiliert,
   Seiten 2/13/14 visuell geprüft.
+- **2026-07-09:** **Kap. 09 (Hashtabellen) durchgearbeitet → 🟡.** Primzahl-Erklärung (mod vererbt
+  gemeinsame Teiler; Sondierungszyklen bei m=90 vs. 89) auf Nachfrage. 3 Aufgaben: Verkettung ✓
+  (α fehlte), Sondieren mit Wrap-around-Fehler (→ §4.17), DELETED-Falle ✓. Blitz-Trace von Lena
+  übersprungen (ihr Call) → vor Klausur 1 Sondier-Trace mit Wrap nachholen. **Kap.-09-Seite ins
+  Learnings-PDF** (Kollision, 4 Gütekriterien, Hashfunktionen inkl. Horner/multiplikativ,
+  Verkettung vs. offene Adressierung, Session-Trace mit Wrap, Praktikum-6-Box) + Rubrik
+  „Hashtabellen" (2 Zeilen) auf der Übersichtsseite → 16 Seiten, 2× kompiliert, Seiten 2/15/16
+  visuell geprüft. Praktikum 06 = Hashtabellen (k+1-Versatz gilt hier wieder).
+- **2026-07-09:** **Kap. 10 (Suche in Graphen) durchgearbeitet → ✅.** Lena meldete vermeintliche
+  Fehler in Adjazenzlisten/-matrix — Pixel-Check aller 4 Folien (9–12): alles konsistent (vermutlich
+  schon korrigierte Skript-Version); dabei Adjazenz-Richtung geklärt → §4.18. Aufgaben: BFS-Trace
+  mit unerreichbarem Knoten + kürzester Pfad via pred ✓, DFS-Zeitmarken + Topo-Sortierung ✓ —
+  erster fehlerfreier Erst-Trace bei einem „Mach"-Thema. Nachgeschärft: letzter Queue-Schritt
+  gehört mit hin, dist=∞ explizit, „Tiefe"→Zeitmarken (§4.19). **Kap.-10-Seite ins Learnings-PDF**
+  (Begriffe/Darstellungen, BFS-Rezept, DFS+Topo, Komplexitäts-Argument, Session-Traces,
+  Praktikum-7-Box mit Rückführungs-Trick + Kantensemantik-Warnung) + Rubrik „Graphen" (2 Zeilen,
+  `\pagebreak` vor Hashtabellen-Rubrik) → 19 Seiten, 2× kompiliert, Seiten 2/18/19 visuell geprüft.
+- **2026-07-10 (2):** **Radikale Kürzung auf Lenas Wunsch: 27 → 11 Seiten.** Klausur-Blatt-Format:
+  1 Thema = 1 Seite, Thema+Schlagworte in der Kopfzeile (kein Titelblock, kein „INF4/1…Learnings``),
+  10pt/13mm-Ränder, Tipps+Stolperfallen zu einer Box je Seite verschmolzen, Übersichtstabelle
+  minimalistisch (1 Satz pro Verfahren, 1 Seite). Grundsatz: Details stehen im mitgenommenen
+  Gesamtskript, das Blatt trägt Rezepte/Traces/persönliche Stolperfallen. Neu dazu (Lenas
+  Notizen): Rezept-Box „$c$ und $n_0$ finden`` (O-/Ω-Nachweis, Störterme, keine untere Schranke).
+  Außerdem `zwischenstaende.png` (Lenas Vergleichsbild: Sortier-Zwischenstände als Scatterplots)
+  als Zuordnungs-Box auf der Sortieren-Seite eingebaut — Erkennungsmerkmale je Verfahren +
+  Grenzen-Merkhilfe (mögliche Klausuraufgabe: Grafik ↔ Verfahren). → 12 Seiten.
+- **2026-07-10:** **Learnings-PDF komplettiert + Grafik-Umbau.** (a) Die drei letzten Kapitelseiten
+  gebaut (11 Kürzeste Wege, 12 MST, 15 Komplexität — Folien 11/12/15 + Praktika 8–10 gelesen);
+  Übersichtsseite um 5 Zeilen (Dijkstra, Bellman-Ford, A*, Prim, Kruskal) + Rubrik MST erweitert.
+  (b) ASCII-Darstellungen durch TikZ-Grafiken ersetzt: BST-Lösch-Trace und AVL-Rotation/Mini-Traces
+  als echte Bäume, B-Baum-Trace als Kastendiagramm (2×2), Hash-Tabelle mit Wrap-around-Pfeil +
+  Cluster-Markierung, BFS/DFS-Beispielgraphen gezeichnet; neu: Wachstumskurven-Plot (Kap. 02),
+  Dijkstra-/MST-Beispielgraphen, P/NP-Venn-Landkarte. → 27 Seiten, 2× kompiliert, kein Overfull,
+  alle geänderten/neuen Seiten visuell geprüft. **Alle 12 Kapitel sind jetzt im PDF** — offen nur
+  noch: Traces Kap. 11/12 mit Lena + B-Baum-Lösch-Drill + Sondier-Trace (vor Klausur).
 - **2026-07-08:** **Höhen-Konvention geklärt** (Lena fragte nach, Check in AVL-Folie 3): Höhe in
   **Knoten-Ebenen, Wurzel zählt mit** — sortierte Folge mit $n$ Elementen ⇒ Höhe $n$. Mein
   ursprüngliches $h=n{-}1$ (CLRS-Kanten-Zählung) war für diesen Kurs **falsch** → in Learnings-PDF
   (Begriffe-Box, Laufzeit-Box, Stolperfalle) und §3.4 auf $h=n$ korrigiert, Konvention explizit in
   die Begriffe-Box aufgenommen. Erneut bestätigt: Folien-Konvention schlägt Lehrbuch-Konvention.
+- **2026-07-10:** Foliencheck Sortieren: **Merge Sort ist NICHT Klausurstoff** (Kap. 03 = Selection/
+  Insertion/Bubble; Kap. 04 = Quicksort/Heapsort/Counting — kein Merge in den Decks). Auf Lenas Wunsch
+  trotzdem eine Merge-Sort-Box (Rezept + Trace) ins Learnings-PDF (Kap. 04) ergänzt, im Titel als
+  „nicht im Foliensatz`` markiert. 2× kompiliert, fehlerfrei. → nicht erneut als „Lücke`` melden.
+- **2026-07-12:** Kap. 12 (MST) gelesen + 3 Aufgaben auf eigenem 6-Knoten-Graphen. **Prim- und
+  Kruskal-Trace fehlerfrei** (gleicher MST, Gewicht 18, korrekte Verwerf-Liste) → Status Kap. 12 ✅.
+  Schwächen nur im Verständnisteil → §4.20–4.22 (Zyklus-Erkennung = Union-Find/FIND-SET+UNION;
+  Prim=dicht / Kruskal=dünn vertauscht; MST-Eindeutigkeit nur bei verschiedenen Gewichten).
+  **Noch offen vor der Klausur (13.07.):** Dijkstra-Trace Kap. 11, B-Baum-Lösch-Drill, Sondier-Trace
+  mit Wrap (Kap. 09).
+- **2026-07-12:** **Kap. 11 (Kürzeste Wege) durchgearbeitet → ✅.** Folien 11 gelesen (43 S.), dann
+  4 Aufgaben. **Dijkstra-Trace fehlerfrei** (eigener 6-Knoten-Graph, alle 3 Verbesserungen erwischt;
+  einzig der Pfad über `pred` fehlte in der Abgabe). **A\*** 1. Versuch mit veraltetem $d$-Wert beim
+  Expandieren (Kosten 10 statt 8) → §4.23–4.24; Monotonie-Check auf nicht existierenden Kanten
+  geprüft (Konvention $v$=von / $u$=nach geklärt). **Blitz-Trace** (neuer 5-Knoten-Graph) danach
+  **richtig** — Ergebnis, Pfad und beide Monotonie-Checks korrekt, nur $f$ nach $d$-Verbesserung
+  nicht nachgezogen → §4.25 inkl.\ $f$-Monotonie-Selbstcheck. Multiple Choice 1/3 (Minuspunkt-Regel
+  sauber gespielt, aber „A\* mit $h\equiv0$ = Dijkstra`` verschenkt). Vorher geklärt: **Bellman-Ford
+  läuft nie ins $-\infty$** (feste $|V|{-}1$ Runden, Prüfrunde meldet mit `return False`). Auf Lenas
+  Ansage **kein PDF-Nachdruck** — sie trägt die 3 Merksätze handschriftlich auf dem Ausdruck nach,
+  `.tex` daher bewusst **nicht** geändert.
+  **Noch offen (13.07. ist Prüfung):** Kap. 15 (P/NP, nur Verständnis), Skript+Learnings-PDF
+  markieren, neue Probeklausur von Claude. B-Baum-Lösch-Drill + Sondier-Trace weiterhin offen.

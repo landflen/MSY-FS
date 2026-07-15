@@ -1,0 +1,231 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage[margin=1.7cm,top=1.5cm,bottom=1.7cm]{geometry}
+\usepackage{titlesec}
+\titleformat*{\section}{\normalfont\large\bfseries}
+\titleformat*{\subsection}{\normalfont\normalsize\bfseries}
+\titlespacing*{\section}{0pt}{8pt}{3pt}
+\titlespacing*{\subsection}{0pt}{6pt}{2pt}
+\usepackage{amsmath,amssymb}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+\usepackage{needspace}
+
+\newcommand{\mcbox}{\raisebox{-1pt}{\fbox{\rule{0pt}{7pt}\rule{7pt}{0pt}}}\hspace{6pt}}
+\newcommand{\antwortlinien}[1]{%
+  \par\vspace{2pt}%
+  \newcount\zeilen \zeilen=#1
+  \loop
+    \noindent\rule{\linewidth}{0.4pt}\par\vspace{11pt}%
+    \advance\zeilen by -1
+  \ifnum\zeilen>0 \repeat
+}
+\lstset{language=Python,basicstyle=\ttfamily\footnotesize,keywordstyle=\bfseries,
+  commentstyle=\itshape\color{gray},showstringspaces=false,frame=single,
+  framerule=0.3pt,xleftmargin=8pt,framexleftmargin=6pt,aboveskip=6pt,belowskip=6pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small MDT5/2 -- Session 10: Deep SVDD, GOAD, CutPaste}
+\fancyhead[R]{\small Übungsaufgaben zur Klausurvorbereitung}
+\fancyfoot[C]{\small Seite \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+\begin{center}
+  {\Large\bfseries Übungsaufgaben Session 10}\\[4pt]
+  {\large Kapitel 8/8a: Deep SVDD, GOAD, CutPaste, selbstüberwachtes Lernen -- Praktika 10 + 11}\\[4pt]
+  \small Stil der Übungssammlung MDT5/2 -- generierte Aufgaben, keine Originale
+\end{center}
+
+\vspace{4pt}
+
+\section*{Aufgabe 1 -- Multiple Choice mit Begründung}
+\emph{Markieren Sie jeweils die einzige richtige von drei Aussagen und begründen Sie Ihre Entscheidung.}
+
+\subsection*{1.1 \ Für Deep SVDD gilt:}
+\mcbox Das Kugelzentrum $\boldsymbol{c}$ wird zusammen mit den Gewichten per Gradient
+Descent mitoptimiert.
+
+\mcbox Das Kugelzentrum $\boldsymbol{c}$ wird vor dem Training einmalig als mittlerer
+Vektor aller Abbildungen gesetzt und danach nicht mehr verändert.
+
+\mcbox Das Kugelzentrum $\boldsymbol{c}$ wird auf den Nullvektor gesetzt, damit die
+Optimierung einfacher wird.
+
+Begründung:
+\antwortlinien{2}
+
+\subsection*{1.2 \ Für die Architektur einer Deep SVDD gilt:}
+\mcbox Sigmoid-Aktivierungen in den Hidden Layers sind unproblematisch.
+
+\mcbox Bias-Parameter und \glqq gedeckelte\grqq{} Aktivierungen müssen vermieden werden,
+da sonst eine konstante (kollabierte) Abbildung möglich wird.
+
+\mcbox Bias-Parameter sind zwingend erforderlich, damit das Netz flexibel genug ist.
+
+Begründung:
+\antwortlinien{2}
+
+\subsection*{1.3 \ Für GOAD gilt:}
+\mcbox GOAD trainiert ein Netz, die auf ein Sample angewendete Transformation zu erkennen;
+pro Transformation soll ein dichtes Cluster im Latent Space entstehen.
+
+\mcbox GOAD funktioniert ausschließlich auf Bilddaten.
+
+\mcbox GOAD benötigt gelabelte Anomalien für das Training der Transformationen.
+
+Begründung:
+\antwortlinien{2}
+
+\subsection*{1.4 \ Für selbstüberwachtes Lernen gilt:}
+\mcbox Es benötigt manuell erstellte Labels für alle Trainingsdaten.
+
+\mcbox Es erzeugt Pseudo-Labels über eine Hilfsklassifikationsaufgabe und führt damit
+ein überwachtes Training durch, um gute Merkmale zu lernen.
+
+\mcbox Es ist ein Spezialfall des Reinforcement Learning.
+
+Begründung:
+\antwortlinien{2}
+
+\section*{Aufgabe 2 -- Deep SVDD: die Verbotsliste}
+
+Nennen Sie \textbf{vier} Konstruktionsregeln für Deep SVDD aus der Vorlesung und begründen
+Sie jede einzeln mit dem Kollaps-Argument (triviale Lösung / konstante Abbildung):
+
+\antwortlinien{8}
+
+\section*{Aufgabe 3 -- Deep-SVDD-Code beurteilen}
+
+\emph{Die folgenden Code-Ausschnitte sollen als Deep-SVDD-Netze verwendet werden.
+Beurteilen Sie jeden Ausschnitt auf mögliche Fehler in Hinblick auf Deep SVDD und
+begründen Sie jeweils.}
+
+\Needspace*{8cm}
+\begin{lstlisting}
+# Variante A
+eps = 1e-6
+wd = 1e-6
+svdd_net = tf.keras.Sequential([
+    tf.keras.layers.InputLayer((40,)),
+    tf.keras.layers.Dense(units=25, activation='relu',
+        kernel_regularizer=tf.keras.regularizers.l2(wd)),
+    tf.keras.layers.Dense(units=15, use_bias=False, activation='relu',
+        kernel_regularizer=tf.keras.regularizers.l2(wd)),
+    tf.keras.layers.Dense(units=10, use_bias=False,
+        kernel_regularizer=tf.keras.regularizers.l2(wd))
+])
+initialize_svdd_with_autoencoder(train_data, svdd_net)
+transform_center = np.mean(svdd_net.predict(train_data), axis=0) + eps
+\end{lstlisting}
+\antwortlinien{3}
+
+\Needspace*{8cm}
+\begin{lstlisting}
+# Variante B
+eps = 1e-6
+wd = 1e-6
+svdd_net = tf.keras.Sequential([
+    tf.keras.layers.InputLayer((40,)),
+    tf.keras.layers.Dense(units=25, use_bias=False, activation=None,
+        kernel_regularizer=tf.keras.regularizers.l2(wd)),
+    tf.keras.layers.LeakyReLU(0.1),
+    tf.keras.layers.Dense(units=15, use_bias=False, activation=None,
+        kernel_regularizer=tf.keras.regularizers.l2(wd)),
+    tf.keras.layers.LeakyReLU(0.1),
+    tf.keras.layers.Dense(units=10, use_bias=False,
+        kernel_regularizer=tf.keras.regularizers.l2(wd))
+])
+initialize_svdd_with_autoencoder(train_data, svdd_net)
+transform_center = np.mean(svdd_net.predict(train_data), axis=0) + eps
+\end{lstlisting}
+\antwortlinien{3}
+
+\Needspace*{8cm}
+\begin{lstlisting}
+# Variante C
+eps = 1e-6
+wd = 1e-6
+svdd_net = tf.keras.Sequential([
+    tf.keras.layers.InputLayer((40,)),
+    tf.keras.layers.Dense(units=25, use_bias=False, activation='tanh',
+        kernel_regularizer=tf.keras.regularizers.l2(wd)),
+    tf.keras.layers.Dense(units=15, use_bias=False, activation='tanh',
+        kernel_regularizer=tf.keras.regularizers.l2(wd)),
+    tf.keras.layers.Dense(units=10, use_bias=False,
+        kernel_regularizer=tf.keras.regularizers.l2(wd))
+])
+initialize_svdd_with_autoencoder(train_data, svdd_net)
+transform_center = np.zeros((10,))
+\end{lstlisting}
+\antwortlinien{4}
+
+\section*{Aufgabe 4 -- Deep SVDD: Ablauf und Score}
+
+a) Das Training einer Deep SVDD findet in zwei Schritten statt. Welchen?
+\antwortlinien{2}
+
+b) Wie wird der Radius $R$ nach dem Training bestimmt, und welche Rolle spielt dabei
+$\nu$? (Stichwort Quantil)
+\antwortlinien{3}
+
+c) Geben Sie die Formel für den Score eines unbekannten $\boldsymbol{x}$ an und
+erklären Sie, wie daraus direkt eine Klassifikation entsteht (Vorzeichen).
+\antwortlinien{3}
+
+d) Warum minimiert die vereinfachte Zielfunktion
+$\min_W \frac{1}{n}\sum_i \|\phi(\boldsymbol{x}_i;W)-\boldsymbol{c}\|^2 + \frac{\lambda}{2}\sum_l \|W^{[l]}\|^2$
+implizit das Kugelvolumen, obwohl $R$ gar nicht mehr vorkommt?
+\antwortlinien{3}
+
+\section*{Aufgabe 5 -- GOAD}
+
+a) Bei Bildern kombiniert GOAD Rotationen (4), Translationen (9) und horizontale
+Spiegelung (2). Wie viele Transformationen $M$ ergeben sich, und warum ist die Identität
+enthalten?
+\antwortlinien{2}
+
+b) Der Triplet Center Loss besteht aus zwei gegenläufigen Zielen. Welchen?
+(Intra- vs. Inter-Cluster)
+\antwortlinien{3}
+
+c) Warum wird zusätzlich eine Klassifikationsaufgabe (Kreuzentropie) als Stabilisierung
+verwendet, und was wird dabei klassifiziert?
+\antwortlinien{3}
+
+d) Beschreiben Sie, wie der Anomalie-Score eines neuen Samples entsteht
+(Wahrscheinlichkeiten pro Transformation, negativer Logarithmus).
+\antwortlinien{4}
+
+e) Wie wird GOAD auf Nicht-Bilddaten verallgemeinert?
+\antwortlinien{2}
+
+\section*{Aufgabe 6 -- CutPaste und Contrastive Learning}
+
+a) Welches Problem der bisherigen Verfahren motiviert CutPaste?
+\antwortlinien{2}
+
+b) Beschreiben Sie die drei Klassen der CutPaste-Hilfsklassifikationsaufgabe.
+\antwortlinien{3}
+
+c) Wie entsteht bei CutPaste nach dem Training der Anomalie-Score
+(welches Verfahren aus einem früheren Kapitel steckt dahinter)?
+\antwortlinien{3}
+
+d) Was ist die Grundidee des Contrastive Learning (positive/negative Samples,
+Ähnlichkeitsmaß), und wie erzeugt SimCLR seine positiven Paare?
+\antwortlinien{4}
+
+\vspace{10pt}
+\begin{center}
+\footnotesize\itshape
+Nach Bearbeitung: Antworten an Claude schicken (Foto genügt) -- Korrektur mit Begründungs-Check.
+\end{center}
+
+\end{document}
