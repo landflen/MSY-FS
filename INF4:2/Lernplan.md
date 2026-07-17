@@ -30,7 +30,7 @@ Der Prof sagt, die Klausur sei „in 45 Minuten machbar" → doppelte Zeit als R
 | `V3.pdf` | Äquivalenzrelationen, mod m | nur S. 1 (R/S/T-Nachweis) |
 | `V4.pdf` | S. 1: Float-Gleichheit ist **nicht transitiv** → genau das „keine ÄR"-Beispiel. S. 2: Gruppen (irrelevant) | nur S. 1 |
 | `V10.pdf` | Zyklische Gruppen, Fermat, Miller-Rabin | **überspringen** |
-| `Fixpunkte_Newton.pdf`, `Übungen_Fixpunkt.pdf` | Skript + Übungen Newton | Übungsmaterial |
+| `Fixpunkte_Newton.pdf`, `Übungen_Fixpunkt.pdf` | **von Claude erstellt** (keine Vorlesungsunterlagen!) — Skript + Übungen Newton, gegen V7/V8 abgeglichen | Zusatzmaterial, V7/V8 sind die Autorität |
 | `fxtbook.pdf` | Nachschlagewerk: Kap. 1 Bit Wizardry, Newton-Kapitel | punktuell |
 
 ---
@@ -62,7 +62,7 @@ Puffer nutzen für: hängengebliebene Themen, zweiter Probeklausur-Durchlauf, od
 ### Mi 15.07. — 08:30–11:30 (3 h) · S1-Wiederholung + Newton I *(getauscht mit Do)*
 - **Erst:** S1 überfliegen, unsichere Übungen aus `S1_Bit_Wizardry.md` nochmal rechnen
 - **Dann:** → **`Lernsessions/S3_Newton_Fixpunkte.md`** (mit Übungen + Lösungen)
-- `V7.pdf` + `Fixpunkte_Newton.pdf` (7-seitiges Skript — Hauptquelle, zuerst ganz lesen)
+- `V7.pdf` + `V8.pdf` zuerst (echte Vorlesung = Autorität); `Fixpunkte_Newton.pdf` nur als Claude-Lesehilfe danach
 - Fixpunkt Φ(x*) = x*; attraktiv |Φ'| < 1, repulsiv |Φ'| > 1, superattraktiv Φ' = 0
 - Newton herleiten: Φ(x) = x − f(x)/f'(x), zeigen dass Φ'(Nullstelle) = 0
 - Konvergenzordnung: Anzahl korrekter Ziffern verdoppelt sich
@@ -90,8 +90,9 @@ Die drei Klassiker aus `V8.pdf`, jeweils: N(x) aufstellen → Fixpunkt prüfen �
 - *Puffer: 45 min*
 
 ### So 19.07. — 08:30–10:30 (2 h) · Probeklausur + Lücken
-- Probeklausur mit **45-Min-Wecker** durchrechnen (das ist das Tempo, das der Prof erwartet — in der echten Klausur hast du 90 Min., also fast doppelt so viel Luft)
-- Danach gezielt Lücken schließen
+- **Vorher (Sa oder So früh):** → **`Lernsessions/S6_Schwachstellen_Mix.md`** — themenübergreifendes Übungsblatt, gezielt auf die Fehler aus S1-Warm-up und S5 (Randfall 0, Beweis vs. Beispiel, m teilt 0, wiederholtes Quadrieren, Latency/Throughput, Maskenbreite)
+- → **`Lernsessions/S7_Probeklausur.md`** mit **45-Min-Wecker** durchrechnen (das ist das Tempo, das der Prof erwartet — in der echten Klausur hast du 90 Min., also fast doppelt so viel Luft)
+- Danach gezielt Lücken schließen (Selbst-Auswertung am Ende der Lösungsdatei)
 - Praktikumszettel sortieren und in die Tasche legen
 
 ---
@@ -110,3 +111,8 @@ Die drei Klassiker aus `V8.pdf`, jeweils: N(x) aufstellen → Fixpunkt prüfen �
 - **Selbsttest Rotation:** erhält die Anzahl der Einsen — Einsen zählen vor/nach!
 - **C-Klammern:** `+` und `==` binden stärker als `&` → immer `((x>>1) & m) + (x & m)` schreiben
 - **Maskenbreite:** *jede* Maske ist so breit wie das ganze Wort — bei 128 Bit hat auch die neue Maske 32 Hex-Ziffern (16× `0`, 16× `f`)
+- **Relationen widerlegen:** ein konkretes **Zahlen**-Gegenbeispiel hinschreiben (nicht nur „gilt nicht"); beweisen dagegen nur allgemein (Zahlenbeispiele sind kein Beweis!)
+- **Randfälle bei „für alle":** auf ℤ immer die **0** und negative Zahlen einsetzen (0·0 > 0 ist falsch!)
+- **m teilt 0 — immer** (0 = 0·m, q = 0 erlaubt) → Reflexivität von „mod m" ist nie in Gefahr
+- **power_r2l-Zählung:** (Stelle MSB − 1) Quadrierungen + (Anzahl gesetzter Bits) t-Produkte — bei e = 13: 3 + 3 = **6**
+- **Latency folgt nicht aus Throughput:** Throughput = Rate (pro Cycle fertig), Latency = Dauer des Einzelbefehls — Pipeline macht beides gleichzeitig möglich

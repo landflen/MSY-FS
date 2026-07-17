@@ -1,8 +1,6 @@
 # Session 3 — Do 16.07., 3 h · Newton & Fixpunkte (Erstkontakt)
 
-**Quellen:** `V7.pdf`, `Fixpunkte_Newton.pdf` (7-seitiges Skript — das ist deine Hauptquelle!) · **Prüfungsthema:** Newton-Iteration
-
-> **Wichtig:** `Fixpunkte_Newton.pdf` ist bereits ein vollständiges, sauber gesetztes Skript mit Kapiteln 1–8. Lies es als Erstes ganz durch. Dieses Dokument ist die **Kurzfassung zum Aktivlernen** plus Übungen — nicht als Ersatz gedacht.
+**Quellen:** `V7.pdf` + `V8.pdf` · **Prüfungsthema:** Newton-Iteration
 
 ---
 
@@ -31,6 +29,8 @@ Merkhilfe Skizze: attraktiv = flache Kurve schneidet Diagonale, repulsiv = steil
 
 ## 3. Konvergenzordnung — das Klausurwerkzeug
 
+In V8-Schreibweise: N((1/d)(1+ε)) = (1/d)(1+αε+βε²+…) mit **α = 0 ⟺ superattraktiv**.
+
 Bei Fixpunkt x\* ≠ 0 nimmt man den **relativen** Fehler: setze **x = x\*(1 + ε)**.
 
 > Die Iteration hat **Konvergenzordnung n**, wenn
@@ -46,7 +46,7 @@ Bei Fixpunkt x\* ≠ 0 nimmt man den **relativen** Fehler: setze **x = x\*(1 + �
 
 > **Das Klausurrezept:** setze x = x\*(1+ε) in Φ ein, entwickle nach ε, lies den **kleinsten nicht-verschwindenden Koeffizienten** ab → das ist die Ordnung. Verschwindet der ε¹-Term (α₁=0), ist es mindestens quadratisch.
 
-**Warnung zur Notation** (steht so im Skript): die Schreibweise x\*(1+ε) funktioniert **nur für x\* ≠ 0**. Bei x\* = 0 (z. B. Φ(x)=x²) nimmt man den absoluten Fehler ε_{k+1} = ε_k².
+**Warnung zur Notation:** die Schreibweise x\*(1+ε) funktioniert **nur für x\* ≠ 0**. Bei x\* = 0 (z. B. Φ(x)=x²) nimmt man den absoluten Fehler ε_{k+1} = ε_k².
 
 ## 4. Beispiel Φ(x) = x²  (zum Verständnis)
 Fixpunkte: x\* = 0 und x\* = 1.
@@ -89,7 +89,7 @@ Immer diese vier (bzw. fünf) Schritte — das ist die Struktur, die der Prof se
 
 ---
 
-## 7. Die drei Klausur-Klassiker (kommen Fr in Session 4 dran, hier zum Kennenlernen)
+## 7. Die drei Klausur-Klassiker (hier rechnen, Fr in Session 4 vertiefen)
 
 Alle drei berechnen etwas **ohne** die teure Operation (Division/Wurzel) — das ist der Sinn: FPUs machen Division und Wurzel intern genau so.
 
@@ -99,9 +99,11 @@ Alle drei berechnen etwas **ohne** die teure Operation (Division/Wurzel) — das
 | **√d** | x² − d | ½(x + d/x) | (enthält noch /x!) |
 | **1/√d** | 1/x² − d | **(x/2)(3 − dx²)** | Mult, Sub, Shift |
 
+Alle drei Zeilen stehen so in `V8.pdf` (dort N = x + x(1−dx) bzw. N = x + x(1−dx²)/2 — algebraisch identisch); die 1/√d-Zeile hat der Prof orange mit **„Klausur"** markiert. Außerdem in V8: x = 0 ist ebenfalls Fixpunkt von x(2−dx), aber N'(0) = 2 → **repulsiv** — „gut, weil der unerwünschte Fixpunkt abstößt". Das ist eine beliebte Zusatzfrage.
+
 **Feinheit √d (wichtig, Prof fragt das):** Der direkte Weg f = x²−d liefert Φ = ½(x + d/x) — enthält noch eine **Division d/x**. Deshalb rechnet man √d *nicht* direkt, sondern über **√d = d · (1/√d)** und berechnet 1/√d mit der divisionsfreien dritten Zeile. Das ist die Pointe der Aufgabe „warum taugt die direkte Iteration nicht als Antwort?".
 
-**Verifikation 1/d** (aus dem Skript, Kap. 6.4 — die eigentliche Klausuraufgabe):
+**Verifikation 1/d** (steht wörtlich in V7 S. 2 und V8 S. 1 — vom Prof rot als „Klausuraufgabe" markiert):
 Setze x = (1/d)(1+ε) in Φ(x) = x(2−dx):
 ```
 Φ = (1/d)(1+ε)·[2 − d·(1/d)(1+ε)] = (1/d)(1+ε)(2 − 1 − ε)
@@ -115,29 +117,64 @@ Setze x = (1/d)(1+ε) in Φ(x) = x(2−dx):
 
 Lösungen in `S3_Newton_Fixpunkte_Loesungen.md`. Formeln von Hand, nichts überspringen.
 
-### Ü1 — Fixpunkt-Typen
-Bestimme für Φ(x) = x²/4 alle Fixpunkte und klassifiziere jeden (attraktiv/repulsiv/superattraktiv) über Φ'.
+Ü1–Ü3 sind **wörtlich die Aufgaben aus der Altklausur SS16** (Teil „Nicht-lineare Iterationen"), Ü4 ist dieselbe Aufgabe mit neuen Zahlen. Beachte das Klausurformat: N(x) bzw. f(x) ist immer **gegeben** — verlangt wird einsetzen, ableiten, prüfen. Keine ε-Entwicklung nötig (die ist nur „Möglichkeit 2" aus V8).
 
-### Ü2 — Newton allgemein herleiten
-Leite Φ'(x) = f·f''/(f')² aus Φ(x) = x − f/f' her (Quotientenregel). Erkläre in einem Satz, warum daraus Φ'(r) = 0 an einer einfachen Nullstelle folgt.
+> **Gegebene Formeln** (stehen auch in der Klausur — mehr braucht es nicht, alles Weitere wird daraus hergeleitet):
+>
+> | | |
+> |---|---|
+> | Newton-Iteration | **Φ(x) = x − f(x)/f'(x)** |
+> | Fixpunkt | Φ(x\*) = x\* |
+> | Typen | attraktiv \|Φ'(x\*)\| < 1 · repulsiv \|Φ'(x\*)\| > 1 · superattraktiv Φ'(x\*) = 0 |
+> | ε-Ansatz | x = x\*(1+ε) einsetzen: Φ(x\*(1+ε)) = x\*(1 + αε + βε² + …), **α = 0 ⟺ superattraktiv** |
+> | Hilfsableitung | (f/g)' = (f'g − g'f)/g² |
 
-### Ü3 — Konvergenzordnung ablesen
-Für eine Iteration ergibt sich Φ(x\*(1+ε)) = x\*(1 − ½ε² − ⅓ε³ + …). Welche Ordnung? Begründung.
+### Ü1 — Newton allgemein *(Klausur SS16, Aufgabe 1 — wörtlich)*
+Zeigen Sie, dass für f(x) mit f(r) = 0 die Funktion **N(x) = x − f(x)/f'(x)** einen superattraktiven Fixpunkt bei r hat. (Nehmen Sie an, dass f'(r) ≠ 0 ist.)
 
-### Ü4 — Newton für 1/d (die Kern-Klausuraufgabe)
-a) Wähle f(x) = 1/x − d. Bilde f'(x) und stelle Φ(x) auf; vereinfache zu Φ(x) = x(2 − dx).
-b) Zeige, dass 1/d ein Fixpunkt ist.
-c) Zeige Superattraktivität über Φ'(1/d) = 0.
-d) Setze x = (1/d)(1+ε) ein und bestätige die quadratische Konvergenz (Ergebnis (1/d)(1−ε²)).
+### Ü2 — Gegebenes N untersuchen *(Klausur SS16, Aufgabe 2 — wörtlich)*
+Sei **N(x) = x + x·(1 − d·x)**.
+a) Zeigen Sie, dass N(x) den superattraktiven Fixpunkt 1/d hat.
+b) Hat N einen Fixpunkt bei −1/d? (Falls ja: ist dieser superattraktiv?)
+c) Hat N einen Fixpunkt bei 0? (Falls ja: ist dieser superattraktiv?)
 
-### Ü5 — Warum nicht der naive Ansatz?
-Für 1/d könnte man auch f(x) = x − 1/d nehmen. Bilde Φ(x). Warum ist dieses Φ als Divisions-Algorithmus **sinnlos**? (Ein Satz.)
+### Ü3 — N aus f berechnen *(Klausur SS16, Aufgabe 3 — wörtlich)*
+Sei **f(x) = 1/x² − d** (also f(r) = 0 für r = √(1/d)).
+a) Berechnen Sie N(x) = x − f(x)/f'(x).
+b) Zeigen Sie, dass r ein superattraktiver Fixpunkt von N ist.
+c) Zeigen Sie, dass −r ein superattraktiver Fixpunkt von N ist.
 
-### Ü6 — √d, die Feinheit
-a) Wähle f(x) = x² − d, stelle Φ(x) auf und vereinfache zu ½(x + d/x).
-b) Zeige, dass √d Fixpunkt ist.
-c) Zeige Superattraktivität: Φ'(√d) = 0.
-d) Warum taugt dieses Φ trotzdem **nicht** als „Wurzel ohne Division"? Wie umgeht man das Problem?
+### Ü4 — Transfer mit neuen Zahlen *(gleicher Stil, selbst rechnen ohne Lösungsvorlage)*
+Sei **f(x) = 1/x³ − d** (also f(r) = 0 für r = d^(−1/3)).
+a) Berechnen Sie N(x) = x − f(x)/f'(x).
+b) Zeigen Sie, dass r ein superattraktiver Fixpunkt von N ist.
+c) Hat N einen Fixpunkt bei 0? (Falls ja: ist dieser superattraktiv?)
 
-### Ü7 — Geometrie
-Erkläre in zwei, drei Sätzen, warum Φ(x_k) = x_k − f(x_k)/f'(x_k) genau der Schnittpunkt der Tangente an f in x_k mit der x-Achse ist. (Tipp: Tangentengleichung y = f(x_k) + f'(x_k)(x − x_k), setze y = 0.)
+---
+
+# Teil C — Vertiefung (über das SS16-Format hinaus)
+
+Alles hier stammt ebenfalls direkt aus V7/V8 — Stoff, den der Prof behandelt oder als Hausaufgabe gestellt hat, der aber in der SS16-Klausur nicht abgefragt wurde. Falls die Klausur 2026 anders aussieht, bist du damit abgedeckt.
+
+### Ü5 — Fixpunkt-Typen klassifizieren
+Bestimme für Φ(x) = x²/4 alle Fixpunkte und klassifiziere jeden über Φ' (attraktiv/repulsiv/superattraktiv).
+
+### Ü6 — ε-Entwicklung für 1/d *(„Möglichkeit 2" aus V8)*
+Sei N(x) = x(2 − dx). Setze x = (1/d)(1+ε) ein und vereinfache, bis die Form (1/d)(1 + αε + βε² + …) dasteht. Lies α und β ab. Was folgt aus α = 0, und was bedeutet der ε²-Term für die Anzahl korrekter Stellen pro Schritt?
+
+### Ü7 — ε-Entwicklung für 1/√d *(die Hausaufgabe aus V7, mit Zielform)*
+Sei N(x) = x + x(1 − dx²)/2 und r = 1/√d. Setze x = r(1+ε) ein und entwickle bis ε³. V7 gibt die Zielform vor: r(1 + αε + βε² + γε³ + …). Bestimme α, β, γ. Superattraktiv?
+
+### Ü8 — Warum nicht der naive Ansatz? *(steht so in V7)*
+Für 1/d könnte man auch f(x) = x − 1/d nehmen. Berechnen Sie N(x). Warum ist dieses N als Divisions-Algorithmus sinnlos? (Ein Satz.)
+
+### Ü9 — √d, die Feinheit *(„Verbessert"-Stelle in V8)*
+a) Sei f(x) = x² − d. Berechnen Sie N(x) und vereinfachen Sie zu ½(x + d/x).
+b) Zeigen Sie, dass √d superattraktiver Fixpunkt ist.
+c) Warum taugt dieses N **nicht** als „Wurzel ohne Division"? Wie rechnet man √d stattdessen?
+
+### Ü10 — Allgemeine inverse Wurzel *(steht als „Allg." in V8)*
+Für 1/ᵃ√d sei f(x) = 1/xᵃ − d.
+a) Berechnen Sie N(x) und vereinfachen Sie zu N(x) = x + x(1 − dxᵃ)/a.
+b) Prüfen Sie, dass d^(−1/a) Fixpunkt ist.
+c) Kontrolle: a = 1, 2, 3 müssen Ü2, Ü3, Ü4 reproduzieren.
