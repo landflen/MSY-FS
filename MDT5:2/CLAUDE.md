@@ -13,9 +13,10 @@
   (Outlier/Novelty am Breast-Cancer-Datensatz) + Blatt `Session02_Abstand` gelöst und
   korrigiert (~⅔ richtig; Fehlerbild → Stolperfallen 1–4).
   - Notebook-Fragen beantwortet, mit fremder Mitschrift abgeglichen, korrigiert.
-  - **Noch offen aus S2:** Vorlagen (Blatt ① / Blatt_Kap4_Abstand) handschriftlich
-    übertragen und um die S2-Befunde ergänzen (Kontrastpaar Min-Max vs. z-Transformation,
-    s-Grenzfälle des iForest, contamination-Definition, sklearn-Dreizeiler).
+  - Blatt_Kap4_Abstand handschriftlich übertragen ✅ (18.7.).
+  - **Noch offen aus S2:** Blatt ① handschriftlich übertragen und um die S2-Befunde
+    ergänzen (Kontrastpaar Min-Max vs. z-Transformation, s-Grenzfälle des iForest,
+    contamination-Definition, sklearn-Dreizeiler).
 
 ## Stolperfallen (vor der Klausur gezielt wiederholen)
 
