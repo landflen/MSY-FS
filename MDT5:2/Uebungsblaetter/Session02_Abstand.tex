@@ -40,7 +40,7 @@
 
 \begin{center}
   {\Large\bfseries Übungsaufgaben Session 2}\\[4pt]
-  {\large Kapitel 3a/4: k-NN, LOF, Isolation Forest, Matrix Profiles -- Praktikum 02}\\[4pt]
+  {\large Kapitel 4: k-NN, Isolation Forest -- Praktikum 02}\\[4pt]
   \small Stil der Übungssammlung MDT5/2 -- generierte Aufgaben, keine Originale
 \end{center}
 
@@ -60,34 +60,13 @@ kann z.\,B. der mittlere Abstand eines neuen Punkts zu seinen $k$ nächsten Trai
 Begründung:
 \antwortlinien{2}
 
-\subsection*{1.2 \ Für den Local Outlier Factor (LOF) gilt:}
-\mcbox Ein LOF deutlich größer als 1 bedeutet, dass die lokale Dichte des Punkts deutlich
-niedriger ist als die seiner Nachbarn -- der Punkt ist ein Ausreißer.
-
-\mcbox Ein LOF nahe 0 kennzeichnet einen typischen Ausreißer.
-
-\mcbox Der LOF vergleicht die Gesamtdichte aller Daten mit einem globalen Schwellwert.
-
-Begründung:
-\antwortlinien{2}
-
-\subsection*{1.3 \ Für Isolation Forests gilt:}
+\subsection*{1.2 \ Für Isolation Forests gilt:}
 \mcbox Anomalien erzeugen in den Isolation Trees im Mittel längere Pfade als Normalpunkte.
 
 \mcbox Eine Normalisierung der Eingabedaten ist für Isolation Forests essentiell.
 
 \mcbox Die Splits erfolgen an zufälligen Merkmalen mit zufälligen Schwellwerten; Anomalien
 lassen sich dadurch im Mittel mit weniger Splits isolieren.
-
-Begründung:
-\antwortlinien{2}
-
-\subsection*{1.4 \ Für die Reachability Distance des LOF gilt:}
-\mcbox Sie ist symmetrisch: $reach\_dist_k(\boldsymbol{p},\boldsymbol{o}) = reach\_dist_k(\boldsymbol{o},\boldsymbol{p})$ gilt immer.
-
-\mcbox Sie ist definiert als $\max\bigl(d_k(\boldsymbol{o}),\, d(\boldsymbol{p},\boldsymbol{o})\bigr)$ und damit nicht kommutativ.
-
-\mcbox Sie ist immer gleich dem euklidischen Abstand der beiden Punkte.
 
 Begründung:
 \antwortlinien{2}
@@ -134,41 +113,23 @@ d) Warum wird pro Baum Subsampling verwendet (guter Standardwert $n_{sub}=256$),
 und warum wird die maximale Baumtiefe auf $\log_2(n_{sub})$ begrenzt?
 \antwortlinien{3}
 
-\section*{Aufgabe 4 -- Wann LOF statt globalem k-NN?}
+\section*{Aufgabe 4 -- Verfahrenswahl: k-NN oder Isolation Forest?}
 
-Skizziert sind Normaldaten mit zwei unterschiedlich dichten Clustern und zwei Kandidatenpunkten
-$A$ und $B$:
+Ein Datensatz für Novelty Detection enthält zwei Merkmale mit sehr unterschiedlichen
+Wertebereichen: $x_1 \in [0;\,1]$ (normierter Druck) und $x_2 \in [0;\,1000]$
+(Temperatur-Rohwert).
 
-\begin{center}
-\begin{tikzpicture}[scale=0.75]
-\draw[->] (-0.5,0) -- (10.5,0) node[right] {$x_1$};
-\draw[->] (0,-0.5) -- (0,6.5) node[above] {$x_2$};
-% dichtes Cluster links unten
-\foreach \p in {(1,1),(1.3,1.4),(1.6,1.1),(1.2,1.8),(1.8,1.6),(1.5,1.3),(2,1.2),(1.7,1.9),(2.1,1.7),(1.4,0.9)}
-  \fill \p circle (2pt);
-% weites Cluster rechts oben
-\foreach \p in {(6,3.5),(7,4.5),(8,3.8),(6.5,5),(7.5,5.5),(8.5,4.8),(9,5.8),(6.2,4.2),(8.2,5.2),(9.3,4.4)}
-  \fill \p circle (2pt);
-% Kandidaten
-\node[draw,circle,inner sep=1.5pt] at (3,1.5) {};
-\node[above] at (3,1.7) {$A$};
-\node[draw,circle,inner sep=1.5pt] at (7.5,4.6) {};
-\node[above] at (7.5,4.8) {$B$};
-\end{tikzpicture}
-\end{center}
-
-a) Punkt $A$ hat zu seinen nächsten Nachbarn einen \emph{kleineren} mittleren Abstand als Punkt $B$
-zu seinen. Warum würde ein globales k-NN-Verfahren mit einem einzigen Schwellwert hier
-falsch entscheiden?
+a) Die Daten werden \emph{ohne} Normalisierung mit dem k-NN-Abstandsverfahren ausgewertet.
+Welches Problem entsteht, und welches der beiden Merkmale dominiert den Score?
+Nennen Sie die beiden Normalisierungsverfahren aus der Vorlesung, die das Problem beheben.
 \antwortlinien{3}
 
-b) Erklären Sie anhand der lokalen Dichten, wie der LOF die Punkte $A$ und $B$ bewerten würde.
-\antwortlinien{3}
-
-c) Ordnen Sie zu: Welcher scikit-learn-Aufruf gehört zu Outlier Detection, welcher zu Novelty
-Detection beim \texttt{LocalOutlierFactor}?
-(\texttt{fit\_predict} \,--\, \texttt{novelty=True} mit getrenntem \texttt{fit}/\texttt{predict})
+b) Begründen Sie, warum ein Isolation Forest auch ohne Normalisierung funktioniert.
 \antwortlinien{2}
+
+c) Ein zweiter Datensatz hat mehrere hundert Merkmale und sehr viele Trainingspunkte.
+Welches der beiden Verfahren ist hier besser geeignet? Nennen Sie zwei Gründe aus der Vorlesung.
+\antwortlinien{3}
 
 \section*{Aufgabe 5 -- Code-Verständnis}
 
@@ -193,15 +154,6 @@ und \texttt{contamination}.
 
 b) Ist der Ablauf (fit auf Normaldaten, predict auf Testdaten) für Novelty Detection korrekt?
 \antwortlinien{2}
-
-\section*{Aufgabe 6 -- Matrix Profiles (Zeitreihen)}
-
-a) Beschreiben Sie in eigenen Worten das Prinzip eines Matrix Profiles
-(Fenstergröße, Distanzen, gespeicherter Wert pro Position).
-\antwortlinien{4}
-
-b) Was sind \emph{Motifs}, was sind \emph{Discords}, und woran erkennt man sie im Matrix Profile?
-\antwortlinien{3}
 
 \vspace{10pt}
 \begin{center}

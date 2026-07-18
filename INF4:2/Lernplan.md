@@ -97,9 +97,22 @@ Die drei Klassiker aus `V8.pdf`, jeweils: N(x) aufstellen → Fixpunkt prüfen �
 
 ---
 
+## Offene Todos aus der S6-Auswertung (17.07.) — vor der Probeklausur abarbeiten
+
+- [ ] **M3 komplett neu rechnen** (ohne aufs alte Blatt zu schauen): a ~ b :⇔ a − b durch 3 teilbar ist eine ÄR. Rezept: R über a − a = 0 = 0·3; S über Vorzeichen drehen (−q); T über **zwei Buchstaben** (q, p) und Addieren. Äquivalenzklassen (Rest-Töpfe 0, 1, 2) mit angeben. Danach gegen `Lernsessions/S6_Schwachstellen_Mix_Loesungen.md` prüfen.
+- [ ] **M2 neu in Klausurform:** a·b ungerade → Reflexivität mit a = 2 widerlegen (2·2 = 4 gerade), Schlusssatz „keine ÄR" nicht vergessen.
+- [ ] **M4 b) und c) schriftlich beantworten:** Teilt 0 die 7? Teilt 0 die 0? Jeweils mit der Definition x = q·m begründen.
+- [ ] **M8 a) und b) neu formulieren** (je 2 Sätze, das Wort **Pipeline** muss vorkommen): Latency = Dauer des Einzelbefehls, Throughput = Rate bei voller Pipeline; bei Datenabhängigkeit zählt die Latency. Gegen Lösungsdatei checken.
+- [ ] **M6-Zählweise festigen:** pow(x,12) und pow(x,10) nochmal von Hand mit Minimal-Zählung (je 4 Mult) — Regel: Hand = Code-Zählung − 1, das erste t·s mit t = 1 spart man sich.
+- [ ] **O-Definition einmal blind hinschreiben:** „Es **gibt** c > 0 und n₀, sodass **für alle** n ≥ n₀: T(n) ≤ c·f(n)" — Quantoren in genau dieser Reihenfolge. Dazu die saubere Kette für 7n + 50: ≤ 7n + 50n = 57n für n ≥ 1.
+- [ ] **Schlusssatz-Disziplin:** bei jeder Relationen-Aufgabe zum Schluss explizit „⇒ ÄR" / „⇒ keine ÄR, da X verletzt" hinschreiben (fehlte bei M1).
+- [ ] Direkt vor S7 (Probeklausur): **Merkkasten einmal komplett durchlesen.**
+
+---
+
 ## Merkkasten (wächst mit)
 
-- **O-Notation:** T(n) ≤ c·f(n) für alle n ≥ n₀, c > 0
+- **O-Notation:** **Es gibt** c > 0 und n₀ (Existenz — du darfst sie wählen!), sodass **für alle n ≥ n₀**: T(n) ≤ c·f(n). Das „für alle" gehört nur zum n, nie zum c (S6-M10-Befund)
 - **Bit Wizardry:** n = **Bits im Wort**, nicht Anzahl Elemente
 - **−w = ~w + 1**
 - **Superattraktiv:** N'(x*) = 0 → quadratische Konvergenz
@@ -114,5 +127,9 @@ Die drei Klassiker aus `V8.pdf`, jeweils: N(x) aufstellen → Fixpunkt prüfen �
 - **Relationen widerlegen:** ein konkretes **Zahlen**-Gegenbeispiel hinschreiben (nicht nur „gilt nicht"); beweisen dagegen nur allgemein (Zahlenbeispiele sind kein Beweis!)
 - **Randfälle bei „für alle":** auf ℤ immer die **0** und negative Zahlen einsetzen (0·0 > 0 ist falsch!)
 - **m teilt 0 — immer** (0 = 0·m, q = 0 erlaubt) → Reflexivität von „mod m" ist nie in Gefahr
+- **Reflexivität = Definition mit (a, a) füttern:** in der Bedingung landet **a − a = 0** (bzw. a·a), nie a allein — „a nicht durch 3 teilbar" ist kein R-Argument! (S6-M3-Befund)
+- **ÄR beweisen (mod m):** R: a−a = 0 = 0·m ✓; S: Vorzeichen drehen, b−a = (−q)·m; T: **verschiedene Buchstaben** ansetzen (a−b = q·m, b−c = **p**·m) und **addieren** → a−c = (q+p)·m. Nie dasselbe q für beide Voraussetzungen! (S6-M3-Befund)
+- **R/S auch mit einem Gegenbeispiel widerlegbar:** „für alle a" heißt ganz ℤ — bei „a·b ungerade" killt a = 2 die Reflexivität (2·2 = 4 gerade). Nicht nur T braucht Gegenbeispiele! (S6-M2-Befund)
 - **power_r2l-Zählung:** (Stelle MSB − 1) Quadrierungen + (Anzahl gesetzter Bits) t-Produkte — bei e = 13: 3 + 3 = **6**
-- **Latency folgt nicht aus Throughput:** Throughput = Rate (pro Cycle fertig), Latency = Dauer des Einzelbefehls — Pipeline macht beides gleichzeitig möglich
+- **Hand-Zählung ≠ Code-Zählung:** „möglichst wenige Mul" von Hand = Code-Zählung **− 1** (das erste t·s mit t = 1 spart man sich): pow(x,16) = 4, pow(x,12) = 4, pow(x,10) = 4. Welche Zählung gefragt ist, sagt die Aufgabe („Code führt aus" vs. „möglichst wenige") — S6-M6-Befund
+- **Latency folgt nicht aus Throughput:** Throughput = Rate (pro Cycle fertig), Latency = Dauer des Einzelbefehls. In der Antwort muss das Wort **Pipeline** fallen: 3 Stufen, pro Cycle kann ein **neues** MUL rein (bis zu 3 gleichzeitig unterwegs), ab Cycle 3 wird jeden Cycle eines fertig — so sind Latency 3 **und** Throughput 1/Cycle zugleich wahr (S6-M8-Befund)

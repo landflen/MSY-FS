@@ -12,7 +12,7 @@
 | 01 Einführung | 36 F. | KI/ML-Begriffe, Anomalie, Outlier vs. Novelty Detection | 01a/01b (Python/NumPy) |
 | 02 Normalisierung | 6 F. | Min-Max, z-Score; wann essentiell (k-Means ja, iForest nein) | — |
 | 03 NN überwacht | 56 F. | Perzeptron, Aktivierungen, CNN, Shapes, Training, Dropout | 05 deeplearning |
-| 03a/04 Abstandsbasiert | 28 F. | kNN-Abstand, LOF, Isolation Forest | 02 abstand |
+| 04 Abstandsbasiert | 15 F. | kNN-Abstand, Isolation Forest (03a mit LOF/Matrix Profiles = optional, nicht klausurrelevant) | 02 abstand |
 | 05 Evaluierung | 28 F. | ROC/AUC, Precision/Recall, Train/Val/Test, Data Leakage | 03 evaluierung |
 | 06 Probabilistisch | 27 F. | Mahalanobis, GMM, KDE | 04 probabilistische |
 | 07 Rekonstruktionsbasiert | 51 F. | Autoencoder, VAE, GAN, AnoGAN, f-AnoGAN | 06 + 07 autoencoder, 08 gans |
@@ -56,36 +56,33 @@
 ⑥ Evaluierung: ROC/AUC lesen, Leakage-Checkliste (fit_transform nur auf Train!)
 ⑦ sklearn-Pipelines der Praktika (welches Verfahren, welche Parameter, welcher Aufruf)
 
-## Sessionplan
+## Sessionplan (Stand 17.7. — SOS-Klausur entfällt dieses Semester, Termine aus dem Kalender)
 
-### Phase 1: Warmhalten (vor SOS-Klausur am 22.7.)
-
-| Termin | Praktikum | Stoff + Übung |
-|---|---|---|
-| **Mi 8.7., 15–17** | 01a + 01b (Python/NumPy, zügig) | Kap. 1+2 kompakt. Blatt ① anfangen. Generierte MC-Aufgaben zu Grundbegriffen (Outlier vs. Novelty, Normalisierung) |
-| **Sa 11.7., 8:30–10:30** | 02 (Abstand) | Kap. 3a/4: kNN, LOF, Isolation Forest. Blatt ① erweitern. Generierte Verfahrenswahl-Aufgaben (Typ 8/12) |
-| **Fr 17.7., 14–16** | 03 (Evaluierung) | Kap. 5: ROC/AUC, Splits. Blatt ⑥. Generierte Leakage-Aufgaben (Typ 4) |
-
-### Phase 2: Vollgas (nach SOS-Klausur, 24.–30.7.)
+Erledigt: **S1 (8.7.)** Kap. 1+2, Blatt 1 korrigiert. **S2 (18.7.)** Kap. 3a/4 + Praktikum 02 + Blatt korrigiert — Details im Lern-Logbuch `CLAUDE.md`; Blatt ① -Erweiterung noch offen. Offen aus Phase 1: S1-Nacharbeit (Praktika 01a/01b + NumPy-Blatt) am 22.7.
 
 | Termin | Praktikum | Stoff + Übung |
 |---|---|---|
-| **Fr 24.7., 14–16** | 04 (Probabilistisch) | Kap. 6: Mahalanobis, GMM, KDE. Blatt ① fertig. Generierte Aufgaben (MC + Verfahrenswahl) |
-| **Sa 25.7., 14–16** | 05 (Deep Learning) | Kap. 3: Shapes, Aktivierungen, Loss. Blätter ② + ③. Generierte Shape- und Architekturfehler-Aufgaben (Typ 2/5) |
-| **➕ So 26.7. (NEU, 2h)** | 06 + 07 (Autoencoder) | Kap. 7 Teil 1: AE, VAE. Generierte AE-Code-Aufgaben (Typ 3) |
-| **Mo 27.7., 14–16** | 08 (GANs — zip vorher entpacken!) | Kap. 7 Teil 2: GAN, AnoGAN, f-AnoGAN. Blatt ⑤. Generierte GAN-Aufgaben (Typ 9) |
-| **Di 28.7., 8:30–11:30** | 09 (SVM) | Kap. 8 Teil 1: SVM, Kernel-Trick, OCSVM. Zeichenübungen mit generierten Punkteplots (Typ 6/7) |
-| **Di 28.7., 14–16** | (Zusatz: pca_clustering, optional) | Kap. 7a: k-Means, Silhouette, PCA. Generierte Clustering-Aufgaben (Typ 11) |
-| **Mi 29.7., 8:30–11:30** | 10 + 11 (Deep SVDD, GOAD) | Kap. 8 Teil 2 + 8a. Blatt ④. Generierte Deep-SVDD-Code-Aufgaben (Typ 10) |
+| **Fr 17.7., 15:15–17:15** | 02 (Abstand) | **S2 nachholen.** Kap. 4: kNN, Isolation Forest (3a optional → weglassen). Blatt ① erweitern. Blatt `Session02_Abstand` (Typ 8/12) |
+| **Mo 20.7., 14–16** | 03 (Evaluierung) | **S3.** Kap. 5: ROC/AUC, Splits. Blatt ⑥. Blatt `Session03_Evaluierung` (Leakage, Typ 4) |
+| **➕ Di 21.7., 14–16 (NEU — in Kalender eintragen!)** | 04 (Probabilistisch) | **S4.** Kap. 6: Mahalanobis, GMM, KDE. Blatt ① fertig. Blatt `Session04_Probabilistisch` |
+| **Mi 22.7., 14–15:30** | 01a + 01b (zügig) | **S1-Nacharbeit.** Python/NumPy: shapes, mean/axis, Broadcasting. Blatt `Session01_Nacharbeit` lösen |
+| **Fr 24.7., 14–16** | 05 (Deep Learning) | **S5.** Kap. 3: Shapes, Aktivierungen, Loss. Blätter ② + ③. Blatt `Session05_NeuronaleNetze` (Typ 2/5) |
+| **Sa 25.7., 14–16** | 06 + 07 (Autoencoder) | **S6.** Kap. 7 Teil 1: AE, VAE. Blatt `Session06_Autoencoder_VAE` (Typ 3) |
+| **🟡 So 26.7. nachm. (PUFFER)** | — | Reserve: Überlauf aus S5/S6 aufholen, hakende Notebooks fertig machen, oder schwächsten bisherigen Aufgabentyp nachtrainieren. Wenn alles im Plan liegt → frei |
+| **Mo 27.7., 14–16** | 08 (GANs) | **S7.** Kap. 7 Teil 2: GAN, AnoGAN, f-AnoGAN. Blatt ⑤. Blatt `Session07_GANs` (Typ 9) |
+| **Di 28.7., 8:30–11:30** | 09 (SVM) | **S8.** Kap. 8 Teil 1: SVM, Kernel-Trick, OCSVM. Zeichenübungen, Blatt `Session08_SVM_OCSVM` (Typ 6/7) |
+| **Di 28.7., 14–16** | Zusatz: pca_clustering (optional) | **S9.** Kap. 7a: k-Means, Silhouette, PCA. Blatt `Session09_Clustering_PCA` (Typ 11) |
+| **Mi 29.7., 8:30–11:30** | 10 + 11 (Deep SVDD, GOAD) | **S10.** Kap. 8 Teil 2 + 8a. Blatt ④. Blatt `Session10_DeepSVDD_GOAD` (Typ 10) |
 | **Mi 29.7., 14–16** | — | Blätter ①–⑦ finalisieren, Skript mit Registerreitern. **Ab jetzt Originale:** Übungssammlung Aufgaben 1–5 lösen, mit Lösungen abgleichen |
 | **Do 30.7., 8:30–10:30** | — | **Generalprobe:** Übungssammlung Aufgaben 6–12 unter Klausurbedingungen (90 min, nur Skript + Blätter als Hilfsmittel!), korrigieren |
-| **➕ Do 30.7. nachm. (NEU, 2h)** | — | Lücken aus Generalprobe schließen, schwächste Aufgabentypen mit neu generierten Varianten nachtrainieren |
+| **➕ Do 30.7., 14–16 (NEU — in Kalender eintragen!)** | — | Lücken aus Generalprobe schließen, schwächste Aufgabentypen mit neu generierten Varianten nachtrainieren |
 | **Fr 31.7., 8:30–10:30** | — | Nur Blätter + markierte MC-Begründungen durchgehen. Kein neuer Stoff! **11:00 Klausur** 🎯 |
 
-**Empfohlene Zusatztermine: So 26.7. + Do 30.7. nachmittags.** Kap. 7+8 (158 Folien, 5 Notebooks) sind der Kern der Klausur und brauchen den Platz.
+**Struktur-Logik:** S4 ist auf Di 21.7. vorgezogen, dadurch rückt alles hinter dem 22.7. einen Slot nach vorn und der Mi 29.7. nachmittags wird frei für Originale 1–5 — der bewährte Dreier-Abschluss (Originale → Generalprobe → Lückenschluss) bleibt erhalten. Die 3h-Vormittage gehören SVM (28.7.) und Deep SVDD/GOAD (29.7.).
 
 ## Hinweise
 
+- **Klammer-Regel (Ansage Prof., 18.7.):** Was in der Verfahrensübersicht (Folie 01/33) eingeklammert ist, ist optional und NICHT klausurrelevant. Eingeklammert sind: **LOF, Matrix Profiles** (03a — aus S2-Material entfernt), aber auch **(VAE), (PCA), (k-Means)**. ⚠️ Offen: Gilt die Regel auch für Letztere? Dann würden S9 (Kap. 7a) und die VAE-Teile von S6 entfallen — vor S6 (25.7.) klären! Gegenargument: Die Übungssammlung enthält Clustering-Aufgaben (Typ 11)
 - `mlAno08_gans.zip` vor dem 27.7. entpacken und testen
 - Zusatzmaterial-Notebooks (VAE, Matrix Profiles) nur bei Zeitüberschuss
 - Review-Paper (40 S.) = Hintergrund, nicht priorisieren
