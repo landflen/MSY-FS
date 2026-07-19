@@ -47,7 +47,8 @@ ED_FS/
     ├── 04_zeitveraenderlich.tex ← EDy5: Maxwell, Fortpfl.konst., Skineffekt, R~ ✓
     ├── 05_em_wellen.tex         ← EDy6: EM-Wellen (Wellengl., ebene Welle, Grenzflächen) ✓
     ├── 06_wellenleiter.tex      ← EDy7 komplett: Koax, Hohlleiter (Rechteck/Rund), Resonatoren, Leitungstheorie ✓
-    └── 07_antennen.tex          ← EDy8 komplett: Ersatzschaltbild, Elementardipol, Kenngrößen, Gewinn, Dipol, Gruppenantennen, EMV ✓
+    ├── 07_antennen.tex          ← EDy8 komplett: Ersatzschaltbild, Elementardipol, Kenngrößen, Gewinn, Dipol, Gruppenantennen, EMV ✓
+    └── 08_rezepte.tex           ← K0/K0b/K1–K5 Klausur-Rezepte als Wenn→Dann-Tabellen, self-contained + Konstanten/Einheiten-Kasten ✓ Stand 2026-07-18 nachm.
 ```
 
 ## Grafiken (TikZ, seit 2026-07-05)
@@ -63,10 +64,11 @@ ED_FS/
 - Deutsche Umlaute in `\text{}` innerhalb von Formelblöcken: ö → oe etc. als Fallback,
   aber UTF-8 mit inputenc funktioniert normalerweise; Probleme entstehen nur durch `"`
 
-## Status (Stand 2026-07-05) — ALLE KAPITEL FERTIG ✓
+## Status (Stand 2026-07-18 nachmittags) — ALLE KAPITEL FERTIG ✓ + Rezeptseiten im Wenn→Dann-Layout
 | Datei | Status |
 |-------|--------|
-| ED_FS.tex | fertig, kompiliert ✓ (7 Seiten, 0 Overfull, TikZ aktiv, EDy0–EDy8 komplett) |
+| ED_FS.tex | fertig, kompiliert ✓ (9 Seiten, 0 Overfull, TikZ aktiv, EDy0–EDy8 komplett + Rezeptseiten) |
+| 08_rezepte.tex | fertig ✓, **komplett neu strukturiert (2026-07-18 nachmittags)**: zweispaltige Wenn→Dann-Tabellen (`rezepttab`-Umgebung, `\wenn`/`\dann`/`\rzhl` lokal in der Datei definiert) statt 3-Spalten-Blöcke — linke Spalte = Klausur-Fragestellung kursiv, rechte Spalte = ALLE nötigen Formeln (self-contained, keine Verweise auf 7.x/8.x mehr nötig). Neu: K0b Konstanten & Einheiten (c0, Z_F0, ε0, μ0, κ_Ag/Cu/Messing, Ergebnis-Einheiten Np/m·rad/m·W/m² etc., 1 Np = 8,686 dB, dBm-Formel). In K1–K5 zusätzlich eingebaut: Z_L-Formel + α_L/α_D (7.1), Wanddämpfungs-3-Schritt + Z_FH (7.4), senkrechter Einfall q=1 (6.7), allg. Trafo-Formel (7.8), C_HW (8.6) + Gruppenfaktor √G_Gr/u (8.7) |
 | 00_einteilung.tex | fertig, kompiliert ✓ |
 | 01_elektrostatik.tex | fertig ✓ (2.1–2.7) + Grafiken |
 | 02_magnetfeld.tex | fertig ✓ (3.1–3.7) + Grafiken |

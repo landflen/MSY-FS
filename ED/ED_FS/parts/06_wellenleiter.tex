@@ -11,13 +11,14 @@
       Z_L=Z_{F0}\tfrac{\ln(D/d)}{2\pi\sqrt{\varepsilon_r}}
         =\tfrac{60\,\Omega}{\sqrt{\varepsilon_r}}\ln\tfrac{D}{d}}} &
   \parbox[t]{\linewidth}{%
-    \formelblock{Dämpfung — Leiterverluste}{%
+    \formelblock{Dämpfung — Leiterverluste $[\mathrm{Np/m}]$}{%
       \alpha_L=\sqrt{\tfrac{f\mu\varepsilon_r}{\pi\kappa}}
         \cdot\tfrac{1}{120\,\Omega}\cdot\tfrac{1}{D}\cdot\tfrac{1+D/d}{\ln(D/d)}}\\[0.2em]%
     \formelblock{Dämpfung — dielektr.\ ($\tan\delta$ klein)}{%
       \alpha_D\approx\tfrac{\pi f}{c_0}\sqrt{\varepsilon_r}\,\tan\delta}\\[0.15em]%
     \infoblock{Niedrige $f$: Leiterverluste dominieren;
-      ab GHz: dielektr.\ Verluste $\to$ Luft/Schaum.}} &
+      ab GHz: dielektr.\ Verluste $\to$ Luft/Schaum.\\
+      Np $\to$ dB: $a=8{,}686\,\mathrm{dB}\cdot\alpha l$.}} &
   \parbox[t]{\linewidth}{%
     \merkblock{Optimum (min.\ Dämpfung)}{%
       (D/d)_{opt}=3{,}59\;\Rightarrow\;Z_L=\tfrac{77\,\Omega}{\sqrt{\varepsilon_r}}}\\[0.2em]%
@@ -120,7 +121,7 @@
   \parbox[t]{\linewidth}{%
     \merkblock{Maximale (Durchbruch-)Leistung}{%
       P_{max}=\tfrac{a\,b\,E_D^2}{4\,Z_{F0}}\sqrt{1-\big(\tfrac{\lambda}{2a}\big)^2}}\\[0.2em]%
-    \formelblock{Wanddämpfung H$_{10}$}{%
+    \formelblock{Wanddämpfung H$_{10}$ $[\mathrm{Np/m}]$}{%
       \alpha_{Wand}=\tfrac{2R_F}{Z_{F0}}\cdot
         \tfrac{a/2b+(\lambda_0/2a)^2}{a\sqrt{1-(\lambda_0/2a)^2}}}\\[0.15em]%
     \infoblock{$E_D$ = Durchbruchfeldstärke.
@@ -178,7 +179,10 @@
       ($LC$ dort nicht mehr baubar). Nachteil: größer/schwerer.}} &
   \parbox[t]{\linewidth}{%
     \merkblock{EMV-Merksatz}{%
-      \text{Jeder geschl.\ leitf.\ Hohlraum hat Resonanzfrequenzen}}\\[0.2em]%
+      \begin{aligned}
+        &\text{Jeder geschl.\ leitf.\ Hohlraum}\\[-0.1em]
+        &\text{hat Resonanzfrequenzen}
+      \end{aligned}}\\[0.2em]%
     \infoblock{PC-Gehäuse: interne Taktfreq.\ regen Gehäuseresonanzen
       an $\Rightarrow$ Feldüberhöhung ($\sim$Güte) $\Rightarrow$ Abstrahlung.\\[0.15em]
       Abhilfe: viele \emph{kleine} Löcher statt weniger großer,
@@ -191,7 +195,10 @@
 \begin{formelreihe}
   \parbox[t]{\linewidth}{%
     \formelblock{Leitungsbeläge (längenbezogen)}{%
-      R',L'\ (\text{längs}),\quad G',C'\ (\text{quer})}\\[0.2em]%
+      \begin{aligned}
+        &R'\,[\tfrac{\Omega}{\mathrm m}],\;L'\,[\tfrac{\mathrm H}{\mathrm m}]\ (\text{längs})\\[0.05em]
+        &G'\,[\tfrac{\mathrm S}{\mathrm m}],\;C'\,[\tfrac{\mathrm F}{\mathrm m}]\ (\text{quer})
+      \end{aligned}}\\[0.2em]%
     \merkblock[cKap7]{Leitungswellenwiderstand}{%
       \underline Z_L=\sqrt{\tfrac{R'+j\omega L'}{G'+j\omega C'}}}\\[0.15em]%
     \formelblock{Fortpflanzungskonstante}{%

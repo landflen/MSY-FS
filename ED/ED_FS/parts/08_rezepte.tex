@@ -1,0 +1,290 @@
+% ---- K: Klausur-Rezepte ----------------------------------
+% Schema F: jede Klausur = A1 Koax, A2 Rechteckhohlleiter,
+% A3 Grenzflächen, A4 Leitungstransformation, A5 Antennen.
+% Quellen: Lösungsvorschläge SoSe22 & SoSe25, Aufgaben WiSe25/26.
+% Layout: Wenn (Fragestellung) -> Dann (alle nötigen Formeln).
+
+% ---- Wenn->Dann-Tabellenlayout ---------------------------
+\newenvironment{rezepttab}{%
+  \noindent\footnotesize%
+  \setlength{\tabcolsep}{0pt}%
+  \renewcommand{\arraystretch}{1.0}%
+  \begin{tabular}{@{}p{0.29\linewidth}@{\hspace{0.015\linewidth}}p{0.695\linewidth}@{}}%
+}{\end{tabular}\par}
+\newcommand{\wenn}[1]{\parbox[t]{\linewidth}{\raggedright\scriptsize\itshape #1}}
+\newcommand{\dann}[1]{\parbox[t]{\linewidth}{\raggedright #1}}
+\newcommand{\rzhl}{\noalign{\vskip 0.18em}\noalign{{\color{gray!40}\hrule height 0.3pt}}\noalign{\vskip 0.18em}}
+
+\bereich[cKap0]{K0 Klausur-Schema — immer 5 Aufgaben, 90\,min, $\approx$100\,P $\Rightarrow$ $\approx$0{,}9\,min/P}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \infoblock{A1 Koax (18--25\,P) \textbullet\ A2 Hohlleiter (17--20\,P)
+      \textbullet\ A3 Grenzfläche (16--24\,P) \textbullet\ A4 Leitungstrafo
+      (20--23\,P) \textbullet\ A5 Antennen (15--21\,P)}} &
+  \parbox[t]{\linewidth}{%
+    \infoblock{Punkte pro Teilaufgabe = Zeitbudget. Nie festbeißen:
+      \glqq Falls Sie X nicht gelöst haben, rechnen Sie mit\,\dots\grqq-Anker
+      nutzen \& weiter.}} &
+  \parbox[t]{\linewidth}{%
+    \infoblock{Rechner: RAD für $\tan\beta l$! Einheiten: mm$\to$m,
+      GHz$\to$1/s, dBm$\to$W. Skizze der Aufgabe \emph{genau} lesen
+      (welcher Durchmesser ist gemeint?).}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% ---- K0b Konstanten & Einheiten --------------------------
+\bereich[cKap0]{K0b Konstanten \& Einheiten — nachschlagen statt herleiten}
+\begin{formelreihe}
+  \parbox[t]{\linewidth}{%
+    \merkblock[cKap0]{Naturkonstanten}{%
+      \begin{aligned}
+        c_0&=2{,}998\cdot10^{8}\,\mathrm{m/s}\\[0.05em]
+        Z_{F0}&=120\pi\,\Omega\approx377\,\Omega\\[0.05em]
+        \varepsilon_0&=8{,}854\cdot10^{-12}\,\mathrm{As/(Vm)}\\[0.05em]
+        \mu_0&=4\pi\cdot10^{-7}\,\mathrm{Vs/(Am)}
+      \end{aligned}}} &
+  \parbox[t]{\linewidth}{%
+    \formelblock{Leitfähigkeiten $[\kappa]=\mathrm{S/m}$}{%
+      \begin{aligned}
+        \kappa_{Ag}&=6{,}25\cdot10^{7}\,,\quad
+        \kappa_{Cu}=5{,}8\cdot10^{7}\\[0.05em]
+        \kappa_{Messing}&=1{,}55\cdot10^{7}
+      \end{aligned}}\\[0.2em]%
+    \infoblock{Einheitenlos: $\varepsilon_r$, $\mu_r$, $\tan\delta$,
+      $G$, $C(\vartheta)$, $r$, $t$, $|r|$.\\[0.1em]
+      dBm: $P=1\,\mathrm{mW}\cdot10^{p/10\,\mathrm{dB}}$,\;
+      $p=10\,\mathrm{dB}\cdot\lg\tfrac{P}{\mathrm{mW}}$}} &
+  \parbox[t]{\linewidth}{%
+    \merkblock[cKap0]{Ergebnis-Einheiten (SI einsetzen!)}{%
+      \begin{aligned}
+        &[\alpha]=\tfrac{\mathrm{Np}}{\mathrm m}\,,\;
+          1\,\mathrm{Np}=8{,}686\,\mathrm{dB}\\[0.05em]
+        &[\beta]=\tfrac{\mathrm{rad}}{\mathrm m}\,,\;
+          [\delta]=[\lambda]=\mathrm m\,,\;[f]=\tfrac{1}{\mathrm s}\\[0.05em]
+        &[S]=\tfrac{\mathrm W}{\mathrm m^2}\,,\;[A_w]=\mathrm m^2\,,\;[P]=\mathrm W\\[0.05em]
+        &[E]=\tfrac{\mathrm V}{\mathrm m}\,,\;[H]=\tfrac{\mathrm A}{\mathrm m}\,,\;
+          [Z]=\Omega\,,\;[Y]=\mathrm S
+      \end{aligned}}} \\[0.3em]
+\end{formelreihe}
+\bereichende
+
+% ---- K1 Koax ---------------------------------------------
+\bereich[cKap7]{K1 Rezept A1: Koaxialleitung \;(alle Formeln enthalten; Herkunft 7.1, 5.3)}
+\begin{rezepttab}
+  \wenn{\glqq Wellenwiderstand\grqq\ geg./ges., $d$ oder $D$ gesucht} &
+  \dann{$Z_L=\tfrac{60\,\Omega}{\sqrt{\varepsilon_r}}\ln\tfrac{D}{d}
+    \;\Rightarrow\;
+    d=D\,e^{-Z_L\sqrt{\varepsilon_r}/60\,\Omega}\,,\quad
+    D=d\,e^{+Z_L\sqrt{\varepsilon_r}/60\,\Omega}$} \\ \rzhl
+  \wenn{\glqq bis zu welcher Frequenz\grqq\ (nur TEM, eindeutig)} &
+  \dann{$f_g=\tfrac{0{,}174\,\mathrm{GHz\cdot m}}{D\,\sqrt{\varepsilon_r}}$
+    \quad $D$ = \emph{Innen}durchm.\ des Außenleiters; Rohr mit Wandstärke $w$:
+    $D_i=D_a-2w$ (Triax!); größtes $D$ entscheidet} \\ \rzhl
+  \wenn{\glqq Dämpfung der Leitung in dB\grqq} &
+  \dann{$\alpha_L=\sqrt{\tfrac{f\mu\varepsilon_r}{\pi\kappa}}
+      \cdot\tfrac{1}{120\,\Omega}\cdot\tfrac{1}{D}\cdot\tfrac{1+D/d}{\ln(D/d)}\,,\quad
+    \alpha_D\approx\tfrac{\pi f}{c_0}\sqrt{\varepsilon_r}\,\tan\delta
+    \quad[\mathrm{Np/m}]$\\[0.15em]
+    dann: $a=8{,}686\,\mathrm{dB}\cdot\alpha l\,,\quad
+    A=10^{-a/20\,\mathrm{dB}}=e^{-\alpha l}$} \\ \rzhl
+  \wenn{zwei Leitungen, gleiches $Z_L$ — \glqq welche dämpft mehr?\grqq} &
+  \dann{gleiches $Z_L$ $\Rightarrow$ gleiches $D/d$ $\Rightarrow$
+    $\alpha_L\propto\tfrac{1}{D}$ $\Rightarrow$ kleinere Leitung dämpft
+    mehr (Begründung genügt)} \\ \rzhl
+  \wenn{\glqq ab welcher $f$ gilt $\alpha_L=k\cdot\alpha_D$?\grqq} &
+  \dann{$f=\tfrac{\mu}{\pi^3\kappa}\cdot q^2$ \; mit \;
+    $q=\tfrac{1+D/d}{120\,\Omega\cdot D\cdot\ln(D/d)}
+      \cdot\tfrac{c_0}{k\tan\delta}$} \\ \rzhl
+  \wenn{Stehwellen-Sonde: Abstand Max.\ $\to$ Min.\ gemessen} &
+  \dann{$\Delta z_{max\to min}=\tfrac{\lambda}{4}
+    \;\Rightarrow\;\lambda=4\,\Delta z\,,\quad
+    f=\tfrac{c_0}{\lambda\sqrt{\varepsilon_r}}$} \\ \rzhl
+  \wenn{$U_{max},U_{min}$ gemessen $\to$ $|r|$, Leistungen} &
+  \dann{$U_{h/r}=\tfrac{U_{max}\pm U_{min}}{2}\,,\quad
+    |r|=\tfrac{U_r}{U_h}\,;\qquad
+    P_{ein}=\tfrac{U_h^2}{Z_L}\,,\quad
+    P_{Last}=P_{ein}\,(1-|r|^2)$ \;(Effektivwerte)} \\ \rzhl
+  \wenn{$r$ geg., Last $R_V$ reell $\to$ $Z_L$} &
+  \dann{$Z_L=R_V\cdot\tfrac{1-r}{1+r}$} \\ \rzhl
+  \wenn{\glqq Schirmdämpfung\grqq\ (Wandstärke $w$)} &
+  \dann{$\delta=\sqrt{\tfrac{2}{\omega\mu_0\kappa}}\;[\mathrm m]\,,\quad
+    A=e^{-w/\delta}\,,\quad
+    a=-20\,\mathrm{dB}\cdot\lg A=8{,}686\,\mathrm{dB}\cdot\tfrac{w}{\delta}$} \\
+\end{rezepttab}
+\bereichende
+
+% ---- K2 Hohlleiter ---------------------------------------
+\bereich[cKap7]{K2 Rezept A2: Rechteckhohlleiter \;(alle Formeln enthalten; Herkunft 7.2--7.4, 7.6)}
+\begin{rezepttab}
+  \wenn{\glqq Grenzfrequenzen / eindeutiger Frequenzbereich\grqq} &
+  \dann{$f_{cH10}=\tfrac{c_0}{2a}\,,\quad
+    f_{cH20}=\tfrac{c_0}{a}\,,\quad
+    f_{cH01}=\tfrac{c_0}{2b}\,;\qquad
+    \text{eindeutig: } f_{cH10}<f<\min(2f_{cH10},\,f_{cH01})$} \\ \rzhl
+  \wenn{Abmessungen aus beobachteten Grenzfrequenzen} &
+  \dann{$a=\tfrac{c_0}{2f_1}$;\qquad zweiter beobachteter Typ:\;
+    $f_2=2f_1$ $\to$ H$_{20}$ \big(dann $b<\tfrac{a}{2}$, da
+    $f_{cH01}>f_{cH20}$\big);\quad
+    $f_2\neq2f_1$ $\to$ H$_{01}$: $b=\tfrac{c_0}{2f_2}$} \\ \rzhl
+  \wenn{\glqq mit Dielektrikum gefüllt\grqq} &
+  \dann{$f_c\to\tfrac{f_c}{\sqrt{\varepsilon_r}}
+    \;\Rightarrow\;
+    \varepsilon_{r,min}=\big(\tfrac{c_0}{2\,a\,f_2}\big)^{2}$} \\ \rzhl
+  \wenn{\glqq Wanddämpfung in dB\grqq\ — 3 Schritte} &
+  \dann{\textbf{1.}\;
+    $\tfrac{R_F}{Z_{F0}}=2{,}12\cdot10^{-5}
+      \sqrt{\tfrac{\kappa_{Ag}}{\kappa}}\sqrt{\tfrac{f}{\mathrm{GHz}}}$
+    \;(Zahlenwertgl.; $\kappa$-Werte: K0b)\\[0.15em]
+    \textbf{2.}\;
+    $\alpha=\tfrac{2R_F}{Z_{F0}}\cdot
+      \tfrac{a/2b+(\lambda_0/2a)^2}{a\sqrt{1-(\lambda_0/2a)^2}}
+      \;[\mathrm{Np/m}]$ \; mit \; $\lambda_0=\tfrac{c_0}{f}$\\[0.15em]
+    \textbf{3.}\;
+    $a_{dB}=8{,}686\,\mathrm{dB}\cdot\alpha\,l$
+    \; — nach dem Gesuchten umstellen:\\[0.1em]
+    \phantom{\textbf{3.}}\;Länge geg.\ $\to$ Dämpfung $a_{dB}$ direkt;\qquad
+    erlaubte Dämpfung geg.\ $\to$
+    $l_{max}=\tfrac{a_{dB}}{8{,}686\,\mathrm{dB}\cdot\alpha}$\\[0.1em]
+    \phantom{\textbf{3.}}\;{\scriptsize\itshape Bsp.\ SoSe22 A2.4:
+      $a_{dB}=6\,\mathrm{dB}$, $\alpha=6{,}98\cdot10^{-3}\,\tfrac{1}{\mathrm m}$
+      $\to$ $l_{max}\approx99\,\mathrm m$}} \\ \rzhl
+  \wenn{\glqq maximale Leistung\grqq\ / $\hat H_t$} &
+  \dann{$P_{max}=\tfrac{a\,b\,\hat E^2}{4Z_{F0}}
+      \sqrt{1-\big(\tfrac{\lambda_0}{2a}\big)^2}\,;\qquad
+    \hat H_t=\tfrac{\hat E}{Z_{FH}}$ \; mit \;
+    $Z_{FH}=\tfrac{Z_{F0}}{\sqrt{1-(\lambda_0/2a)^2}}$} \\ \rzhl
+  \wenn{\glqq Resonator(-länge)\grqq;\ \glqq mindestens\grqq\ $\Rightarrow$ $p=1$} &
+  \dann{$d_{min}=\tfrac{\lambda_H}{2}$ \; mit \;
+    $\lambda_H=\tfrac{\lambda_0}{\sqrt{1-(\lambda_0/2a)^2}}$;\qquad
+    direkt (Mode 101): $d=\tfrac{1}{\sqrt{(2f_r/c_0)^2-(1/a)^2}}$} \\ \rzhl
+  \wenn{Fallstricke} &
+  \dann{\scriptsize\itshape in allen Wurzeln steht $\lambda_0$ (Freiraum),
+    nie $\lambda_H$; nötig: $\lambda_0<2a$; $a$ und $b$ nicht vertauschen} \\
+\end{rezepttab}
+\bereichende
+
+% ---- K3 Grenzflächen -------------------------------------
+\bereich[cKap6]{K3 Rezept A3: Grenzflächen/Optik \;—\; stets $n=\sqrt{\varepsilon_{r2}/\varepsilon_{r1}}$, Medium 1 $\to$ 2, Winkel zum \emph{Lot} (Herkunft 6.7--6.8)}
+\begin{rezepttab}
+  \wenn{\glqq Brechungswinkel\grqq} &
+  \dann{$\sin\beta=\tfrac{\sin\alpha}{n}$ \;(Snellius)} \\ \rzhl
+  \wenn{\glqq reflexionsfrei\grqq\ / \glqq refl.\ Strahl linear polarisiert\grqq} &
+  \dann{$\alpha_B=\arctan n$\,;\quad
+    $\varepsilon_{r2}=\varepsilon_{r1}\tan^2\alpha_B$\,;\quad
+    $E$ in Einfallsebene einzeichnen} \\ \rzhl
+  \wenn{\glqq Totalreflexion\grqq\ (nur dicht $\to$ dünn, $n<1$)} &
+  \dann{$\alpha_g=\arcsin n$;\quad $\alpha\ge\alpha_g$: 100\,\%
+    reflektiert, Polarisation egal;\quad
+    $\varepsilon_r\ge\tfrac{1}{\sin^2\alpha}$ \;(Medium ggü.\ Luft)} \\ \rzhl
+  \wenn{Fresnel, $E\perp$ Einfallsebene} &
+  \dann{$q=\tfrac{\cos\beta}{\cos\alpha}$:\qquad
+    $r_e=r_m=\tfrac{q\,n-1}{q\,n+1}\,,\quad
+    t_e=\tfrac{2}{q\,n+1}\,,\quad
+    t_m=\tfrac{2n}{q\,n+1}$} \\ \rzhl
+  \wenn{Fresnel, $E\parallel$ Einfallsebene ($r=0$ bei $\alpha_B$)} &
+  \dann{$r_e=r_m=\tfrac{n-q}{n+q}\,,\quad
+    t_e=\tfrac{2}{n+q}\,,\quad
+    t_m=\tfrac{2n}{n+q}$} \\ \rzhl
+  \wenn{senkrechter Einfall ($\alpha=0$)} &
+  \dann{$q=1$, beide Polarisationen:\quad
+    $r_e=r_m=\tfrac{n-1}{n+1}\,,\quad
+    t_e=\tfrac{2}{n+1}\,,\quad
+    t_m=\tfrac{2n}{n+1}$} \\ \rzhl
+  \wenn{\glqq reflektierte / durchgehende Leistung(sdichte)\grqq} &
+  \dann{$S_r=r_e r_m\,S_h\,,\quad S_d=t_e t_m\,S_h$
+    \;($t_e t_m$ enthält Querschnittsänderung schon);\\[0.1em]
+    $P_r=r_e r_m\,P_h\,,\quad P_d=P_h-P_r$;\qquad
+    Bilanz: $r_er_m+t_et_m\tfrac{\cos\beta}{\cos\alpha}=1$} \\ \rzhl
+  \wenn{\glqq unpolarisiert\grqq} &
+  \dann{je $\tfrac{S_h}{2}$ pro Polarisation:\quad
+    $S_d=\tfrac{S_h}{2}\big(t_{e\perp}t_{m\perp}
+      +t_{e\parallel}t_{m\parallel}\big)$} \\ \rzhl
+  \wenn{Prisma} &
+  \dann{\scriptsize\itshape Geometrie über Winkelsummen herleiten
+    ($\gamma=\alpha_2-\beta_1$ u.\,ä.) — Skizze!} \\
+\end{rezepttab}
+\bereichende
+
+% ---- K4 Leitungstransformation ---------------------------
+\bereich[cKap7]{K4 Rezept A4: Leitungstransformation \;(alle Formeln enthalten; Herkunft 7.7--7.8)}
+\begin{rezepttab}
+  \wenn{\textbf{1. Immer zuerst}} &
+  \dann{$\lambda=\tfrac{c_0}{f}$ (Luft!)\,,\quad
+    $\beta=\tfrac{2\pi}{\lambda}\;[\mathrm{rad/m}]$\,;\quad
+    Rechner auf RAD für $\tan\beta l$!} \\ \rzhl
+  \wenn{\textbf{2.} jede Leitungslänge auf Sonderfall prüfen} &
+  \dann{$l=n\tfrac{\lambda}{2}$: $Z$ unverändert;\qquad
+    $l=\tfrac{\lambda}{4}$: $Z=\tfrac{Z_L^2}{Z(0)}$
+    \;(LL$\leftrightarrow$KS, $C\to L=CZ_L^2$, $L\to C=L/Z_L^2$)} \\ \rzhl
+  \wenn{\textbf{3.} kein Sonderfall $\to$ allg.\ Transformation} &
+  \dann{$\underline Z(l)=Z_L\cdot
+    \tfrac{\underline Z(0)+jZ_L\tan\beta l}{Z_L+j\underline Z(0)\tan\beta l}$
+    \quad(von der Last nach vorn rechnen, $Z_V=R+j\omega L$ zuerst)} \\ \rzhl
+  \wenn{Stichleitung (kurzgeschlossen / leerlaufend)} &
+  \dann{$Z_{KS}=jZ_L\tan\beta l\,,\qquad
+    Z_{LL}=\tfrac{-jZ_L}{\tan\beta l}$} \\ \rzhl
+  \wenn{Parallel- / Serienschaltung} &
+  \dann{parallel: Admittanzen $Y=\tfrac1Z\;[\mathrm S]$ \emph{addieren};\qquad
+    seriell: $Z$ addieren} \\ \rzhl
+  \wenn{\glqq $C$ so wählen, dass $Z$ reell\grqq\ (parallel)} &
+  \dann{$\omega C=-\mathrm{Im}\{Y_{rest}\}
+    \;\Rightarrow\;
+    Z=\tfrac{1}{\mathrm{Re}\{Y_{rest}\}}$} \\ \rzhl
+  \wenn{Bauteilwerte aus $Z=R+jX$} &
+  \dann{$R=\mathrm{Re}\{Z\}$\,;\qquad
+    $X>0$: $L=\tfrac{X}{\omega}$\,;\qquad
+    $X<0$: $C=\tfrac{-1}{\omega X}$} \\ \rzhl
+  \wenn{\glqq reell auf reell anpassen\grqq} &
+  \dann{$\lambda/4$-Trafo: $Z_L'=\sqrt{Z_1 Z_2}\,,\quad
+    l=\tfrac{\lambda}{4}+n\tfrac{\lambda}{2}$;\qquad
+    $l$-Bedingung (z.B.\ $1{,}5\,\mathrm m<l<2\,\mathrm m$):
+    passendes $n$ wählen} \\ \rzhl
+  \wenn{\glqq Reflexionsfaktor\grqq} &
+  \dann{$\underline r=\tfrac{\underline Z-Z_L}{\underline Z+Z_L}$;\qquad
+    Last KS / nur Blindelemente: keine Wirkleistungsaufnahme
+    $\Rightarrow|r|=1$ (Begründung genügt)} \\
+\end{rezepttab}
+\bereichende
+
+% ---- K5 Antennen -----------------------------------------
+\bereich[cKap8]{K5 Rezept A5: Antennen \;(alle Formeln enthalten; Herkunft 8.4--8.7)}
+\begin{rezepttab}
+  \wenn{\textbf{Standardkette} Sender $\to$ Empfänger} &
+  \dann{$S=\tfrac{G_S\,P}{4\pi d^2}\;\big[\tfrac{\mathrm W}{\mathrm m^2}\big]\,,\qquad
+    P_E=S\cdot A_w\,,\qquad
+    A_w=\tfrac{\lambda^2 G_E}{4\pi}\;[\mathrm m^2]$} \\ \rzhl
+  \wenn{dB / dBm umrechnen} &
+  \dann{$G=10^{g/10\,\mathrm{dB}}$\,;\qquad
+    $P=1\,\mathrm{mW}\cdot10^{p/10\,\mathrm{dB}}$} \\ \rzhl
+  \wenn{rückwärts: \glqq benötigte Wirkfläche / Gewinn\grqq} &
+  \dann{$A_{w,min}=\tfrac{P_{E,min}}{S}\,,\qquad
+    G_{min}=\tfrac{4\pi A_w}{\lambda^2}$} \\ \rzhl
+  \wenn{Gewinn-Werte (falls nicht gegeben)} &
+  \dann{\scriptsize Elementardipol $1{,}5$ ($1{,}76$\,dBi),\quad
+    $\lambda/2$-Dipol $1{,}64$ ($2{,}15$\,dBi),\quad
+    Ganzwellendipol $3{,}8$\,dBi} \\ \rzhl
+  \wenn{Winkelfragen Elementardipol (\glqq unter welchem Winkel noch Empfang?\grqq)} &
+  \dann{$G(\vartheta)=G_{max}\,C^2(\vartheta)$, $C=|\sin\vartheta|$
+    $\;\Rightarrow\;\vartheta=\arcsin\sqrt{\tfrac{G}{G_{max}}}$;\quad
+    benötigter Gewinn: $G(\vartheta)=\tfrac{4\pi P_E}{S\,\lambda^2}$\\[0.1em]
+    Kippwinkel $\gamma=90^\circ-\vartheta$;\quad
+    Empfangs-Winkelbereich $\alpha=180^\circ-2\vartheta$} \\ \rzhl
+  \wenn{\glqq Frequenzwechsel\grqq\ ($P,d,$ Empfänger gleich)} &
+  \dann{$\Delta p=(g_{S,neu}-g_{S,alt})
+    +20\,\mathrm{dB}\cdot\lg\tfrac{f_{alt}}{f_{neu}}$} \\ \rzhl
+  \wenn{\glqq Anzahl Dipole aus Gewinn\grqq} &
+  \dann{$g_{Gr}=g_{ges}-2{,}15\,\mathrm{dB}\,,\qquad
+    N=2^{g_{Gr}/3\,\mathrm{dB}}$ \;(Verdopplung $=+3$\,dB)} \\ \rzhl
+  \wenn{\glqq Schwenken\grqq\ (Phased Array)} &
+  \dann{Maximum bei $u=0$ $\;\Rightarrow\;
+    \delta=-\tfrac{2\pi b}{\lambda}\cos\vartheta_0$;\quad
+    $\vartheta_0$ aus Geometrie (z.B.\ $\vartheta_0=90^\circ
+    +\arctan\tfrac{h}{R}$ unter Horizont)} \\ \rzhl
+  \wenn{\glqq Gewinn unter Winkel $\vartheta$\grqq\ (Gruppenantenne)} &
+  \dann{$C_{ges}=C_{HW}\cdot C_{Gr}$ \; mit \;
+    $C_{HW}=\big|\tfrac{\cos(\frac{\pi}{2}\cos\vartheta)}{\sin\vartheta}\big|\,,\quad
+    \sqrt{G_{Gr}}=\tfrac{1}{\sqrt N}
+      \big|\tfrac{\sin(Nu/2)}{\sin(u/2)}\big|\,,\quad
+    u=\delta+\tfrac{2\pi b}{\lambda_0}\cos\vartheta$} \\
+\end{rezepttab}
+\bereichende
