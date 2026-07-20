@@ -83,9 +83,13 @@ Warum Pipeline? Scaler + Klassifikator werden als **eine Einheit** behandelt →
 2. `train_test_split` **nach** der Normalisierung? → Leakage! (Split muss zuerst kommen)
 3. GridSearchCV/CV **ohne Pipeline**, aber mit vorab global skalierten Daten? → Leakage in jeden Fold
 4. Testdaten mehrfach benutzt (nach Metaparameter-Anpassung nochmal getestet)? → Testdaten verbraucht
+   - auch: Metaparametersuche und finale Bewertung auf **derselben** Datenmenge? → die „beste" Parameterwahl ist an genau diese Daten angepasst, Testergebnis zu optimistisch
 5. Abhängige Samples (gleicher Proband/gleiche Serie) in Train UND Test? → verstecktes Overfitting
 6. Novelty Detection: Anomalien in Trainingsfolds der CV? → falsche Aufteilung (s. o.)
 7. Accuracy bei stark unbalancierten Daten als einzige Metrik? → falsche Metrik (bal. acc / Precision+Recall / AUC)
+8. Benutzt die **Vorverarbeitung die Labels**? (z. B. Imputation mit `median` getrennt nach Klasse) → schwerste Form von Leakage: Das Label steckt danach im Merkmal selbst. Bei neuen Daten ist das Label unbekannt → Modell wirkt im Test gut, bricht im Feld ein. Korrekt: **ein** Median pro Merkmal, nur auf den Trainingsdaten berechnet.
+
+**Achtung, kein Fehler:** Beim Novelty-CV-Rezept (s. o.) stehen in jedem Fold **dieselben** Anomalien — das ist methodenbedingt so gewollt, nicht falsch. Als Einschränkung formulieren: Streuung über die Folds wird dadurch unterschätzt.
 
 ## Keras-Metriken (Folie 24)
 
