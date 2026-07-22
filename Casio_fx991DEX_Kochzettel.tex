@@ -1,0 +1,187 @@
+% ============================================================
+%  Rechner-Kochzettel — Casio fx-991DE X (ClassWiz)
+%  Komplexe Zahlen & Winkeleinheiten, fachübergreifend
+%  Alle Tastenfolgen gegen die offizielle Bedienungsanleitung
+%  fx-87DE X / fx-991DE X verifiziert (22.07.2026).
+%  ACHTUNG: gilt für das Modell "X", nicht für das neuere "CW".
+% ============================================================
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{array}
+\usepackage{microtype}
+\usepackage{needspace}
+\usepackage{tikz}
+
+\geometry{top=10mm,bottom=14mm,left=10mm,right=10mm,includefoot}
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{0pt}
+\renewcommand{\baselinestretch}{0.9}
+\setlength{\emergencystretch}{2em}
+\hfuzz=3pt
+\setlength{\fboxsep}{0.18em}
+\setlength{\fboxrule}{0.3pt}
+\pagestyle{empty}
+
+\colorlet{cAkz}{cyan!70!black}
+
+% ---- Bereichskopf ----------------------------------------
+\newcommand{\bereich}[2][cAkz]{%
+  \needspace{4\baselineskip}%
+  \vspace{0.5em}%
+  \noindent\colorbox{#1!10}{%
+    \makebox[\dimexpr\linewidth-2\fboxsep\relax][l]{%
+      \small\bfseries\color{#1!80!black}\strut\enspace #2}}%
+  \nopagebreak%
+  \vspace{0.1em}\par\noindent}
+
+\newcommand{\bereichende}{%
+  \vspace{0.2em}%
+  {\color{gray!50}\hrule height 0.3pt}%
+  \vspace{0.2em}}
+
+% ---- Wenn->Dann-Tabellenlayout ---------------------------
+\newenvironment{rezepttab}{%
+  \noindent\footnotesize%
+  \setlength{\tabcolsep}{0pt}%
+  \renewcommand{\arraystretch}{1.0}%
+  \begin{tabular}{@{}p{0.34\linewidth}@{\hspace{0.015\linewidth}}p{0.645\linewidth}@{}}%
+}{\end{tabular}\par}
+\newcommand{\wenn}[1]{\parbox[t]{\linewidth}{\raggedright\scriptsize\itshape #1}}
+\newcommand{\dann}[1]{\parbox[t]{\linewidth}{\raggedright #1}}
+\newcommand{\rzhl}{\noalign{\vskip 0.18em}\noalign{{\color{gray!40}\hrule height 0.3pt}}\noalign{\vskip 0.18em}}
+
+% ---- Tastensymbol ----------------------------------------
+\newcommand{\taste}[1]{\tikz[baseline=(tk.base)]{%
+  \node[draw=gray!70,fill=gray!12,rounded corners=1pt,
+        inner xsep=2.2pt,inner ysep=1pt,line width=0.3pt,
+        font=\scriptsize\sffamily](tk){#1};}}
+
+% ==========================================================
+\begin{document}
+\begin{center}
+  {\large\bfseries Rechner-Kochzettel — Casio fx-991DE X}\\[0.2em]
+  {\footnotesize Komplexe Zahlen \& Winkeleinheiten.\;
+   Gilt für das Modell \textbf{X} (ClassWiz) — das neuere
+   fx-991DE \textbf{CW} hat andere Menüs.}
+\end{center}
+\vspace{0.3em}
+
+\bereich{R1 \;Vor der Prüfung einmal einstellen}
+\begin{rezepttab}
+  \wenn{Rechenmodus} &
+  \dann{\taste{MENU} \taste{2} \;=\; \glqq Komplexe Zahlen\grqq\
+    \quad\scriptsize ohne diesen Modus gibt es kein $i$} \\ \rzhl
+  \wenn{Winkeleinheit} &
+  \dann{\taste{SHIFT} \taste{MENU} (Setup) $\to$ \emph{Winkeleinheit} $\to$
+    \textbf{Gradmaß (D)} oder \textbf{Bogenmaß (R)}\\[0.15em]
+    \scriptsize Anzeige oben im Display: \textbf{D} $=$ Grad,
+    \textbf{R} $=$ Bogenmaß, \textbf{G} $=$ Gon.
+    \emph{Vor jeder Aufgabe kurz hinschauen} — das ist der häufigste
+    stille Fehler.} \\ \rzhl
+  \wenn{Ergebnisformat komplexer Zahlen} &
+  \dann{\taste{SHIFT} \taste{MENU} $\to$ \emph{Komplexe Zahlen} $\to$
+    \textbf{a$+$b$i$} (Standard) oder \textbf{r$\angle\theta$}\\[0.15em]
+    \scriptsize Anzeige oben: $i$ bei a$+$b$i$, $\angle$ bei Polarform} \\
+\end{rezepttab}
+\bereichende
+
+\bereich{R2 \;Tasten (im \glqq Komplexe Zahlen\grqq-Modus)}
+\begin{rezepttab}
+  \wenn{$i$ eingeben \;— in der E-Technik heißt es $j$, dasselbe} &
+  \dann{\taste{ENG} \quad\scriptsize violettes $i$ auf der Taste} \\ \rzhl
+  \wenn{$\angle$ für Polareingabe, z.\,B.\ $200\angle 0$} &
+  \dann{\taste{SHIFT} \taste{ENG}} \\ \rzhl
+  \wenn{\textbf{Realteil} (ReP)} &
+  \dann{\taste{OPTN} \taste{3} \quad\scriptsize liefert die nackte Zahl
+    ohne $i$, direkt weiterrechenbar} \\ \rzhl
+  \wenn{\textbf{Imaginärteil} (ImP)} &
+  \dann{\taste{OPTN} \taste{4} \quad\scriptsize ebenfalls ohne $i$} \\ \rzhl
+  \wenn{\textbf{Betrag} $|\underline Z|$ (Abs)} &
+  \dann{\taste{SHIFT} \taste{(}} \\ \rzhl
+  \wenn{\textbf{Argument} / Phasenwinkel (Arg)} &
+  \dann{\taste{OPTN} \taste{1}} \\ \rzhl
+  \wenn{Konjugierte $\underline Z^{*}$ (Conjg)} &
+  \dann{\taste{OPTN} \taste{2}} \\ \rzhl
+  \wenn{\emph{ein} Ergebnis in Polarform sehen} &
+  \dann{\taste{OPTN} \taste{$\blacktriangledown$} \taste{1}
+    \;($\blacktriangleright r\angle\theta$)} \\ \rzhl
+  \wenn{\emph{ein} Ergebnis in a$+$b$i$ sehen} &
+  \dann{\taste{OPTN} \taste{$\blacktriangledown$} \taste{2}
+    \;($\blacktriangleright a+bi$)} \\
+\end{rezepttab}
+\bereichende
+
+\bereich{R3 \;Typische Eingaben (Wechselstrom- und Leitungsrechnung)}
+\begin{rezepttab}
+  \wenn{Impedanz eintippen, z.\,B.\ $(200-j174{,}4)\,\Omega$} &
+  \dann{\taste{2}\taste{0}\taste{0} \taste{$-$}
+    \taste{1}\taste{7}\taste{4}\taste{.}\taste{4} \taste{ENG}
+    \taste{$=$}} \\ \rzhl
+  \wenn{durch eine komplexe Zahl \textbf{teilen}} &
+  \dann{Nenner \textbf{immer klammern}:\;
+    $a$ \taste{$\div$} \taste{(} $\dots$ \taste{ENG} \taste{)}
+    \taste{$=$}\\[0.15em]
+    \scriptsize ohne Klammer teilt der Rechner nur durch den Realteil und
+    addiert den Rest — der häufigste Tippfehler überhaupt} \\ \rzhl
+  \wenn{Quadrat durch komplexe Zahl,
+    z.\,B.\ $\underline Z=\tfrac{Z_L^2}{\underline Z(0)}$
+    ($\lambda/4$-Trafo)} &
+  \dann{$Z_L$ \taste{$x^2$} \taste{$\div$} \taste{(} $\underline Z(0)$
+    \taste{)} \taste{$=$}
+    \quad\scriptsize Real- und Imaginärteil direkt ablesen} \\ \rzhl
+  \wenn{Kehrwert: Admittanz $\underline Y=\tfrac{1}{\underline Z}$
+    (Parallelschaltung)} &
+  \dann{\taste{(} $\underline Z$ \taste{)} \taste{$x^{-1}$};\quad
+    $\underline Y$-Werte addieren, am Schluss wieder \taste{$x^{-1}$}
+    zurück nach $\underline Z$} \\ \rzhl
+  \wenn{nur den Real- \emph{oder} Imaginärteil in die nächste
+    Rechnung übernehmen} &
+  \dann{\taste{OPTN} \taste{4} \taste{Ans} \taste{)} \taste{$=$}
+    $\;\to\;$ Imaginärteil als gewöhnliche reelle Zahl, die selbst wieder
+    \taste{Ans} ist (Realteil: \taste{OPTN} \taste{3})\\[0.15em]
+    \scriptsize Achtung: jedes \taste{$=$} überschreibt \taste{Ans}.
+    Brauchst du \emph{beide} Teile, vorher mit \taste{STO} in einer
+    Variablen ablegen — oder schlicht beide Zahlen notieren.} \\ \rzhl
+  \wenn{$\tan\beta l$ und andere Winkelfunktionen} &
+  \dann{Argument in \textbf{rad} eintippen $\Rightarrow$ Setup auf
+    \textbf{R}; in Grad eintippen $\Rightarrow$ Setup auf \textbf{D}.
+    Nur nie mischen.} \\ \rzhl
+  \wenn{dB-Rechnungen: $\lg$ und $\ln$} &
+  \dann{\taste{log} ohne Basisangabe $=$ Basis 10 $=\lg$;\quad
+    \taste{ln} ist die eigene Taste für $\ln$} \\
+\end{rezepttab}
+\bereichende
+
+\bereich{R4 \;Fallen, die still danebenrechnen}
+\begin{rezepttab}
+  \wenn{Winkeleinheit wirkt \textbf{doppelt}} &
+  \dann{dieselbe Einstellung gilt für die \emph{Eingabe} in
+    $\sin/\cos/\tan$ \textbf{und} für die \emph{Ausgabe} von Winkeln
+    (Arg, Polarform). Rechnung in rad, Ergebnis soll in Grad
+    $\Rightarrow$ vor dem Ablesen umstellen.} \\ \rzhl
+  \wenn{Phasenwinkel sieht \glqq falsch\grqq\ aus} &
+  \dann{$\theta$ wird nur im Bereich $-180^\circ<\theta\le180^\circ$
+    angezeigt — aus $216^\circ$ wird $-144^\circ$.\\[0.15em]
+    \scriptsize Für $\tan$ egal (Periode $180^\circ$), beim abzulesenden
+    Phasenwinkel nicht.} \\ \rzhl
+  \wenn{$i$ lässt sich nicht eingeben} &
+  \dann{falscher Modus — \taste{MENU} \taste{2}. Das violette $i$ ist nur
+    im \glqq Komplexe Zahlen\grqq-Modus erreichbar.} \\ \rzhl
+  \wenn{nach jedem Moduswechsel} &
+  \dann{Blick auf die Indikatoren oben im Display
+    (\textbf{D}/\textbf{R}/\textbf{G} und $i$/$\angle$) —
+    kostet zwei Sekunden und rettet ganze Teilaufgaben} \\
+\end{rezepttab}
+\bereichende
+
+\vfill
+{\scriptsize\color{gray!60!black}
+Tastenfolgen verifiziert gegen die offizielle Bedienungsanleitung
+\emph{fx-87DE X / fx-991DE X} (Casio), Stand 22.07.2026.}
+
+\end{document}

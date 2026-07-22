@@ -63,7 +63,9 @@
           [\delta]=[\lambda]=\mathrm m\,,\;[f]=\tfrac{1}{\mathrm s}\\[0.05em]
         &[S]=\tfrac{\mathrm W}{\mathrm m^2}\,,\;[A_w]=\mathrm m^2\,,\;[P]=\mathrm W\\[0.05em]
         &[E]=\tfrac{\mathrm V}{\mathrm m}\,,\;[H]=\tfrac{\mathrm A}{\mathrm m}\,,\;
-          [Z]=\Omega\,,\;[Y]=\mathrm S
+          [Z]=\Omega\,,\;[Y]=\mathrm S\\[0.05em]
+        &[L]=\mathrm{H\,(Henry)}=\tfrac{\mathrm{Vs}}{\mathrm A}\,,\;
+          [C]=\mathrm{F}=\tfrac{\mathrm{As}}{\mathrm V}
       \end{aligned}}} \\[0.3em]
 \end{formelreihe}
 \bereichende
@@ -71,11 +73,73 @@
 % ---- K1 Koax ---------------------------------------------
 \bereich[cKap7]{K1 Rezept A1: Koaxialleitung \;(alle Formeln enthalten; Herkunft 7.1, 5.3)}
 \begin{rezepttab}
+  \wenn{\textbf{Immer zuerst:} welcher Durchmesser ist $d$, welcher $D$?
+    (Skizze der Aufgabe abgleichen!)} &
+  \dann{%
+    \vspace{0.1em}\par\noindent
+    \begin{tikzpicture}[baseline=0pt,font=\tiny,scale=0.82,
+      lead/.style={line width=0.2pt,gray!60!black},
+      dimA/.style={{Stealth[length=0.9mm]}-{Stealth[length=0.9mm]},line width=0.25pt}]%
+      % ---- links: Standard-Koax ----
+      \fill[gray!45] (0,0) circle (1.22);
+      \fill[cKap7!7] (0,0) circle (1.05);
+      \fill[gray!60] (0,0) circle (0.34);
+      \draw[line width=0.3pt] (0,0) circle (1.22) (0,0) circle (1.05) (0,0) circle (0.34);
+      \node at (0,0.72) {$\varepsilon_r$};
+      \draw[lead] (0,0.34)--(1.80,0.34) (0,-0.34)--(1.80,-0.34);
+      \draw[lead] (0,1.05)--(2.35,1.05) (0,-1.05)--(2.35,-1.05);
+      \draw[dimA] (1.70,-0.34)--(1.70,0.34);
+      \draw[dimA] (2.25,-1.05)--(2.25,1.05);
+      \node[fill=white,inner sep=0.4pt] at (1.70,0) {$d$};
+      \node[fill=white,inner sep=0.4pt] at (2.25,0) {$D$};
+      \node at (0.6,-1.85) {Koax};
+      % ---- rechts: Triax ----
+      \begin{scope}[shift={(6.0,0)}]
+        \fill[gray!45] (0,0) circle (1.52);
+        \fill[cKap7!7] (0,0) circle (1.35);
+        \fill[gray!60] (0,0) circle (0.80);
+        \fill[cKap7!7] (0,0) circle (0.56);
+        \fill[gray!60] (0,0) circle (0.22);
+        \draw[line width=0.3pt] (0,0) circle (1.52) (0,0) circle (1.35)
+          (0,0) circle (0.80) (0,0) circle (0.56) (0,0) circle (0.22);
+        \draw[lead] (250:0.22)--(250:2.00) node[anchor=north east,inner sep=1pt] {$d_i$};
+        \draw[lead] (200:0.56)--(200:2.00) node[anchor=east,inner sep=1pt] {$D_m-2w$};
+        \draw[lead] (150:0.80)--(150:2.00) node[anchor=east,inner sep=1pt] {$D_m$};
+        \draw[lead] (108:1.35)--(108:2.05) node[anchor=south,inner sep=1pt] {$D_a$};
+        \node at (1.1,-1.85) {Triax};
+      \end{scope}
+      % ---- Legende ----
+      \fill[gray!60] (-1.25,-2.45) rectangle (-1.05,-2.28);
+      \draw[line width=0.25pt] (-1.25,-2.45) rectangle (-1.05,-2.28);
+      \node[anchor=west,inner sep=1.5pt] at (-1.0,-2.37) {= Metall (Leiter)};
+      \fill[cKap7!7] (2.1,-2.45) rectangle (2.3,-2.28);
+      \draw[line width=0.25pt] (2.1,-2.45) rectangle (2.3,-2.28);
+      \node[anchor=west,inner sep=1.5pt] at (2.35,-2.37)
+        {= Dielektrikum ($\varepsilon_r$)};
+    \end{tikzpicture}\par\vspace{0.25em}
+    $d=$ \emph{Außen}durchm.\ des \emph{Innen}leiters, $D=$
+    \emph{Innen}durchm.\ des \emph{Außen}leiters — beides die R\"ander des
+    Dielektrikum-Rings; Metalldicke z\"ahlt nie mit.\\[0.15em]
+    \scriptsize Triax = 2 Koaxleitungen, das Mittelrohr geh\"ort beiden:
+    \textbf{Ltg.\,1 (innen)} $d=d_i$, $D=D_m-2w$ \;\textbullet\;
+    \textbf{Ltg.\,2 (außen)} $d=D_m$, $D=D_a$} \\ \rzhl
   \wenn{\glqq Wellenwiderstand\grqq\ geg./ges., $d$ oder $D$ gesucht} &
   \dann{$Z_L=\tfrac{60\,\Omega}{\sqrt{\varepsilon_r}}\ln\tfrac{D}{d}
     \;\Rightarrow\;
-    d=D\,e^{-Z_L\sqrt{\varepsilon_r}/60\,\Omega}\,,\quad
-    D=d\,e^{+Z_L\sqrt{\varepsilon_r}/60\,\Omega}$} \\ \rzhl
+    \dfrac{D}{d}=e^{\,Z_L\sqrt{\varepsilon_r}/60\,\Omega}$\\[0.15em]
+    \scriptsize $Z_L$ legt \emph{nur das Verh\"altnis} $D/d$ fest, nicht die
+    Gr\"oße $\Rightarrow$ ein bekannter Durchmesser gen\"ugt. Da stets $D>d$:
+    gr\"oßeren ($D$) geg.\ $\to$ \emph{teilen}
+    $d=D\,/\,e^{\dots}$;\; kleineren ($d$) geg.\ $\to$ \emph{mal}
+    $D=d\cdot e^{\dots}$. Gleiches $Z_L$ + gleiches $\varepsilon_r$
+    $\Rightarrow$ Verh\"altnis nur \emph{einmal} rechnen.} \\ \rzhl
+  \wenn{\glqq $d$ für \emph{minimale Dämpfung}\grqq\ ($D$ geg.)} &
+  \dann{$\left(\tfrac{D}{d}\right)_{opt}=3{,}59
+    \;\Rightarrow\;d_{opt}=\tfrac{D}{3{,}59}$
+    \quad\scriptsize(aus $\tfrac{d}{dx}\tfrac{1+x}{\ln x}=0\Rightarrow\ln x=1+\tfrac1x$)\\[0.15em]
+    dazu geh\"ort stets $Z_L=\tfrac{77\,\Omega}{\sqrt{\varepsilon_r}}$;
+    umgekehrt gefordertes $Z_L\Rightarrow
+    \varepsilon_r=\left(\tfrac{77\,\Omega}{Z_L}\right)^{2}$} \\ \rzhl
   \wenn{\glqq bis zu welcher Frequenz\grqq\ (nur TEM, eindeutig)} &
   \dann{$f_g=\tfrac{0{,}174\,\mathrm{GHz\cdot m}}{D\,\sqrt{\varepsilon_r}}$
     \quad $D$ = \emph{Innen}durchm.\ des Außenleiters; Rohr mit Wandstärke $w$:
@@ -85,16 +149,38 @@
       \cdot\tfrac{1}{120\,\Omega}\cdot\tfrac{1}{D}\cdot\tfrac{1+D/d}{\ln(D/d)}\,,\quad
     \alpha_D\approx\tfrac{\pi f}{c_0}\sqrt{\varepsilon_r}\,\tan\delta
     \quad[\mathrm{Np/m}]$\\[0.15em]
-    dann: $a=8{,}686\,\mathrm{dB}\cdot\alpha l\,,\quad
-    A=10^{-a/20\,\mathrm{dB}}=e^{-\alpha l}$} \\ \rzhl
+    $\alpha_{ges}=\alpha_L+\alpha_D$
+    \quad\scriptsize(steht \glqq unter Vernachl\"assigung dielektr.\ Verluste\grqq:
+    nur $\alpha_L$)\\[0.15em]
+    dann: $a=8{,}686\,\mathrm{dB}\cdot\alpha_{ges}\, l\,,\quad
+    A=10^{-a/20\,\mathrm{dB}}=e^{-\alpha_{ges} l}$} \\ \rzhl
   \wenn{zwei Leitungen, gleiches $Z_L$ — \glqq welche dämpft mehr?\grqq} &
   \dann{gleiches $Z_L$ $\Rightarrow$ gleiches $D/d$ $\Rightarrow$
     $\alpha_L\propto\tfrac{1}{D}$ $\Rightarrow$ kleinere Leitung dämpft
     mehr (Begründung genügt)} \\ \rzhl
-  \wenn{\glqq ab welcher $f$ gilt $\alpha_L=k\cdot\alpha_D$?\grqq} &
-  \dann{$f=\tfrac{\mu}{\pi^3\kappa}\cdot q^2$ \; mit \;
-    $q=\tfrac{1+D/d}{120\,\Omega\cdot D\cdot\ln(D/d)}
-      \cdot\tfrac{c_0}{k\tan\delta}$} \\ \rzhl
+  \wenn{\glqq ab welcher $f$ gilt $\alpha_L=k\cdot\alpha_D$?\grqq\
+    (Leiter- gegen dielektr.\ Verluste)} &
+  \dann{Trick: die beiden $\alpha$ von oben nach ihrer $f$-Abhängigkeit
+    sortieren --- $\alpha_L\propto\sqrt f$, $\alpha_D\propto f$:\\[0.15em]
+    $\alpha_L=A\sqrt f$ \;mit\;
+    $A=\sqrt{\tfrac{\mu\varepsilon_r}{\pi\kappa}}\cdot
+      \tfrac{1}{120\,\Omega\cdot D}\cdot\tfrac{1+D/d}{\ln(D/d)}$,\qquad
+    $\alpha_D=B\,f$ \;mit\;
+    $B=\tfrac{\pi}{c_0}\sqrt{\varepsilon_r}\,\tan\delta$\\[0.15em]
+    $A\sqrt f=k\,B\,f
+    \;\Rightarrow\;\sqrt f=\tfrac{A}{k\,B}
+    \;\Rightarrow\;\boxed{f=\left(\tfrac{A}{k\,B}\right)^{2}}$\\[0.1em]
+    \scriptsize ($A$, $B$ sind reine Abk\"urzungen f\"ur alles ohne $f$.
+    Da $\alpha_D$ schneller w\"achst: \emph{oberhalb} dieser Frequenz
+    dominieren die dielektrischen Verluste.)\\[0.1em]
+    \textbf{Fragerichtung beachten:} \glqq dielektr.\ Verluste
+    $=p$ \% der Leiterverluste\grqq\ hei\ss t $\alpha_D=p\,\alpha_L$,
+    also $k=\tfrac1p$ \big(z.\,B.\ 10\,\% $\to k=10$\big).
+    Der Faktor geh\"ort immer zu dem $\alpha$, das \emph{nicht} allein steht ---
+    beim Teilen durch $\sqrt f$ bleibt er dort.
+    Plausibilit\"at: $\alpha_D<\alpha_L$ $\Rightarrow$ Ergebnis muss
+    \emph{unter} der Frequenz gleicher Verluste liegen und unter der
+    Betriebsgrenze aus der Grenzfrequenz-Zeile.} \\ \rzhl
   \wenn{Stehwellen-Sonde: Abstand Max.\ $\to$ Min.\ gemessen} &
   \dann{$\Delta z_{max\to min}=\tfrac{\lambda}{4}
     \;\Rightarrow\;\lambda=4\,\Delta z\,,\quad
@@ -106,10 +192,24 @@
     P_{Last}=P_{ein}\,(1-|r|^2)$ \;(Effektivwerte)} \\ \rzhl
   \wenn{$r$ geg., Last $R_V$ reell $\to$ $Z_L$} &
   \dann{$Z_L=R_V\cdot\tfrac{1-r}{1+r}$} \\ \rzhl
-  \wenn{\glqq Schirmdämpfung\grqq\ (Wandstärke $w$)} &
-  \dann{$\delta=\sqrt{\tfrac{2}{\omega\mu_0\kappa}}\;[\mathrm m]\,,\quad
+  \wenn{\glqq zus\"atzliche Verluste (in dB) durch Fehlanpassung\grqq\
+    (Sender $R_i$ $\neq$ Leitung/Last)} &
+  \dann{$\underline r=\tfrac{Z_{Last}-Z_{Sender}}{Z_{Last}+Z_{Sender}}\,,\qquad
+    \tfrac{P_{durch}}{P_{ein}}=1-|r|^2\,,\qquad
+    a_{zus}=-10\,\mathrm{dB}\cdot\lg\!\left(1-|r|^2\right)$\\[0.15em]
+    \scriptsize \textbf{hier 10\,lg} (Leistungsverh\"altnis!), nicht $20\lg$ /
+    $8{,}686$ wie sonst. Sind $Z_L$ und Antenne gleich, sitzt die
+    Fehlanpassung nur am Sendereingang.} \\ \rzhl
+  \wenn{\glqq Schirmdämpfung\grqq\ / Übersprechen durch eine Metallwand
+    der Dicke $w$} &
+  \dann{$\delta=\sqrt{\tfrac{2}{2\pi f\,\mu_0\kappa}}\;[\mathrm m]\,,\quad
     A=e^{-w/\delta}\,,\quad
-    a=-20\,\mathrm{dB}\cdot\lg A=8{,}686\,\mathrm{dB}\cdot\tfrac{w}{\delta}$} \\
+    a=-20\,\mathrm{dB}\cdot\lg A=8{,}686\,\mathrm{dB}\cdot\tfrac{w}{\delta}$\\[0.15em]
+    \scriptsize \textbf{Nicht verwechseln:} $w$ = \emph{Wandst\"arke} [m],
+    $2\pi f$ = Kreisfrequenz (sonst $\omega$ geschrieben).
+    Merkregel: pro Eindringtiefe Wandst\"arke $\approx8{,}7$\,dB.
+    Da $\delta\propto1/\!\sqrt f$, ist $a\propto\sqrt f$ $\Rightarrow$
+    geforderte Mindestd\"ampfung liefert eine \emph{untere} Grenzfrequenz.} \\
 \end{rezepttab}
 \bereichende
 
@@ -144,10 +244,7 @@
     \; — nach dem Gesuchten umstellen:\\[0.1em]
     \phantom{\textbf{3.}}\;Länge geg.\ $\to$ Dämpfung $a_{dB}$ direkt;\qquad
     erlaubte Dämpfung geg.\ $\to$
-    $l_{max}=\tfrac{a_{dB}}{8{,}686\,\mathrm{dB}\cdot\alpha}$\\[0.1em]
-    \phantom{\textbf{3.}}\;{\scriptsize\itshape Bsp.\ SoSe22 A2.4:
-      $a_{dB}=6\,\mathrm{dB}$, $\alpha=6{,}98\cdot10^{-3}\,\tfrac{1}{\mathrm m}$
-      $\to$ $l_{max}\approx99\,\mathrm m$}} \\ \rzhl
+    $l_{max}=\tfrac{a_{dB}}{8{,}686\,\mathrm{dB}\cdot\alpha}$} \\ \rzhl
   \wenn{\glqq maximale Leistung\grqq\ / $\hat H_t$} &
   \dann{$P_{max}=\tfrac{a\,b\,\hat E^2}{4Z_{F0}}
       \sqrt{1-\big(\tfrac{\lambda_0}{2a}\big)^2}\,;\qquad
@@ -166,6 +263,61 @@
 % ---- K3 Grenzflächen -------------------------------------
 \bereich[cKap6]{K3 Rezept A3: Grenzflächen/Optik \;—\; stets $n=\sqrt{\varepsilon_{r2}/\varepsilon_{r1}}$, Medium 1 $\to$ 2, Winkel zum \emph{Lot} (Herkunft 6.7--6.8)}
 \begin{rezepttab}
+  \wenn{\textbf{Immer zuerst:} Lot einzeichnen, Medien nummerieren,
+    Polarisation klären} &
+  \dann{%
+    \vspace{0.1em}\par\noindent
+    \begin{minipage}[t]{0.50\linewidth}
+    \vspace{0pt}\noindent
+    \begin{tikzpicture}[baseline=0pt,font=\tiny,scale=0.80,
+      strahl/.style={-{Stealth[length=1.2mm]},line width=0.5pt},
+      lot/.style={line width=0.3pt,dash pattern=on 3pt off 1pt on 0.5pt off 1pt},
+      bog/.style={line width=0.25pt,gray!50!black}]%
+      % ---- Medium 2 (schraffiert/getönt), Grenzfläche 45° gekippt ----
+      \fill[cKap6!12] (-1.6,-1.6)--(1.7,1.7)--(2.9,1.7)--(2.9,-2.0)--(-1.6,-2.0)--cycle;
+      \draw[line width=0.6pt] (-1.6,-1.6)--(1.7,1.7);
+      \node[align=left,cKap6!80!black] at (-2.15,1.12) {Medium 1\\$\varepsilon_{r1}$};
+      \node[cKap6!80!black] at (1.75,-1.45) {Medium 2: $\varepsilon_{r2}$};
+      % ---- Lot ----
+      \draw[lot] (-1.45,1.45)--(1.25,-1.25);
+      \node[anchor=south east,inner sep=1pt] at (-1.42,1.42) {Lot};
+      % ---- Strahlen ----
+      \draw[strahl] (-2.7,0)--(-0.06,0);
+      \node[anchor=south,inner sep=1.5pt] at (-2.45,0.05) {$P_h$};
+      \draw[strahl] (0,0)--(0,2.05);
+      \node[anchor=west,inner sep=1.5pt] at (0.07,1.80) {$P_r$};
+      \draw[strahl] (0,0)--(2.16,-0.79);
+      \node[anchor=west,inner sep=1.5pt] at (2.20,-0.86) {$P_d$};
+      % ---- Winkel ----
+      \draw[bog] (180:0.60) arc[start angle=180,end angle=135,radius=0.60];
+      \node at (157.5:0.80) {$\alpha$};
+      \draw[bog] (135:0.80) arc[start angle=135,end angle=90,radius=0.80];
+      \node at (112.5:0.99) {$\alpha$};
+      \draw[bog] (-45:0.90) arc[start angle=-45,end angle=-20,radius=0.90];
+      \node at (-32.5:1.10) {$\beta$};
+      % ---- Polarisation auf dem einfallenden Strahl ----
+      \draw[{Stealth[length=1.0mm]}-{Stealth[length=1.0mm]},line width=0.4pt,
+        cKap6!80!black] (-2.15,-0.34)--(-2.15,0.34);
+      \node[anchor=north,inner sep=1.5pt,cKap6!80!black] at (-2.15,-0.36)
+        {$E_\parallel$};
+      \draw[line width=0.35pt,draw=cKap6!80!black,fill=white] (-1.30,0) circle (0.17);
+      \fill[cKap6!80!black] (-1.30,0) circle (0.045);
+      \node[anchor=north,inner sep=1.5pt,cKap6!80!black] at (-1.30,-0.20)
+        {$E_\perp$};
+    \end{tikzpicture}
+    \end{minipage}\hfill
+    \begin{minipage}[t]{0.48\linewidth}
+    \vspace{0pt}\raggedright
+    \textbf{Alle Winkel zum Lot}, nie zur Grenzfläche — in der Klausur ist die
+    Grenzfläche gekippt gezeichnet, das Lot ist dann \emph{nicht} senkrecht auf
+    dem Papier. Einfallswinkel $=$ Reflexionswinkel $=\alpha$.\\[0.2em]
+    \scriptsize \textbf{Einfallsebene} $=$ Zeichenebene, aufgespannt von Strahl
+    und Lot. $E_\parallel$ liegt \emph{in} ihr (Pfeil quer zum Strahl),
+    $E_\perp$ steht senkrecht darauf (Punkt/Kreuz, aus dem Papier heraus).\\[0.2em]
+    $n=\sqrt{\varepsilon_{r2}/\varepsilon_{r1}}$ zählt \emph{immer} von dem
+    Medium, in dem der Strahl startet. Strahl umgedreht $\Rightarrow$ Medien
+    tauschen $\Rightarrow$ $n\to\tfrac1n$ (und aus $\alpha$ wird $\beta$).
+    \end{minipage}} \\ \rzhl
   \wenn{\glqq Brechungswinkel\grqq} &
   \dann{$\sin\beta=\tfrac{\sin\alpha}{n}$ \;(Snellius)} \\ \rzhl
   \wenn{\glqq reflexionsfrei\grqq\ / \glqq refl.\ Strahl linear polarisiert\grqq} &
@@ -208,6 +360,85 @@
 % ---- K4 Leitungstransformation ---------------------------
 \bereich[cKap7]{K4 Rezept A4: Leitungstransformation \;(alle Formeln enthalten; Herkunft 7.7--7.8)}
 \begin{rezepttab}
+  \wenn{\textbf{Immer zuerst:} Netzwerk lesen — welche Ebene ist welches
+    $\underline Z$, was hängt parallel?} &
+  \dann{%
+    \vspace{0.1em}\par\noindent
+    \begin{minipage}[t]{0.57\linewidth}
+    \vspace{0pt}\noindent
+    \begin{tikzpicture}[baseline=0pt,font=\tiny,scale=0.80,
+      wire/.style={line width=0.35pt},
+      ltg/.style={line width=1.1pt},
+      dimA/.style={{Stealth[length=0.9mm]}-{Stealth[length=0.9mm]},line width=0.25pt},
+      ebene/.style={line width=0.3pt,cKap7!80!black,dashed,dash pattern=on 1pt off 1pt}]%
+      % ---- Grundleiter; obere Ader ist am Stich unterbrochen (Serie!) ----
+      \draw[wire] (0,0.6)--(3.95,0.6);
+      \draw[wire] (4.65,0.6)--(8.4,0.6);
+      \draw[wire] (0,-0.6)--(8.4,-0.6);
+      % ---- Leitungsabschnitte (dick) ----
+      \draw[ltg] (1.0,0.6)--(3.3,0.6);   \draw[ltg] (1.0,-0.6)--(3.3,-0.6);
+      \draw[ltg] (5.5,0.6)--(7.9,0.6);   \draw[ltg] (5.5,-0.6)--(7.9,-0.6);
+      \node at (2.15,0.05) {$Z_{L3}$};   \node at (6.7,0.05) {$Z_{L}$};
+      \draw[dimA] (1.0,1.05)--(3.3,1.05);
+      \node[fill=white,inner sep=0.5pt] at (2.15,1.05) {$l_3$};
+      \draw[dimA] (5.5,1.05)--(7.9,1.05);
+      \node[fill=white,inner sep=0.5pt] at (6.7,1.05) {$l_1$};
+      % ---- Stichleitung nach oben, am Ende kurzgeschlossen ----
+      \draw[ltg] (3.95,0.6)--(3.95,2.35);
+      \draw[ltg] (4.65,0.6)--(4.65,2.35);
+      \draw[wire] (3.95,2.35)--(4.65,2.35);
+      \node[anchor=west,inner sep=1.5pt] at (4.72,2.35) {KS};
+      \fill (3.95,0.6) circle (0.055);  \fill (4.65,0.6) circle (0.055);
+      \node at (4.3,1.92) {$Z_{L}$};
+      \draw[-{Stealth[length=0.9mm]},line width=0.3pt,cKap7!80!black]
+        (4.30,0.80)--(4.30,1.28);
+      \node[anchor=south,inner sep=1pt,cKap7!80!black] at (4.30,1.26)
+        {$\underline Z_{l2}$};
+      \draw[dimA] (3.72,0.6)--(3.72,2.35);
+      \node[fill=white,inner sep=0.5pt] at (3.72,1.45) {$l_2$};
+      % ---- Parallel-C am Eingang ----
+      \draw[wire] (0.55,0.6)--(0.55,0.13) (0.55,-0.13)--(0.55,-0.6);
+      \draw[wire] (0.36,0.13)--(0.74,0.13) (0.36,-0.13)--(0.74,-0.13);
+      \node[anchor=west,inner sep=1.5pt] at (0.78,0) {$C$};
+      % ---- Last rechts ----
+      \draw[wire] (8.4,0.6)--(8.4,0.42) (8.4,0.08)--(8.4,-0.08)
+        (8.4,-0.42)--(8.4,-0.6);
+      \draw[wire,fill=white] (8.26,0.42) rectangle (8.54,0.08);
+      \draw[wire,fill=gray!55] (8.26,-0.08) rectangle (8.54,-0.42);
+      \node[anchor=west,inner sep=1.5pt] at (8.6,0.25) {$R$};
+      \node[anchor=west,inner sep=1.5pt] at (8.6,-0.25) {$L$};
+      % ---- Klemmen + Ebenen ----
+      \draw[wire,fill=white] (0,0.6) circle (0.06) (0,-0.6) circle (0.06);
+      \foreach \x/\n in {0.05/3, 3.45/2, 5.15/1}{%
+        \draw[ebene] (\x,0.92)--(\x,-0.95);
+        \node[anchor=north,inner sep=1.5pt] at (\x,-0.95) {$\underline Z_{\n}$};}
+      \node[anchor=north,inner sep=1.5pt] at (8.4,-0.95) {$\underline Z_{A}$};
+      % ---- Rechenrichtung ----
+      \draw[-{Stealth[length=1.3mm]},line width=0.3pt,cKap7!80!black]
+        (8.2,-1.95)--(0.3,-1.95);
+      \node[anchor=south,inner sep=1pt,cKap7!80!black] at (4.3,-1.92)
+        {von der Last nach vorn rechnen};
+    \end{tikzpicture}
+    \end{minipage}\hfill
+    \begin{minipage}[t]{0.41\linewidth}
+    \vspace{0pt}\raggedright
+    Jede Ebene $\underline Z_n$ = was man \emph{an dieser Stelle nach rechts}
+    sieht $\Rightarrow$ von der Last her nach vorn arbeiten (ist eine mittlere
+    Ebene gegeben, von dort aus).\\[0.2em]
+    \scriptsize \textbf{Stichleitung: erst hinsehen, wie sie hängt!}
+    Ist eine Ader \emph{unterbrochen} und die Stichleitung dort
+    \emph{eingeschleift} (wie oben) $\Rightarrow$ \textbf{Serie}, $Z$ addieren:
+    $\underline Z_2=\underline Z_1+\underline Z_{l2}$. Verbindet sie dagegen
+    \emph{beide} Adern $\Rightarrow$ \textbf{parallel}, $Y=\tfrac1Z$ addieren.
+    Ihr Ende ist KS oder LL, ihre Länge zählt ab der Abzweigstelle.\\[0.2em]
+    Verlustlose Stichleitung ist rein imaginär $\Rightarrow$ sie ändert bei
+    Serie nur den Blindanteil: $\mathrm{Re}\{\underline Z_1\}
+    =\mathrm{Re}\{\underline Z_2\}$ (Selbstcheck).\\[0.2em]
+    $Z_L$, $Z_{L3}$ sind \emph{Beschriftungen} der Leitungssorte, keine
+    Bauteile — Bauteile sind nur die gezeichneten ($C$, $R$, $L$). Jeder
+    Abschnitt hat sein eigenes $Z_L$. $\underline Z_{l2}$ = Blick \emph{nach
+    oben} in den Stich, kein Punkt auf der Hauptleitung.
+    \end{minipage}} \\ \rzhl
   \wenn{\textbf{1. Immer zuerst}} &
   \dann{$\lambda=\tfrac{c_0}{f}$ (Luft!)\,,\quad
     $\beta=\tfrac{2\pi}{\lambda}\;[\mathrm{rad/m}]$\,;\quad
@@ -219,21 +450,37 @@
   \wenn{\textbf{3.} kein Sonderfall $\to$ allg.\ Transformation} &
   \dann{$\underline Z(l)=Z_L\cdot
     \tfrac{\underline Z(0)+jZ_L\tan\beta l}{Z_L+j\underline Z(0)\tan\beta l}$
-    \quad(von der Last nach vorn rechnen, $Z_V=R+j\omega L$ zuerst)} \\ \rzhl
-  \wenn{Stichleitung (kurzgeschlossen / leerlaufend)} &
-  \dann{$Z_{KS}=jZ_L\tan\beta l\,,\qquad
-    Z_{LL}=\tfrac{-jZ_L}{\tan\beta l}$} \\ \rzhl
+    \quad(von der Last nach vorn rechnen, $Z_V=R+j\omega L$ zuerst)\\[0.15em]
+    \scriptsize $\underline Z(0)$/$\underline Z(l)$ sind \emph{Ortsangaben},
+    keine Namen: $l$ zählt \textbf{ab der Last}, also
+    $\underline Z(0)=$ was am \emph{Ende dieses Abschnitts} hängt,
+    $\underline Z(l)=$ was am anderen Ende erscheint —
+    \textbf{pro Abschnitt neu zählen}. Am Stich ist $\underline Z(0)=0$
+    (KS). $\underline Z(l)$ ist nicht immer schon eine Ebene $\underline
+    Z_n$: sitzt dort noch ein paralleles Bauteil, erst danach.} \\ \rzhl
+  \wenn{Stichleitung — \textbf{erst ans Ende schauen!} Nur \emph{einer}
+    der beiden Fälle gilt} &
+  \dann{Ende \textbf{kurzgeschlossen}:\quad
+      $\underline Z_{l2}=jZ_L\tan\beta l$\\[0.15em]
+    Ende \textbf{offen} (Leerlauf):\quad
+      $\underline Z_{l2}=\tfrac{-jZ_L}{\tan\beta l}$\\[0.15em]
+    \scriptsize $\underline Z_{l2}$ = Impedanz am Fuß des Stichs (wie in der
+    Skizze oben), Index = seine Länge. Beides folgt aus der Zeile darüber
+    mit $\underline Z(0)=0$ bzw.\ $\underline Z(0)\to\infty$.
+    Probe bei $f\to0$: KS $\to$ Kurzschluss ($\tan\to0$),
+    LL $\to$ Unterbrechung ($1/\tan\to\infty$).} \\ \rzhl
   \wenn{Parallel- / Serienschaltung} &
   \dann{parallel: Admittanzen $Y=\tfrac1Z\;[\mathrm S]$ \emph{addieren};\qquad
     seriell: $Z$ addieren} \\ \rzhl
   \wenn{\glqq $C$ so wählen, dass $Z$ reell\grqq\ (parallel)} &
   \dann{$\omega C=-\mathrm{Im}\{Y_{rest}\}
     \;\Rightarrow\;
-    Z=\tfrac{1}{\mathrm{Re}\{Y_{rest}\}}$} \\ \rzhl
+    C=\tfrac{-\mathrm{Im}\{Y_{rest}\}}{\omega}\;[\mathrm F]$\,;\qquad
+    danach $Z=\tfrac{1}{\mathrm{Re}\{Y_{rest}\}}\;[\Omega]$} \\ \rzhl
   \wenn{Bauteilwerte aus $Z=R+jX$} &
-  \dann{$R=\mathrm{Re}\{Z\}$\,;\qquad
-    $X>0$: $L=\tfrac{X}{\omega}$\,;\qquad
-    $X<0$: $C=\tfrac{-1}{\omega X}$} \\ \rzhl
+  \dann{$R=\mathrm{Re}\{Z\}\;[\Omega]$\,;\qquad
+    $X>0$: $L=\tfrac{X}{\omega}\;[\mathrm H]$\,;\qquad
+    $X<0$: $C=\tfrac{-1}{\omega X}\;[\mathrm F]$} \\ \rzhl
   \wenn{\glqq reell auf reell anpassen\grqq} &
   \dann{$\lambda/4$-Trafo: $Z_L'=\sqrt{Z_1 Z_2}\,,\quad
     l=\tfrac{\lambda}{4}+n\tfrac{\lambda}{2}$;\qquad
