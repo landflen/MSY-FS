@@ -71,7 +71,7 @@
 \bereichende
 
 % ---- K1 Koax ---------------------------------------------
-\bereich[cKap7]{K1 Rezept A1: Koaxialleitung \;(alle Formeln enthalten; Herkunft 7.1, 5.3)}
+\bereich[cKap7]{K1 Rezept A1: Koaxialleitung \;(alle Formeln enthalten; Herkunft 7.1, 5.3)\hfill{\footnotesize\normalfont TR: normal $\cdot$ Winkel egal}}
 \begin{rezepttab}
   \wenn{\textbf{Immer zuerst:} welcher Durchmesser ist $d$, welcher $D$?
     (Skizze der Aufgabe abgleichen!)} &
@@ -214,7 +214,7 @@
 \bereichende
 
 % ---- K2 Hohlleiter ---------------------------------------
-\bereich[cKap7]{K2 Rezept A2: Rechteckhohlleiter \;(alle Formeln enthalten; Herkunft 7.2--7.4, 7.6)}
+\bereich[cKap7]{K2 Rezept A2: Rechteckhohlleiter \;(alle Formeln enthalten; Herkunft 7.2--7.4, 7.6)\hfill{\footnotesize\normalfont TR: normal $\cdot$ Winkel egal}}
 \begin{rezepttab}
   \wenn{\glqq Grenzfrequenzen / eindeutiger Frequenzbereich\grqq} &
   \dann{$f_{cH10}=\tfrac{c_0}{2a}\,,\quad
@@ -261,7 +261,7 @@
 \bereichende
 
 % ---- K3 Grenzflächen -------------------------------------
-\bereich[cKap6]{K3 Rezept A3: Grenzflächen/Optik \;—\; stets $n=\sqrt{\varepsilon_{r2}/\varepsilon_{r1}}$, Medium 1 $\to$ 2, Winkel zum \emph{Lot} (Herkunft 6.7--6.8)}
+\bereich[cKap6]{K3 Rezept A3: Grenzflächen/Optik \;—\; stets $n=\sqrt{\varepsilon_{r2}/\varepsilon_{r1}}$, Medium 1 $\to$ 2, Winkel zum \emph{Lot}\hfill{\footnotesize\normalfont TR: normal $\cdot$ \textbf{DEG}}}
 \begin{rezepttab}
   \wenn{\textbf{Immer zuerst:} Lot einzeichnen, Medien nummerieren,
     Polarisation klären} &
@@ -358,7 +358,7 @@
 \bereichende
 
 % ---- K4 Leitungstransformation ---------------------------
-\bereich[cKap7]{K4 Rezept A4: Leitungstransformation \;(alle Formeln enthalten; Herkunft 7.7--7.8)}
+\bereich[cKap7]{K4 Rezept A4: Leitungstransformation \;(Herkunft 7.7--7.8)\hfill{\footnotesize\normalfont TR: \textbf{komplex} (MENU 2) $\cdot$ \textbf{RAD} für $\tan\beta l$}}
 \begin{rezepttab}
   \wenn{\textbf{Immer zuerst:} Netzwerk lesen — welche Ebene ist welches
     $\underline Z$, was hängt parallel?} &
@@ -425,15 +425,20 @@
     Jede Ebene $\underline Z_n$ = was man \emph{an dieser Stelle nach rechts}
     sieht $\Rightarrow$ von der Last her nach vorn arbeiten (ist eine mittlere
     Ebene gegeben, von dort aus).\\[0.2em]
-    \scriptsize \textbf{Stichleitung: erst hinsehen, wie sie hängt!}
-    Ist eine Ader \emph{unterbrochen} und die Stichleitung dort
-    \emph{eingeschleift} (wie oben) $\Rightarrow$ \textbf{Serie}, $Z$ addieren:
-    $\underline Z_2=\underline Z_1+\underline Z_{l2}$. Verbindet sie dagegen
-    \emph{beide} Adern $\Rightarrow$ \textbf{parallel}, $Y=\tfrac1Z$ addieren.
-    Ihr Ende ist KS oder LL, ihre Länge zählt ab der Abzweigstelle.\\[0.2em]
-    Verlustlose Stichleitung ist rein imaginär $\Rightarrow$ sie ändert bei
-    Serie nur den Blindanteil: $\mathrm{Re}\{\underline Z_1\}
-    =\mathrm{Re}\{\underline Z_2\}$ (Selbstcheck).\\[0.2em]
+    \scriptsize \textbf{Serie oder parallel? Erst hinsehen} — gilt für
+    \emph{jedes} Element ($C$, $L$, $R$, Stichleitung, Teilnetz):
+    Ader \emph{unterbrochen}, Element eingeschleift $\Rightarrow$
+    \textbf{Serie}, $Z$ addieren: $\underline Z_2=\underline Z_1+\underline
+    Z_{el}$. Element \emph{brückt beide} Adern $\Rightarrow$ \textbf{parallel},
+    $Y=\tfrac1Z$ addieren: $\underline Y_2=\underline Y_1+\underline Y_{el}$.
+    Bei parallel durchgehend in $Y$ rechnen, Kehrwert nur am Anfang und Ende:
+    $\tfrac{1}{\underline Z_1-\underline Z_C}\neq\underline Y_1-\underline
+    Y_C$.\\[0.2em]
+    Nur bei der Stichleitung zusätzlich: Ende ist KS oder LL, Länge zählt ab
+    der Abzweigstelle.\\[0.2em]
+    Verlustloses Blindelement in Serie ändert nur den Blindanteil:
+    $\mathrm{Re}\{\underline Z_1\}=\mathrm{Re}\{\underline Z_2\}$
+    (Selbstcheck).\\[0.2em]
     $Z_L$, $Z_{L3}$ sind \emph{Beschriftungen} der Leitungssorte, keine
     Bauteile — Bauteile sind nur die gezeichneten ($C$, $R$, $L$). Jeder
     Abschnitt hat sein eigenes $Z_L$. $\underline Z_{l2}$ = Blick \emph{nach
@@ -458,6 +463,11 @@
     \textbf{pro Abschnitt neu zählen}. Am Stich ist $\underline Z(0)=0$
     (KS). $\underline Z(l)$ ist nicht immer schon eine Ebene $\underline
     Z_n$: sitzt dort noch ein paralleles Bauteil, erst danach.} \\ \rzhl
+  \wenn{\textbf{3b.} rückwärts: $\underline Z(l)$ geg., $\underline Z(0)$
+    gesucht} &
+  \dann{$\underline Z(0)=Z_L\cdot
+    \tfrac{\underline Z(l)-jZ_L\tan\beta l}{Z_L-j\underline Z(l)\tan\beta l}$
+    \quad$=$ Formel 3 mit $\tan\beta l\to-\tan\beta l$ (nicht umstellen)} \\ \rzhl
   \wenn{Stichleitung — \textbf{erst ans Ende schauen!} Nur \emph{einer}
     der beiden Fälle gilt} &
   \dann{Ende \textbf{kurzgeschlossen}:\quad
@@ -481,9 +491,12 @@
   \dann{$R=\mathrm{Re}\{Z\}\;[\Omega]$\,;\qquad
     $X>0$: $L=\tfrac{X}{\omega}\;[\mathrm H]$\,;\qquad
     $X<0$: $C=\tfrac{-1}{\omega X}\;[\mathrm F]$} \\ \rzhl
-  \wenn{\glqq reell auf reell anpassen\grqq} &
-  \dann{$\lambda/4$-Trafo: $Z_L'=\sqrt{Z_1 Z_2}\,,\quad
+  \wenn{\glqq reell auf reell anpassen\grqq\ ($Z_1$, $Z_2$ beide reell,
+    $Z_L$ und $l$ der Zwischenleitung gesucht)} &
+  \dann{geht \emph{nur} mit $\lambda/4$:\quad
+    $Z_L=\sqrt{Z_1 Z_2}\,,\quad
     l=\tfrac{\lambda}{4}+n\tfrac{\lambda}{2}$;\qquad
+    Probe: $Z_1=\tfrac{Z_L^2}{Z_2}$\\[0.15em]
     $l$-Bedingung (z.B.\ $1{,}5\,\mathrm m<l<2\,\mathrm m$):
     passendes $n$ wählen} \\ \rzhl
   \wenn{\glqq Reflexionsfaktor\grqq} &
@@ -494,8 +507,52 @@
 \bereichende
 
 % ---- K5 Antennen -----------------------------------------
-\bereich[cKap8]{K5 Rezept A5: Antennen \;(alle Formeln enthalten; Herkunft 8.4--8.7)}
+\bereich[cKap8]{K5 Rezept A5: Antennen \;(Herkunft 8.4--8.7)\hfill{\footnotesize\normalfont TR: normal $\cdot$ Winkel \textbf{DEG}; im Gruppenfaktor $\pi$-Terme = \textbf{RAD}}}
 \begin{rezepttab}
+  \wenn{\textbf{Nur bei Gruppenantenne:} Array-Achse + Winkelbezug klären
+    ($\vartheta$ zählt von der \emph{Achse} der Dipolreihe)} &
+  \dann{%
+    \vspace{0.1em}\par\noindent
+    \begin{minipage}[t]{0.55\linewidth}
+    \vspace{0pt}\noindent
+    \begin{tikzpicture}[baseline=0pt,font=\tiny,scale=0.80,
+      dip/.style={line width=1.1pt},
+      ax/.style={line width=0.3pt,dash pattern=on 3pt off 1.5pt},
+      beam/.style={-{Stealth[length=1.4mm]},line width=0.5pt,cKap8!80!black},
+      dimA/.style={{Stealth[length=0.9mm]}-{Stealth[length=0.9mm]},line width=0.25pt},
+      bog/.style={line width=0.25pt,gray!50!black}]%
+      % ---- Array-Achse ----
+      \draw[ax] (-0.45,0)--(4.75,0);
+      \node[anchor=west,inner sep=1.5pt] at (4.55,-0.24) {Achse};
+      % ---- Dipole mit Speise-Phasen ----
+      \foreach \x/\ph in {0/0, 1.4/{\delta}, 2.8/{2\delta}, 4.2/{3\delta}}{%
+        \draw[dip] (\x,-0.32)--(\x,-0.05);
+        \draw[dip] (\x,0.05)--(\x,0.32);
+        \fill (\x,0) circle (0.05);
+        \node[anchor=north,inner sep=1.5pt] at (\x,-0.38) {$\ph$};}
+      % ---- Abstand b ----
+      \draw[dimA] (0,0.58)--(1.4,0.58);
+      \node[fill=white,inner sep=0.5pt] at (0.7,0.58) {$b$};
+      % ---- Strahlrichtung + Winkel theta ----
+      \draw[beam] (2.1,0)--(3.319,1.951);
+      \node[anchor=south west,inner sep=1.5pt,cKap8!80!black] at (3.36,1.98)
+        {Hauptstrahl};
+      \draw[bog] ([shift={(0:0.72)}]2.1,0) arc[start angle=0,end angle=58,radius=0.72];
+      \node at ([shift={(29:0.95)}]2.1,0) {$\vartheta$};
+      % ---- Wellenfront (senkrecht zum Strahl) ----
+      \draw[line width=0.25pt,gray!55]
+        ([shift={(58:1.55)}]2.1,0)++(148:0.55)--++(-32:1.1);
+    \end{tikzpicture}
+    \end{minipage}\hfill
+    \begin{minipage}[t]{0.43\linewidth}
+    \vspace{0pt}\raggedright
+    $b=$ Abstand benachbarter Dipole, $\delta=$ Phasenschritt von Element zu
+    Element ($N$ St\"uck, hier $N=4$).\\[0.2em]
+    \scriptsize Hauptstrahl bei $u=0$:\;
+    $\cos\vartheta_0=-\dfrac{\delta}{2\pi b/\lambda}$.\;
+    $\delta=0\Rightarrow\vartheta_0=90^\circ$ (quer zur Achse = Broadside).\;
+    $\vartheta$ \textbf{von der Achse} messen, nicht vom Lot.
+    \end{minipage}} \\ \rzhl
   \wenn{\textbf{Standardkette} Sender $\to$ Empfänger} &
   \dann{$S=\tfrac{G_S\,P}{4\pi d^2}\;\big[\tfrac{\mathrm W}{\mathrm m^2}\big]\,,\qquad
     P_E=S\cdot A_w\,,\qquad
