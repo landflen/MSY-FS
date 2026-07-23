@@ -1,7 +1,8 @@
 # MDT5/2 — Alle Zusammenfassungsblätter (Gesamtdokument)
 
-> Zusammengeführte Version aller 8 Blätter zum Durchscrollen/Drucken.
+> Zusammengeführte Version aller 7 Blätter zum Durchscrollen/Drucken.
 > Die Einzeldateien sind die Originale — bei Änderungen dort dieses Dokument neu erzeugen.
+> Klammer-Regel (23.7.): VAE, PCA, k-Means, LOF, Matrix Profiles = nicht klausurrelevant, entfernt.
 
 **Inhalt:**
 1. Blatt ① Verfahrensübersicht + Grundbegriffe (Kap. 1/2)
@@ -9,9 +10,8 @@
 3. Blatt Abstand: kNN, iForest (Kap. 4)
 4. Blatt ⑥ Evaluierung + Leakage (Kap. 5)
 5. Blatt Probabilistisch: Mahalanobis, KDE, GMM (Kap. 6)
-6. Blatt ⑤ Rekonstruktion: AE, VAE, GAN, AnoGAN (Kap. 7/7a)
-7. Blatt Clustering/PCA (Kap. 7a)
-8. Blatt ④ SVM, OCSVM, Deep SVDD, GOAD (Kap. 8/8a)
+6. Blatt ⑤ Rekonstruktion: AE, CAE, GAN, AnoGAN (Kap. 7)
+7. Blatt ④ SVM, OCSVM, Deep SVDD, GOAD (Kap. 8/8a)
 
 
 
@@ -41,7 +41,7 @@
 | **Deep** | — | — | Autoencoder, (VAE), f-AnoGAN | Deep SVDD, GOAD, CutPaste |
 | **Shallow** | kNN, (LOF), iForest, (Matrix Profiles) | Histogramm, Mahalanobis, KDE, GMM | (PCA), (k-Means) | OC-SVM, SVDD |
 
-**Eingeklammert auf der Folie = optional, NICHT klausurrelevant** — beim Nachzeichnen mitklammern, aber nicht lernen. LOF + Matrix Profiles (Foliensatz 03a) sind deshalb aus allen Blättern/Übungen entfernt.
+**Eingeklammert auf der Folie = NICHT klausurrelevant — ALLES in Klammern** (Ansage Prof., geklärt 23.7.). Beim Nachzeichnen mitklammern, aber nicht lernen. **LOF, Matrix Profiles, VAE, PCA, k-Means** sind deshalb aus allen Blättern/Übungen entfernt (Blatt Clustering/PCA komplett gestrichen, VAE-Teil aus Blatt ⑤ und Übungsblatt 6 entfernt).
 
 ## Die große Verfahrenstabelle
 
@@ -51,11 +51,8 @@
 | **iForest** | s = 2^(−E(h)/c(n)) ∈ [0;1], →1 Ausreißer | n_estimators (100), max_samples (256), contamination | **NEIN** | hohe Dim., große Daten, schnell | einzelne Bäume instabil (→ Ensemble) |
 | **Mahalanobis / EllipticEnvelope** | (neg.) Mahalanobis-Abstand (Ellipse) | contamination | (robust ggü. Skala) | korrelierte Merkmale, **unimodal** | **multimodale Daten!** |
 | **KDE** | log-Dichte | Bandbreite h (GridSearch auf Train-log-Dichte) | JA | **beliebige/multimodale Verteilungen** | h-Wahl; alle Trainingspunkte nötig |
-| **GMM** | Dichte der Mischverteilung | Modenzahl k, Init (k-Means) | JA | multimodal, wenn k bekannt | EM langsam, lokale Minima |
-| **k-Means** | Abstand zum nächsten Zentrum | k (Elbow/Silhouette), k-means++ | JA | gruppierte Daten, kugelige Cluster | **nicht-kugelförmige Cluster** |
-| **PCA** | Rekonstruktionsfehler | k bzw. Varianzerhalt 95–99 % | JA | lineare Strukturen, Dim.-Reduktion | **nichtlineare Strukturen** (→ Kernel PCA) |
+| **GMM** | Dichte der Mischverteilung | Modenzahl k, Init | JA | multimodal, wenn k bekannt | EM langsam, lokale Minima |
 | **Autoencoder** | Rekonstruktionsfehler | Architektur, dim(z) < dim(x)! | JA (z. B. [0;1]) | Bilder/hochdim., viele Daten | Fehler instabil (→ Ensemble/RandNet); braucht viele Daten |
-| **VAE** | Reconstruction Probability (mehrfach sampeln) | Architektur, A-priori N(0,1) | JA | wie AE + Datengenerierung | Aufwand |
 | **AnoGAN** | L = (1−λ)L_res + λL_disc nach z-Optimierung | λ (0,1), Iterationen (500), z_dim | JA | Bilder, gute Datenqualität | **langsam: z-Optimierung pro Sample!**; GAN-Training heikel |
 | **f-AnoGAN** | wie AnoGAN, aber via Encoder G(E(x)) | wie AnoGAN + Encoder | JA | wie AnoGAN, schnelles Scoring | 3-stufiges Training |
 | **OC-SVM** | Abstand zur Trennebene (vom Ursprung) | **ν** (Ausreißeranteil), **γ** (RBF) | **JA! (Standardis.)** | wenig Daten, hohe Dim. | große Datenmengen (Training langsam); braucht RBF |
@@ -67,8 +64,8 @@
 ## Entscheidungsbaum für Verfahrenswahl-Aufgaben (Typ 8/12)
 
 1. **Plot ansehen: eine kompakte Punktwolke (unimodal)?** → Mahalanobis/Elliptic Envelope ok
-2. **Mehrere Cluster (multimodal)?** → KDE, GMM, k-Means; Elliptic Envelope FALSCH (Ellipse über alles)
-3. **Cluster nicht kugelig / verschachtelt (Ringe, Bänder)?** → k-Means FALSCH, PCA (linear) FALSCH; KDE, OCSVM (RBF) ok
+2. **Mehrere Cluster (multimodal)?** → KDE, GMM; Elliptic Envelope FALSCH (Ellipse über alles)
+3. **Cluster nicht kugelig / verschachtelt (Ringe, Bänder)?** → KDE, OCSVM (RBF) ok
 4. **Hochdimensional (Bilder)?** → Deep-Verfahren (AE, Deep SVDD, GOAD, f-AnoGAN); Abstand/KDE leiden unter Curse of Dim.; iForest ok
 5. **Wenige Trainingsdaten?** → OCSVM stark, Deep-Verfahren FALSCH (Datenhunger)
 6. **Kleine lokale Bilddefekte?** → CutPaste
@@ -79,7 +76,7 @@
 - Min-Max → [0;1]: x′ = (mᵢ − minᵢ)/(maxᵢ − minᵢ); empfindlich ggü. Ausreißern; `MinMaxScaler`
 - Standardisierung (Z-Transf.): x′ = (mᵢ − μᵢ)/σᵢ → μ=0, σ=1; robuster, kein fester Bereich; `StandardScaler`
 - min/max/μ/σ IMMER nur aus Trainingsdaten (fit auf Train, transform auf Train+Test) → sonst Data Leakage
-- Nötig bei allem, was Abstände/Skalarprodukte rechnet (kNN, k-Means, KDE, SVM/OCSVM, PCA, NN-Eingaben); NICHT nötig bei iForest (nur Splits)
+- Nötig bei allem, was Abstände/Skalarprodukte rechnet (kNN, KDE, SVM/OCSVM, NN-Eingaben); NICHT nötig bei iForest (nur Splits)
 
 
 ---
@@ -354,9 +351,13 @@ Warum Pipeline? Scaler + Klassifikator werden als **eine Einheit** behandelt →
 2. `train_test_split` **nach** der Normalisierung? → Leakage! (Split muss zuerst kommen)
 3. GridSearchCV/CV **ohne Pipeline**, aber mit vorab global skalierten Daten? → Leakage in jeden Fold
 4. Testdaten mehrfach benutzt (nach Metaparameter-Anpassung nochmal getestet)? → Testdaten verbraucht
+   - auch: Metaparametersuche und finale Bewertung auf **derselben** Datenmenge? → die „beste" Parameterwahl ist an genau diese Daten angepasst, Testergebnis zu optimistisch
 5. Abhängige Samples (gleicher Proband/gleiche Serie) in Train UND Test? → verstecktes Overfitting
 6. Novelty Detection: Anomalien in Trainingsfolds der CV? → falsche Aufteilung (s. o.)
 7. Accuracy bei stark unbalancierten Daten als einzige Metrik? → falsche Metrik (bal. acc / Precision+Recall / AUC)
+8. Benutzt die **Vorverarbeitung die Labels**? (z. B. Imputation mit `median` getrennt nach Klasse) → schwerste Form von Leakage: Das Label steckt danach im Merkmal selbst. Bei neuen Daten ist das Label unbekannt → Modell wirkt im Test gut, bricht im Feld ein. Korrekt: **ein** Median pro Merkmal, nur auf den Trainingsdaten berechnet.
+
+**Achtung, kein Fehler:** Beim Novelty-CV-Rezept (s. o.) stehen in jedem Fold **dieselben** Anomalien — das ist methodenbedingt so gewollt, nicht falsch. Als Einschränkung formulieren: Streuung über die Folds wird dadurch unterschätzt.
 
 ## Keras-Metriken (Folie 24)
 
@@ -445,10 +446,11 @@ clf.fit(train_pts); clf.predict(test_pts)        # score_samples: negative Mahal
 
 ---
 
-# Blatt ⑤ — Rekonstruktionsbasierte Verfahren: AE, CAE, VAE, GAN, AnoGAN, f-AnoGAN (Kap. 7 + VAE aus 7a)
+# Blatt ⑤ — Rekonstruktionsbasierte Verfahren: AE, CAE, GAN, AnoGAN, f-AnoGAN (Kap. 7)
 
-> Vorlage zum handschriftlichen Übertragen. Quellen: Foliensatz 07 (AE, GAN, AnoGAN, f-AnoGAN) + 07a Folien 28–35 (VAE).
-> Deckt Aufgabentyp 3 (AE-Code schreiben) + Typ 9 (AnoGAN komplett) ab. Zielumfang: ~3 A4-Seiten.
+> Vorlage zum handschriftlichen Übertragen. Quelle: Foliensatz 07 (AE, GAN, AnoGAN, f-AnoGAN).
+> **VAE entfällt (Klammer-Regel, geklärt 23.7.) — nicht klausurrelevant.**
+> Deckt Aufgabentyp 3 (AE-Code schreiben) + Typ 9 (AnoGAN komplett) ab. Zielumfang: ~2,5 A4-Seiten.
 
 ---
 
@@ -484,20 +486,6 @@ clf.fit(train_pts); clf.predict(test_pts)        # score_samples: negative Mahal
 - Architektur: Encoder halbiert Neuronen je Schicht, Decoder verdoppelt; max. 7 Schichten; Code ≥ 3 Neuronen; **erste Encoder- und letzte Decoder-Schicht: Sigmoid, Rest ReLU**
 - Training: 100 Netze, 300 Epochen, RmsProp, je 1/10 der Daten (Subsampling), Sample-Anzahl wächst ×1,01 pro Epoche
 - Score: quadrat. Fehler je Netz → normalisieren mit Std der Trainingsfehler des Netzes → **Median** über alle Netze
-
-## Variational Autoencoder — VAE (Folien 7a/28–35)
-
-**Warum nicht normaler AE?** (Folie 28) Keine Kontrolle über die Verteilung des Latent Space; z lässt sich nicht zufällig ziehen → Decoder nicht als Datengenerator nutzbar.
-
-**Idee:** Modelliere **Verteilungen** statt direkter Encodierung. A-priori-Verteilung p(z) wird vorgegeben (meist Standard-Normalverteilung N(0, 1)).
-
-- **Encoder** lernt Verteilungsparameter: zwei parallele **lineare** Dense-Layers am Encoder-Ende liefern μ und Σ → z wird daraus **gesampelt**
-- **Decoder** dekodiert das gesampelte z; Ausgabe ist ebenfalls eine Verteilung p(x|z), aus der gesampelt wird
-- **Kosten**: Rekonstruktionsanteil + **Kullback-Leibler-Divergenz** zwischen erzeugter Verteilung und A-priori-Verteilung; hergeleitet über **ELBO** (Evidence Lower Bound): maximiere ELBO = minimiere −ELBO
-  - KL gegen N(0, I) vereinfacht: D_KL = −½ · Σᵢ ( log σᵢ² + 1 − σᵢ² − μᵢ² )
-- **Reparameterisierungs-Trick** (MC-Klassiker!): z ~ N(μ, σ²) ist nicht (stabil) differenzierbar → schreibe **z = μ + σ ⊙ ε mit ε ~ N(0, I)** → Zufall steckt in ε, Pfad durch μ/σ ist differenzierbar
-- **Novelty Detection mit VAE** (Folie 35): z für dasselbe Sample x **mehrfach ziehen**, Rekonstruktionen mitteln → **Reconstruction Probability** p(x) als Score (je niedriger, desto eher Anomalie)
-- Datengenerierung: z_g ~ N(0,1) ziehen → decoder(z_g) = neues Sample (→ Data Augmentation)
 
 ## GAN (Folien 27–36)
 
@@ -587,79 +575,6 @@ def score_samples(samples):
 ```
 
 **Merksatz AnoGAN vs. f-AnoGAN:** AnoGAN optimiert z pro Sample zur Laufzeit; f-AnoGAN verlagert die Arbeit ins Encoder-Training — Score dann per Forward-Pass.
-
-
----
-
-# Blatt — k-Means, Elbow/Silhouette, PCA, Kernel PCA (Kap. 7a)
-
-> Vorlage zum handschriftlichen Übertragen. Quelle: Foliensatz 07a (Folien 2–26; VAE-Teil → Blatt ⑤).
-> Deckt Aufgabentyp 11 (Clustering) ab. Zielumfang: 1,5 A4-Seiten.
-
----
-
-## k-Means (Folien 20–26)
-
-**Algorithmus:**
-1. Anzahl Cluster k wählen (+ max. Iterationen)
-2. Cluster-Zentren initialisieren
-3. Wiederholen bis keine Änderung / max. Iterationen:
-   I. Abstand jedes Punkts zu allen Zentren
-   II. Punkt → Cluster mit nächstem Zentrum
-   III. Zentren neu berechnen (Mittelwert)
-
-**Initialisierung — k-means++ (Standard):** 1. Zentrum zufällig gleichverteilt; dann wiederholt: Abstände zum nächsten Zentrum berechnen, neues Zentrum ziehen mit Wahrscheinlichkeit ∝ quadriertem Abstand. (Rein zufällige Initialisierung → evtl. schlechte, „festgefahrene" Cluster)
-
-**k bestimmen — zwei Verfahren (Plots lesen können!):**
-1. **Elbow-Methode**: Summe der quadrierten Abstände zum nächsten Zentrum (sklearn: `inertia_` nach fit) gegen k plotten → „Knick" wählen, bevor Kurve abflacht. Intuitiv, aber subjektiv/nicht eindeutig
-2. **Silhouetten-Analyse**: S(p) = (b − a) / max(a, b) ∈ [−1; 1]
-   - a = mittlerer Abstand von p zu Punkten im **eigenen** Cluster
-   - b = mittlerer Abstand von p zu Punkten im **nächsten** Cluster
-   - Silhouettenkoeffizient = Mittel über alle Punkte; **je höher, desto dichter die Cluster**
-   - sklearn: `silhouette_score` (Mittel), `silhouette_samples` (einzeln)
-   - Achtung: Cluster-Nummern zwischen Läufen nicht vergleichbar (zufällige Init.)
-- In der Praxis: mehrere Verfahren kombinieren
-
-**k-Means zur Anomalieerkennung:**
-- Novelty Detection: Clustering auf Normaldaten → Score = **Abstand zum nächsten Cluster-Zentrum** (hoch = Anomalie)
-- Grenze (Verfahrenswahl!): Cluster sind **kugelförmig** → Probleme bei länglichen/verschachtelten Formen
-- Outlier Detection: eher schwierig; Hinweise = kleine Cluster, Punkte mit hohem Abstand zum Zentrum
-- **Normalisierung nötig** (abstandsbasiert!)
-- sklearn: `sklearn.cluster.KMeans`
-
-## PCA — Hauptachsentransformation (Folien 3–11)
-
-**Idee:** Finde orthogonale Hauptachsen mit größter Varianz der Daten → neues Koordinatensystem; Achsen mit kleinster Varianz weglassen = Projektion.
-
-**Anwendungsrezept (Folie 9):**
-1. Daten **zentrieren**: x̃ᵢ = xᵢ − x̄
-2. Datenmatrix X aufstellen
-3. Eigenvektoren/Eigenwerte der Kovarianzmatrix C = 1/(n−1)·XXᵀ via **SVD**(X) = USVᵀ (quadrierte Singulärwerte = Eigenwerte)
-4. Auf k Dimensionen projizieren: k größte Eigenwerte + zugehörige Eigenvektoren
-- **Faustregel: k so, dass 95–99 % der Varianz erhalten** (Summe der k größten Eigenwerte / Summe aller)
-- **Vorher normalisieren!** Sonst überdeckt ein Merkmal mit großem Wertebereich die anderen
-- sklearn: `sklearn.decomposition.PCA`, `n_components` = ganze Zahl k ODER Wert ∈ (0,1) = Varianzerhalt
-
-**Grenzen von PCA (Folie 11, Verfahrenswahl!):**
-- Daten müssen sich durch Mittelwert + Varianz beschreiben lassen (≈ Normalverteilung)
-- Variabilität muss **linear** sein → bei nichtlinearen Strukturen keine gute Trennung
-
-**Kernel PCA (Folien 12–16):** Kernel-Trick (Kernels wie bei SVM) → PCA im hochdimensionalen nichtlinearen Raum; Eigenvektorproblem auf Kernel-Matrix K̃ (zentriert); Projektion über Σⱼ αᵢⱼ·k(x, xⱼ)
-
-**PCA zur Novelty Detection (Folie 17):**
-- PCA nur mit Normaldaten trainieren; Dimensionsreduktion „kapselt" die Normaldaten
-- **Rekonstruktionsfehler** neuer Daten = Anomalie-Score (deshalb zählt PCA zu den rekonstruktionsbasierten Verfahren!)
-
----
-
-## Schnellvergleich fürs Verfahrenswahl-Blatt ①
-
-| | k-Means | PCA | Kernel PCA |
-|---|---|---|---|
-| Score | Abstand zum nächsten Zentrum | Rekonstruktionsfehler | Rekonstruktionsfehler |
-| Grenze | kugelförmige Cluster | nur linear, ~Normalvert. | Kernelwahl nötig |
-| Metaparameter | k (Elbow/Silhouette), Init | k bzw. Varianzerhalt 95–99 % | Kernel + Parameter, k |
-| Normalisierung | JA | JA | JA |
 
 
 ---

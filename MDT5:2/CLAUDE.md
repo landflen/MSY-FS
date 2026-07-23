@@ -154,6 +154,10 @@
   (Standard-CV vs. Novelty-CV, „kein Fehler" als Antwort, Leakage-Ursache benennen) und
   Merksätze zu Metrik-Ehrlichkeit und ROC-Schwellwert ergänzt. Die beiden offenen S3-Punkte
   (Blatt ⑥ K/`pos_label`, CIFAR-Codefehler) verworfen.
+- **2026-07-23:** Klammer-Regel geklärt (alles Eingeklammerte raus). Material bereinigt:
+  VAE aus Blatt ⑤ + Übungsblatt 6, k-Means/PCA aus Blatt ①; `Blatt_Clustering_PCA.md` und
+  Übungsblatt `Session09_Clustering_PCA` gelöscht; READMEs + `Alle_Blaetter.md` nachgezogen;
+  Session01/06-PDFs neu kompiliert. S9 (Clustering/PCA) entfällt, S6 nur noch AE — siehe Lernplan.
 - **2026-07-20 (Nachtrag 2):** Blatt ⑥ als übertragen markiert; Antwortkorrektur Praktikum 03
   Teil 2 und Merksätze zu Overfitting-Kriterium, Loss-Skala, Loss vs. Accuracy, L2 im
   angezeigten Loss und Data Augmentation ergänzt.

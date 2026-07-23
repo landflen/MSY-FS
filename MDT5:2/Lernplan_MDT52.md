@@ -67,11 +67,11 @@ Erledigt: **S1 (8.7.)** Kap. 1+2, Blatt 1 korrigiert. **S2 (18.7.)** Kap. 3a/4 +
 | **➕ Di 21.7., 14–16 (NEU — in Kalender eintragen!)** | 04 (Probabilistisch) | **S4.** Kap. 6: Mahalanobis, GMM, KDE. Blatt ① fertig. Blatt `Session04_Probabilistisch` |
 | **Mi 22.7., 14–15:30** | 01a + 01b (zügig) | **S1-Nacharbeit.** Python/NumPy: shapes, mean/axis, Broadcasting. Blatt `Session01_Nacharbeit` lösen |
 | **Fr 24.7., 14–16** | 05 (Deep Learning) | **S5.** Kap. 3: Shapes, Aktivierungen, Loss. Blätter ② + ③. Blatt `Session05_NeuronaleNetze` (Typ 2/5) |
-| **Sa 25.7., 14–16** | 06 + 07 (Autoencoder) | **S6.** Kap. 7 Teil 1: AE, VAE. Blatt `Session06_Autoencoder_VAE` (Typ 3) |
+| **Sa 25.7., 14–16** | 06 + 07 (Autoencoder) | **S6.** Kap. 7 Teil 1: **nur AE (VAE entfällt, Klammer-Regel)**. Blatt `Session06_Autoencoder_VAE` — VAE-Teil überspringen (Typ 3) |
 | **🟡 So 26.7. nachm. (PUFFER)** | — | Reserve: Überlauf aus S5/S6 aufholen, hakende Notebooks fertig machen, oder schwächsten bisherigen Aufgabentyp nachtrainieren. Wenn alles im Plan liegt → frei |
 | **Mo 27.7., 14–16** | 08 (GANs) | **S7.** Kap. 7 Teil 2: GAN, AnoGAN, f-AnoGAN. Blatt ⑤. Blatt `Session07_GANs` (Typ 9) |
 | **Di 28.7., 8:30–11:30** | 09 (SVM) | **S8.** Kap. 8 Teil 1: SVM, Kernel-Trick, OCSVM. Zeichenübungen, Blatt `Session08_SVM_OCSVM` (Typ 6/7) |
-| **Di 28.7., 14–16** | Zusatz: pca_clustering (optional) | **S9.** Kap. 7a: k-Means, Silhouette, PCA. Blatt `Session09_Clustering_PCA` (Typ 11) |
+| ~~**Di 28.7., 14–16**~~ | ~~Zusatz: pca_clustering~~ | ~~**S9.** Kap. 7a: k-Means, Silhouette, PCA~~ → **ENTFÄLLT (Klammer-Regel).** Slot frei: Reserve / Originale vorziehen |
 | **Mi 29.7., 8:30–11:30** | 10 + 11 (Deep SVDD, GOAD) | **S10.** Kap. 8 Teil 2 + 8a. Blatt ④. Blatt `Session10_DeepSVDD_GOAD` (Typ 10) |
 | **Mi 29.7., 14–16** | — | Blätter ①–⑦ finalisieren, Skript mit Registerreitern. **Ab jetzt Originale:** Übungssammlung Aufgaben 1–5 lösen, mit Lösungen abgleichen |
 | **Do 30.7., 8:30–10:30** | — | **Generalprobe:** Übungssammlung Aufgaben 6–12 unter Klausurbedingungen (90 min, nur Skript + Blätter als Hilfsmittel!), korrigieren |
@@ -82,7 +82,8 @@ Erledigt: **S1 (8.7.)** Kap. 1+2, Blatt 1 korrigiert. **S2 (18.7.)** Kap. 3a/4 +
 
 ## Hinweise
 
-- **Klammer-Regel (Ansage Prof., 18.7.):** Was in der Verfahrensübersicht (Folie 01/33) eingeklammert ist, ist optional und NICHT klausurrelevant. Eingeklammert sind: **LOF, Matrix Profiles** (03a — aus S2-Material entfernt), aber auch **(VAE), (PCA), (k-Means)**. ⚠️ Offen: Gilt die Regel auch für Letztere? Dann würden S9 (Kap. 7a) und die VAE-Teile von S6 entfallen — vor S6 (25.7.) klären! Gegenargument: Die Übungssammlung enthält Clustering-Aufgaben (Typ 11)
+- **Klammer-Regel (Ansage Prof., 18.7.) — GEKLÄRT am 23.7.:** Was in der Verfahrensübersicht (Folie 01/33) eingeklammert ist, ist NICHT klausurrelevant — **ausnahmslos alles in Klammern**. Damit fallen raus: **LOF, Matrix Profiles** (03a, bereits entfernt), **VAE, PCA, k-Means**. Konsequenz: S6 nur noch **AE (ohne VAE)**, **S9 (Kap. 7a, Clustering/PCA) entfällt komplett** → der Slot Di 28.7. 14–16 wird frei (Reserve/Originale). Blatt `Blatt_Clustering_PCA.md` und der VAE-Teil von `Session06_Autoencoder_VAE` sind obsolet.
+  - ⚠️ Rest-Widerspruch (bewusst nachrangig, Prof.-Ansage zählt): Die Übungssammlung führt Clustering als Aufgabentyp 11 — falls in der Generalprobe (30.7.) eine reine Clustering-Aufgabe auftaucht, kurz gegenchecken statt blind überspringen.
 - `mlAno08_gans.zip` vor dem 27.7. entpacken und testen
 - Zusatzmaterial-Notebooks (VAE, Matrix Profiles) nur bei Zeitüberschuss
 - Review-Paper (40 S.) = Hintergrund, nicht priorisieren

@@ -30,7 +30,7 @@
 
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\small MDT5/2 -- Session 6: Autoencoder \& Variational Autoencoder}
+\fancyhead[L]{\small MDT5/2 -- Session 6: Autoencoder (AE, CAE, RandNet)}
 \fancyhead[R]{\small Übungsaufgaben zur Klausurvorbereitung}
 \fancyfoot[C]{\small Seite \thepage}
 \renewcommand{\headrulewidth}{0.4pt}
@@ -39,7 +39,8 @@
 
 \begin{center}
   {\Large\bfseries Übungsaufgaben Session 6}\\[4pt]
-  {\large Kapitel 7/7a: Autoencoder, CAE, Ensembles (RandNet), VAE -- Praktika 06 + 07}\\[4pt]
+  {\large Kapitel 7: Autoencoder, CAE, Ensembles (RandNet) -- Praktika 06 + 07}\\[4pt]
+  {\footnotesize\itshape VAE entfällt (Klammer-Regel) -- nicht klausurrelevant.}\\[2pt]
   \small Stil der Übungssammlung MDT5/2 -- generierte Aufgaben, keine Originale
 \end{center}
 
@@ -59,19 +60,7 @@ desto wahrscheinlicher liegt eine Anomalie vor.
 Begründung:
 \antwortlinien{2}
 
-\subsection*{1.2 \ Für den Latent Space gilt:}
-\mcbox Beim gewöhnlichen Autoencoder wird die Verteilung des Latent Space im Training
-explizit auf eine Normalverteilung eingestellt.
-
-\mcbox Beim Variational Autoencoder erzwingt die Kullback-Leibler-Divergenz als
-Regularisierer eine im Training festgelegte A-priori-Verteilung des Latent Space.
-
-\mcbox Der Latent Space hat immer eine höhere Dimension als die Eingabedaten.
-
-Begründung:
-\antwortlinien{2}
-
-\subsection*{1.3 \ Für das Upsampling im Decoder eines Convolutional Autoencoders gilt:}
+\subsection*{1.2 \ Für das Upsampling im Decoder eines Convolutional Autoencoders gilt:}
 \mcbox \texttt{UpSampling2D} lernt seine Interpolationsgewichte im Training.
 
 \mcbox Die transponierte Faltung (\texttt{Conv2DTranspose}) ermöglicht es, das Upsampling
@@ -82,7 +71,7 @@ mit lernbaren Filtern durchzuführen; mit Schrittweite 2 wird die Auflösung ver
 Begründung:
 \antwortlinien{2}
 
-\subsection*{1.4 \ Für Ensembles von Autoencodern gilt:}
+\subsection*{1.3 \ Für Ensembles von Autoencodern gilt:}
 \mcbox Alle Autoencoder des Ensembles müssen identisch aufgebaut und trainiert sein.
 
 \mcbox Ensembles stabilisieren den Rekonstruktionsfehler, indem sich die Modelle z.\,B. in
@@ -154,27 +143,6 @@ b) Wie werden die zufällig \glqq gelöschten\grqq{} Verbindungen technisch umge
 c) Wie entsteht der finale Anomalie-Score eines neuen Samples aus den 100 Netzen?
 (Fehlerberechnung, Normalisierung, Zusammenfassung)
 \antwortlinien{3}
-
-\section*{Aufgabe 5 -- Variational Autoencoder}
-
-a) Nennen Sie zwei Limitierungen des gewöhnlichen Autoencoders, die den VAE motivieren.
-\antwortlinien{3}
-
-b) Der Encoder eines VAE gibt keine festen Codes aus. Was gibt er stattdessen aus,
-und wie entsteht daraus $\boldsymbol{z}$?
-\antwortlinien{3}
-
-c) Welche Rolle spielt die Kullback-Leibler-Divergenz in der Kostenfunktion des VAE?
-\antwortlinien{2}
-
-d) Erklären Sie den Reparameterisierungs-Trick
-($\boldsymbol{z} = \boldsymbol{\mu} + \boldsymbol{\sigma} \odot \boldsymbol{\epsilon}$ mit
-$\boldsymbol{\epsilon}\sim\mathcal{N}(0,\boldsymbol{I})$): Welches Problem löst er?
-\antwortlinien{3}
-
-e) Wie wird ein trainierter VAE zur Novelty Detection eingesetzt
-(Stichwort Reconstruction Probability)? Und wie kann er zur Datengenerierung genutzt werden?
-\antwortlinien{4}
 
 \vspace{10pt}
 \begin{center}

@@ -22,7 +22,7 @@
 | **Deep** | — | — | Autoencoder, (VAE), f-AnoGAN | Deep SVDD, GOAD, CutPaste |
 | **Shallow** | kNN, (LOF), iForest, (Matrix Profiles) | Histogramm, Mahalanobis, KDE, GMM | (PCA), (k-Means) | OC-SVM, SVDD |
 
-**Eingeklammert auf der Folie = optional, NICHT klausurrelevant** — beim Nachzeichnen mitklammern, aber nicht lernen. LOF + Matrix Profiles (Foliensatz 03a) sind deshalb aus allen Blättern/Übungen entfernt.
+**Eingeklammert auf der Folie = NICHT klausurrelevant — ALLES in Klammern** (Ansage Prof., geklärt 23.7.). Beim Nachzeichnen mitklammern, aber nicht lernen. **LOF, Matrix Profiles, VAE, PCA, k-Means** sind deshalb aus allen Blättern/Übungen entfernt (Blatt Clustering/PCA komplett gestrichen, VAE-Teil aus Blatt ⑤ und Übungsblatt 6 entfernt).
 
 ## Die große Verfahrenstabelle
 
@@ -32,11 +32,8 @@
 | **iForest** | s = 2^(−E(h)/c(n)) ∈ [0;1], →1 Ausreißer | n_estimators (100), max_samples (256), contamination | **NEIN** | hohe Dim., große Daten, schnell | einzelne Bäume instabil (→ Ensemble) |
 | **Mahalanobis / EllipticEnvelope** | (neg.) Mahalanobis-Abstand (Ellipse) | contamination | (robust ggü. Skala) | korrelierte Merkmale, **unimodal** | **multimodale Daten!** |
 | **KDE** | log-Dichte | Bandbreite h (GridSearch auf Train-log-Dichte) | JA | **beliebige/multimodale Verteilungen** | h-Wahl; alle Trainingspunkte nötig |
-| **GMM** | Dichte der Mischverteilung | Modenzahl k, Init (k-Means) | JA | multimodal, wenn k bekannt | EM langsam, lokale Minima |
-| **k-Means** | Abstand zum nächsten Zentrum | k (Elbow/Silhouette), k-means++ | JA | gruppierte Daten, kugelige Cluster | **nicht-kugelförmige Cluster** |
-| **PCA** | Rekonstruktionsfehler | k bzw. Varianzerhalt 95–99 % | JA | lineare Strukturen, Dim.-Reduktion | **nichtlineare Strukturen** (→ Kernel PCA) |
+| **GMM** | Dichte der Mischverteilung | Modenzahl k, Init | JA | multimodal, wenn k bekannt | EM langsam, lokale Minima |
 | **Autoencoder** | Rekonstruktionsfehler | Architektur, dim(z) < dim(x)! | JA (z. B. [0;1]) | Bilder/hochdim., viele Daten | Fehler instabil (→ Ensemble/RandNet); braucht viele Daten |
-| **VAE** | Reconstruction Probability (mehrfach sampeln) | Architektur, A-priori N(0,1) | JA | wie AE + Datengenerierung | Aufwand |
 | **AnoGAN** | L = (1−λ)L_res + λL_disc nach z-Optimierung | λ (0,1), Iterationen (500), z_dim | JA | Bilder, gute Datenqualität | **langsam: z-Optimierung pro Sample!**; GAN-Training heikel |
 | **f-AnoGAN** | wie AnoGAN, aber via Encoder G(E(x)) | wie AnoGAN + Encoder | JA | wie AnoGAN, schnelles Scoring | 3-stufiges Training |
 | **OC-SVM** | Abstand zur Trennebene (vom Ursprung) | **ν** (Ausreißeranteil), **γ** (RBF) | **JA! (Standardis.)** | wenig Daten, hohe Dim. | große Datenmengen (Training langsam); braucht RBF |
@@ -48,8 +45,8 @@
 ## Entscheidungsbaum für Verfahrenswahl-Aufgaben (Typ 8/12)
 
 1. **Plot ansehen: eine kompakte Punktwolke (unimodal)?** → Mahalanobis/Elliptic Envelope ok
-2. **Mehrere Cluster (multimodal)?** → KDE, GMM, k-Means; Elliptic Envelope FALSCH (Ellipse über alles)
-3. **Cluster nicht kugelig / verschachtelt (Ringe, Bänder)?** → k-Means FALSCH, PCA (linear) FALSCH; KDE, OCSVM (RBF) ok
+2. **Mehrere Cluster (multimodal)?** → KDE, GMM; Elliptic Envelope FALSCH (Ellipse über alles)
+3. **Cluster nicht kugelig / verschachtelt (Ringe, Bänder)?** → KDE, OCSVM (RBF) ok
 4. **Hochdimensional (Bilder)?** → Deep-Verfahren (AE, Deep SVDD, GOAD, f-AnoGAN); Abstand/KDE leiden unter Curse of Dim.; iForest ok
 5. **Wenige Trainingsdaten?** → OCSVM stark, Deep-Verfahren FALSCH (Datenhunger)
 6. **Kleine lokale Bilddefekte?** → CutPaste
@@ -60,4 +57,4 @@
 - Min-Max → [0;1]: x′ = (mᵢ − minᵢ)/(maxᵢ − minᵢ); empfindlich ggü. Ausreißern; `MinMaxScaler`
 - Standardisierung (Z-Transf.): x′ = (mᵢ − μᵢ)/σᵢ → μ=0, σ=1; robuster, kein fester Bereich; `StandardScaler`
 - min/max/μ/σ IMMER nur aus Trainingsdaten (fit auf Train, transform auf Train+Test) → sonst Data Leakage
-- Nötig bei allem, was Abstände/Skalarprodukte rechnet (kNN, k-Means, KDE, SVM/OCSVM, PCA, NN-Eingaben); NICHT nötig bei iForest (nur Splits)
+- Nötig bei allem, was Abstände/Skalarprodukte rechnet (kNN, KDE, SVM/OCSVM, NN-Eingaben); NICHT nötig bei iForest (nur Splits)

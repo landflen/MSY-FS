@@ -1,7 +1,8 @@
-# Blatt ⑤ — Rekonstruktionsbasierte Verfahren: AE, CAE, VAE, GAN, AnoGAN, f-AnoGAN (Kap. 7 + VAE aus 7a)
+# Blatt ⑤ — Rekonstruktionsbasierte Verfahren: AE, CAE, GAN, AnoGAN, f-AnoGAN (Kap. 7)
 
-> Vorlage zum handschriftlichen Übertragen. Quellen: Foliensatz 07 (AE, GAN, AnoGAN, f-AnoGAN) + 07a Folien 28–35 (VAE).
-> Deckt Aufgabentyp 3 (AE-Code schreiben) + Typ 9 (AnoGAN komplett) ab. Zielumfang: ~3 A4-Seiten.
+> Vorlage zum handschriftlichen Übertragen. Quelle: Foliensatz 07 (AE, GAN, AnoGAN, f-AnoGAN).
+> **VAE entfällt (Klammer-Regel, geklärt 23.7.) — nicht klausurrelevant.**
+> Deckt Aufgabentyp 3 (AE-Code schreiben) + Typ 9 (AnoGAN komplett) ab. Zielumfang: ~2,5 A4-Seiten.
 
 ---
 
@@ -37,20 +38,6 @@
 - Architektur: Encoder halbiert Neuronen je Schicht, Decoder verdoppelt; max. 7 Schichten; Code ≥ 3 Neuronen; **erste Encoder- und letzte Decoder-Schicht: Sigmoid, Rest ReLU**
 - Training: 100 Netze, 300 Epochen, RmsProp, je 1/10 der Daten (Subsampling), Sample-Anzahl wächst ×1,01 pro Epoche
 - Score: quadrat. Fehler je Netz → normalisieren mit Std der Trainingsfehler des Netzes → **Median** über alle Netze
-
-## Variational Autoencoder — VAE (Folien 7a/28–35)
-
-**Warum nicht normaler AE?** (Folie 28) Keine Kontrolle über die Verteilung des Latent Space; z lässt sich nicht zufällig ziehen → Decoder nicht als Datengenerator nutzbar.
-
-**Idee:** Modelliere **Verteilungen** statt direkter Encodierung. A-priori-Verteilung p(z) wird vorgegeben (meist Standard-Normalverteilung N(0, 1)).
-
-- **Encoder** lernt Verteilungsparameter: zwei parallele **lineare** Dense-Layers am Encoder-Ende liefern μ und Σ → z wird daraus **gesampelt**
-- **Decoder** dekodiert das gesampelte z; Ausgabe ist ebenfalls eine Verteilung p(x|z), aus der gesampelt wird
-- **Kosten**: Rekonstruktionsanteil + **Kullback-Leibler-Divergenz** zwischen erzeugter Verteilung und A-priori-Verteilung; hergeleitet über **ELBO** (Evidence Lower Bound): maximiere ELBO = minimiere −ELBO
-  - KL gegen N(0, I) vereinfacht: D_KL = −½ · Σᵢ ( log σᵢ² + 1 − σᵢ² − μᵢ² )
-- **Reparameterisierungs-Trick** (MC-Klassiker!): z ~ N(μ, σ²) ist nicht (stabil) differenzierbar → schreibe **z = μ + σ ⊙ ε mit ε ~ N(0, I)** → Zufall steckt in ε, Pfad durch μ/σ ist differenzierbar
-- **Novelty Detection mit VAE** (Folie 35): z für dasselbe Sample x **mehrfach ziehen**, Rekonstruktionen mitteln → **Reconstruction Probability** p(x) als Score (je niedriger, desto eher Anomalie)
-- Datengenerierung: z_g ~ N(0,1) ziehen → decoder(z_g) = neues Sample (→ Data Augmentation)
 
 ## GAN (Folien 27–36)
 
