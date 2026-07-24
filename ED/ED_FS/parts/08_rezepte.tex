@@ -13,7 +13,7 @@
 }{\end{tabular}\par}
 \newcommand{\wenn}[1]{\parbox[t]{\linewidth}{\raggedright\scriptsize\itshape #1}}
 \newcommand{\dann}[1]{\parbox[t]{\linewidth}{\raggedright #1}}
-\newcommand{\rzhl}{\noalign{\vskip 0.18em}\noalign{{\color{gray!40}\hrule height 0.3pt}}\noalign{\vskip 0.18em}}
+\newcommand{\rzhl}{\noalign{\vskip 0.14em}\noalign{{\color{gray!40}\hrule height 0.3pt}}\noalign{\vskip 0.14em}}
 
 \bereich[cKap0]{K0 Klausur-Schema — immer 5 Aufgaben, 90\,min, $\approx$100\,P $\Rightarrow$ $\approx$0{,}9\,min/P}
 \begin{formelreihe}
@@ -490,8 +490,6 @@
     rechnen, Kehrwert nur am Anfang und Ende:
     $\tfrac{1}{\underline Z_1-\underline Z_C}\neq\underline Y_1-\underline
     Y_C$.\\[0.2em]
-    Nur bei der Stichleitung zusätzlich: Ende ist KS oder LL, Länge zählt ab
-    der Abzweigstelle.\\[0.2em]
     Verlustloses Blindelement in Serie ändert nur den Blindanteil:
     $\mathrm{Re}\{\underline Z_1\}=\mathrm{Re}\{\underline Z_2\}$
     (Selbstcheck).\\[0.2em]
@@ -587,9 +585,9 @@
     ($\vartheta$ zählt von der \emph{Achse} der Dipolreihe)} &
   \dann{%
     \vspace{0.1em}\par\noindent
-    \begin{minipage}[t]{0.55\linewidth}
+    \begin{minipage}[t]{0.48\linewidth}
     \vspace{0pt}\noindent
-    \begin{tikzpicture}[baseline=0pt,font=\tiny,scale=0.80,
+    \begin{tikzpicture}[baseline=0pt,font=\tiny,scale=0.70,
       dip/.style={line width=1.1pt},
       ax/.style={line width=0.3pt,dash pattern=on 3pt off 1.5pt},
       beam/.style={-{Stealth[length=1.4mm]},line width=0.5pt,cKap8!80!black},
@@ -618,7 +616,7 @@
         ([shift={(58:1.55)}]2.1,0)++(148:0.55)--++(-32:1.1);
     \end{tikzpicture}
     \end{minipage}\hfill
-    \begin{minipage}[t]{0.43\linewidth}
+    \begin{minipage}[t]{0.50\linewidth}
     \vspace{0pt}\raggedright
     $b=$ Abstand benachbarter Dipole, $\delta=$ Phasenschritt von Element zu
     Element ($N$ St\"uck, hier $N=4$).\\[0.2em]
@@ -628,15 +626,21 @@
     $\vartheta$ \textbf{von der Achse} messen, nicht vom Lot.
     \end{minipage}} \\ \rzhl
   \wenn{\textbf{Standardkette} Sender $\to$ Empfänger} &
-  \dann{$S=\tfrac{G_S\,P}{4\pi d^2}\;\big[\tfrac{\mathrm W}{\mathrm m^2}\big]\,,\qquad
+  \dann{$S=\tfrac{G_S\,P}{4\pi r^2}\;\big[\tfrac{\mathrm W}{\mathrm m^2}\big]\,,\qquad
     P_E=S\cdot A_w\,,\qquad
-    A_w=\tfrac{\lambda^2 G_E}{4\pi}\;[\mathrm m^2]$} \\ \rzhl
+    A_w=\tfrac{\lambda^2 G_E}{4\pi}\;[\mathrm m^2]$\\[0.1em]
+    \scriptsize $r$ = \textbf{Entfernung}, nie ein Antennendurchmesser
+    ($d$)!} \\ \rzhl
   \wenn{dB / dBm umrechnen} &
   \dann{$G=10^{g/10\,\mathrm{dB}}$\,;\qquad
     $P=1\,\mathrm{mW}\cdot10^{p/10\,\mathrm{dB}}$} \\ \rzhl
-  \wenn{rückwärts: \glqq benötigte Wirkfläche / Gewinn\grqq} &
-  \dann{$A_{w,min}=\tfrac{P_{E,min}}{S}\,,\qquad
-    G_{min}=\tfrac{4\pi A_w}{\lambda^2}$} \\ \rzhl
+  \wenn{Wirkfläche $A_w$ — \textbf{zwei Wege}, je nachdem was gegeben ist} &
+  \dann{\textbf{Durchmesser} geg.\ (Parabol/Horn):
+    $A_w\approx\tfrac{\pi}{4}d^2$, rückwärts $d=\sqrt{\tfrac{4A_w}{\pi}}$ \\
+    \textbf{Leistung} geg.: $A_w=\tfrac{P_E}{S}\;[\mathrm m^2]$;\;
+    daraus $G=\tfrac{4\pi A_w}{\lambda^2}$\\[0.15em]
+    \scriptsize In $G$ und $A_w$ steckt \textbf{kein} $P$ (Gewinn =
+    Bündelung, nicht Leistung) --- $P$ erst über die Kette oben.} \\ \rzhl
   \wenn{Gewinn-Werte $G$ (falls nicht gegeben)} &
   \dann{\scriptsize Elementardipol $G=1{,}5$ ($1{,}76$\,dBi),\quad
     $\lambda/2$-Dipol $G=1{,}64$ ($2{,}15$\,dBi),\quad
@@ -652,9 +656,12 @@
   \wenn{\glqq Frequenzwechsel\grqq\ ($P,d,$ Empfänger gleich)} &
   \dann{$\Delta p=(g_{S,neu}-g_{S,alt})
     +20\,\mathrm{dB}\cdot\lg\tfrac{f_{alt}}{f_{neu}}$} \\ \rzhl
-  \wenn{\glqq Anzahl Dipole aus Gewinn\grqq} &
-  \dann{$g_{Gr}=g_{ges}-2{,}15\,\mathrm{dB}\,,\qquad
-    N=2^{g_{Gr}/3\,\mathrm{dB}}$ \;(Verdopplung $=+3$\,dB)} \\ \rzhl
+  \wenn{\glqq Anzahl Dipole aus Gewinn\grqq\ / Länge der Dipolzeile} &
+  \dann{$N=\tfrac{G_{ges}}{G_{Einzel}}$ ($G$ als \emph{Faktor}, nicht
+    dBi);\qquad Länge bei Abstand $b$: $l=(N-1)\,b$\\[0.15em]
+    \scriptsize \glqq Verdopplung $=+3$\,dB\grqq\
+    ($N=2^{g_{Gr}/3\,\mathrm{dB}}$) ist nur die Kopf-Abschätzung ---
+    gerechnet wird der Quotient.} \\ \rzhl
   \wenn{\glqq Schwenken\grqq\ (Phased Array)} &
   \dann{Maximum bei $u=0$ $\;\Rightarrow\;
     \delta=-\tfrac{2\pi b}{\lambda}\cos\vartheta_0$;\quad
