@@ -53,7 +53,16 @@
     \infoblock{Einheitenlos: $\varepsilon_r$, $\mu_r$, $\tan\delta$,
       $G$, $C(\vartheta)$, $r$, $t$, $|r|$.\\[0.1em]
       dBm: $P=1\,\mathrm{mW}\cdot10^{p/10\,\mathrm{dB}}$,\;
-      $p=10\,\mathrm{dB}\cdot\lg\tfrac{P}{\mathrm{mW}}$}} &
+      $p=10\,\mathrm{dB}\cdot\lg\tfrac{P}{\mathrm{mW}}$}\\[0.2em]%
+    \merkblock[cKap0]{dB $\to$ Verhältnis: immer $10^{\dots}$, nie $e^{\dots}$}{%
+      \begin{aligned}
+        \text{Amplitude }A&=10^{-a/20\,\mathrm{dB}}
+          \;(40\,\mathrm{dB}\mathrel{\widehat{=}}\tfrac{1}{100})\\[0.05em]
+        \text{Leistung }\tfrac{P}{P_0}&=10^{-a/10\,\mathrm{dB}}
+          \;(3\,\mathrm{dB}\mathrel{\widehat{=}}\tfrac12)
+      \end{aligned}}\\[0.1em]%
+    \infoblock{\scriptsize $e^{\dots}$ gilt nur mit $\alpha l$ in Np
+      ($A=e^{-\alpha l}$) --- Brücke: $a=8{,}686\,\mathrm{dB}\cdot\alpha l$.}} &
   \parbox[t]{\linewidth}{%
     \merkblock[cKap0]{Ergebnis-Einheiten (SI einsetzen!)}{%
       \begin{aligned}
@@ -202,9 +211,15 @@
     Fehlanpassung nur am Sendereingang.} \\ \rzhl
   \wenn{\glqq Schirmdämpfung\grqq\ / Übersprechen durch eine Metallwand
     der Dicke $w$} &
-  \dann{$\delta=\sqrt{\tfrac{2}{2\pi f\,\mu_0\kappa}}\;[\mathrm m]\,,\quad
-    A=e^{-w/\delta}\,,\quad
-    a=-20\,\mathrm{dB}\cdot\lg A=8{,}686\,\mathrm{dB}\cdot\tfrac{w}{\delta}$\\[0.15em]
+  \dann{\textbf{1.}\;
+    $\delta=\sqrt{\tfrac{2}{2\pi f\,\mu_0\kappa}}\;[\mathrm m]$
+    \;(schlechtester Fall = \emph{kleinste} geforderte Frequenz, da
+    $\delta\propto1/\!\sqrt f$)\\[0.15em]
+    \textbf{2.}\; $w$ geg.\ $\to$ D\"ampfung:\quad
+    $a=8{,}686\,\mathrm{dB}\cdot\tfrac{w}{\delta}$\\[0.15em]
+    \textbf{2b.}\; $a$ geg.\ $\to$ Wandst\"arke:\quad
+    $w=\delta\cdot\tfrac{a}{8{,}686\,\mathrm{dB}}$
+    \quad\scriptsize(40\,dB $\to w=4{,}605\,\delta$)\\[0.15em]
     \scriptsize \textbf{Nicht verwechseln:} $w$ = \emph{Wandst\"arke} [m],
     $2\pi f$ = Kreisfrequenz (sonst $\omega$ geschrieben).
     Merkregel: pro Eindringtiefe Wandst\"arke $\approx8{,}7$\,dB.
@@ -230,6 +245,15 @@
   \dann{$f_c\to\tfrac{f_c}{\sqrt{\varepsilon_r}}
     \;\Rightarrow\;
     \varepsilon_{r,min}=\big(\tfrac{c_0}{2\,a\,f_2}\big)^{2}$} \\ \rzhl
+  \wenn{\glqq wie lange braucht ein \emph{Impuls} durch den Hohlleiter\grqq\
+    (Laufzeit)} &
+  \dann{$\lambda_0=\tfrac{c_0}{f}\,,\quad\lambda_c=2a\,;\qquad
+    v_{gr}=c_0\sqrt{1-\big(\tfrac{\lambda_0}{\lambda_c}\big)^2}\,,\qquad
+    \tau=\tfrac{l}{v_{gr}}$\\[0.15em]
+    \scriptsize Impuls / Energie / Signal $\Rightarrow$ stets $v_{gr}$
+    (nie $v_{ph}$, das ist $>c_0$). Nahe $f_c$ wird $v_{gr}$ klein
+    $\Rightarrow$ lange Laufzeit. Mit Dielektrikum \"uberall
+    $c=\tfrac{c_0}{\sqrt{\varepsilon_r}}$ statt $c_0$ (auch in $\lambda_0$).} \\ \rzhl
   \wenn{\glqq Wanddämpfung in dB\grqq\ — 3 Schritte} &
   \dann{\textbf{1.}\;
     $\tfrac{R_F}{Z_{F0}}=2{,}12\cdot10^{-5}
@@ -245,6 +269,22 @@
     \phantom{\textbf{3.}}\;Länge geg.\ $\to$ Dämpfung $a_{dB}$ direkt;\qquad
     erlaubte Dämpfung geg.\ $\to$
     $l_{max}=\tfrac{a_{dB}}{8{,}686\,\mathrm{dB}\cdot\alpha}$} \\ \rzhl
+  \wenn{\glqq D\"ampfung durch das \emph{Dielektrikum}\grqq\ /
+    \glqq welches $\tan\delta$ ist maximal erlaubt\grqq} &
+  \dann{$\lambda_\varepsilon=\tfrac{\lambda_0}{\sqrt{\varepsilon_r}}
+      =\tfrac{c_0}{f\sqrt{\varepsilon_r}}$
+    \;(Wellenl\"ange \emph{im} Dielektrikum, nicht $\lambda_H$)\\[0.15em]
+    $\alpha_\varepsilon=\tfrac{\pi\,\tan\delta}{\lambda_\varepsilon}\cdot
+      \tfrac{1}{\sqrt{1-(\lambda_\varepsilon/2a)^2}}\;[\mathrm{Np/m}]$
+    \qquad mit $a_{dB}$ geg.: $\alpha_\varepsilon=
+      \tfrac{a_{dB}}{8{,}686\,\mathrm{dB}\cdot l}$\\[0.15em]
+    nach $\tan\delta$ umgestellt:\quad
+    $\tan\delta=\tfrac{\alpha_\varepsilon\,\lambda_\varepsilon}{\pi}
+      \sqrt{1-\big(\tfrac{\lambda_\varepsilon}{2a}\big)^2}$\\[0.15em]
+    \scriptsize \textbf{Nicht die Koax-Formel} $\tfrac{\pi f}{c_0}\sqrt{\varepsilon_r}\tan\delta$
+    --- im Hohlleiter kommt der Wurzelterm dazu (er macht die D\"ampfung
+    \emph{gr\"o\ss er}, nahe $f_c$ stark). $a$ ohne Index = Breite,
+    $a_{dB}$ = D\"ampfung.} \\ \rzhl
   \wenn{\glqq maximale Leistung\grqq\ / $\hat H_t$} &
   \dann{$P_{max}=\tfrac{a\,b\,\hat E^2}{4Z_{F0}}
       \sqrt{1-\big(\tfrac{\lambda_0}{2a}\big)^2}\,;\qquad
@@ -255,8 +295,12 @@
     $\lambda_H=\tfrac{\lambda_0}{\sqrt{1-(\lambda_0/2a)^2}}$;\qquad
     direkt (Mode 101): $d=\tfrac{1}{\sqrt{(2f_r/c_0)^2-(1/a)^2}}$} \\ \rzhl
   \wenn{Fallstricke} &
-  \dann{\scriptsize\itshape in allen Wurzeln steht $\lambda_0$ (Freiraum),
-    nie $\lambda_H$; nötig: $\lambda_0<2a$; $a$ und $b$ nicht vertauschen} \\
+  \dann{\scriptsize\itshape in allen Wurzeln steht die \emph{ungeführte}
+    Wellenlänge --- luftgefüllt $\lambda_0$, mit Dielektrikum
+    $\lambda_\varepsilon=\lambda_0/\!\sqrt{\varepsilon_r}$ --- nie $\lambda_H$;
+    nötig: $\lambda<2a$; $a$ und $b$ nicht vertauschen;
+    $f_c$ ist stets die des \emph{gewählten} Hohlleiters ($c/2a$),
+    nicht die untere Bandgrenze aus der Angabe} \\
 \end{rezepttab}
 \bereichende
 
@@ -320,10 +364,17 @@
     \end{minipage}} \\ \rzhl
   \wenn{\glqq Brechungswinkel\grqq} &
   \dann{$\sin\beta=\tfrac{\sin\alpha}{n}$ \;(Snellius)} \\ \rzhl
-  \wenn{\glqq reflexionsfrei\grqq\ / \glqq refl.\ Strahl linear polarisiert\grqq} &
-  \dann{$\alpha_B=\arctan n$\,;\quad
+  \wenn{\glqq Brewster-Winkel\grqq\ / \glqq reflexionsfrei\grqq\ / \\
+    \glqq refl.\ Strahl linear polarisiert\grqq} &
+  \dann{$\alpha_B=\arctan n$ \;($B$ = \textbf{Brewster})\,;\quad
     $\varepsilon_{r2}=\varepsilon_{r1}\tan^2\alpha_B$\,;\quad
-    $E$ in Einfallsebene einzeichnen} \\ \rzhl
+    $\beta_B=90^\circ-\alpha_B$\\[0.1em]
+    einzeichnen: \emph{durchgehend} $E_\parallel$ (Pfeil quer zum Strahl)
+    \;\textbullet\; \emph{reflektiert} nur $E_\perp$ (Punkt/Kreuz)\\[0.1em]
+    \textbf{Abkürzung} ($r_\parallel=0$ in die Bilanz):\;
+    $t_{e\parallel}t_{m\parallel}=\tfrac{\cos\alpha}{\cos\beta}
+    \;\Rightarrow\;S_{d\parallel}=\tfrac{\cos\alpha}{\cos\beta}\,S_{h\parallel}$
+    — spart beide $t_\parallel$-Formeln} \\ \rzhl
   \wenn{\glqq Totalreflexion\grqq\ (nur dicht $\to$ dünn, $n<1$)} &
   \dann{$\alpha_g=\arcsin n$;\quad $\alpha\ge\alpha_g$: 100\,\%
     reflektiert, Polarisation egal;\quad
@@ -341,7 +392,9 @@
   \dann{$q=1$, beide Polarisationen:\quad
     $r_e=r_m=\tfrac{n-1}{n+1}\,,\quad
     t_e=\tfrac{2}{n+1}\,,\quad
-    t_m=\tfrac{2n}{n+1}$} \\ \rzhl
+    t_m=\tfrac{2n}{n+1}$;\quad
+    hier auch $S_d=S_h-S_r$ \;\scriptsize(kein Querschnittssprung,
+    $q=1$ — bei $\alpha\neq0$ \emph{falsch})} \\ \rzhl
   \wenn{\glqq reflektierte / durchgehende Leistung(sdichte)\grqq} &
   \dann{$S_r=r_e r_m\,S_h\,,\quad S_d=t_e t_m\,S_h$
     \;($t_e t_m$ enthält Querschnittsänderung schon);\\[0.1em]
@@ -350,7 +403,10 @@
   \wenn{\glqq unpolarisiert\grqq} &
   \dann{je $\tfrac{S_h}{2}$ pro Polarisation:\quad
     $S_d=\tfrac{S_h}{2}\big(t_{e\perp}t_{m\perp}
-      +t_{e\parallel}t_{m\parallel}\big)$} \\ \rzhl
+      +t_{e\parallel}t_{m\parallel}\big)$,\quad
+    $S_r=\tfrac{S_h}{2}\big(r_{e\perp}r_{m\perp}
+      +r_{e\parallel}r_{m\parallel}\big)$
+    \;\scriptsize(bei $\alpha_B$: $\parallel$-Summand $=0$)} \\ \rzhl
   \wenn{Prisma} &
   \dann{\scriptsize\itshape Geometrie über Winkelsummen herleiten
     ($\gamma=\alpha_2-\beta_1$ u.\,ä.) — Skizze!} \\
@@ -563,14 +619,16 @@
   \wenn{rückwärts: \glqq benötigte Wirkfläche / Gewinn\grqq} &
   \dann{$A_{w,min}=\tfrac{P_{E,min}}{S}\,,\qquad
     G_{min}=\tfrac{4\pi A_w}{\lambda^2}$} \\ \rzhl
-  \wenn{Gewinn-Werte (falls nicht gegeben)} &
-  \dann{\scriptsize Elementardipol $1{,}5$ ($1{,}76$\,dBi),\quad
-    $\lambda/2$-Dipol $1{,}64$ ($2{,}15$\,dBi),\quad
-    Ganzwellendipol $3{,}8$\,dBi} \\ \rzhl
+  \wenn{Gewinn-Werte $G$ (falls nicht gegeben)} &
+  \dann{\scriptsize Elementardipol $G=1{,}5$ ($1{,}76$\,dBi),\quad
+    $\lambda/2$-Dipol $G=1{,}64$ ($2{,}15$\,dBi),\quad
+    Ganzwellendipol $G=2{,}4$ ($3{,}8$\,dBi)} \\ \rzhl
   \wenn{Winkelfragen Elementardipol (\glqq unter welchem Winkel noch Empfang?\grqq)} &
   \dann{$G(\vartheta)=G_{max}\,C^2(\vartheta)$, $C=|\sin\vartheta|$
-    $\;\Rightarrow\;\vartheta=\arcsin\sqrt{\tfrac{G}{G_{max}}}$;\quad
-    benötigter Gewinn: $G(\vartheta)=\tfrac{4\pi P_E}{S\,\lambda^2}$\\[0.1em]
+    $\;\Rightarrow\;\vartheta=\arcsin\sqrt{C^2}$,\quad
+    $C^2=\tfrac{G}{G_{max}}=\tfrac{S_{E,min}}{S_E}$ (Bedarf/Angebot)\\[0.1em]
+    benötigter Gewinn: $G(\vartheta)=\tfrac{4\pi P_E}{S\,\lambda^2}$,\quad
+    $S_{E,min}=\tfrac{P_{E,min}}{A_w}$;\quad
     Kippwinkel $\gamma=90^\circ-\vartheta$;\quad
     Empfangs-Winkelbereich $\alpha=180^\circ-2\vartheta$} \\ \rzhl
   \wenn{\glqq Frequenzwechsel\grqq\ ($P,d,$ Empfänger gleich)} &

@@ -67,7 +67,7 @@ ED_FS/
 ## Status (Stand 2026-07-18 nachmittags) — ALLE KAPITEL FERTIG ✓ + Rezeptseiten im Wenn→Dann-Layout
 | Datei | Status |
 |-------|--------|
-| ED_FS.tex | fertig, kompiliert ✓ (9 Seiten, 0 Overfull, TikZ aktiv, EDy0–EDy8 komplett + Rezeptseiten) |
+| ED_FS.tex | fertig, kompiliert ✓ (**11 Seiten** Stand 2026-07-24, 0 Overfull, TikZ aktiv, EDy0–EDy8 komplett + Rezeptseiten K0–K5 mit 4 Skizzen; Seitenaufteilung der Rezepte: S. 8 K0/K0b, S. 9 K1, S. 10 K2+K3, S. 11 K4+K5) |
 | 08_rezepte.tex | fertig ✓, **komplett neu strukturiert (2026-07-18 nachmittags)**: zweispaltige Wenn→Dann-Tabellen (`rezepttab`-Umgebung, `\wenn`/`\dann`/`\rzhl` lokal in der Datei definiert) statt 3-Spalten-Blöcke — linke Spalte = Klausur-Fragestellung kursiv, rechte Spalte = ALLE nötigen Formeln (self-contained, keine Verweise auf 7.x/8.x mehr nötig). Neu: K0b Konstanten & Einheiten (c0, Z_F0, ε0, μ0, κ_Ag/Cu/Messing, Ergebnis-Einheiten Np/m·rad/m·W/m² etc., 1 Np = 8,686 dB, dBm-Formel). In K1–K5 zusätzlich eingebaut: Z_L-Formel + α_L/α_D (7.1), Wanddämpfungs-3-Schritt + Z_FH (7.4), senkrechter Einfall q=1 (6.7), allg. Trafo-Formel (7.8), C_HW (8.6) + Gruppenfaktor √G_Gr/u (8.7) |
 | 00_einteilung.tex | fertig, kompiliert ✓ |
 | 01_elektrostatik.tex | fertig ✓ (2.1–2.7) + Grafiken |
