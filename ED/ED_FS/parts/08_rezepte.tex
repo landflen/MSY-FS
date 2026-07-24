@@ -420,9 +420,9 @@
     $\underline Z$, was hängt parallel?} &
   \dann{%
     \vspace{0.1em}\par\noindent
-    \begin{minipage}[t]{0.57\linewidth}
+    \begin{minipage}[t]{0.505\linewidth}
     \vspace{0pt}\noindent
-    \begin{tikzpicture}[baseline=0pt,font=\tiny,scale=0.80,
+    \begin{tikzpicture}[baseline=0pt,font=\tiny,scale=0.70,
       wire/.style={line width=0.35pt},
       ltg/.style={line width=1.1pt},
       dimA/.style={{Stealth[length=0.9mm]}-{Stealth[length=0.9mm]},line width=0.25pt},
@@ -476,7 +476,7 @@
         {von der Last nach vorn rechnen};
     \end{tikzpicture}
     \end{minipage}\hfill
-    \begin{minipage}[t]{0.41\linewidth}
+    \begin{minipage}[t]{0.475\linewidth}
     \vspace{0pt}\raggedright
     Jede Ebene $\underline Z_n$ = was man \emph{an dieser Stelle nach rechts}
     sieht $\Rightarrow$ von der Last her nach vorn arbeiten (ist eine mittlere
@@ -484,10 +484,10 @@
     \scriptsize \textbf{Serie oder parallel? Erst hinsehen} — gilt für
     \emph{jedes} Element ($C$, $L$, $R$, Stichleitung, Teilnetz):
     Ader \emph{unterbrochen}, Element eingeschleift $\Rightarrow$
-    \textbf{Serie}, $Z$ addieren: $\underline Z_2=\underline Z_1+\underline
-    Z_{el}$. Element \emph{brückt beide} Adern $\Rightarrow$ \textbf{parallel},
-    $Y=\tfrac1Z$ addieren: $\underline Y_2=\underline Y_1+\underline Y_{el}$.
-    Bei parallel durchgehend in $Y$ rechnen, Kehrwert nur am Anfang und Ende:
+    \textbf{Serie}; Element \emph{brückt beide} Adern $\Rightarrow$
+    \textbf{parallel} (Formeln + Vorzeichen: Zeile
+    \glqq Parallel-/Serienschaltung\grqq). Bei parallel durchgehend in $Y$
+    rechnen, Kehrwert nur am Anfang und Ende:
     $\tfrac{1}{\underline Z_1-\underline Z_C}\neq\underline Y_1-\underline
     Y_C$.\\[0.2em]
     Nur bei der Stichleitung zusätzlich: Ende ist KS oder LL, Länge zählt ab
@@ -505,7 +505,11 @@
     $\beta=\tfrac{2\pi}{\lambda}\;[\mathrm{rad/m}]$\,;\quad
     Rechner auf RAD für $\tan\beta l$!} \\ \rzhl
   \wenn{\textbf{2.} jede Leitungslänge auf Sonderfall prüfen} &
-  \dann{$l=n\tfrac{\lambda}{2}$: $Z$ unverändert;\qquad
+  \dann{\textbf{vorher $l/\lambda$ ausrechnen!}\quad
+    $0{,}25$ (bzw.\ $0{,}75\dots$) $\Rightarrow\lambda/4$\,;\quad
+    $0{,}5$ (bzw.\ $1{,}0\dots$) $\Rightarrow\lambda/2$\,;\quad
+    sonst Formel 3\\[0.15em]
+    $l=n\tfrac{\lambda}{2}$: $Z$ unverändert;\qquad
     $l=\tfrac{\lambda}{4}$: $Z=\tfrac{Z_L^2}{Z(0)}$
     \;(LL$\leftrightarrow$KS, $C\to L=CZ_L^2$, $L\to C=L/Z_L^2$)} \\ \rzhl
   \wenn{\textbf{3.} kein Sonderfall $\to$ allg.\ Transformation} &
@@ -535,9 +539,23 @@
     mit $\underline Z(0)=0$ bzw.\ $\underline Z(0)\to\infty$.
     Probe bei $f\to0$: KS $\to$ Kurzschluss ($\tan\to0$),
     LL $\to$ Unterbrechung ($1/\tan\to\infty$).} \\ \rzhl
-  \wenn{Parallel- / Serienschaltung} &
-  \dann{parallel: Admittanzen $Y=\tfrac1Z\;[\mathrm S]$ \emph{addieren};\qquad
-    seriell: $Z$ addieren} \\ \rzhl
+  \wenn{Parallel- / Serienschaltung — \emph{welches Vorzeichen hat das
+    Bauteil?}} &
+  \dann{\textbf{parallel:}\;
+    $\underline Y_1=\tfrac{1}{\underline Z_1}\,[\mathrm S]
+     \;\to\;\underline Y_2=\underline Y_1+\underline Y_{el}
+     \;\to\;\underline Z_2=\tfrac{1}{\underline Y_2}\,[\Omega]$
+    \qquad \textbf{seriell:}\;
+    $\underline Z_2=\underline Z_1+\underline Z_{el}$\\[0.15em]
+    $C$: parallel $\underline Y_C=+j\omega C$ \big| seriell
+      $\underline Z_C=\tfrac{-j}{\omega C}$ \quad\textbullet\quad
+    $L$: parallel $\underline Y_L=\tfrac{-j}{\omega L}$ \big| seriell
+      $\underline Z_L=+j\omega L$ \quad\textbullet\quad
+    $R$: $\underline Y_R=\tfrac1R$ \big| $\underline Z_R=R$\\[0.15em]
+    \scriptsize Parallel-$C$ heißt also \emph{immer}
+    $\underline Y_2=\underline Y_1+j\omega C$ --- \textbf{Plus}, auch wenn er
+    kompensiert: er hebt nur einen \emph{negativen} Im-Teil von
+    $\underline Y$ auf.} \\ \rzhl
   \wenn{\glqq $C$ so wählen, dass $Z$ reell\grqq\ (parallel)} &
   \dann{$\omega C=-\mathrm{Im}\{Y_{rest}\}
     \;\Rightarrow\;
