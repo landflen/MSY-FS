@@ -1,6 +1,36 @@
-# ED — Lernplan & Logbuch (Prüfung Mo 27.07.2026, 8:30)
+# ED — Lernplan & Logbuch (Prüfung 27.07.2026, siehe Statuskasten)
 
-**Klausurformat:** 90 min, ~100 Punkte, **Open Book** (beliebige schriftliche Unterlagen + Taschenrechner). Prüfer: Prof. Janker.
+> ## ✅ STATUS 26.07.2026: Prüfung 27.07.2026 wird DOCH angetreten
+>
+> Entscheidung revidiert am 26.07. (die Absage vom 25.07. gilt nicht mehr). **Am 26.07.
+> wird nur noch marginal für ED gelernt** — der MDT5/2-Vormittag bleibt wie geplant, ED
+> bekommt den Rest des Tages. Der MDT-Slot am **Mo 27.07. vormittags entfällt** (Prüfung),
+> der Nachmittagsslot bleibt.
+>
+> **Ausgangslage in Zahlen:** drei Probeklausuren geschrieben — WiSe24/25 ~40, SoSe24 ~39,
+> WiSe25/26 ~48 von 100. Der Trend zeigt nach oben, und die Diagnose ist in allen dreien
+> dieselbe: **kein Wissens-, sondern ein Reihenfolgeproblem.** 28 / 37 / 31 Punkte blieben
+> jeweils *komplett unbearbeitet*, davon je 14–20 Punkte reines Nachschlagen von
+> Ein-Zeilen-Formeln.
+>
+> **Die drei Dinge, die morgen Punkte bringen** (nach Aufwand sortiert, alle ohne neuen Stoff):
+> 1. **Erst die ganze Klausur durchblättern** und jede Teilaufgabe einsammeln, die ≤ 4 Punkte
+>    gibt und nach genau einer Größe fragt. Dann erst von vorn rechnen. ≈ 20 Punkte.
+> 2. **Die Werte in den eckigen Klammern als Kontrolle lesen**, nicht nur als Notausgang —
+>    sie widerlegen falsche frühere Ergebnisse sofort (ε_r 2,0 vs. 2,25; g 43 dBi vs. 22,7 dBi).
+> 3. **Bei A4 zuerst l/λ ausrechnen** (0,25 → λ/4, 0,5 → λ/2, sonst allgemeine Formel).
+>    Dieser eine ausgelassene Schritt hat in WiSe25/26 16 von 20 Punkten gekostet.
+>
+> **Schwächster Typ bleibt A5** (nie eine Aufgabe komplett allein gerechnet, ~1/20 bzw. ~6/20)
+> — konzeptionell einfach, nur nie geübt. Falls heute Zeit für genau eine Sache bleibt: A5.
+>
+> Mitnehmen: **ED_FS (11 S.)**, `Klausur/Kompakt/ED_Altklausuren_kompakt.pdf`,
+> `Casio_fx991DEX_Kochzettel.pdf`, Taschenrechner (Winkeleinheit RAD/DEG prüfen!).
+>
+> Der Abschnitt **„Übergabe an den nächsten Anlauf"** am Dateiende bleibt stehen — er gilt
+> nur noch für den Fall, dass die Klausur nicht bestanden wird.
+
+**Klausurformat (Prof. Janker, Stand SoSe26 — beim neuen Prüfer neu prüfen!):** 90 min, ~100 Punkte, **Open Book** (beliebige schriftliche Unterlagen + Taschenrechner). Prüfer: Prof. Janker.
 **Wichtigstes Asset:** ED_FS ist fertig (8 Seiten, kompiliert) → Klausur ist Nachschlage-Rechnen, kein Auswendiglernen. Seite 8 = **Klausur-Rezepte K0–K5** (Schrittfolgen pro Aufgabentyp, destilliert aus Lösungsvorschlägen SoSe22 + SoSe25).
 
 ## Die 5 Aufgabentypen (identisch in SoSe22, SoSe25, WiSe25/26 geprüft — Schema F bestätigt)
@@ -21,7 +51,7 @@
 
 - **Typ-Training (mit Lösungsvorschlag danebenlegen):** SoSe22, SoSe25, WiSe23/24 (Kern-Trio, in Sessions eingeplant); Reserve-Drill: SoSe21, SoSe23, WiSe20/21, WiSe21/22, WiSe22/23
 - **Probeklausuren auf Zeit (unverbraucht lassen!):** WiSe24/25 → SoSe24 → **WiSe25/26 als Generalprobe zum Schluss** (aktuellste Klausur; Lösungsvorschlag liegt seit 21.07. im Ordner)
-- **Sortierte Sammlung (21.07. gebaut):** `Klausur/Kompakt/` — `ED_Altklausuren_kompakt.pdf` (Vollversion, alle 11 Klausuren, 36 S., zum Ausdrucken/Mitnehmen) und `ED_Altklausuren_kompakt_Uebung.pdf` (ohne die 3 Probeklausuren, 34 S., spoilerfrei zum Üben). Erzeugt von `Klausur/build_kompakt.py` (`python3 build_kompakt.py` baut beide neu); Auswahl + Rechenwege stehen im Skriptkopf, die Variantenliste und die Prognosetexte importiert es aus `build_sammlung.py`.
+- **Sortierte Sammlung (21.07. gebaut, 26.07. auf Teilaufgaben-Ebene umgebaut):** `Klausur/Kompakt/` — `ED_Altklausuren_kompakt.pdf` (Vollversion, **alle 55 Aufgaben aller 11 Klausuren**, 63 S., zum Ausdrucken/Mitnehmen) und `ED_Altklausuren_kompakt_Uebung.pdf` (ohne die 3 Probeklausuren, 47 S., spoilerfrei zum Üben). Erzeugt von `Klausur/build_kompakt.py` (`python3 build_kompakt.py` baut beide neu); die Zuordnung Teilaufgabe → Frage-Variante steht als `VARIANTEN` im Skriptkopf, die Prognosetexte importiert es aus `build_sammlung.py`.
 - Ergänzung/Vorlesungsbeispiele EDy.pdf (+ Ergebnisse) als Zusatz-Drill, Zusatz-Aufgaben.pdf bei Restzeit.
 - Videos (EDy-01…24) NICHT komplett schauen — nur gezielt, wenn ein Rezept unklar bleibt.
 
@@ -39,8 +69,9 @@
 | Mi 23.07. | 8:30–11:30 (3h) | **A3 + A5** | A3 (~1,5h): Rezept K3 → **SoSe25 A3** (Brewster) mit Lösung → **SoSe22 A3** selbst (unpolarisiert/Leistungsdichte!) → **WiSe23/24 A3** selbst. A5 (~1,5h): Rezept K5 → **SoSe25 A5** (5G) mit Lösung → **SoSe22 A5** selbst (GPS/dBm) → **WiSe23/24 A5** selbst |
 | Do 24.07. | 8:30–11:30 (3h) | **Probeklausur 1** | **WiSe24/25** komplett auf Zeit (90 min, nur eigene Unterlagen) → 90 min Korrektur mit Lösungsvorschlag, Fehler ans Rezept schreiben |
 | Fr 25.07. | 8:30–11:30 (3h) | **Probeklausur 2** | **SoSe24** auf Zeit → Korrektur; Restzeit: schwächsten Typ aus Reserve-Pool (SoSe21/SoSe23/WiSe20–22) drillen |
-| Sa 26.07. | 8:30–10:30 (2h) | **Probeklausur 3 = Generalprobe** | **WiSe25/26** (aktuellste!) auf Zeit (90 min) → 30 min Schnellcheck mit Lenas Lösung. KEIN neuer Stoff mehr |
-| Mo 27.07. | 8:30–10:00 | **PRÜFUNG** | Mitnehmen: FS (8 S.), ggf. gelöste Altklausuren, Taschenrechner (RAD/DEG!) |
+| ~~Sa 26.07.~~ | — | *entfällt* | WiSe25/26 wurde schon am 25.07. gerechnet (~48/100) |
+| **So 26.07.** | nachmittags (marginal) | **A5 + Routen-Training** | MDT hat den Vormittag. ED: (1) A5 einmal komplett allein — SoSe25 A5 mit Lösung; (2) Einsammel-Regel + Anker-Kontrolle handschriftlich auf FS-Seite 1; (3) Restzeit Routen-Training quer über `Klausur/Kompakt/` (Pool: SoSe21, SoSe23, WiSe20/21, WiSe21/22, WiSe22/23) |
+| Mo 27.07. | 8:30–10:00 | **PRÜFUNG** | Mitnehmen: FS (11 S.), `Klausur/Kompakt/`-Sammlung, Casio-Kochzettel, Taschenrechner (RAD/DEG!) |
 
 Durch die Streichung am 19.07. gibt es keinen Puffer mehr — hakt ein Typ, Zeit am 25.07. nach der Korrektur nutzen.
 
@@ -117,3 +148,122 @@ Durch die Streichung am 19.07. gibt es keinen Puffer mehr — hakt ein Typ, Zeit
 - 24.07. (**K5-Ergänzungen, Anlass: Lenas Frage „wo steckt P in der Formel für A?"**): (1) Neue Zeile **„Wirkfläche A_w — zwei Wege, je nachdem was gegeben ist"**: Durchmesser geg. (Parabol/Horn) → A_w ≈ π/4·d², rückwärts d = √(4A_w/π); Leistung geg. → A_w = P_E/S, daraus G = 4πA_w/λ². Dazu der Satz, der die Frage beantwortet: *in G und A_w steckt kein P* — der Gewinn beschreibt nur die Bündelung, P kommt erst über S = G·P/(4πr²) bzw. P_E = S·A_w. Der geometrische Weg fehlte in K5 komplett, obwohl A5.1 und A5.3 der Probeklausur beide daran hängen (A_w ≈ A_geom stand nur in FS 8.5). Die alte Zeile „rückwärts: benötigte Wirkfläche/Gewinn" ist darin aufgegangen. (2) **Inhaltliche Korrektur in „Anzahl Dipole aus Gewinn":** dort stand nur N = 2^(g_Gr/3 dB) — das ist die Faustregel „Verdopplung = +3 dB" und liefert einen *falschen* Wert (im WiSe24/25-Fall 2646 statt 2576). Exakt ist **N = G_ges/G_Einzel** (= 10^(g_Gr/10 dB)); die Faustregel steht nur noch als Abschätzung dabei. Neu ergänzt: **Länge der Dipolzeile l = (N−1)·b** (wurde in A5.4 gefragt, fehlte ganz). **Platzbeschaffung** (K5 wäre sonst auf eine 12. Seite gerutscht): K5-Skizze auf scale 0,70 bei Minipage 0,48; im K4-Intro der Satz zur Stichleitung gestrichen (stand als eigene Zeile ohnehin darunter); `\rzhl`-Abstand in den Rezepttabellen 0,18 em → 0,14 em. **Messtechnik, die dabei geholfen hat und wiederverwendbar ist:** Seiten mit `pdftoppm -r 60 -gray` rendern und per PIL die erste/letzte Tintenzeile bestimmen — so sieht man, dass K5 genau 249 px braucht und auf S. 11 nur 245 px frei waren, also **eine einzige Zeile** fehlte. Ein `rezepttab` ist ein `tabular` und damit **unteilbar**: passt es nicht komplett, wandert das ganze Rezept auf die nächste Seite. Ergebnis: 11 Seiten, 0 Overfull, Aufteilung unverändert S. 8 K0/K0b · S. 9 K1 · S. 10 K2+K3 · S. 11 K4+K5. (3) **Von Lena selbst gefunden:** die Standardkette schrieb $S=G_S P/(4\pi d^2)$ — mit **d**, obwohl dort die Entfernung gehört. Das ist genau die Falle aus A5.2 (sie hatte den Antennendurchmesser 30 cm statt r = 36 000 km eingesetzt) und die FS hat sie noch eingeladen, weil $d$ zwei Zeilen tiefer der Spiegeldurchmesser ist. Jetzt $r$ plus Zusatz „r = Entfernung, nie ein Antennendurchmesser (d)!". Lehre: **Symbol-Kollisionen entstehen auch zwischen benachbarten Zeilen desselben Rezepts**, nicht nur innerhalb einer Formel.
 - 24.07. (**Vereinbart für die Restzeit — Lenas Vorschlag, von mir bestätigt**): vor der Klausur **Routen-Training statt weiterer Vollrechnungen**. Begründung: alle fünf inhaltlichen Fehler der Probeklausur waren Routenfehler (λ/4 statt λ/2, falsches f_c, Brewster-Pol. verdreht, Vorwärts-/Rückwärtsformel, d statt r) — die findet man durch Nochmal-Rechnen nicht. Ablauf: Teilaufgabe lesen, in **einem Satz** die Route nennen, ich bestätige oder korrigiere; kein Taschenrechner, ~1–2 min statt 10 min pro Teilaufgabe. Vorgehen **typweise quer** durch die Klausuren über das Register in `Klausur/Kompakt/`, nicht klausurweise; Schwerpunkt auf den Varianten, die Lena noch nie gesehen hat (A1 Stehwellen/Reflexionsfaktor, A2 Resonatorlänge, A5 Phased Array/Kippwinkel). **Erlaubter Pool: SoSe21, SoSe23, WiSe20/21, WiSe21/22, WiSe22/23** — SoSe24 (Probeklausur 2) und WiSe25/26 (Generalprobe) bleiben tabu. **Bester Slot: nach der Generalprobe am 26.07.**, dann liegen die Fehlerlisten beider Probeklausuren vor und man kann gezielt die zweimal wackelnden Typen nehmen. **Vorbedingung, die zuerst kommt: A5 einmal komplett allein rechnen** (SoSe25 A5 mit Lösung, dann SoSe22 A5 selbst) — Routen-Talk baut keine Rechnerroutine auf, und A5 stand bei 0. Angeboten, noch nicht gebaut: Routen-Liste als PDF (Fragetexte der fünf Reserve-Klausuren, richtige Routen auf separater Seite zum Selbstabgleich).
 - 24.07. (K3, **Brewster-Abkürzung aus dem WiSe23/24-Lösungsvorschlag übernommen**): Setzt man r∥ = 0 in die Bilanz r_e r_m + t_e t_m·cosβ/cosα = 1 ein, folgt **t_e∥ t_m∥ = cosα/cosβ** — die durchgehende Leistungsdichte der Brewster-Polarisation ist also **S_d∥ = cosα/cosβ · S_h∥**, ohne die beiden t∥-Formeln zu rechnen. Gegengeprüft an WiSe23/24 3.3: cos57,7°/cos32,3° = 0,6322 = t_eE·t_mE = 0,6323·1,000 ✓. Steht jetzt als Zusatzzeile in der Brewster-Zeile. Dazu als Falle abgesichert: der zweite Kurzweg desselben Lösungsvorschlags, **S_d = S_h − S_r**, gilt nur bei **senkrechtem Einfall** (q = 1, kein Querschnittssprung) — bei schrägem Einfall stimmt nur die Leistungsbilanz P_d = P_h − P_r bzw. die Bilanz mit cosβ/cosα. Deshalb in der Zeile „senkrechter Einfall" untergebracht, nicht bei den Leistungsdichten. 10 S., 0 Overfull, S. 9 visuell geprüft.
+- 25.07. (**Zeitentausch mit MDT5/2**): Heute wurde die Reihenfolge getauscht — **MDT5/2 zuerst, ED danach**. Am ED-Inhalt ändert sich nichts: Tagesplan bleibt **Probeklausur 2 SoSe24** komplett auf Zeit (90 min, nur eigene Unterlagen) → Korrektur mit Lösungsvorschlag, Fehler ans Rezept; Restzeit für den schwächsten Typ. **Weiterhin vor allem offen: A5 einmal komplett allein rechnen** (SoSe25 A5 mit Lösung, dann SoSe22 A5 selbst) — stand in Probeklausur 1 bei ~1/20; danach ggf. SoSe25 A2 (Altrückstand). Routen-Training bleibt als Abschluss-Session nach der Generalprobe (26.07.).
+- 25.07. (**Probeklausur 2 SoSe24 geschrieben — Korrektur in `Klausur/SoSe24_Korrektur.md`**): **~39/100**, also praktisch unverändert gegenüber Probeklausur 1 (~40). Verteilung: A1 ~7/18, A2 ~8/17, A3 ~7/22, A4 ~11/23, A5 ~6/20. **Kernbefund: 37 Punkte komplett unbearbeitet** (gegenüber 28 in PK1 — der Wert ist *gestiegen*), davon ~20 Punkte reines Nachschlagen von Ein-Zeilen-Formeln (A3.1 Effektivwerte 6 P, A4.4 Zweidrahtleitung 8 P, A2.4 Rundhohlleiter 3 P, A1.2 obere Grenzfrequenz 3 P — keine davon setzt eine frühere Teilaufgabe voraus). Die bearbeiteten Teile waren methodisch überwiegend richtig; die Fehler sind Einzelschritte: Zehnerpotenz bei A_W (A5.1: G = 188 statt 18753), vergessenes √1,5 **und** vergessener Faktor 2 in α (A2.2), Vorzeichen bei der Kompensation (A4.2: +j150 statt −j150, dazu Bauteilwert 1,28 pF nicht angegeben, obwohl „Bauteile-Wert!" dasteht), fehlender Faktor 3,59 in D (A1.1). **Komplett richtig:** A2.3 (Impuls über v_gr, 800 ns — genau die nach PK1 eingebaute FS-Zeile), A3.2 + A3.3 (Brewster 32,3° und Totalreflexion 39,2° samt „Polarisation egal"), A4.3 (λ/4 erkannt, 8,65 cm / 245 Ω), A4.1-Denkschritt „R₁ = Z_L1 ⇒ keine Transformation", A5.2. **Diagnose über beide Probeklausuren hinweg identisch: kein Wissens-, sondern ein Reihenfolgeproblem** — es wird von vorn nach hinten gerechnet, bis die Zeit alle ist, statt zuerst die billigen Teilaufgaben einzusammeln; und die Anker in den eckigen Klammern werden nicht als Kontrolle der früheren Teilaufgaben benutzt (g = 43 dBi hätte die 22,7 dB aus A5.1 sofort widerlegt — dasselbe Muster wie ε_r 2,0 vs. 2,25 in PK1). Keine FS-Änderungen mehr vorgenommen, weil die Prüfung nicht angetreten wird.
+- 25.07. (**Entscheidung: Prüfung 27.07. wird nicht angetreten**): Nicht-Antreten war folgenlos möglich, ein 5,0 hätte einen Fehlversuch gekostet. Abwägung: der beste realistische Ausgang am 27.07. wäre eine 4,0 gewesen (die dauerhaft im Zeugnis steht), der wahrscheinlichere ein Nichtbestehen; dagegen steht ein neuer Prüfer im WiSe 26/27 und damit ein Wegfall des Schema-F-Vorteils. Lenas Priorität war ausdrücklich „keine schlechte Note", damit war die Entscheidung konsistent. Die freigewordenen Vormittage (So 26.07., Mo 27.07.) gehen an **MDT5/2** (Prüfung 31.07.) — Planänderung ist in `MDT5:2/Lernplan_MDT52.md` eingetragen. Übergabe für den nächsten Anlauf: siehe Abschnitt unten.
+
+- 25.07. (**WiSe25/26 nachträglich gerechnet und korrigiert — `Klausur/WiSe25_26_Korrektur.md`**): trotz abgesagter Prüfung noch die als Generalprobe reservierte Klausur bearbeitet. **~48/100** und damit das beste der drei Probeklausur-Ergebnisse (vorher ~40 und ~39); der Zugewinn kommt aus **A1 (~17/25) und A2 (~12/17)**, also aus den zuletzt trainierten Typen. Verteilung: A1 ~17/25, A2 ~12/17, A3 ~12/19, A4 ~4/20, A5 ~4/19. **Unverändertes Muster: 31 Punkte komplett leer** (A1.2, A1.5, A2.4, A3.3, A4.2, A4.3, A5.4), davon ~14 P reines Nachschlagen; und die Anker in den eckigen Klammern wurden wieder nicht als Kontrolle gelesen (Z₁ = 57,6 Ω gegen eigene 29,7 Ω; „Gewinn sei nun 8,0 dBi" gegen eigene 2,15 dBi). **Neuer, wichtiger Befund: A4 ist nicht so sicher wie im Juli angenommen** — die Route war komplett richtig (λ/4-Kette, C parallel → Y, C aus −Im{Y}, Z₁ = 1/Re{Y}), aber der Sonderfall-Check am Anfang fehlte: l₁/λ = 75/60 = 1,25 = λ + λ/4, also Z₀ = Z_L²/Z_V. Stattdessen allgemeine Formel bei βl₁ = 450° benutzt — **direkt auf dem Pol des Tangens**, wo jede Rundung explodiert (28,4 + j6,15 statt 28,8 + j28,8, daraus 2,32 pF statt 5,5 pF). Diese eine Zahl (1,25) war 16 Punkte wert. Drei der übrigen Fehler sind reine Rechnereingaben: **a/(2b) als a/b getippt** (A2.2, Faktor 1,64 → 8,72 dB statt 5,3 dB), Bezugslänge λ₀ = 50 mm statt λ_c = 2a = 60 mm und fehlendes Quadrat (A2.4, εr statt 4,0), Transmissionsfaktor 0,51 statt 0,667 (A3.2, obwohl der Brewster-Kurzweg S_d = S_h·cosα/cosβ seit 24.07. in K3 steht). Komplett richtig: A1.1/1.3/1.4, A2.1/2.3, A3.1 sowie in A3.2 Geometrie (γ = 63,69°), Totalreflexion (α_g = 41,8°) und S_r2 = S_d1. **Fehler im offiziellen Lösungsvorschlag gefunden (A1.2):** dort steht „Abstand Maximum zu Minimum: λ/2" → 300 MHz; richtig ist Max→Min = **λ/4** ⇒ λ = 2,0 m ⇒ **150 MHz** (so auch die FS-Zeile in K1). Gegenprobe: bei λ = 1,0 m läge 50 cm neben einem Minimum wieder ein Minimum. Keine Folgen für spätere Teilaufgaben, aber in der Klausur die Begründung dazuschreiben. **Damit ist WiSe25/26 verbraucht** — unverbraucht bleiben nur noch SoSe21, SoSe23, WiSe20/21, WiSe21/22, WiSe22/23.
+
+- 26.07. (**Entscheidung revidiert: Prüfung wird doch angetreten**): Lena tritt am 27.07. an.
+  Heute nur **marginal** ED — der MDT5/2-Vormittag (Aufräumtag) bleibt bestehen, ED bekommt den
+  Nachmittag; der MDT-Slot am Mo 27.07. vormittags entfällt dafür (Planänderung in
+  `MDT5:2/Lernplan_MDT52.md` eingetragen). Argument für den Antritt liegt in den Zahlen: die drei
+  Probeklausuren gingen ~40 → ~39 → **~48**, und in allen dreien waren 28–37 Punkte schlicht
+  *unbearbeitet* — der Abstand zu einer brauchbaren Note ist also Reihenfolge, nicht Stoff.
+  **Empfehlung für den marginalen Nachmittag, nach Ertrag sortiert:** (1) A5 einmal komplett
+  allein rechnen (SoSe25 A5 mit Lösungsvorschlag) — einziger Typ, der nie fertig geübt wurde,
+  15–21 P; (2) drei Sätze handschriftlich auf FS-Seite 1: Einsammel-Regel, Anker-Kontrolle,
+  „bei A4 zuerst l/λ"; (3) Restzeit Routen-Training (Teilaufgabe lesen → Route in einem Satz),
+  typweise quer über das Register in `Klausur/Kompakt/`, erlaubter Pool SoSe21, SoSe23,
+  WiSe20/21, WiSe21/22, WiSe22/23 — alle drei Probeklausuren sind verbraucht.
+- 26.07. (**Kompakt-Sammlung auf Teilaufgaben-Ebene umgebaut — Lenas Verdacht war richtig**):
+  Sie hatte das Gefühl, dass Teilaufgaben fehlen. Stimmte: die alte `AUSWAHL` wählte pro
+  Aufgabentyp nur 4–5 *ganze* Klausuren aus, und **SoSe21 und WiSe21/22 kamen in keinem
+  einzigen Typ vor** — beide sind aber gerade wegen ihrer Sonderformen wertvoll (WiSe21/22
+  A4.1 Leitungslänge für einen Phasenunterschied, A3.1 Brewster als „reflektierter ⊥
+  durchgehender Strahl" getarnt, A5.1 bidirektionale Reichweite; SoSe21 A4.2 λ/4-Trafo über
+  das *Dielektrikum* statt über die Länge). Auch die alte Variantenliste war lückenhaft
+  (z. B. SoSe23 A5.4 nirgends erfasst).
+  **Neu:** alle 55 Aufgaben sind drin, aussortiert wird jetzt teilaufgabenweise. Alle
+  **185 Teilaufgaben** sind in `VARIANTEN` (Skriptkopf) einer Frage-Variante zugeordnet;
+  das dritte Feld je Fundstelle nennt, was dort *anders* ist.
+  **Die entscheidende Regel (Lenas Vorgabe, in zwei Runden geschärft): verwiesen wird nur,
+  wenn die Rechnung wirklich dieselbe ist und bloß die Zahlen andere sind.** Ihr Satz dazu:
+  *„Z und L ausgetauscht heißt: die Aufgabe ist unterschiedlich!"* — anderes Bauteil, Serie
+  statt parallel, gefüllt statt luftgefüllt oder eine andere gesuchte Größe machen daraus eine
+  eigene Aufgabe, die **ausgeschrieben** wird. Technisch: `variantengruppen()` gruppiert nach
+  Variante *und* Zusatztext, verwiesen wird nur innerhalb einer Gruppe. Ergebnis **135
+  ausgeschrieben, 50 Verweise** (die erste Fassung mit der laxeren Regel hatte 105/80 — u. a.
+  hätte SoSe23 A4.2 mit der Induktivität nur auf die Kapazitäts-Aufgabe verwiesen, und genau
+  das war der Auslöser für Lenas Einwand). Es gibt deshalb nur noch **eine** Verweis-Formel:
+  „gleiche Frage, nur andere Zahlenwerte — siehe *Klausur, Aufgabe, Seite*".
+  Vollversion 63 S., Übungsversion 47 S., 0 Overfull, 0 offene Referenzen.
+  Auf Lenas Wunsch danach die **Lösungen etwas kleiner gesetzt: `S_SOL` 0,76 → 0,70**
+  (Aufgabentext bleibt 0,84, Skizzen 0,62) — spart 3 bzw. 2 Seiten, Indizes und Exponenten
+  in den Lösungen bleiben klar lesbar. Die `\Needspace*`-Schätzung rechnet mit `S_SOL`,
+  passt sich also automatisch mit an.
+  Weitere Änderungen: `variantenplan()` rechnet die Auswahl pro Version aus, deshalb hat
+  auch die Übungsversion keine Verweise ins Leere; `pruefe_varianten()` bricht ab, wenn eine
+  Teilaufgabe fehlt oder doppelt eingetragen ist (sonst fällt so ein Fehler nie auf); Aufgaben,
+  deren Teilaufgaben *alle* nur verweisen, verlieren ihre Skizze; die Liste „In diesem Kapitel"
+  ist raus (seit alle Klausuren drin sind, stand dort 11× dieselbe Zeile). Register zeigt jetzt
+  **nur die ausgeschriebene Fundstelle** (Lenas Wunsch — die reinen Zahlenwert-Wiederholungen
+  standen erst noch als „auch SoSe 22, 2." dahinter, das Register soll aber sagen *wo man
+  hinblättert*, nicht *wie oft* die Frage schon kam); zerfällt eine Variante in mehrere
+  Gruppen, steht unter jeder Zeile kursiv der Unterschied (bzw. „Grundfall"), sonst sähen die
+  Zeilen gleich aus. **Im Register ist die gesuchte Größe grün markiert** (`\gs{…}`, gleiches
+  MarkerG wie auf den Aufgabenseiten) — dafür ist in jedem der ~105 Kurztexte von Hand
+  ausgezeichnet, was gefragt ist. Achtung beim Nachbauen: `\fboxsep` ist global auf 0 gesetzt
+  (wegen der Bild-Ausschnitte), `\gs` setzt es deshalb lokal wieder auf 0,5 mm.
+  **Folgekorrektur:** zwei Punkte im Prognosekasten („Umkehrung der Leistungsfrage",
+  „Leitung mit Dielektrikum: ε_r wählen") waren mit *„nicht in dieser Sammlung"* begründet —
+  das stimmt nicht mehr, seit WiSe20/21 A2.2+2.3 und SoSe21 A4.2 ausgeschrieben drin stehen.
+  Beide sind aus `NEUE` in `build_sammlung.py` und aus dem zugehörigen `RECHENWEG` in
+  `build_kompakt.py` entfernt (die beiden Listen müssen positionsgleich bleiben, es gibt ein
+  `assert` darauf).
+
+## Übergabe an den nächsten Anlauf (Stand 25.07.2026 — gilt nur noch, falls die Klausur nicht besteht)
+
+**Zuerst klären, bevor irgendetwas anderes passiert:** Wer prüft im WiSe 26/27, und wie?
+Format (Open Book?), Dauer, Punktezahl, ob es Altklausuren des neuen Prüfers gibt. Alles
+unten ist auf Prof. Janker zugeschnitten und gilt nur, solange sich das Format nicht ändert.
+
+**Was fertig ist und ohne Nacharbeit weiterbenutzt werden kann:**
+- `ED_FS/` — Formelsammlung, **11 Seiten**, kompiliert, 0 Overfull. S. 1–7 Stoff, S. 8 K0/K0b
+  (Konstanten, Einheiten, dB-Regeln), S. 9 K1, S. 10 K2 + K3, S. 11 K4 + K5. Die Rezepte
+  K0–K5 sind Wenn→Dann-Tabellen pro Aufgabentyp mit vier TikZ-Skizzen (Koax/Triax-Querschnitt,
+  Leitungskette, Grenzfläche im Klausurbild, Gruppenantenne). Inhaltlich stoffbezogen, also
+  auch bei neuem Prüfer gültig; nur die *Anordnung nach Aufgabentypen* ist Janker-spezifisch.
+- `Klausur/Kompakt/` — **alle 11 Altklausuren vollständig**, nach Aufgabentyp sortiert,
+  Teilaufgabe und Lösung direkt untereinander, Zahlenwerte farbig markiert. Von den 185
+  Teilaufgaben stehen **135 ausgeschrieben** da; die übrigen **50** sind reine
+  Zahlenwert-Wiederholungen und nur als Verweis auf die Seite gesetzt — sobald sich mehr
+  als die Zahlen unterscheidet, wird ausgeschrieben. Vollversion 63 S.
+  (`ED_Altklausuren_kompakt.pdf`), spoilerfreie Übungsversion 47 S.
+  Neu bauen mit `python3 Klausur/build_kompakt.py`.
+- `Casio_fx991DEX_Kochzettel.pdf` (Repo-Root) — komplexe Zahlen am Rechner, fachübergreifend.
+- Durchgearbeitet und verstanden: **A1 komplett** (SoSe25, SoSe22, WiSe23/24), **A3 komplett**,
+  **A4 komplett** (drei Klausuren, inkl. Netzwerklesen). Diese drei Typen brauchen beim
+  Wiedereinstieg nur Auffrischung, keine Neuerarbeitung. **Einschränkung nach WiSe25/26
+  (25.07.):** A1 und A2 haben sich in der Probeklausur bestätigt (~17/25 und ~12/17), **A4
+  nicht** — dort ist der Sonderfall-Check *l/λ zuerst ausrechnen* ausgefallen und hat 16 der
+  20 Punkte gekostet. A4 ist verstanden, aber die Routine fehlt; beim Wiedereinstieg gleich
+  nach A5 einplanen.
+
+**Was offen geblieben ist — hier anfangen:**
+1. **A5 Antennen** — nie eine Aufgabe komplett allein gerechnet. Stand in beiden Probeklausuren
+   bei ~1/20 bzw. ~6/20. Empfohlener Einstieg: SoSe25 A5 (5G) mit Lösungsvorschlag daneben,
+   dann SoSe22 A5 (GPS/dBm) allein. Konzeptionell ist der Typ **einfach** — er war nur nie dran.
+2. **A2 Rechteckhohlleiter** — nur halb. Offener Altrückstand: **SoSe25 A2** (die Aufgabe, die
+   laut Plan mit Lösungsvorschlag durchzuarbeiten war). Entwarnung nach WiSe25/26: A2 lief dort
+   mit ~12/17, die beiden Fehler waren Rechnereingaben (Klammer bei a/(2b), Bezugslänge in der
+   εr-Zeile) — die Priorität sinkt damit hinter A4.
+3. **Routen-Training** (vereinbart, nie durchgeführt): Teilaufgabe lesen, in *einem Satz* die
+   Route nennen, gegenprüfen lassen — ca. 1–2 min statt 10 min pro Teilaufgabe. Adressiert
+   genau das Fehlerbild beider Probeklausuren. Vorgehen typweise quer über das Register in
+   `Klausur/Kompakt/`.
+
+**Klausurmaterial-Buchhaltung:**
+- **Verbraucht** (Probeklausuren, Ergebnis bekannt): WiSe24/25 (~40/100, Korrektur in
+  `Klausur/WiSe24_25_Korrektur.md`), SoSe24 (~39/100, `Klausur/SoSe24_Korrektur.md`),
+  **WiSe25/26** (~48/100, `Klausur/WiSe25_26_Korrektur.md` — am 25.07. nachträglich noch
+  gerechnet, beste der drei).
+- **Als Typ-Training durchgearbeitet:** SoSe22, SoSe25, WiSe23/24.
+- **Noch unverbraucht und ungelesen:** SoSe21, SoSe23, WiSe20/21, WiSe21/22, WiSe22/23.
+  → Eine davon (am ehesten **SoSe23**, die jüngste des Pools) für die Generalprobe im
+  nächsten Anlauf aufheben, die übrigen als Reserve-Drill verwenden.
+
+**Das eine, was sich ändern muss** (identisch in beiden Probeklausuren, ~20 Punkte wert):
+erst die ganze Klausur durchblättern und jede Teilaufgabe einsammeln, die ≤ 4 Punkte gibt und
+nach genau einer Größe fragt — dann erst rechnen. Und die Werte in den eckigen Klammern als
+**Kontrolle** der eigenen früheren Ergebnisse lesen, nicht nur als Notausgang.
