@@ -34,6 +34,25 @@ Confusion Matrix (Zeile = tatsächlich, Spalte = erkannt):
 - AUC = 0,5 → Raten; AUC = 1,0 → perfekte Trennung
 - sklearn: `roc_curve(true_y, scores, pos_label=1)` → fpr, tpr, thresholds; `roc_auc_score(true_y, scores)`
 
+## Schwellwert wählen (Praktikum 07)
+
+**Schwellwert = Score-Wert (y-Achse). Ausreißeranteil = Anteil der Punkte (x-Achse). Nicht dasselbe!**
+Der **sortierte Score-Plot** ist die Übersetzung zwischen beiden.
+
+Drei Wege, je nach Vorwissen:
+
+| Vorwissen | Methode |
+|---|---|
+| nichts (blind) | sortierten Score-Plot: dort schneiden, wo die Kurve **senkrecht** wird |
+| Ausreißeranteil bekannt | **Quantil**: `sorted_scores[int((1−ratio)·n)]` |
+| Labels vorhanden | **ROC-Knie**: `best = np.argmin(fpr**2 + (1−tpr)**2)` → `thr[best]` |
+
+- **Pflicht-Gegenprobe:** Schwelle → Indexposition ablesen → `n − Index` = Anzahl Alarme → ist dieser **Anteil** als Ausreißeranteil plausibel? (35 % geflaggt ist keine Outlier Detection.)
+- Im sortierten Plot: **Schulter** (flacht ab, steigt weiter) = zweite **Normal**gruppe; erst die **Senkrechte** sind die Ausreißer. Das Histogramm taugt dafür **nicht** — die interessante Region ist genau die, wo die Balken schon fast 0 sind.
+- **Knie = OBERES Ende eines senkrechten ROC-Stücks** (senkrecht heißt: gleiche FPR, mehr TPR ⇒ gratis). Danach prüfen, was der letzte TPR-Rest kostet.
+- **Fallstrick Quantil:** unterstellt, die Ausreißer seien die **höchsten** Scores. Bei schwerem **Oberschwanz der Normaldaten** (im Boxplot: Ausreißerpunkte der Normal-Box reichen über den Median der Outlier-Box) liegen die Anomalien in einem **mittleren Band** → Quantil schneidet darüber ab, TPR bricht ein **trotz guter AUC**.
+- **Diagnoseregel:** hohe AUC + schlechte TPR ⇒ falsche **Schwelle**. Niedrige AUC ⇒ schlechtes **Modell**. Immer AUC **und** Boxplot ansehen, nie nur die TPR eines Betriebspunkts.
+
 ## Bias-Variance (Folie 3)
 
 - **Bias** = falsche Modellannahmen → Underfitting (auf Trainingsdaten sichtbar)

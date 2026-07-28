@@ -24,6 +24,14 @@ Eingabe pro Schicht: H × W × C (Höhe × Breite × Kanäle)
 - Räumliche Größe darf nie < Kernelgröße werden → „zu viel Pooling" = Architekturfehler
 - Letzte Dense: units = Klassenanzahl (Softmax) bzw. 1 (binär, Sigmoid)
 
+**Auflösung halbieren — zwei Wege (Folie 42), beide H/2 × W/2:**
+| | MaxPool2D 2×2 | Conv2D(strides=2) |
+|---|---|---|
+| Parameter | **keine** (feste Vorschrift) | Kernelgewichte (Zahl unabhängig von strides) |
+| Auswahl | Maximum je 2×2-Fenster, pro Kanal getrennt → stärkste Aktivierung bleibt | **gelernt**: Kernelgewichte entscheiden |
+| Rechenweg | Faltung erst auf voller Auflösung, dann ausdünnen | Kernel springt um 2 → Zwischenpositionen gar nicht berechnet (billiger) |
+| Kanalzahl | unverändert | = filters |
+
 **Gewichte zählen (Folie 45):**
 - Conv2D: C_in · k · k · filters   (Bias: + filters)
 - Dense: n_in · n_out   (Bias: + n_out)
@@ -35,6 +43,15 @@ Eingabe pro Schicht: H × W × C (Höhe × Breite × Kanäle)
 ---
 
 ## Aktivierung + Kostenfunktion nach Aufgabe (Folien 11–21)
+
+**Warum überhaupt eine (nicht-lineare) Aktivierung in JEDER Schicht?**
+Ohne Aktivierung ist eine Schicht nur eine lineare Abbildung (W·x + b). Mehrere lineare
+Abbildungen hintereinander ergeben wieder **eine einzige** lineare Abbildung → das ganze tiefe
+Netz lässt sich durch eine Schicht ersetzen, die Tiefe ist wertlos, nur linear trennbare
+Probleme lösbar. **Nicht** mit Vanishing/Exploding Gradient verwechseln: das ist die Frage,
+**welche** Nichtlinearität (Sigmoid/tanh → ReLU), nicht **ob** eine nötig ist.
+
+
 
 | Aufgabe | Ausgabeneuronen | Aktivierung am Ausgang | Loss (Keras-Name) |
 |---|---|---|---|
@@ -83,6 +100,15 @@ predictions = net.predict(test_x)
 ```
 
 1D-Varianten: Conv1D, MaxPool1D (Zeitreihen statt Bilder)
+
+**⚠ Welche Zahlen im Gerüst sind BEISPIELWERTE?** Beim Abschreiben in der Klausur nur die Struktur
+übernehmen, die Zahlen kommen aus der Aufgabenstellung:
+`Input((32,32,3))` = Bildgröße · `filters=8`, `kernel_size=7` = frei gewählt (Kurs sonst 3 oder 5) ·
+`units=200` = frei · **`units=7` = ANZAHL DER KLASSEN** · `activation='softmax'` nur bei
+Mehrklassen (2 Klassen ⇒ sigmoid, Regression ⇒ keine) · `drop_rate`, `lmbda`, `learning_rate`,
+`batch_size`, `epochs` = frei.
+**Argumentnamen immer ausschreiben** (`filters=`, `kernel_size=`, `units=`) — sonst vertauscht man
+unter Zeitdruck die ersten beiden Positionen: `Conv2D(filters, kernel_size, …)`, `Dense(units, …)`.
 
 ---
 

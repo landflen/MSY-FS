@@ -58,3 +58,18 @@
 - Standardisierung (Z-Transf.): x′ = (mᵢ − μᵢ)/σᵢ → μ=0, σ=1; robuster, kein fester Bereich; `StandardScaler`
 - min/max/μ/σ IMMER nur aus Trainingsdaten (fit auf Train, transform auf Train+Test) → sonst Data Leakage
 - Nötig bei allem, was Abstände/Skalarprodukte rechnet (kNN, KDE, SVM/OCSVM, NN-Eingaben); NICHT nötig bei iForest (nur Splits)
+
+**Kontrastpaar (nicht mischen!):** Min-Max = **fester Bereich**, Default [0;1], [−1;1] nur mit
+`feature_range=(-1,1)`; Test kann den Bereich verlassen (Trainings-Max). Z-Transf. = **kein**
+fester Bereich, nur μ=0/σ=1. „Min-Max-Standardisierung" gibt es nicht.
+
+## Kleingedrucktes zu Scores & sklearn (S2-Nachtrag)
+
+- **iForest-Grenzfälle:** E(h)→0 ⇒ s→1 (Anomalie); E(h)=c(n) ⇒ s=0,5 (unauffällig);
+  E(h)→n−1 ⇒ s→0 (sicher normal). Baumtiefe log₂(n_sub), weil Anomalien **kurze** Pfade haben.
+- **contamination = erwarteter Anteil an Ausreißern in den Daten** (Anteil, keine Anzahl) ⇒ legt
+  den **Schwellwert** der ±1-Entscheidung fest, kein Formparameter. `'auto'` = feste Schwelle aus
+  der Score-Definition. **AUC ändert sich dadurch nicht** (schwellwertunabhängig).
+- **sklearn-Dreizeiler:** `fit` lernt (bei Novelty **nur auf Normaldaten**) — `predict` liefert
+  **+1 = normal, −1 = Anomalie** — `score_samples` gibt den kontinuierlichen Score (iForest:
+  negiert in [−1;0], niedriger = anomaler).

@@ -50,7 +50,7 @@ clf.fit(train_pts); clf.predict(test_pts)        # score_samples: negative Mahal
 - Mischverteilung aus k unimodalen Normalverteilungen; Training = **Expectation-Maximization (EM)**:
   1. Anzahl Cluster/Moden wählen (Metaparameter!)
   2. Initiale Parameter je Verteilung (z. B. per k-Means-Vorlauf)
-  3. Wiederholen bis Konvergenz:
+  3. Wiederholen bis **Konvergenz oder max. Iterationszahl**:
      **E-Schritt**: P(Punkt | jede Verteilung) berechnen;
      **M-Schritt**: Verteilungsparameter per Maximum-Likelihood aktualisieren
 - Novelty Detection: GMM auf Normaldaten fitten → neue Punkte bekommen Dichte der Mischverteilung als Score
@@ -67,4 +67,4 @@ clf.fit(train_pts); clf.predict(test_pts)        # score_samples: negative Mahal
 | multimodale Daten | ✗ versagt | ✓ | ✓ (k passend) |
 | Metaparameter | contamination | Bandbreite h | Modenzahl k, Init |
 | Score | (neg.) Mahalanobis-Abstand | log-Dichte | Dichte der Mischverteilung |
-| Achtung | Ellipse über allen Daten | h via GridSearch auf Train-log-Dichte | langsam, lokale Minima |
+| Achtung | Ellipse über allen Daten; contamination = Schwellwert, **unüberw. nicht schätzbar** (Grid flach, AUC invariant) → nur überwacht / bekannter Anteil | h via GridSearch auf Train-log-Dichte | langsam, lokale Minima |
