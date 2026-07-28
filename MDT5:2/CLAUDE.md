@@ -189,11 +189,9 @@
     **Inselstrukturen als Stärke** (Argument der Musterlösung zu Original-Aufg. 8) und
     `gamma='scale'` = 1/(dim · var) nach Folie 22.
     ⚠️ `Alle_Blaetter.md` enthält noch den **alten** Blatt-④-Stand → beim Finalisieren Mi 29.7. nachziehen.
-  - **Blatt ④ SVM-/OCSVM-Teil handschriftlich übertragen ✅ (28.7.).** Zwei späte Nachträge auf
-    der Vorlage sind noch nachzuschreiben: die **Inseln/glatte-Grenze-Ergänzung** an der γ-Zeile
-    und die neue Zeile **„Wo genau tauchen die Skalarprodukte auf?"** (duales Problem +
-    Entscheidungsfunktion). Beide stehen jetzt auch im OCSVM-Teil doppelt → beim Schreiben nur
-    einmal mitnehmen.
+  - **Blatt-④-Vorlage (SVM-/OCSVM-Teil) ist vollständig und abschreibbereit** — alle Nachträge
+    vom 28.7. sind eingearbeitet. **Handschriftlich übertragen steht noch aus**, wird in einem
+    Zug vom fertigen Stand geschrieben.
   - **Blatt `Session08_SVM_OCSVM` gelöst und korrigiert ✅ (28.7.)** — damit ist **Typ 6/7 einmal
     komplett gerechnet**. Überwiegend richtig; stark waren Aufg. 3d (warum linearer Kernel bei der
     OCSVM unbrauchbar ist) und Aufg. 5a (Kernel-Trick beidseitig nachgerechnet, 25 = 5²).
@@ -204,7 +202,7 @@
     **richtig gedacht zählt**, auch wenn der Wortlaut von Folie/Musterlösung abweicht. Auch das
     Widerlegen der falschen MC-Alternativen ist eine gültige Begründung. Gilt ab sofort für alle
     Korrekturen.
-  - **Offen aus S8:** nichts — S8 ist durch.
+  - **Offen aus S8:** Blatt ④ SVM-/OCSVM-Teil **handschriftlich übertragen**.
 
 ## Stolperfallen (vor der Klausur gezielt wiederholen)
 
