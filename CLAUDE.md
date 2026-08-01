@@ -55,8 +55,9 @@ WiSe-26/27-Planung heraus** — das entlastet das nächste Semester spürbar.
 |---|---|---|
 | `MDT5:2/` | Skripte, 11 Praktika, Übungsblätter, 7 Zusammenfassungsblätter, Logbuch + Lernplan | geschrieben 31.07.2026, **zippen sobald die Note da ist** |
 | `ED.zip` | Skript (`Ergänzung/EDy.pdf`, 296 S.), 11 Altklausuren + Lösungen, kompakte Sammlung nach Aufgabentyp (`Klausur/Kompakt/`), Formelsammlung `ED_FS/` (11 S.), drei Probeklausur-Korrekturen, Logbuch. Die 24 Vorlesungsvideos wurden gelöscht — Link + Passwort stehen in `Link_Videos.txt` im Zip. | **abgeschlossen (3,0)**, Archiv |
-| `SOS/` | `Teil_A/` (Skript + FS), `Teil_B/` (Folien + FS), `Klausuren/` (drei Sätze Altklausuren) | pausiert |
-| `PU/` | nur `Skript.pdf` | unbearbeitet |
+| `SOS/` | `Teil_A/` (Skript + FS), `Teil_B/` (Folien + FS), `Klausuren/` (drei Sätze Altklausuren), `SOS_Klausurinfos_Kommilitonen.md` | pausiert |
+| `VM/` | **Original-Klausur SoSe 2026 mit Musterlösung** (`Klausur_SoSe2026/`, 6 Fotos) + Auswertung `VM_Klausur_SoSe2026.md`, Notizen aus Boliks Klausurvorbereitung (`Fragestunde_Notizen/`), Notenspiegel, 10-seitige Formelsammlung aus dem Chat, Chat-Infos. **Es fehlen Skript und Übungsaufgaben.** | Material vorhanden, unbearbeitet |
+| `PU/` | `Skript.pdf`, zwei Zusammenfassungen (u. a. die vielgelobte von WiSe 22/23) und `PU_Altklausuren.pdf` | unbearbeitet |
 | `Projektarbeit/` | eine fremde Bachelorarbeit als Referenz | unbearbeitet |
 | `FS_Template/` | LaTeX-Vorlage für neue Formelsammlungen | Werkzeug |
 | `Organisation/` | Stundenpläne, Modulhandbuch, Merkblatt Modulwahl | Referenz |
@@ -102,7 +103,14 @@ VM + ED + SOS reduziert sich auf **VM + SOS**, was nach Lenas Einschätzung mach
 - [ ] Wann soll die **Masterarbeit** starten? Sie bestimmt, wie viele Semester für die restlichen
       Prüfungen bleiben.
 - [ ] **Wahlpflicht Gruppe 2** ist noch nicht gewählt — Frist prüfen.
-- [ ] Für **VM existiert kein Material im Repo**; Umfang und Prüfungsform sind unbekannt.
+- [ ] **VM ist die härteste Klausur des Studiengangs** — SoSe 2026: Schnitt 3,79, **21 von 62
+      durchgefallen (33,9 %), keine einzige 1,0**; kein Überhang, keine 4,0-Bremse, **keine
+      Folgefehler-Punkte**; Aufwandsanker ≈ 120 h. Als **eigenständiger Prüfungsblock**
+      einplanen, nicht als Beifang. Seit 01.08.2026 liegt die **Original-Klausur SoSe 2026 mit
+      Musterlösung** im Repo (`VM/Klausur_SoSe2026/`, ausgewertet in `VM/VM_Klausur_SoSe2026.md`):
+      6 Aufgaben, 90 Punkte, Bestehensgrenze 32, exakt hälftig Analysis/LinAlg und Stochastik,
+      Hilfsmittel = 10 Seiten eigene Unterlagen + Formelsammlung.
+      **Es fehlen weiterhin Skript und Übungsaufgaben.**
 - [x] ~~ED-Note abwarten~~ → **3,0, bestanden im ersten Anlauf.** `ED.zip` bleibt als Archiv liegen,
       wird nicht mehr entpackt.
 - [ ] **MDT5/2-Note abwarten** (Prüfung 31.07.2026). Gefühl danach gut, zeitlich entspannt —
