@@ -275,9 +275,13 @@ Prüfungsstil hängt.
    Vollständig, mit Punkteverteilung und offiziellem Lösungsweg — das gibt es sonst nirgends.
    Rechne sie mindestens zweimal, das zweite Mal unter 90 Minuten.
 2. **Beide Hälften lernen.** 45 P Analysis/LinAlg + 45 P Stochastik, kein Ausweichen möglich.
-3. **10 Seiten eigene Unterlagen sind erlaubt** — das ist genug für eine richtige Formelsammlung
-   nach dem Muster deiner anderen. `VM_Formelsammlung_MayPa_2025.pdf` (10 Seiten, aus dem Chat)
-   liegt als Startpunkt daneben; die Aufgabentypen oben geben die Gliederung vor.
+3. **10 Seiten eigene Unterlagen sind erlaubt** — genug für eine richtige Formelsammlung nach dem
+   Muster deiner anderen. Drei fremde Sammlungen liegen als Startpunkt in
+   `Formelsammlungen_fremd/`, bewertet in
+   [`VM_Stoffumfang_und_Formelsammlungen.md`](VM_Stoffumfang_und_Formelsammlungen.md).
+   **Dort steht auch, was das Modul über diese Klausur hinaus umfasst** — Jordan-Normalform,
+   Gerschgorin-Kreise, Routh-Hurwitz, Transitionsmatrix, Konfidenzintervalle, Hypothesentests
+   und der χ²-Anpassungstest kamen 2026 alle *nicht* dran und sind offene Kandidaten.
 4. **Rezepte statt Formeln.** Jede der sechs Aufgaben ist ein fester Ablauf
    (charakteristisches Polynom → Eigenvektoren → C; transformieren → auflösen → PBZ → Faltung;
    System 1. Ordnung → Ruhelage → Jacobi → Lyapunov; Ereignisse definieren → totale W. → Bayes;

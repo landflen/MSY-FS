@@ -56,7 +56,7 @@ WiSe-26/27-Planung heraus** — das entlastet das nächste Semester spürbar.
 | `MDT5:2/` | Skripte, 11 Praktika, Übungsblätter, 7 Zusammenfassungsblätter, Logbuch + Lernplan | geschrieben 31.07.2026, **zippen sobald die Note da ist** |
 | `ED.zip` | Skript (`Ergänzung/EDy.pdf`, 296 S.), 11 Altklausuren + Lösungen, kompakte Sammlung nach Aufgabentyp (`Klausur/Kompakt/`), Formelsammlung `ED_FS/` (11 S.), drei Probeklausur-Korrekturen, Logbuch. Die 24 Vorlesungsvideos wurden gelöscht — Link + Passwort stehen in `Link_Videos.txt` im Zip. | **abgeschlossen (3,0)**, Archiv |
 | `SOS/` | `Teil_A/` (Skript + FS), `Teil_B/` (Folien + FS), `Klausuren/` (drei Sätze Altklausuren), `SOS_Klausurinfos_Kommilitonen.md` | pausiert |
-| `VM/` | **Original-Klausur SoSe 2026 mit Musterlösung** (`Klausur_SoSe2026/`, 6 Fotos) + Auswertung `VM_Klausur_SoSe2026.md`, Notizen aus Boliks Klausurvorbereitung (`Fragestunde_Notizen/`), Notenspiegel, 10-seitige Formelsammlung aus dem Chat, Chat-Infos. **Es fehlen Skript und Übungsaufgaben.** | Material vorhanden, unbearbeitet |
+| `VM/` | **Original-Klausur SoSe 2026 mit Musterlösung** (`Klausur_SoSe2026/`, 6 Fotos) + Auswertung `VM_Klausur_SoSe2026.md`, Notizen aus Boliks Klausurvorbereitung (`Fragestunde_Notizen/`), Notenspiegel, drei fremde Formelsammlungen (`Formelsammlungen_fremd/`) samt Stoffinventar `VM_Stoffumfang_und_Formelsammlungen.md`, Chat-Infos. **Es fehlen Skript und Übungsaufgaben.** | Material vorhanden, unbearbeitet |
 | `PU/` | `Skript.pdf`, zwei Zusammenfassungen (u. a. die vielgelobte von WiSe 22/23) und `PU_Altklausuren.pdf` | unbearbeitet |
 | `Projektarbeit/` | eine fremde Bachelorarbeit als Referenz | unbearbeitet |
 | `FS_Template/` | LaTeX-Vorlage für neue Formelsammlungen | Werkzeug |
