@@ -1,0 +1,978 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage[margin=1.7cm,top=1.5cm,bottom=1.7cm]{geometry}
+\usepackage{titlesec}
+\titleformat*{\section}{\normalfont\large\bfseries}
+\titleformat*{\subsection}{\normalfont\normalsize\bfseries}
+\titlespacing*{\section}{0pt}{8pt}{3pt}
+\titlespacing*{\subsection}{0pt}{6pt}{2pt}
+\usepackage{amsmath,amssymb}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+\usepackage{needspace}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage{enumitem}
+
+\definecolor{loesfarbe}{RGB}{0,110,90}
+\definecolor{neurot}{RGB}{200,30,60}
+
+\newcommand{\mcbox}{\raisebox{-1pt}{\fbox{\rule{0pt}{7pt}\rule{7pt}{0pt}}}\hspace{6pt}}
+\newcommand{\mcja}{\raisebox{-1pt}{{\fboxrule0.9pt\fcolorbox{loesfarbe}{white}{%
+  \rule{0pt}{7pt}\makebox[7pt][c]{\color{loesfarbe}\scriptsize\bfseries X}}}}\hspace{6pt}}
+\newcommand{\pkt}[1]{\hfill\textbf{(#1 P)}}
+\newcommand{\neu}{{\color{neurot}\footnotesize\bfseries[NEU]}\ }
+
+\newenvironment{loes}%
+  {\par\vspace{2pt}\begingroup\small\noindent\textbf{\color{loesfarbe}$\blacktriangleright$ Lösung.}\ }%
+  {\endgroup\par\vspace{5pt}}
+
+\lstset{language=Python,basicstyle=\ttfamily\footnotesize,keywordstyle=\bfseries,
+  commentstyle=\itshape\color{gray},showstringspaces=false,frame=single,
+  framerule=0.3pt,xleftmargin=8pt,framexleftmargin=6pt,aboveskip=6pt,belowskip=6pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small MDT5/2 -- Probeklausur 2 \textbf{\color{loesfarbe}mit Lösungen}}
+\fancyhead[R]{\small Maschinelles Lernen zur Anomalieerkennung}
+\fancyfoot[C]{\small Seite \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\setlist[itemize]{leftmargin=12pt,itemsep=1pt,topsep=2pt}
+\setlist[enumerate]{leftmargin=16pt,itemsep=1pt,topsep=2pt}
+
+\begin{document}
+
+\begin{center}
+  {\Large\bfseries Probeklausur 2 -- ausgefüllt}\\[4pt]
+  {\large Maschinelles Lernen zur Anomalieerkennung -- Kapitel 1--8}\\[6pt]
+  \begin{tabular}{@{}ll@{}}
+  \textbf{Gesamtpunktzahl:} & 125 Punkte\\
+  \end{tabular}
+\end{center}
+
+\vspace{2pt}
+\noindent\fcolorbox{neurot}{neurot!5}{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule}{%
+\textbf{\color{neurot}Lesehilfe.} \mcja{} markiert die richtige Aussage.
+Mit \neu sind die acht Stellen markiert, die \emph{nicht} schon auf deinen Blättern stehen:
+Dense auf 4D wirft keinen Fehler (3.2) $\cdot$ AUC-Vorzeichen (3.1) $\cdot$ $\pm1$ vs.\ $0/1$
+(3.1) $\cdot$ Alarmzahl gegenrechnen (5c) $\cdot$ Preis je Ausreißer (5d) $\cdot$ Punkt exakt auf
+dem Margin-Rand (6.1c) $\cdot$ linearer Kernel übersieht Seitliches (6.3a) $\cdot$ Elliptic
+Envelope hält $P_1$ für den normalsten Punkt (7b).}}
+
+\noindent\rule{\linewidth}{0.8pt}
+
+\section*{Aufgabe 1 -- Multiple Choice mit Begründung \pkt{21}}
+
+\subsection*{1.1 \ Für die Normalisierung von Merkmalen gilt:}
+\mcbox Eine z-Transformation (\texttt{StandardScaler}) bildet die Merkmale \textbf{immer} auf den
+Bereich $[-1, 1]$ ab.
+
+\mcbox Für den Isolation Forest ist eine Normalisierung \textbf{essentiell}, weil er die Abstände
+zwischen den Punkten auswertet.
+
+\mcja Für abstandsbasierte Verfahren ist eine Normalisierung nötig, weil sonst das Merkmal mit
+dem größten Wertebereich den Abstand dominiert.
+
+\begin{loes}
+In jeden Abstand gehen alle Merkmale mit ihrer \emph{rohen} Größenordnung ein; ein Merkmal in
+Kilogramm überstimmt eines in Metern allein durch seinen Zahlenbereich.
+Aussage 1 ist falsch: die z-Transformation setzt Mittelwert $0$ und Standardabweichung $1$ und hat
+\textbf{keinen festen Wertebereich} ($[0,1]$ bzw.\ $[-1,1]$ liefert die Min-Max-Normalisierung).
+Aussage 2 ist falsch: der Isolation Forest wertet \textbf{keine Abstände} aus, sondern splittet je
+ein Merkmal einzeln -- Normalisierung ist dort überflüssig.
+\end{loes}
+
+\subsection*{1.2 \ Für den Parameter \texttt{contamination} der Elliptic Envelope gilt:}
+\mcbox \texttt{contamination} gibt die Anzahl der erwarteten Ausreißer im Datensatz an und
+verändert den Kovarianz-Fit.
+
+\mcja \texttt{contamination} ist ein Anteil und wirkt als Schwellwert; die AUC des Modells
+ändert sich dadurch \textbf{nicht}.
+
+\mcbox \texttt{contamination} ist ein Formparameter der geschätzten Ellipse und lässt sich
+unüberwacht per Grid Search bestimmen.
+
+\begin{loes}
+\texttt{score\_samples} (der negative Mahalanobis-Abstand) hängt \textbf{nur vom Kovarianz-Fit} ab;
+\texttt{contamination} verschiebt allein \texttt{offset\_}, also die $\pm1$-Grenze in
+\texttt{predict}. Die Scores selbst ändern sich nicht, und die AUC ist ohnehin schwellwertfrei --
+sie bleibt doppelt unberührt. Es ist ein \textbf{Anteil}, keine Anzahl (Aussage 1), und kein
+Formparameter (Aussage 3); unüberwacht ist er nicht schätzbar, weil die Suchkurven flach bleiben.
+Merkbild: AUC $=$ feste Modellgüte, \texttt{contamination} $=$ Betriebspunkt auf der festen
+ROC-Kurve -- dasselbe Muster wie $\nu$ bei Deep SVDD.
+\end{loes}
+
+\subsection*{1.3 \ Für einen Autoencoder zur Anomalieerkennung gilt:}
+\mcbox Die Sigmoid-Aktivierung in der Ausgabeschicht zeigt an, dass der Autoencoder ein binäres
+Klassifikationsproblem (normal / anomal) löst.
+
+\mcja Hat die Code-Schicht $z$ mindestens so viele Dimensionen wie die Eingabe, kann der
+Autoencoder die Identität lernen und wird zur Anomalieerkennung unbrauchbar.
+
+\mcbox Der Autoencoder wird auf Normaldaten \textbf{und} Anomalien trainiert, damit er beide
+Klassen unterscheiden kann.
+
+\begin{loes}
+Der Bottleneck erzwingt Kompression: nur wenn $z$ \textbf{kleiner} als die Eingabe ist, muss das
+Netz das Wesentliche der Normaldaten lernen. Reicht die Kapazität für eine Eins-zu-eins-Abbildung,
+rekonstruiert der AE \emph{alles} gut, auch Anomalien $\Rightarrow$ der Rekonstruktionsfehler
+trennt nicht mehr.
+Aussage 1 ist falsch: der AE \textbf{klassifiziert nichts}, er liefert nur einen
+Rekonstruktionsfehler; sigmoid steht dort, weil die Pixel auf $[0,1]$ normiert sind.
+Aussage 3 ist falsch: trainiert wird \textbf{nur auf Normaldaten}, gerade damit Anomalien schlecht
+rekonstruiert werden.
+\end{loes}
+
+\subsection*{1.4 \ Für Gradienten in tiefen Netzen gilt:}
+\mcbox ReLU verhindert sowohl verschwindende als auch explodierende Gradienten, weil ihre
+Ableitung \textbf{nie} größer als 1 wird.
+
+\mcja Die Ableitung der Sigmoidfunktion ist höchstens $0{,}25$; über viele Schichten hinweg
+verschwindet der Gradient deshalb in Richtung der \textbf{Eingangsschicht}.
+
+\mcbox Explodierende Gradienten treten \textbf{immer} zuerst in der Ausgangsschicht auf, weil
+dort der Fehler entsteht.
+
+\begin{loes}
+Backpropagation multipliziert pro Schicht einen Faktor $\sigma'(z) \le 0{,}25$ (Maximum bei
+$z=0$); über $L$ Schichten also $0{,}25^L$ -- die vorderen Schichten bekommen praktisch keinen
+Gradienten mehr.
+Aussage 1: Die Ableitung von ReLU ist tatsächlich nie $>1$ (sie ist exakt $0$ oder $1$), aber
+daraus folgt \textbf{nicht}, dass Exploding verhindert wird -- beim Backprop werden zusätzlich
+die \textbf{Gewichte} mitmultipliziert. ReLU löst nur das Vanishing-Problem.
+Aussage 3: Backprop läuft von hinten nach vorn, also eskalieren \textbf{beide} Phänomene Richtung
+\textbf{Eingangsschicht}, nicht zur Ausgangsschicht.
+\end{loes}
+
+\subsection*{1.5 \ Für die One-Class SVM gilt:}
+\mcbox $\nu$ ist ein Strafgewicht für Fehlklassifikationen (wie $C$ bei der Zweiklassen-SVM):
+je größer $\nu$, desto härter die Grenze.
+
+\mcja $\nu$ ist eine obere Schranke für den Anteil der Ausreißer im Training und zugleich eine
+untere Schranke für den Anteil der Support-Vektoren.
+
+\mcbox Der Kernel-Trick ist bei der One-Class SVM nur eine Beschleunigung -- man könnte die
+Transformation $\varphi(x)$ \textbf{immer} auch explizit ausrechnen.
+
+\begin{loes}
+$\nu$ ist eine \textbf{Mengenvorgabe}, kein Strafgewicht -- und es sind \textbf{zwei} Schranken:
+höchstens der Anteil $\nu$ der Trainingspunkte darf außerhalb liegen, mindestens der Anteil $\nu$
+sind Support-Vektoren. Deshalb sucht man $\nu \in (0;1]$ auch \textbf{linear} (\texttt{linspace}),
+nicht logarithmisch.
+Aussage 1 dreht zusätzlich die Richtung um: $C$ und $\nu$ laufen \textbf{gegenläufig} -- großes $C$
+entspricht \textbf{kleinem} $\nu$.
+Aussage 3 ist falsch: beim RBF-Kernel hat $\varphi(x)$ \textbf{unendlich viele} Komponenten, es
+ließe sich gar nicht ausrechnen -- der Kernel-Trick ist dort die einzige Möglichkeit, nicht bloß
+die schnellere.
+\end{loes}
+
+\subsection*{1.6 \ Ein Detektor flaggt in einem Datensatz mit 2\,\% Anomalien sehr viele Punkte.
+Dazu gilt:}
+\mcbox Die \emph{balanced accuracy} ist hier die ehrlichste Metrik, weil sie die Unbalanciertheit
+der Klassen einbezieht.
+
+\mcja Precision und $F_1$ decken die Fehlalarme auf, weil in ihnen \textbf{keine} True Negatives
+vorkommen.
+
+\mcbox Ein hoher Recall belegt, dass nur wenige Fehlalarme auftreten.
+
+\begin{loes}
+Die ehrlichste Metrik ist nicht die, die Unbalanciertheit \emph{einbezieht}, sondern die, die die
+\textbf{große Klasse gar nicht enthält}. Bei 2\,\% Anomalien sind 98\,\% der Punkte normal; die
+vielen TN blähen Accuracy auf und beschönigen auch die balanced accuracy noch. Precision
+($\text{TP}/(\text{TP}+\text{FP})$) und $F_1$ kennen \textbf{keine TN} -- massenhafte Fehlalarme
+schlagen dort sofort durch.
+Aussage 3 ist der klassische Tausch: \textbf{Recall} $=$ von den echten Anomalien, wie viele
+gefangen. Er kann $1{,}0$ sein, während der Detektor \emph{alles} flaggt. „Von den geflaggten, wie
+viele echt`` ist die \textbf{Precision}.
+\end{loes}
+
+\subsection*{1.7 \ Für Deep SVDD und GOAD gilt:}
+\mcbox Batch Normalization ist im Deep-SVDD-Netz \textbf{grundsätzlich verboten}, weil der
+gelernte Parameter $\beta$ wie ein Bias wirkt.
+
+\mcja $\nu$ legt bei Deep SVDD den Radius als $(1-\nu)$-Quantil der Abstände zu $c$ fest; es
+verschiebt nur den Betriebspunkt, die AUC bleibt gleich.
+
+\mcbox Der dritte Term der GOAD-Verlustfunktion ist ein Weight Decay auf die Gewichte des Netzes.
+
+\begin{loes}
+$\nu$ kommt im Training gar nicht vor -- die vereinfachte Zielfunktion minimiert nur den Abstand zu
+$c$. Erst \textbf{danach} legt $\nu$ den Radius als $(1-\nu)$-Quantil der Trainingsabstände fest,
+verschiebt also nur die $\pm1$-Grenze auf einer bereits feststehenden ROC-Kurve. Größeres $\nu$
+$\Rightarrow$ kleinerer Radius $\Rightarrow$ mehr Alarme. Exakt dasselbe Muster wie
+\texttt{contamination} in 1.2.
+Aussage 1 ist falsch: BatchNorm ist \textbf{erlaubt} und steht in den Musterlösungen wie im
+Praktikumscode. Verboten sind Biases und gedeckelte Aktivierungen.
+Aussage 3 ist falsch: der dritte GOAD-Term ist eine \textbf{$L_2$-Regularisierung der
+Latent-Vektoren $z$}, kein Weight Decay auf die Gewichte.
+\end{loes}
+
+\newpage
+\section*{Aufgabe 2 -- Ausgabe-Shapes eines Faltungs-Autoencoders \pkt{12}}
+
+\begin{lstlisting}
+ae = tf.keras.Sequential([
+    tf.keras.layers.Input((64, 64, 3)),                                   #  ( 64, 64, 3 )
+ 1  tf.keras.layers.Conv2D(16, (3,3), padding='same', activation='relu'),
+ 2  tf.keras.layers.MaxPooling2D((2,2)),
+ 3  tf.keras.layers.Conv2D(32, (5,5), padding='valid', activation='relu'),
+ 4  tf.keras.layers.Conv2D(32, (3,3), strides=2, padding='same', activation='relu'),
+ 5  tf.keras.layers.MaxPooling2D((3,3)),
+ 6  tf.keras.layers.Flatten(),
+ 7  tf.keras.layers.Dense(20, activation='relu'),
+ 8  tf.keras.layers.Dense(512, activation='relu'),
+ 9  tf.keras.layers.Reshape((4, 4, 32)),
+10  tf.keras.layers.Conv2DTranspose(32, (3,3), strides=2, padding='same', activation='relu'),
+11  tf.keras.layers.Conv2DTranspose(16, (3,3), strides=2, padding='same', activation='relu'),
+12  tf.keras.layers.Conv2DTranspose(8,  (3,3), strides=2, padding='same', activation='relu'),
+13  tf.keras.layers.Conv2DTranspose(3,  (3,3), strides=2, padding='same', activation='sigmoid'),
+])
+\end{lstlisting}
+
+\begin{center}
+\begin{tabular}{|c|p{4.2cm}||c|p{4.2cm}|}
+\hline
+Zeile & Ausgabe-Shape & Zeile & Ausgabe-Shape \\ \hline
+1 & \rule{0pt}{13pt}\color{loesfarbe}$64\times64\times16$ & 8 & \rule{0pt}{13pt}\color{loesfarbe}$512$\\ \hline
+2 & \rule{0pt}{13pt}\color{loesfarbe}$32\times32\times16$ & 9 & \rule{0pt}{13pt}\color{loesfarbe}$4\times4\times32$\\ \hline
+3 & \rule{0pt}{13pt}\color{loesfarbe}$28\times28\times32$ & 10 & \rule{0pt}{13pt}\color{loesfarbe}$8\times8\times32$\\ \hline
+4 & \rule{0pt}{13pt}\color{loesfarbe}$14\times14\times32$ & 11 & \rule{0pt}{13pt}\color{loesfarbe}$16\times16\times16$\\ \hline
+5 & \rule{0pt}{13pt}\color{loesfarbe}$4\times4\times32$ & 12 & \rule{0pt}{13pt}\color{loesfarbe}$32\times32\times8$\\ \hline
+6 & \rule{0pt}{13pt}\color{loesfarbe}$512$ & 13 & \rule{0pt}{13pt}\color{loesfarbe}$64\times64\times3$\\ \hline
+7 & \rule{0pt}{13pt}\color{loesfarbe}$20$ & & \\ \hline
+\end{tabular}
+\end{center}
+
+\begin{loes}
+Die drei Regeln: \texttt{same} mit strides 1 $\Rightarrow$ Größe \textbf{bleibt};
+\texttt{valid} mit Kernel $k$ $\Rightarrow$ \textbf{minus $(k-1)$}; Halbieren $\Rightarrow$
+Pooling \textbf{abrunden}, Conv mit \texttt{strides=2} \textbf{aufrunden}.
+Zeile 3: $32-4 = 28$. Zeile 4: $\lceil 28/2\rceil = 14$. Zeile 5: $\lfloor 14/3 \rfloor = 4$.\\[2pt]
+\textbf{Gegenprobe, die jeden Kettenfehler aufdeckt:} Zeile 9 ist
+\texttt{Reshape((4,4,32))} $= 512$ und Zeile 8 ist \texttt{Dense(512)}. Ein Autoencoder ist
+symmetrisch, also \textbf{muss} der Flatten in Zeile 6 ebenfalls $512$ ergeben. Kommt dort etwas
+anderes heraus, steckt weiter oben ein Rechenfehler -- nicht weiterrechnen, zurückgehen.
+\end{loes}
+
+\textbf{b)} Wie viele trainierbare Parameter hat Zeile 1, wie viele Zeile 7? Rechenweg angeben.
+
+\begin{loes}
+\textbf{Conv:} $k_h \cdot k_w \cdot C_{\text{in}} \cdot f + f$ \quad --- \quad
+\textbf{Dense:} $n_{\text{in}} \cdot n_{\text{out}} + n_{\text{out}}$
+\[
+\text{Zeile 1:}\quad 3\cdot3\cdot\underbrace{3}_{\text{RGB}}\cdot16 + 16 = 432+16 = \mathbf{448}
+\qquad
+\text{Zeile 7:}\quad \underbrace{512}_{\text{nach Flatten}}\cdot20 + 20 = \mathbf{10\,260}
+\]
+$C_{\text{in}}$ sind die \textbf{Kanäle des Eingangstensors} (hier 3), niemals die Bildkantenlänge;
+$n_{\text{in}}$ ist die \textbf{Länge nach dem Flatten}, nicht $H$ oder $C$ allein.
+\end{loes}
+
+\textbf{c)} Welche Schicht des Netzes trägt das größte Overfitting-Risiko und warum?
+
+\begin{loes}
+Die \textbf{vollverknüpften Dense-Schichten} (Zeilen 7/8). Ihre Gewichtszahl ist das
+\textbf{Produkt} aus Eingangslänge und Neuronenzahl und wächst mit der Auflösung; Faltungen
+brauchen dank \textbf{Weight Sharing} nur $k\cdot k\cdot C_{\text{in}}\cdot C_{\text{out}}$
+\emph{unabhängig} von der Bildgröße. Viele Parameter $\Rightarrow$ hohe Overfitting-Gefahr,
+deshalb sitzen Dropout und $L_2$ genau dort.
+Nicht „weil sie die Identität lernen könnte`` -- das ist das Bottleneck-Argument aus 1.3 und
+beantwortet eine andere Frage.
+\end{loes}
+
+\textbf{d)} Begründen Sie \textbf{beide} Entwurfsentscheidungen in Zeile 13: warum genau 3 Filter
+und warum \texttt{sigmoid}?
+
+\begin{loes}
+\textbf{3 Filter,} weil die letzte transponierte Faltung so viele Feature Maps haben muss, wie das
+Zielbild \textbf{Kanäle} hat -- RGB, also 3 (bei MNIST wäre es 1). Sonst passt die Ausgabe-Shape
+nicht auf die Eingabe, und der Rekonstruktionsfehler ließe sich gar nicht bilden.
+\textbf{Sigmoid,} weil die Pixel auf $[0,1]$ normiert sind und sigmoid den Ausgabebereich genau
+darauf begrenzt. Das hat \textbf{nichts} mit Klassifikation zu tun.
+\end{loes}
+
+\newpage
+\section*{Aufgabe 3 -- Fehler finden \pkt{18}}
+
+\subsection*{3.1 \ Training und Evaluierung einer One-Class SVM (Novelty Detection) \pkt{10}}
+
+\begin{lstlisting}
+X, y = load_sensor_data()        # y: 0 = normal, 1 = Anomalie; ca. 3 % Anomalien
+
+scaler = StandardScaler()                                                    # (1)
+X = scaler.fit_transform(X)                                                  # (2)
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)     # (3)
+
+param_grid = {'nu':    np.logspace(-3, 0, 10),                               # (4)
+              'gamma': np.logspace(-2, 2, 10)}                               # (5)
+search = GridSearchCV(OneClassSVM(kernel='rbf'), param_grid,
+                      scoring='accuracy', cv=5)                              # (6)
+search.fit(X_train, y_train)                                                 # (7)
+
+best = search.best_estimator_
+pred = best.predict(X_train)                                                 # (8)
+pred = np.where(pred == 1, 0, 1)
+print('Accuracy:', accuracy_score(y_train, pred))                            # (9)
+print('AUC:', roc_auc_score(y_test, best.score_samples(X_test)))             # (10)
+\end{lstlisting}
+
+\begin{loes}
+\begin{enumerate}
+\item \textbf{Zeile (2) -- Data Leakage.} Der Scaler wird auf den \textbf{Gesamtdaten} gefittet,
+  \emph{bevor} gesplittet wird. Mittelwert und Streuung der Testdaten fließen ins Training ein.
+  Richtig: erst splitten, dann \texttt{fit} nur auf \texttt{X\_train},
+  \texttt{transform} auf beide.
+\item \textbf{Zeile (7) -- Novelty-Verfahren auf kontaminierten Daten.} Die OCSVM muss auf
+  \textbf{reinen Normaldaten} gefittet werden; \texttt{X\_train} enthält aber die 3\,\% Anomalien.
+  So wird aus Novelty unbeabsichtigt \textbf{Outlier} Detection, die Grenze wird zu den Anomalien
+  hin aufgeweitet, die TPR bricht ein. Richtig: nur \texttt{X\_train[y\_train == 0]} fitten.
+  Zusätzlich wird \texttt{y\_train} an ein \textbf{unüberwachtes} \texttt{fit} übergeben.
+\item \textbf{Zeile (6) -- kein Pipeline-Objekt.} Ohne
+  \texttt{Pipeline(StandardScaler(), OneClassSVM())} wiederholt sich die Leakage aus (2) in
+  \textbf{jedem CV-Fold}: der Validierungsteil ist bereits mitskaliert.
+\item \textbf{Zeile (6) -- \texttt{scoring='accuracy'}.} Bei 3\,\% Anomalien erreicht „alles
+  normal`` schon 97\,\%; die Suche optimiert also auf eine Metrik, die nichts unterscheidet.
+  Besser \texttt{balanced\_accuracy} oder AUC.
+  \neu Zusätzlich passen die \textbf{Kodierungen} nicht: \texttt{predict} liefert $\pm1$,
+  \texttt{y\_train} ist $0/1$ -- verglichen werden zwei verschiedene Skalen.
+\item \textbf{Zeilen (8)/(9) -- Bewertung auf Trainingsdaten.} \texttt{predict} und
+  \texttt{accuracy\_score} laufen auf \texttt{X\_train}/\texttt{y\_train}, also auf genau den
+  Daten, aus denen das Modell \emph{und} die Metaparameter stammen. Muss \texttt{X\_test} sein.
+\item \neu \textbf{Zeile (10) -- Vorzeichen.} \texttt{score\_samples} ist \textbf{hoch = normal},
+  \texttt{y\_test} ist aber \textbf{1 = Anomalie}. Die AUC kommt gespiegelt heraus (unter 0,5).
+  Richtig: \texttt{roc\_auc\_score(y\_test, -best.score\_samples(X\_test))}.
+\item \textbf{Zeile (4) -- Raster für $\nu$.} $\nu \in (0;1]$ ist eine Mengenvorgabe, also
+  \textbf{linear} rastern (\texttt{np.linspace}); $10^0 = 1$ ist zudem der entartete Grenzfall.
+\item \emph{Nebenbei:} kein \texttt{random\_state} (und kein \texttt{stratify}) im Split
+  $\Rightarrow$ nicht reproduzierbar.
+\end{enumerate}
+\textbf{Kein Fehler} ist \texttt{np.where(pred == 1, 0, 1)} -- das ist die korrekte Umrechnung von
+der sklearn-Konvention ($+1$ normal) auf die Label-Konvention ($1 =$ Anomalie).
+\end{loes}
+
+\newpage
+\subsection*{3.2 \ Aufbau eines CNN-Klassifikators für $32\times32\times3$-Bilder, 5 Klassen \pkt{8}}
+
+\begin{lstlisting}
+net = tf.keras.Sequential([
+    tf.keras.layers.Input((32, 32, 3)),                            # 32 x 32 x  3
+    tf.keras.layers.Conv2D(16, (3,3), padding='same', ...),        # 32 x 32 x 16
+    tf.keras.layers.MaxPooling2D((2,2)),                           # 16 x 16 x 16
+    tf.keras.layers.Conv2D(32, (3,3), padding='same', ...),        # 16 x 16 x 32
+    tf.keras.layers.MaxPooling2D((2,2)),                           #  8 x  8 x 32
+    tf.keras.layers.Conv2D(64, (3,3), padding='same', ...),        #  8 x  8 x 64
+    tf.keras.layers.MaxPooling2D((2,2)),                           #  4 x  4 x 64
+    tf.keras.layers.MaxPooling2D((4,4)),                           #  1 x  1 x 64
+    tf.keras.layers.Dense(64, activation='relu'),
+    tf.keras.layers.Dense(5,  activation='relu'),
+])
+net.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+net.fit(x_train, y_train, epochs=20, validation_data=(x_test, y_test))
+\end{lstlisting}
+
+\begin{loes}
+\begin{enumerate}
+\item \neu \textbf{\texttt{Flatten()} fehlt} vor \texttt{Dense(64)}. Nach dem letzten Pooling liegt
+  ein $1\!\times\!1\!\times\!64$-Tensor an. \texttt{Dense} wirkt nur auf die \textbf{letzte Achse},
+  die Ausgabe wird also $1\!\times\!1\!\times\!5$ statt $(5,)$ und passt nicht zu den Labels.
+  \textbf{Es gibt keinen Fehler beim Bauen} -- genau deshalb rutscht das durch.
+\item \textbf{Ausgabeschicht mit \texttt{'relu'}} statt \textbf{softmax}. ReLU liefert beliebige
+  nichtnegative Werte, die sich nicht zu 1 summieren -- keine Wahrscheinlichkeitsverteilung; dazu
+  Gradient 0 für alle abgeschnittenen Neuronen.
+\item \textbf{\texttt{loss='binary\_crossentropy'} bei 5 Klassen.} Ab drei Klassen muss es
+  \texttt{categorical\_crossentropy} heißen (One-Hot-Labels) -- bei Integer-Labels
+  entsprechend \texttt{sparse\_}\discretionary{}{}{}\texttt{categorical\_crossentropy}.
+\item \textbf{Doppeltes Pooling.} $4\!\times\!4$ mit Pool $(4,4)$ geht zwar exakt auf, wirft aber
+  die \textbf{gesamte räumliche Information} weg -- übrig bleibt ein einzelner Wert je Feature Map.
+  Ein Pooling-Schritt gehört gestrichen.
+\item \textbf{\texttt{validation\_data=(x\_test, y\_test)}.} Die Testdaten werden zur
+  Validierung benutzt; nach 20 Epochen ist die Modellwahl auf ihnen erfolgt und der Testwert nicht
+  mehr unabhängig.
+\end{enumerate}
+\end{loes}
+
+\newpage
+\section*{Aufgabe 4 -- Programmieren \pkt{16}}
+
+\subsection*{4.1 \ Deep-SVDD-Netz in Keras \pkt{10}}
+
+\begin{lstlisting}
+lam = 1e-6
+reg = tf.keras.regularizers.l2(lam)
+
+deep_svdd = tf.keras.Sequential([
+    tf.keras.layers.Input((28, 28, 1)),                                       # 28 x 28 x  1
+    tf.keras.layers.Conv2D(8, (5,5), padding='same', use_bias=False,
+                           kernel_regularizer=reg),                           # 28 x 28 x  8
+    tf.keras.layers.BatchNormalization(),
+    tf.keras.layers.LeakyReLU(),
+    tf.keras.layers.MaxPooling2D((2,2)),                                      # 14 x 14 x  8
+    tf.keras.layers.Conv2D(16, (5,5), padding='same', use_bias=False,
+                           kernel_regularizer=reg),                           # 14 x 14 x 16
+    tf.keras.layers.BatchNormalization(),
+    tf.keras.layers.LeakyReLU(),
+    tf.keras.layers.MaxPooling2D((2,2)),                                      #  7 x  7 x 16
+    tf.keras.layers.Flatten(),                                                #       784
+    tf.keras.layers.Dense(32, use_bias=False, kernel_regularizer=reg),        #        32
+])
+\end{lstlisting}
+
+\begin{loes}
+\textbf{Die Konstruktionsregeln, an denen die Punkte hängen:}
+\begin{itemize}
+\item \textbf{\texttt{use\_bias=False} in jeder Schicht} -- der Keras-Default ist \texttt{True}.
+  Ein Bias könnte den konstanten Offset nachbauen, mit dem das Netz alles auf $c$ abbildet.
+\item \textbf{Keine gedeckelten Aktivierungen} (kein sigmoid, kein tanh) $\Rightarrow$
+  \textbf{LeakyReLU}. Gesättigte Aktivierungen erlauben denselben Kollaps.
+\item \textbf{Keine Aktivierung auf der letzten Dense} -- sie ist die Ausgabe $\varphi(x)$.
+\item $L_2$ mit $\lambda = 10^{-6}$ über \texttt{kernel\_regularizer} in \emph{jeder} Schicht.
+\item \textbf{BatchNorm ist erlaubt} und steht so auch in den Musterlösungen -- nicht anstreichen.
+\end{itemize}
+Alle drei Verbote laufen auf dieselbe Katastrophe hinaus: \textbf{Nullgewichte}, also die konstante
+Abbildung.
+\end{loes}
+
+\textbf{b)} Schreiben Sie die Zeile, mit der das Zentrum $c$ bestimmt wird. An welcher Stelle des
+Programms muss sie stehen, und was passiert, wenn man sie in die Trainingsschleife setzt oder
+$c = \mathbf{0}$ wählt?
+
+\begin{lstlisting}
+center = get_center(deep_svdd, train_dataset)   # EINMAL, vor der Trainingsschleife
+\end{lstlisting}
+
+\begin{loes}
+\textbf{Stelle:} nach der Initialisierung bzw.\ dem Vortraining, \textbf{einmal} und
+\textbf{außerhalb} der Trainingsschleife. $c$ ist der Mittelwert der Netzausgaben über die
+Trainingsdaten und bleibt danach \textbf{fest}.
+
+\textbf{In der Trainingsschleife:} $c$ wandert bei jedem Schritt mit den Ausgaben mit. Dann lässt
+sich der Loss trivial minimieren, indem das Netz alles auf einen beliebigen Punkt zieht und $c$
+hinterherwandert $\Rightarrow$ \textbf{Kollaps zur konstanten Abbildung}, Loss $\to 0$,
+Scores ununterscheidbar, \textbf{AUC $\approx$ 0,5}.
+
+\textbf{$c = \mathbf{0}$:} Dann sind \textbf{Nullgewichte direkt optimal} -- $\varphi(x) = 0$ für
+alle $x$ erzeugt Abstand 0. Der Loss ist minimal, das Modell wertlos: Normaldaten und Anomalien
+landen auf demselben Punkt.
+\end{loes}
+
+\newpage
+\subsection*{4.2 \ Anomalie-Score und Schwellwert in NumPy \pkt{6}}
+
+\begin{lstlisting}
+X_rec = ae.predict(X_test)
+
+# 1) Rekonstruktionsfehler je Sample
+err = np.mean((X_test - X_rec)**2, axis=(1, 2, 3))      # Shape (N,)
+
+# 2) Schwellwert aus dem bekannten Ausreisseranteil: 2 % oben abschneiden
+thr = np.percentile(err, 98)
+
+# 3) sklearn-Konvention: +1 = normal, -1 = Anomalie
+result = np.where(err > thr, -1, 1)
+
+# 4) Anzahl der Alarme
+print('Alarme:', np.sum(result == -1))
+\end{lstlisting}
+
+\textbf{b)} Über welche Achsen wird gemittelt und warum? Welches Perzentil und warum?
+
+\begin{loes}
+\textbf{Achsen 1, 2, 3} (Höhe, Breite, Kanal) -- alles außer der \textbf{Batch-Achse 0}, damit pro
+Sample \textbf{genau eine Zahl} übrig bleibt. Der Score ist eine Größe je Messung, nicht je Pixel.
+
+\textbf{98.\ Perzentil}, weil aus dem Prozess 2\,\% Ausreißer bekannt sind: die obersten 2\,\% der
+Scores werden geflaggt.
+\emph{Der Zusatz, der die Antwort vollständig macht:} Das garantiert die richtige \textbf{Anzahl}
+an Alarmen ($0{,}02\cdot N$), nicht die richtigen \textbf{Punkte} -- es unterstellt, dass die
+Ausreißer tatsächlich die höchsten Scores haben.
+\end{loes}
+
+\newpage
+\section*{Aufgabe 5 -- Auswertung eines Score-Histogramms \pkt{14}}
+
+\begin{center}\small
+\begin{tabular}{|l|r|r|r|r|r|r|r|r|r|r|r|r|}
+\hline
+Klasse & 0--0,5 & 0,5--1 & 1--1,5 & 1,5--2 & 2--2,5 & 2,5--3 & 3--3,5 & 3,5--4 & 4--4,5 & 4,5--5 & 5--5,5 & 5,5--6\\ \hline
+Anzahl & 900 & 1500 & 1200 & 700 & 350 & 180 & 90 & 45 & 20 & 10 & 4 & 1\\ \hline
+\end{tabular}
+\hspace{4pt}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+$s_0$ & 1,0 & 2,0 & 2,5 & 3,5 & 4,0\\ \hline
+TPR & 0,99 & 0,92 & 0,86 & 0,21 & 0,06\\ \hline
+FPR & 0,62 & 0,14 & 0,05 & 0,013 & 0,007\\ \hline
+\end{tabular}
+\quad AUC $=0{,}95$, \ $N = 5000$
+\end{center}
+
+\textbf{a)} Schwellwert nur aus dem Histogramm, Anzahl der Alarme, Plausibilität. \pkt{4}
+
+\begin{loes}
+Die Verteilung gipfelt bei $s\approx0{,}75$ und fällt monoton. Man legt den Schwellwert dort, wo
+sie in den \textbf{flachen Schwanz} übergeht: $\mathbf{s_0 = 3{,}0}$.
+\[
+90+45+20+10+4+1 = \mathbf{170} \text{ Alarme} \quad\Longrightarrow\quad 170/5000 = 3{,}4\,\%
+\]
+Plausibel für eine Ausreißerquote. Zum Vergleich: $s_0=2{,}5$ gäbe 350 Alarme (7\,\% -- zu viel),
+$s_0 = 3{,}5$ gäbe 80 (1,6\,\%).
+\emph{Wichtig als Zusatz:} Aus dem Histogramm \textbf{sieht} man den Übergang gar nicht -- die
+entscheidende Region ist genau die, in der die Balken schon auf der Nulllinie liegen (4 bzw.\ 1
+Punkt bei einer $y$-Achse bis 1500). Jede Wahl hier ist eine Schätzung.
+\end{loes}
+
+\textbf{b)} 98,4\,\%-Quantil: welcher Schwellwert, wie viele Punkte, was ist garantiert? \pkt{4}
+
+\begin{loes}
+$1{,}6\,\%$ von 5000 $=$ \textbf{80 Punkte}. Von oben aufsummiert: $1+4+10+20+45 = 80$ -- das sind
+exakt die Klassen ab 3,5, also $\mathbf{s_0 = 3{,}5}$.
+
+\textbf{Garantiert} ist die \textbf{Anzahl} der Alarme (genau 1,6\,\%, die Alarmlast ist planbar).
+\textbf{Nicht garantiert} ist, dass es die \textbf{richtigen} Punkte sind: das Quantil unterstellt
+stillschweigend, die Ausreißer seien die 80 höchsten Scores -- geprüft wird das nie. Die
+Betriebspunkt-Tabelle zeigt das Gegenteil: bei 3,5 ist TPR nur $0{,}21$.
+\end{loes}
+
+\textbf{c)} Nur 21\,\% gefunden bei AUC 0,95 -- Modell oder Schwellwert? \pkt{4}
+
+\begin{loes}
+\textbf{Der Schwellwert.} Die AUC ist schwellwertfrei und bewertet allein die \textbf{Rangfolge}
+der Scores -- die ist mit 0,95 gut. Ein einzelner Betriebspunkt sagt nichts über die Modellgüte.
+
+Verantwortlich ist der \textbf{schwere obere Schwanz der Normaldaten}: die Normalpunkte reichen mit
+einem langen rechten Ausläufer durch das Band der Ausreißer hindurch und darüber hinaus. Damit
+bestehen die obersten 1,6\,\% der Scores \textbf{überwiegend aus Normaldaten}, und das Quantil
+schneidet oberhalb des Anomalie-Hauptfelds ab.
+
+\neu \textbf{Gegenrechnung -- TP $+$ FP muss die geflaggte Menge treffen} (80 Anomalien,
+4920 Normale):
+\[
+\text{TP} = 0{,}21\cdot80 \approx 17,\qquad
+\text{FP} = 0{,}013\cdot4920 \approx 64,\qquad
+\text{TP}+\text{FP} \approx 81 \approx 80 \ \checkmark
+\]
+Von den 80 Alarmen sind rund \textbf{drei Viertel Fehlalarme}. Stimmt die Summe nicht, steckt der
+Fehler in der Quantilrechnung -- eine direkte Selbstkontrolle in der Klausur.
+
+\emph{Diagnoseregel:} hohe AUC $+$ schlechte TPR $\Rightarrow$ falsche \textbf{Schwelle};
+niedrige AUC $\Rightarrow$ schlechtes \textbf{Modell}.
+\end{loes}
+
+\textbf{d)} Bestes $s_0$ im Sinne des ROC-Knies; was kostet der letzte Rest TPR? \pkt{5}
+
+\begin{loes}
+Rechenkriterium: kleinster Abstand zur idealen Ecke $(0,1)$, also Minimum von
+$d^2 = \text{FPR}^2 + (1-\text{TPR})^2$.
+\begin{center}\small
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+$s_0$ & 1,0 & 2,0 & \textbf{2,5} & 3,5 & 4,0\\ \hline
+$d^2$ & 0,3845 & 0,0260 & \textbf{0,0221} & 0,6243 & 0,8837\\ \hline
+$d$ & 0,620 & 0,161 & \textbf{0,149} & 0,790 & 0,940\\ \hline
+\end{tabular}
+\end{center}
+Minimum bei $\mathbf{s_0 = 2{,}5}$ (TPR 0,86 / FPR 0,05), knapp vor $s_0=2{,}0$.
+
+\textbf{Vergleich mit $s_0=1{,}0$:} TPR 0,99 statt 0,86, also $0{,}13\cdot80 \approx 10$
+zusätzlich gefundene Ausreißer. Fehlalarme: $0{,}05\cdot4920 \approx 246$ gegen
+$0{,}62\cdot4920 \approx 3050$, also rund \textbf{2800 zusätzliche Fehlalarme}.
+
+\neu \textbf{Auf einen Ausreißer heruntergerechnet:} $2800/10 \approx \mathbf{280}$ Fehlalarme je
+zusätzlich gefundenem Ausreißer. Genau danach fragt „was kostet der letzte Rest TPR`` -- eine
+\textbf{Verhältniszahl}, nicht zwei absolute Zahlen nebeneinander. Damit ist die Antwort in einem
+Satz begründbar: \emph{lohnt sich nur, wenn ein übersehener Ausreißer mindestens 280-mal so teuer
+ist wie ein Fehlalarm.}
+\end{loes}
+
+\textbf{e)} Warum ist das Histogramm die schlechteste der drei Darstellungen? \pkt{4}
+
+\begin{loes}
+Es zeigt nur, \emph{dass} die Masse normal ist, nicht \emph{wo} sie aufhört. Die Region, in der die
+Entscheidung fällt, ist genau die, in der die Balken schon auf der Nulllinie liegen.
+\begin{itemize}
+\item \textbf{Sortierter Score-Plot} (Score über dem Rang): die \textbf{Übersetzungstabelle
+  Schwellwert $\leftrightarrow$ Anzahl}. Schwelle auf der $y$-Achse ablesen, Indexposition auf der
+  $x$-Achse, $N -$ Index $=$ Alarme. Eine \textbf{Schulter} ist meist eine zweite Normalgruppe;
+  erst wo die Kurve in die \textbf{Senkrechte} geht, beginnen die Ausreißer.
+\item \textbf{ROC-Kurve} (sobald Labels da sind): Betriebspunkt am \textbf{Knie}, und zu jedem
+  Schwellwert das Paar (FPR, TPR), also die Kosten in Fehlalarmen. Die \textbf{AUC} daneben trennt
+  „Modell schlecht`` von „Schwelle schlecht``.
+\end{itemize}
+(Ebenfalls gültig: der \textbf{Boxplot} nach Klassen -- er macht den schweren Oberschwanz aus c)
+sichtbar.)
+\end{loes}
+
+\newpage
+\section*{Aufgabe 6 -- SVM und One-Class SVM \pkt{22}}
+
+\subsection*{6.1 a) Trenngerade bei sehr großem $C$ \pkt{4}}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.72]
+  \draw[step=1,gray!30,line width=0.3pt] (0,0) grid (8,6);
+  \draw[->] (0,0) -- (8.4,0) node[right,scale=0.85]{$x_1$};
+  \draw[->] (0,0) -- (0,6.4) node[above,scale=0.85]{$x_2$};
+  \foreach \x in {1,...,8} \draw (\x,0) -- (\x,-0.12) node[below,scale=0.7]{\x};
+  \foreach \y in {1,...,6} \draw (0,\y) -- (-0.12,\y) node[left,scale=0.7]{\y};
+  \draw[gray,dashed,line width=0.7pt] (0,5) -- (5,0);
+  \draw[gray,dashed,line width=0.7pt] (1,6) -- (7,0);
+  \draw[loesfarbe,line width=1.3pt] (0.5,5.5) -- (6,0);
+  \node[scale=0.75,loesfarbe] at (7.0,1.5) {$x_1+x_2=6$};
+  \foreach \p in {(1,2),(2,1),(3,1)} \fill \p circle (0.11);
+  \fill (2,3) circle (0.11);
+  \draw[loesfarbe,line width=1pt] (2,3) circle (0.26);
+  \foreach \p in {(5,4),(6,3),(6,5),(7,4)}
+     \draw[line width=1pt] \p ++(-0.13,-0.13) -- ++(0.26,0.26) \p ++(-0.13,0.13) -- ++(0.26,-0.26);
+  \draw[line width=1pt] (3,4) ++(-0.13,-0.13) -- ++(0.26,0.26) (3,4) ++(-0.13,0.13) -- ++(0.26,-0.26);
+  \draw[loesfarbe,line width=1pt] (3,4) circle (0.26);
+  \draw[line width=1pt] (4,3) ++(-0.13,-0.13) -- ++(0.26,0.26) (4,3) ++(-0.13,0.13) -- ++(0.26,-0.26);
+  \node[scale=0.7] at (4.35,2.55) {$(4|3)$};
+\end{tikzpicture}
+\end{center}
+
+\begin{loes}
+Sehr großes $C$ $=$ \textbf{harte Margin}, kein Punkt darf in den Streifen.
+
+\textbf{Support-Vektoren:} $\bullet(2|3)$ und $\times(3|4)$ -- das nächstgelegene Paar aus
+verschiedenen Klassen (Abstand $\sqrt2$), oben eingekreist.
+
+\textbf{Rechenweg:} $\boldsymbol{w}$ steht senkrecht auf ihrer Verbindung, also
+$\boldsymbol{w}\propto(3|4)-(2|3) = (1|1)$; die Gerade geht durch den Mittelpunkt $(2{,}5|3{,}5)$:
+\[
+g(\boldsymbol{x}) = x_1+x_2-6, \qquad g(2|3) = -1, \quad g(3|4) = +1
+\]
+Die Normierung $\pm1$ stimmt damit bereits, also $\|\boldsymbol{w}\| = \sqrt2$ und
+\[
+\text{Margin-Breite} \;=\; \frac{2}{\|\boldsymbol{w}\|} \;=\; \frac{2}{\sqrt2} \;=\; \sqrt2
+\;\approx\; 1{,}41
+\]
+Probe: alle $\bullet$ erfüllen $x_1+x_2\le5$ (3, 3, 5, 4), alle $\times$ erfüllen $x_1+x_2\ge7$
+(7, 9, 9, 11, 11). \checkmark
+\end{loes}
+
+\subsection*{6.1 b) $C$ wird schrittweise kleiner \pkt{5}}
+
+\begin{loes}
+\begin{itemize}
+\item \textbf{Margin:} wird \textbf{breiter} -- Verletzungen sind billiger, ein großer Abstand
+  lohnt sich mehr als ein sauberer Streifen.
+\item \textbf{Lage der Trenngeraden:} löst sich von den beiden Randpunkten und richtet sich nach
+  der \textbf{Masse} der Punkte -- stabiler gegen Ausreißer, unpräziser an der Klassengrenze.
+\item \textbf{Support-Vektoren:} ihre Anzahl \textbf{steigt} -- jeder Punkt \emph{in} der Margin
+  und jeder Verletzer ist per Definition SV.
+\item \textbf{Fehlklassifikationen:} treten auf und nehmen zu, bewusst in Kauf genommen
+  (Soft Margin).
+\item \textbf{Grenzfall $C\to0$:} Der Fehlerterm hat kein Gewicht mehr, minimiert wird nur noch
+  $\|\boldsymbol{w}\|^2$ $\Rightarrow$ $\boldsymbol{w}\to\boldsymbol{0}$, die Margin wird unendlich
+  breit, die \textbf{Lage der Geraden ist beliebig} (nicht mehr an die Daten gefesselt), fast alle
+  Punkte sind SV. Es bleibt kein brauchbarer Klassifikator übrig.
+\end{itemize}
+\end{loes}
+
+\subsection*{6.1 c) Neuer Punkt $(4|3)$ \pkt{3}}
+
+\begin{loes}
+Einsetzen statt schätzen: $g(4|3) = 4+3-6 = +1 > 0$ $\Rightarrow$ \textbf{Klasse $\times$
+($y=+1$)}. Gleichwertig über Abstände: nächster $\times$ ist $(3|4)$ mit $\sqrt2\approx1{,}41$,
+nächster $\bullet$ ist $(2|3)$ mit $2$.
+
+\neu \textbf{Lage:} $g = +1$ heißt \textbf{exakt auf dem Margin-Rand} $h_2$ ($x_1+x_2 = 7$), also
+gerade \emph{nicht} innerhalb der Margin. Wäre er ein Trainingspunkt gewesen, wäre er ein weiterer
+Support-Vektor. Das ist die dritte mögliche Antwort neben „innerhalb`` und „außerhalb`` und fällt
+automatisch heraus, wenn man $g$ ausrechnet:
+\[
+|g| < 1 \Rightarrow \text{in der Margin}, \qquad
+|g| = 1 \Rightarrow \text{auf dem Rand}, \qquad
+|g| > 1 \Rightarrow \text{außerhalb}
+\]
+\end{loes}
+
+\subsection*{6.2 a) Kernel-Trick nachrechnen \pkt{4}}
+
+\begin{loes}
+$\varphi(\boldsymbol{x}) = (x_1^2,\ \sqrt2\,x_1x_2,\ x_2^2)$, \
+$\boldsymbol{a} = (1|2)$, $\boldsymbol{b} = (3|1)$.
+\[
+\varphi(\boldsymbol{a}) = (1,\ 2\sqrt2,\ 4), \qquad
+\varphi(\boldsymbol{b}) = (9,\ 3\sqrt2,\ 1)
+\]
+\[
+\varphi(\boldsymbol{a})\cdot\varphi(\boldsymbol{b}) = 1\cdot9 + 2\sqrt2\cdot3\sqrt2 + 4\cdot1
+= 9+12+4 = \mathbf{25}
+\]
+\[
+k(\boldsymbol{a},\boldsymbol{b}) = (\boldsymbol{a}\cdot\boldsymbol{b})^2 = (1\cdot3+2\cdot1)^2
+= 5^2 = \mathbf{25}
+\]
+\textbf{Vergleich:} identisch. Der Kernel liefert das Skalarprodukt der \textbf{transformierten}
+Punkte, ohne die Transformation je auszuführen -- links drei Multiplikationen im 3D-Raum plus zwei
+Wurzeln, rechts ein Skalarprodukt im 2D-Raum und ein Quadrat.
+\end{loes}
+
+\subsection*{6.2 b) Wo Skalarprodukte genügen; RBF vs.\ polynomial \pkt{5}}
+
+\begin{loes}
+\textbf{Die zwei Rechnungen:}
+\begin{enumerate}
+\item das \textbf{duale Optimierungsproblem beim Training} -- dort stehen die Trainingspunkte nur
+  als Paare $\boldsymbol{x}_i\cdot\boldsymbol{x}_j$;
+\item die \textbf{Entscheidungsfunktion beim Anwenden} -- dort steht der neue Punkt nur als
+  $\boldsymbol{x}\cdot\boldsymbol{x}_i$ gegen die Support-Vektoren.
+\end{enumerate}
+$\boldsymbol{w}$ selbst kommt in beiden nicht mehr vor (es fällt über
+$\partial L/\partial\boldsymbol{w} = 0$ heraus) -- genau deshalb funktioniert der Trick.
+
+\textbf{Rechnerischer Unterschied:} Der \textbf{polynomiale} Kernel bildet erst das
+\textbf{Skalarprodukt} und potenziert es dann; der \textbf{RBF} setzt den \textbf{Abstand} der
+beiden Punkte in eine Gaußfunktion ein.
+
+\textbf{Warum beim RBF die einzige Möglichkeit:} Zum polynomialen Kernel gehört eine Transformation
+mit \textbf{endlich vielen} Komponenten -- man könnte $\varphi(\boldsymbol{x})$ hinschreiben, es
+wäre nur teurer (genau das zeigt a)). Zum RBF gehört über die Reihenentwicklung der e-Funktion eine
+Transformation mit \textbf{unendlich vielen} Komponenten; sie lässt sich gar nicht ausrechnen.
+\end{loes}
+
+\subsection*{6.3 a) Lineare OCSVM, $\nu = 0{,}05$ \pkt{3}}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.62]
+  \draw[step=1,gray!30,line width=0.3pt] (0,0) grid (8,7);
+  \draw[->] (0,0) -- (8.4,0) node[right,scale=0.85]{$x_1$};
+  \draw[->] (0,0) -- (0,7.4) node[above,scale=0.85]{$x_2$};
+  \foreach \x in {1,...,8} \draw (\x,0) -- (\x,-0.12) node[below,scale=0.7]{\x};
+  \foreach \y in {1,...,7} \draw (0,\y) -- (-0.12,\y) node[left,scale=0.7]{\y};
+  \foreach \p in {(4,4),(4.6,5),(5,4.3),(5.5,5.2),(4.2,5.6),(5.8,4.1),(5.2,5.8),(4.8,4.8),
+                  (6.2,5.0),(3.8,4.9),(5.6,3.9),(4.4,4.2),(6.0,5.7),(5.0,5.3),(4.9,6.1)}
+     \fill \p circle (0.1);
+  \fill[black] (2.6,6.4) circle (0.1);
+  \node[scale=0.65] at (2.6,6.9) {Randpunkt};
+  \draw[loesfarbe,line width=1.3pt] (1.1,7) -- (8,0.1);
+  \node[scale=0.65,rotate=-45,loesfarbe] at (2.5,5.2) {Trennebene};
+  \node[scale=0.72] at (1.6,2.2) {\textbf{anomal}};
+  \node[scale=0.62] at (1.6,1.5) {(Ursprungsseite)};
+  \node[scale=0.72] at (6.7,6.6) {\textbf{normal}};
+  \draw[->,line width=0.6pt] (0.25,0.25) -- (1.7,1.7);
+\end{tikzpicture}
+\end{center}
+
+\begin{loes}
+Die Trennebene steht \textbf{zwischen Ursprung und Datenwolke} und wird so weit wie möglich
+\textbf{vom Ursprung weg} geschoben. Anomal ist die \textbf{Ursprungsseite}.
+$\nu = 0{,}05$ bei 16 Punkten heißt: höchstens etwa \textbf{ein} Punkt darf dort liegen -- die
+Ebene schneidet gerade den ursprungsnächsten Punkt der Wolke ab.
+
+\textbf{Wogegen abgegrenzt wird:} Es gibt keine zweite Klasse, also nimmt die OCSVM den
+\textbf{Ursprung als Stellvertreter für alles Anomale} und maximiert den Abstand der Normaldaten
+zu ihm.
+
+\neu \textbf{Der Zusatzsatz, der die Aufgabe knackt:} Der eingezeichnete Randpunkt liegt sichtbar
+abseits der Wolke, aber \textbf{nicht ursprungsnäher} als sie -- der lineare Kernel stuft ihn
+deshalb als \textbf{normal} ein. Er schneidet nämlich nur \emph{eine} Richtung ab: „zu nah am
+Ursprung``. Alles, was \textbf{seitlich} abseits liegt, sieht er nicht. Das ist die eigentliche
+Schwäche, schärfer als „er kann nur Geraden``.
+\end{loes}
+
+\subsection*{6.3 b) Größeres $\nu$; Over-/Underfitting \pkt{3}}
+
+\begin{loes}
+Die Ebene wandert \textbf{weiter vom Ursprung weg, in die Wolke hinein}: mehr Punkte landen auf der
+Ursprungsseite und gelten als anomal, die Zahl der Support-Vektoren steigt (untere Schranke!), die
+beschriebene Normalregion schrumpft.
+\begin{itemize}
+\item $\nu$ \textbf{zu klein} $\Rightarrow$ die Grenze umschließt restlos alles, auch Randpunkte
+  und Rauschen $\Rightarrow$ \textbf{Overfitting}: echte Anomalien rutschen später durch.
+\item $\nu$ \textbf{zu groß} $\Rightarrow$ zu viele Normaldaten abgeschnitten $\Rightarrow$
+  \textbf{Underfitting} und hohe Fehlalarmrate.
+\end{itemize}
+\end{loes}
+
+\subsection*{6.3 c) Wechsel auf RBF \pkt{4}}
+
+\begin{loes}
+\textbf{Entscheidungsgrenze:} keine Gerade mehr, sondern eine \textbf{geschlossene, krumme Kurve um
+die Daten}. Bei mehreren getrennten Gruppen zerfällt sie in \textbf{mehrere Inseln} -- die
+eigentliche Stärke gegenüber einer einzelnen Ellipse.
+
+\textbf{$\gamma$ sehr groß:} Die Glocke wird so schmal, dass jeder Trainingspunkt nur noch
+\textbf{sich selbst} erkennt; die Grenze zerfällt in winzige Kreise um die einzelnen
+Trainingspunkte. Das ist die Overfitting-Signatur von $\gamma$.
+
+\textbf{Balanced accuracy $= 0{,}5$:} Jeder neue Punkt fällt aus jedem dieser Kreise heraus und wird
+als Anomalie geflaggt. Damit TPR $=1$, TNR $=0$, also $\tfrac12(1+0) = 0{,}5$ -- exakt der Wert für
+\textbf{Raten}.
+\end{loes}
+
+\newpage
+\section*{Aufgabe 7 -- Verfahrenswahl bei mehreren Clustern \pkt{12}}
+
+\textbf{a)} Zwei geeignete, ein ungeeignetes Verfahren -- jedes aus der Form der Daten begründet. \pkt{6}
+
+\begin{loes}
+Datenlage: die Normaldaten bilden \textbf{drei getrennte, kompakte Gruppen} (multimodal), dazwischen
+große leere Bereiche. Novelty-Setup, also Fit auf sauberen Normaldaten.
+
+\textbf{Geeignet 1 -- OCSVM mit RBF-Kernel.} Die Entscheidungsgrenze ist eine geschlossene krumme
+Kurve, die bei getrennten Gruppen in \textbf{drei Inseln} zerfällt; der leere Bereich dazwischen
+bleibt außerhalb der Normalregion.
+
+\textbf{Geeignet 2 -- abstandsbasiert (kNN-Abstand).} Der Score ist der mittlere Abstand zu den $k$
+nächsten Nachbarn -- \textbf{keine Formannahme}, beliebig viele Gruppen darstellbar. Normal ist,
+wer nah an \emph{irgendeiner} Gruppe liegt. (Gleichwertig: \textbf{KDE} oder \textbf{GMM mit 3
+Komponenten}.)
+
+\textbf{Ungeeignet -- Elliptic Envelope / Mahalanobis.} Es wird \textbf{eine einzige}
+Normalverteilung geschätzt, die Normalregion ist \textbf{eine Ellipse}. Sie legt sich über alle
+drei Gruppen und \textbf{überdeckt den leeren Bereich in der Mitte mit}. Die Formannahme
+(unimodal, elliptisch) ist hier schlicht falsch.
+\end{loes}
+
+\textbf{b)} Bewertung von $P_1$ und $P_2$; welcher Punkt trennt? \pkt{4}
+
+\begin{loes}
+\begin{center}\small
+\begin{tabular}{|l|c|c|}
+\hline
+& $P_1$ (Mitte, zwischen den Gruppen) & $P_2$ (weit außen rechts oben)\\ \hline
+OCSVM (RBF) & \textbf{anomal} & anomal\\ \hline
+kNN-Abstand & \textbf{anomal} & anomal\\ \hline
+Elliptic Envelope & \textbf{normal} (!) & anomal\\ \hline
+\end{tabular}
+\end{center}
+\textbf{Der trennende Punkt ist $P_1$.} Er liegt im \textbf{Loch} der multimodalen Verteilung: weit
+von jeder Gruppe, aber \textbf{nahe am gemeinsamen Mittelwert}.
+
+\neu \textbf{Die Zuspitzung, die den Punkt holt:} Die Elliptic Envelope übersieht $P_1$ nicht
+einfach -- sie misst den Mahalanobis-Abstand zum Gesamtmittelwert, und der ist dort
+\textbf{minimal}. Sie hält $P_1$ also für den \textbf{normalsten Punkt des ganzen Datensatzes}.
+Das ist nicht „knapp daneben``, sondern die maximale Fehlbewertung.
+
+$P_2$ trennt nichts: er liegt außerhalb jeder Beschreibung, auch außerhalb der großen Ellipse, und
+wird von allen drei Verfahren gefangen.
+\end{loes}
+
+\textbf{c)} Welcher Metaparameter entscheidet über drei Inseln vs.\ eine Region? \pkt{4}
+
+\begin{loes}
+Beim ersten geeigneten Verfahren (OCSVM-RBF) ist es \textbf{$\gamma$} -- die Breite der Glocke.
+\begin{itemize}
+\item \textbf{$\gamma$ zu klein} (Glocken zu breit): die drei Gruppen \textbf{verschmelzen zu einer
+  großen Region}, der leere Bereich wird mit abgedeckt $\Rightarrow$ Underfitting, $P_1$ rutscht
+  als normal durch -- das Verfahren verhält sich dann wie die Ellipse.
+\item \textbf{$\gamma$ zu groß} (Glocken zu schmal): die Regionen zerfallen in immer kleinere
+  Inseln, im Extremfall ein Kreis um jeden Trainingspunkt $\Rightarrow$ Overfitting, jeder neue
+  Punkt wird Anomalie, balanced accuracy 0,5.
+\end{itemize}
+(Bei kNN übernimmt \textbf{$k$} diese Rolle: zu groß mittelt über eine ganze Gruppe hinweg,
+$k=1$ macht das Modell rauschempfindlich.)
+\end{loes}
+
+\textbf{d)} 200 Merkmale, $10^6$ Punkte -- welches Verfahren, welche zwei Gegengründe? \pkt{3}
+
+\begin{loes}
+Wahl: \textbf{Isolation Forest}.
+\begin{enumerate}
+\item \textbf{Skalierung.} Der Trainingsaufwand der OCSVM wächst etwa quadratisch bis kubisch mit
+  der Punktzahl, und die Entscheidungsfunktion summiert bei jeder Abfrage über \emph{alle}
+  Support-Vektoren -- bei $10^6$ Punkten unbrauchbar. (kNN ist im Training billig, in der Anwendung
+  genauso langsam.)
+\item \textbf{Curse of Dimensionality.} Bei 200 Merkmalen werden alle paarweisen Abstände einander
+  ähnlich; RBF-Kernel und kNN-Abstand verlieren ihre Trennschärfe.
+\end{enumerate}
+Der Isolation Forest benutzt \textbf{keine Abstände}, sondern achsenparallele Splits je ein Merkmal,
+arbeitet mit Subsampling ($n_{\text{sub}} = 256$) und skaliert linear in $N$. Er braucht auch keine
+Normalisierung.
+\end{loes}
+
+\newpage
+\section*{Aufgabe 8 -- Kurzfragen quer durch die Vorlesung \pkt{10}}
+
+\textbf{a)} AnoGAN-Score, warum eine Optimierung nötig ist, was f-AnoGAN löst. \pkt{5}
+
+\begin{loes}
+\textbf{Berechnung.} Ein GAN kann nur in eine Richtung: $z \to$ Bild. Für ein neues Bild $x$ ist
+der Latentvektor unbekannt. Man hält deshalb \textbf{G und D fest} und sucht per
+\textbf{Gradientenabstieg im Latentraum} (im Praktikum $\approx500$ Iterationen) das $z$, dessen
+erzeugtes Bild $G(z)$ dem $x$ am ähnlichsten ist. Der Score ist die \textbf{verbleibende
+Restabweichung} aus zwei Teilen: dem \textbf{Residual-Anteil} (Unterschied zwischen $x$ und $G(z)$
+im Bild) und dem \textbf{Discriminator-Anteil} (Unterschied der Merkmale aus einer mittleren
+D-Schicht, \texttt{layers[-2]}), gewichtet mit $\lambda = 0{,}1$. Normale Bilder kann G gut
+nachbauen $\Rightarrow$ kleiner Rest; Anomalien liegen außerhalb der gelernten Verteilung
+$\Rightarrow$ großer Rest.
+
+\textbf{Warum eine Optimierung nötig ist.} Das GAN besitzt \textbf{kein inverses Mapping}
+Bild $\to z$ -- der Encoder-Weg fehlt konstruktionsbedingt. Das $z$ muss deshalb für \emph{jedes
+einzelne Testbild neu gesucht} werden; genau das macht AnoGAN in der Anwendung unpraktikabel
+langsam.
+
+\textbf{Was f-AnoGAN löst.} Es trainiert \textbf{zusätzlich einen Encoder} $E$, der $x$ direkt auf
+$z$ abbildet (izif-Training, G und D dabei fest). Danach ist der Score in \textbf{einem einzigen
+Vorwärtsdurchlauf} $x \to E(x) \to G(E(x))$ berechenbar -- aus hunderten Optimierungsschritten je
+Bild wird ein Netzaufruf.
+\end{loes}
+
+\textbf{b)} Zwei Diversitätsquellen des RandNet-Ensembles; warum Median statt Mittelwert? \pkt{4}
+
+\begin{loes}
+\textbf{Quelle 1 -- zufällige Verbindungsmasken.} Jede Schicht jedes Netzes bekommt
+\textbf{einmalig und fest} eine eigene binäre Maske auf die Gewichtsmatrix ($\approx37\,\%$ der
+Verbindungen gekappt, $\approx63\,\%$ überleben) $\Rightarrow$ jedes Netz hat eine \textbf{andere
+Architektur}. \emph{Nicht Dropout:} das trifft \textbf{Neuronen}, wird \textbf{pro Schritt neu}
+gewürfelt und ist in der Inferenz aus.
+
+\textbf{Quelle 2 -- unterschiedliche Trainingsdaten.} Jedes Netz trainiert auf einer anderen
+zufälligen \textbf{Teilmenge} (je etwa 10\,\% der Daten, Bagging).
+(Schwächer hinzu: die zufällige Gewichtsinitialisierung.)
+
+\textbf{Median statt Mittelwert.} Die Rekonstruktionsfehler werden je Netz auf Standardabweichung 1
+normiert und dann aggregiert. Ein einzelnes schlecht konvergiertes Netz kann für ein Sample einen
+\textbf{extremen} Fehler liefern; der Mittelwert würde davon nach oben gezogen, der \textbf{Median
+ist robust} dagegen. Genau diese Robustheit \emph{ist} die versprochene Stabilisierung des Scores.
+\end{loes}
+
+\textbf{c)} Vergleich GOAD und Deep SVDD.
+
+\begin{center}\small
+\begin{tabular}{|p{3.2cm}|p{5.7cm}|p{5.7cm}|}
+\hline
+ & \textbf{Deep SVDD} & \textbf{GOAD}\\ \hline
+Was bilden die Normaldaten im Latent Space?
+& \textcolor{loesfarbe}{\textbf{Eine} kompakte Kugel um ein festes Zentrum $c$.}
+& \textcolor{loesfarbe}{\textbf{$M$ Cluster} -- einen je Transformation, jeder um sein eigenes
+Zentrum.}\\ \hline
+Woher kommt das Lernsignal?
+& \textcolor{loesfarbe}{Allein aus dem \textbf{Abstand zu $c$}; die Zielfunktion zieht alle
+Normaldaten an $c$ heran. Keine Labels.}
+& \textcolor{loesfarbe}{Aus \textbf{selbst erzeugten Pseudo-Labels}: welche der $M$
+Transformationen wurde angewendet? Kreuzentropie darauf $+$ Triplet Center Loss $+$ $L_2$-Term auf
+die Latent-Vektoren.}\\ \hline
+Was ist die triviale Lösung, und was verhindert sie?
+& \textcolor{loesfarbe}{Die \textbf{konstante Abbildung} (Netz auf 0). Verhindert durch: kein Bias,
+keine gedeckelten Aktivierungen (LeakyReLU statt sigmoid/tanh), $c \neq 0$ und \textbf{einmal vor
+dem Training} gesetzt, danach nie geändert.}
+& \textcolor{loesfarbe}{Alle Transformationen auf \textbf{denselben} Punkt abzubilden. Verhindert
+durch die \textbf{Kreuzentropie}: die $M$ Cluster müssen unterscheidbar bleiben, während $L_{TC}$
+sie gleichzeitig dicht zusammenzieht.}\\ \hline
+Wie entsteht der Anomalie-Score?
+& \textcolor{loesfarbe}{\textbf{Abstand von $\varphi(x)$ zu $c$}. Der Radius $R$ als
+$(1-\nu)$-Quantil der Trainingsabstände legt die $\pm1$-Grenze fest -- verschiebt nur den
+Betriebspunkt, nicht die AUC.}
+& \textcolor{loesfarbe}{Alle $M$ Transformationen auf $x$ anwenden, jede Version im Latent Space
+verorten und prüfen, ob sie bei \textbf{ihrem eigenen} Zentrum landet; Score $=$ Summe der
+negativen Log-Wahrscheinlichkeiten.}\\ \hline
+\end{tabular}
+\end{center}
+
+\vspace{6pt}
+\noindent\rule{\linewidth}{0.8pt}
+\begin{center}\small
+Selbst erstellte Lösungen zur generierten Probeklausur 2 -- keine offizielle Musterlösung.
+\end{center}
+
+\end{document}

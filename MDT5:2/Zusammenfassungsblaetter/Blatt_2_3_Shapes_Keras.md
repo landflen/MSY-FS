@@ -148,5 +148,10 @@ Gefahr: Dead Neurons bei z≤0 → gute Initialisierung nötig: **He-Initialisie
 2. units der letzten Dense ≠ Klassenanzahl?
 3. Zu viel Pooling → räumliche Größe kleiner als Kernel / Faktor passt nicht zur Eingabegröße?
 4. Reshape/Flatten-Größe stimmt nicht mit H·W·C überein?
-5. Data Leakage: scaler.fit() / fit_transform() auf Testdaten? → fit nur auf Train, transform auf beide
-6. Augmentation, die das Label zerstört (z. B. 6 ↔ 9 bei Rotation)?
+5. **`Flatten()` fehlt ganz vor der ersten Dense?** Dense wirkt nur auf die **letzte Achse** —
+   aus 1×1×64 wird dann 1×1×5 statt (5,) und passt nicht zu den Labels. Kein Crash beim Bauen,
+   deshalb leicht zu übersehen.
+6. **Klassenanzahl vs. Loss:** 5 Klassen mit `binary_crossentropy` ist falsch — ab 3 Klassen
+   `categorical_crossentropy` (One-Hot) bzw. `sparse_categorical_crossentropy` (Integer-Labels).
+7. Data Leakage: scaler.fit() / fit_transform() auf Testdaten? → fit nur auf Train, transform auf beide
+8. Augmentation, die das Label zerstört (z. B. 6 ↔ 9 bei Rotation)?

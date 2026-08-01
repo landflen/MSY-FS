@@ -1,0 +1,425 @@
+%% AUTOMATISCH ERZEUGT von build_gesamtskript.py -- nicht von Hand editieren.
+%% Quelle: ../Skript mit Ergaenzungen/ (annotierte Foliensaetze), hier s01..s08.pdf
+\documentclass[10pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[landscape,a4paper,left=8mm,right=8mm,top=5mm,bottom=6mm]{geometry}
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\fboxsep}{0pt}
+\setlength{\fboxrule}{0.3pt}
+\setlength{\topskip}{0pt}
+
+\newlength{\folienbreite}\setlength{\folienbreite}{117mm}
+\newlength{\folienhoehe}\setlength{\folienhoehe}{87.75mm} %% 4:3 zu \folienbreite
+
+%% #1 Datei  #2 Seite  #3 Label  #4 laufende Foliennummer
+\newcommand{\folie}[4]{%
+  \begin{minipage}[t]{\folienbreite}\vspace{0pt}%
+    \fbox{\includegraphics[width=\dimexpr\folienbreite-2\fboxrule\relax,page=#2]{#1}}\\[0.8mm]
+    \makebox[\folienbreite][r]{\scriptsize #3~\textbf{#4}}%
+  \end{minipage}}
+
+\newcommand{\blatt}[1]{\par\vspace{2mm}\makebox[\linewidth][r]{\small\textbf{Blatt #1}}}
+
+\begin{document}
+{\centering
+\begin{minipage}[t]{\folienbreite}\vspace{0pt}%
+  \fbox{\begin{minipage}[t][\dimexpr2\folienhoehe+7mm\relax][t]{\dimexpr\folienbreite-2\fboxrule\relax}%
+    \vspace{5mm}\hspace{6mm}\begin{minipage}{\dimexpr\folienbreite-13mm\relax}
+      {\large\textbf{MDT5/2 -- Gesamtskript}}\\[1mm]
+      {\small Maschinelles Lernen zur Anomalieerkennung\\
+       Folien mit handschriftlichen Ergänzungen -- 265 Folien, 67 Blätter}\\[4mm]
+      \renewcommand{\arraystretch}{1.05}%
+      \setlength{\tabcolsep}{3pt}%
+      \footnotesize
+      \begin{tabular}{@{}llrr@{}}
+        \textbf{Kap.} & \textbf{Thema / Verfahren} & \textbf{Folien} & \textbf{Blätter}\\[0.4mm]
+        \hline\rule{0pt}{3.5mm}%
+        \textbf{01} & \textbf{Einführung} & 1--27 & 1--8 \\
+        & \quad KI, ML, Deep Learning & 1--19 & 1--6 \\
+        & \quad Anomalien \& Arten & 20--22 & 6--6 \\
+        & \quad Novelty vs. Outlier Detection & 23--26 & 7--7 \\
+        & \quad Übersicht der Ansätze & 27--27 & 8--8 \\
+        \textbf{02} & \textbf{Normalisierung} & 28--32 & 8--9 \\
+        \textbf{03} & \textbf{Neuronale Netze} & 33--88 & 9--23 \\
+        & \quad Neuron, Schicht, Netz & 33--40 & 9--11 \\
+        & \quad Aktivierungsfunktionen & 41--42 & 11--11 \\
+        & \quad Kostenfunktionen & 43--53 & 12--14 \\
+        & \quad Optimierung / SGD & 54--57 & 14--15 \\
+        & \quad Deep Learning, Unstable Gradients & 58--66 & 15--17 \\
+        & \quad ReLU & 67--67 & 18--18 \\
+        & \quad CNN / Faltung & 68--77 & 18--20 \\
+        & \quad Overfitting \& Regularisierung & 78--87 & 20--23 \\
+        & \quad Batch Normalization & 88--88 & 23--23 \\
+        \textbf{04} & \textbf{Abstandsbasiert} & 89--101 & 23--26 \\
+        & \quad k-Nearest-Neighbor & 89--94 & 23--24 \\
+        & \quad Isolation Forest & 95--101 & 25--26 \\
+        \textbf{05} & \textbf{Evaluierung} & 102--128 & 26--33 \\
+        & \quad Vorgehen \& Strategien & 102--112 & 26--29 \\
+        & \quad Novelty-CV in sklearn & 113--115 & 29--30 \\
+        & \quad Metriken & 116--125 & 30--32 \\
+        & \quad ROC / AUC & 126--128 & 32--33 \\
+        \textbf{06} & \textbf{Probabilistisch} & 129--153 & 33--39 \\
+        & \quad Dichte \& Normalverteilung & 129--139 & 33--36 \\
+        & \quad Mahalanobis / Ell. Envelope & 140--145 & 36--37 \\
+        & \quad Histogramm \& KDE & 146--150 & 37--38 \\
+        & \quad GMM / EM & 151--153 & 39--39 \\
+        \textbf{07} & \textbf{Rekonstruktion} & 154--202 & 39--51 \\
+        & \quad Dimensionsreduktion & 154--158 & 39--40 \\
+        & \quad Autoencoder (AE / CAE) & 159--169 & 41--43 \\
+        & \quad Ensembles / RandNet & 170--178 & 43--45 \\
+        & \quad GANs & 179--189 & 46--48 \\
+        & \quad AnoGAN & 190--195 & 48--50 \\
+        & \quad f-AnoGAN & 196--202 & 50--51 \\
+        \textbf{08} & \textbf{Klassifikation} & 203--265 & 52--67 \\
+        & \quad SVM (überwacht) & 203--223 & 52--57 \\
+        & \quad Kerneltrick / RBF & 224--232 & 57--59 \\
+        & \quad OC-SVM \& SVDD & 233--238 & 59--60 \\
+        & \quad Deep SVDD & 239--254 & 61--64 \\
+        & \quad GOAD & 255--260 & 65--66 \\
+        & \quad CutPaste & 261--265 & 66--67 \\
+      \end{tabular}
+    \end{minipage}\vfill
+  \end{minipage}}\\[0.8mm]
+  \makebox[\folienbreite][r]{\scriptsize Inhalt}%
+\end{minipage}\hspace{6mm}%
+\begin{minipage}[t]{\folienbreite}\vspace{0pt}%
+\folie{s01.pdf}{1}{Einführung -- Titel}{1}\\[3mm]
+\folie{s01.pdf}{4}{Einführung -- Was ist \glqq{}Künstliche Intelligenz\grqq{}?}{2}
+\end{minipage}\par}
+\blatt{1}
+\clearpage
+{\centering
+\folie{s01.pdf}{6}{Einführung -- Künstliche Intelligenz}{3}\hspace{6mm}\folie{s01.pdf}{7}{Einführung -- Mustererkennungspipeline}{4}\\[3mm]
+\folie{s01.pdf}{8}{Einführung -- Expertensystem}{5}\hspace{6mm}\folie{s01.pdf}{10}{Einführung -- Beispiel -- Vorverarbeitung}{6}\par}
+\blatt{2}
+\clearpage
+{\centering
+\folie{s01.pdf}{11}{Einführung -- Beispiel -- Merkmalsextraktion (1)}{7}\hspace{6mm}\folie{s01.pdf}{12}{Einführung -- Beispiel -- Merkmalsextraktion (2)}{8}\\[3mm]
+\folie{s01.pdf}{13}{Einführung -- Beispiel -- (wissensbassierte) Klassifikation}{9}\hspace{6mm}\folie{s01.pdf}{14}{Einführung -- Beispiel -- Steigende Komplexität}{10}\par}
+\blatt{3}
+\clearpage
+{\centering
+\folie{s01.pdf}{15}{Einführung -- Maschinelles Lernen (kein Deep Learning)}{11}\hspace{6mm}\folie{s01.pdf}{16}{Einführung -- Maschinelles Lernen (kein Deep Learning):}{12}\\[3mm]
+\folie{s01.pdf}{17}{Einführung -- Maschinelles Lernen (kein Deep Learning):}{13}\hspace{6mm}\folie{s01.pdf}{18}{Einführung -- Beispiel für Klassifikator: Support Vector Machine}{14}\par}
+\blatt{4}
+\clearpage
+{\centering
+\folie{s01.pdf}{19}{Einführung -- Maschinelles Lernen (kein Deep Learning):}{15}\hspace{6mm}\folie{s01.pdf}{20}{Einführung -- Deep Learning (als Teil des Maschinellen Lernens)}{16}\\[3mm]
+\folie{s01.pdf}{21}{Einführung -- Deep Learning: Training}{17}\hspace{6mm}\folie{s01.pdf}{22}{Einführung -- Deep Learning: Inference}{18}\par}
+\blatt{5}
+\clearpage
+{\centering
+\folie{s01.pdf}{23}{Einführung -- Arten des Maschinellen Lernens}{19}\hspace{6mm}\folie{s01.pdf}{24}{Einführung -- Was sind Anomalien?}{20}\\[3mm]
+\folie{s01.pdf}{25}{Einführung -- Was sind Anomalien?}{21}\hspace{6mm}\folie{s01.pdf}{27}{Einführung -- Arten von Anomalien}{22}\par}
+\blatt{6}
+\clearpage
+{\centering
+\folie{s01.pdf}{28}{Einführung -- Was ist Anomalieerkennung (bezogen auf ML)?}{23}\hspace{6mm}\folie{s01.pdf}{30}{Einführung -- Novelty- vs. Outlier-Detection}{24}\\[3mm]
+\folie{s01.pdf}{31}{Einführung -- Motivation für Novelty Detection}{25}\hspace{6mm}\folie{s01.pdf}{32}{Einführung -- Motivation für Outlier Detection}{26}\par}
+\blatt{7}
+\clearpage
+{\centering
+\folie{s01.pdf}{33}{Einführung -- Übersicht der Ansätze}{27}\hspace{6mm}\folie{s02.pdf}{1}{Normalisierung -- Titel}{28}\\[3mm]
+\folie{s02.pdf}{2}{Normalisierung -- Motivation}{29}\hspace{6mm}\folie{s02.pdf}{3}{Normalisierung -- Populäre Normalisierungen}{30}\par}
+\blatt{8}
+\clearpage
+{\centering
+\folie{s02.pdf}{4}{Normalisierung -- Beispiel}{31}\hspace{6mm}\folie{s02.pdf}{5}{Normalisierung -- Anwendung mit scikit-learn}{32}\\[3mm]
+\folie{s03.pdf}{1}{Neuronale Netze -- Titel}{33}\hspace{6mm}\folie{s03.pdf}{2}{Neuronale Netze -- Motivation}{34}\par}
+\blatt{9}
+\clearpage
+{\centering
+\folie{s03.pdf}{3}{Neuronale Netze -- Natürliches neuronales Netz}{35}\hspace{6mm}\folie{s03.pdf}{4}{Neuronale Netze -- Mathematische Formulierung eines Neurons}{36}\\[3mm]
+\folie{s03.pdf}{5}{Neuronale Netze -- Neuronales Netz}{37}\hspace{6mm}\folie{s03.pdf}{6}{Neuronale Netze -- Neuronales Netz}{38}\par}
+\blatt{10}
+\clearpage
+{\centering
+\folie{s03.pdf}{7}{Neuronale Netze -- Mathematische Formulierung einer Schicht}{39}\hspace{6mm}\folie{s03.pdf}{8}{Neuronale Netze -- Wie lernen Neuronale Netze?}{40}\\[3mm]
+\folie{s03.pdf}{9}{Neuronale Netze -- Aktivierungsfunktion}{41}\hspace{6mm}\folie{s03.pdf}{10}{Neuronale Netze -- Aktivierungsfunktion}{42}\par}
+\blatt{11}
+\clearpage
+{\centering
+\folie{s03.pdf}{11}{Neuronale Netze -- Regression: Netzausgabe}{43}\hspace{6mm}\folie{s03.pdf}{12}{Neuronale Netze -- Kostenfunktion bei Regression}{44}\\[3mm]
+\folie{s03.pdf}{13}{Neuronale Netze -- Binäre Klassifikation}{45}\hspace{6mm}\folie{s03.pdf}{14}{Neuronale Netze -- Kostenfunktion bei binärer Klassifikation}{46}\par}
+\blatt{12}
+\clearpage
+{\centering
+\folie{s03.pdf}{15}{Neuronale Netze -- Kostenfunktion bei binärer Klassifikation}{47}\hspace{6mm}\folie{s03.pdf}{16}{Neuronale Netze -- Kostenfunktion bei binärer Klassifikation}{48}\\[3mm]
+\folie{s03.pdf}{17}{Neuronale Netze -- Mehrklassen-Klassifikation}{49}\hspace{6mm}\folie{s03.pdf}{18}{Neuronale Netze -- Kostenfunktion bei Multi-Klassen Klassifikation}{50}\par}
+\blatt{13}
+\clearpage
+{\centering
+\folie{s03.pdf}{19}{Neuronale Netze -- Kostenfunktion bei Multi-Klassen Klassifikation}{51}\hspace{6mm}\folie{s03.pdf}{20}{Neuronale Netze -- Multi-Label Klassifikation}{52}\\[3mm]
+\folie{s03.pdf}{21}{Neuronale Netze -- Kostenfunktion bei Multi-Label}{53}\hspace{6mm}\folie{s03.pdf}{22}{Neuronale Netze -- Optimierung in allen Fällen}{54}\par}
+\blatt{14}
+\clearpage
+{\centering
+\folie{s03.pdf}{23}{Neuronale Netze -- Stochastic Gradient Descent}{55}\hspace{6mm}\folie{s03.pdf}{24}{Neuronale Netze -- Notizen: Trainings-/Validierungs-/Testdaten}{56}\\[3mm]
+\folie{s03.pdf}{25}{Neuronale Netze -- Neuronale Netze mit TensorFlow}{57}\hspace{6mm}\folie{s03.pdf}{26}{Neuronale Netze -- Vom \glqq{}Vanilla\grqq{} Neuronalen Netz zu Deep L\dots}{58}\par}
+\blatt{15}
+\clearpage
+{\centering
+\folie{s03.pdf}{27}{Neuronale Netze -- Deep Learning -- Tiefe neuronale Netze}{59}\hspace{6mm}\folie{s03.pdf}{28}{Neuronale Netze -- Lerngeschwindigkeit der Biases}{60}\\[3mm]
+\folie{s03.pdf}{29}{Neuronale Netze -- Vereinfachtes Neuronales Netz}{61}\hspace{6mm}\folie{s03.pdf}{30}{Neuronale Netze -- Berechnung der Gradienten}{62}\par}
+\blatt{16}
+\clearpage
+{\centering
+\folie{s03.pdf}{31}{Neuronale Netze -- Berechnung der Gradienten}{63}\hspace{6mm}\folie{s03.pdf}{32}{Neuronale Netze -- Unstable Gradient}{64}\\[3mm]
+\folie{s03.pdf}{33}{Neuronale Netze -- Vanishing Gradient aufgrund der bisherigen Aktivier\dots}{65}\hspace{6mm}\folie{s03.pdf}{34}{Neuronale Netze -- Vanishing Gradient aufgrund der bisherigen Aktivier\dots}{66}\par}
+\blatt{17}
+\clearpage
+{\centering
+\folie{s03.pdf}{35}{Neuronale Netze -- Stabilere Aktivierungsfunktion für Hidden Layers}{67}\hspace{6mm}\folie{s03.pdf}{36}{Neuronale Netze -- Convolutional Neural Networks (CNNs) für 1D-Daten}{68}\\[3mm]
+\folie{s03.pdf}{37}{Neuronale Netze -- CNNs für 2D-Daten (vor allem Bilder)}{69}\hspace{6mm}\folie{s03.pdf}{38}{Neuronale Netze -- Faltungskern / Sobel-Filter}{70}\par}
+\blatt{18}
+\clearpage
+{\centering
+\folie{s03.pdf}{39}{Neuronale Netze -- Ein-Kanal-Faltung}{71}\hspace{6mm}\folie{s03.pdf}{40}{Neuronale Netze -- Mehrkanalfaltung pro Schicht}{72}\\[3mm]
+\folie{s03.pdf}{41}{Neuronale Netze -- Mehrkanalfaltung pro Schicht}{73}\hspace{6mm}\folie{s03.pdf}{42}{Neuronale Netze -- Padding}{74}\par}
+\blatt{19}
+\clearpage
+{\centering
+\folie{s03.pdf}{43}{Neuronale Netze -- Subsampling}{75}\hspace{6mm}\folie{s03.pdf}{44}{Neuronale Netze -- Anwendung eines CNNs}{76}\\[3mm]
+\folie{s03.pdf}{45}{Neuronale Netze -- Beispiel für ein nicht allzu tiefes CNN}{77}\hspace{6mm}\folie{s03.pdf}{46}{Neuronale Netze -- Neuronale Netze neigen sehr zu Overfitting}{78}\par}
+\blatt{20}
+\clearpage
+{\centering
+\folie{s03.pdf}{47}{Neuronale Netze -- Erinnerung: Lineare Regression mit Polynomen}{79}\hspace{6mm}\folie{s03.pdf}{48}{Neuronale Netze -- Regularisierung: L2-Regularisierung bzw. Weight Dec\dots}{80}\\[3mm]
+\folie{s03.pdf}{49}{Neuronale Netze -- Beispiel}{81}\hspace{6mm}\folie{s03.pdf}{50}{Neuronale Netze -- Regularisierung: Dropout}{82}\par}
+\blatt{21}
+\clearpage
+{\centering
+\folie{s03.pdf}{51}{Neuronale Netze -- Regularisierung: Dropout}{83}\hspace{6mm}\folie{s03.pdf}{52}{Neuronale Netze -- Beispiel}{84}\\[3mm]
+\folie{s03.pdf}{53}{Neuronale Netze -- Regularisierung: Data Augmentation}{85}\hspace{6mm}\folie{s03.pdf}{54}{Neuronale Netze -- Data Augmentation -- Artefakte}{86}\par}
+\blatt{22}
+\clearpage
+{\centering
+\folie{s03.pdf}{55}{Neuronale Netze -- Beispiel}{87}\hspace{6mm}\folie{s03.pdf}{56}{Neuronale Netze -- Normalisierung: Batch Normalization}{88}\\[3mm]
+\folie{s04.pdf}{1}{Abstandsbasiert -- Titel}{89}\hspace{6mm}\folie{s04.pdf}{2}{Abstandsbasiert -- Motivation}{90}\par}
+\blatt{23}
+\clearpage
+{\centering
+\folie{s04.pdf}{3}{Abstandsbasiert -- Übersicht}{91}\hspace{6mm}\folie{s04.pdf}{4}{Abstandsbasiert -- Nearest Neighbor}{92}\\[3mm]
+\folie{s04.pdf}{5}{Abstandsbasiert -- k-Nearest-Neighbor}{93}\hspace{6mm}\folie{s04.pdf}{6}{Abstandsbasiert -- Fazit kNN}{94}\par}
+\blatt{24}
+\clearpage
+{\centering
+\folie{s04.pdf}{7}{Abstandsbasiert -- Isolation Forest (iForest)}{95}\hspace{6mm}\folie{s04.pdf}{8}{Abstandsbasiert -- Isolation Forests [2]}{96}\\[3mm]
+\folie{s04.pdf}{9}{Abstandsbasiert -- Isolation Forests}{97}\hspace{6mm}\folie{s04.pdf}{10}{Abstandsbasiert -- Isolation Forests}{98}\par}
+\blatt{25}
+\clearpage
+{\centering
+\folie{s04.pdf}{11}{Abstandsbasiert -- Isolation Forests}{99}\hspace{6mm}\folie{s04.pdf}{12}{Abstandsbasiert -- Isolation Forests}{100}\\[3mm]
+\folie{s04.pdf}{13}{Abstandsbasiert -- Isolation Forests}{101}\hspace{6mm}\folie{s05.pdf}{1}{Evaluierung -- Titel}{102}\par}
+\blatt{26}
+\clearpage
+{\centering
+\folie{s05.pdf}{2}{Evaluierung -- Motivation}{103}\hspace{6mm}\folie{s05.pdf}{3}{Evaluierung -- Bias-Variance-Tradeoff}{104}\\[3mm]
+\folie{s05.pdf}{4}{Evaluierung -- Generelles Vorgehen bei Evaluierung}{105}\hspace{6mm}\folie{s05.pdf}{5}{Evaluierung -- Evaluierungsschritte}{106}\par}
+\blatt{27}
+\clearpage
+{\centering
+\folie{s05.pdf}{6}{Evaluierung -- Datenaufteilung mit scikit-learn}{107}\hspace{6mm}\folie{s05.pdf}{7}{Evaluierung -- Evaluierungsstrategien}{108}\\[3mm]
+\folie{s05.pdf}{8}{Evaluierung -- k-Fold Cross Validation}{109}\hspace{6mm}\folie{s05.pdf}{9}{Evaluierung -- Metaparameteroptimierung}{110}\par}
+\blatt{28}
+\clearpage
+{\centering
+\folie{s05.pdf}{10}{Evaluierung -- Anwendung in scikit-learn}{111}\hspace{6mm}\folie{s05.pdf}{11}{Evaluierung -- Formal korrekte Evaluierung (sklearn)}{112}\\[3mm]
+\folie{s05.pdf}{12}{Evaluierung -- Vorsicht: Novelty Detection in sklearn}{113}\hspace{6mm}\folie{s05.pdf}{13}{Evaluierung -- Vorsicht: Novelty Detection in sklearn}{114}\par}
+\blatt{29}
+\clearpage
+{\centering
+\folie{s05.pdf}{14}{Evaluierung -- Vorsicht: Novelty Detection in sklearn}{115}\hspace{6mm}\folie{s05.pdf}{15}{Evaluierung -- Metriken}{116}\\[3mm]
+\folie{s05.pdf}{16}{Evaluierung -- Confusion Matrix}{117}\hspace{6mm}\folie{s05.pdf}{17}{Evaluierung -- Sensitivität und Spezifizität}{118}\par}
+\blatt{30}
+\clearpage
+{\centering
+\folie{s05.pdf}{18}{Evaluierung -- Accuracy}{119}\hspace{6mm}\folie{s05.pdf}{19}{Evaluierung -- Balanced Accuracy}{120}\\[3mm]
+\folie{s05.pdf}{20}{Evaluierung -- Precision und Recall}{121}\hspace{6mm}\folie{s05.pdf}{21}{Evaluierung -- F-Maß}{122}\par}
+\blatt{31}
+\clearpage
+{\centering
+\folie{s05.pdf}{22}{Evaluierung -- Bisherige Metriken im Vergleich}{123}\hspace{6mm}\folie{s05.pdf}{23}{Evaluierung -- Anwendung in scikit-learn}{124}\\[3mm]
+\folie{s05.pdf}{24}{Evaluierung -- Anwendung in Tensorflow}{125}\hspace{6mm}\folie{s05.pdf}{25}{Evaluierung -- ROC-Curve}{126}\par}
+\blatt{32}
+\clearpage
+{\centering
+\folie{s05.pdf}{26}{Evaluierung -- Anwendung in scikit-learn}{127}\hspace{6mm}\folie{s05.pdf}{27}{Evaluierung -- Fazit}{128}\\[3mm]
+\folie{s06.pdf}{1}{Probabilistisch -- Titel}{129}\hspace{6mm}\folie{s06.pdf}{2}{Probabilistisch -- Beispiel: Intuitives Vorgehen}{130}\par}
+\blatt{33}
+\clearpage
+{\centering
+\folie{s06.pdf}{3}{Probabilistisch -- Mathematischer Hintergrund}{131}\hspace{6mm}\folie{s06.pdf}{4}{Probabilistisch -- Herausforderungen}{132}\\[3mm]
+\folie{s06.pdf}{5}{Probabilistisch -- Wahrscheinlichkeitsdichtefunktion}{133}\hspace{6mm}\folie{s06.pdf}{6}{Probabilistisch -- Univariate PDF der Normalverteilung}{134}\par}
+\blatt{34}
+\clearpage
+{\centering
+\folie{s06.pdf}{7}{Probabilistisch -- PDF der Normalverteilung: Parametereinfluss}{135}\hspace{6mm}\folie{s06.pdf}{8}{Probabilistisch -- Mischverteilung / bimodale Dichte}{136}\\[3mm]
+\folie{s06.pdf}{9}{Probabilistisch -- Multivariate PDF der Normalverteilung}{137}\hspace{6mm}\folie{s06.pdf}{10}{Probabilistisch -- Annahmen in dieser Veranstaltung}{138}\par}
+\blatt{35}
+\clearpage
+{\centering
+\folie{s06.pdf}{11}{Probabilistisch -- Übersicht}{139}\hspace{6mm}\folie{s06.pdf}{12}{Probabilistisch -- Einfache Herangehensweise}{140}\\[3mm]
+\folie{s06.pdf}{14}{Probabilistisch -- Einfache Umsetzung für Novelty Detection}{141}\hspace{6mm}\folie{s06.pdf}{15}{Probabilistisch -- Verbesserung durch Mahalanobis-Distanz}{142}\par}
+\blatt{36}
+\clearpage
+{\centering
+\folie{s06.pdf}{16}{Probabilistisch -- Anwendung des Mahalanobis-Abstands}{143}\hspace{6mm}\folie{s06.pdf}{17}{Probabilistisch -- Ausdehnung an Normaldaten anpassen}{144}\\[3mm]
+\folie{s06.pdf}{18}{Probabilistisch -- Anwendung des Elliptic Envelopes}{145}\hspace{6mm}\folie{s06.pdf}{19}{Probabilistisch -- Histogramme}{146}\par}
+\blatt{37}
+\clearpage
+{\centering
+\folie{s06.pdf}{20}{Probabilistisch -- Dichteschätzung mittels Histogramm}{147}\hspace{6mm}\folie{s06.pdf}{21}{Probabilistisch -- Kernel Density Estimation (KDE) / Parzen-Fenster-Me\dots}{148}\\[3mm]
+\folie{s06.pdf}{22}{Probabilistisch -- KDE: Bandbreite als Metaparameter}{149}\hspace{6mm}\folie{s06.pdf}{23}{Probabilistisch -- KDE mit 2D-Beispiel}{150}\par}
+\blatt{38}
+\clearpage
+{\centering
+\folie{s06.pdf}{24}{Probabilistisch -- GMM als EM-Clustering}{151}\hspace{6mm}\folie{s06.pdf}{25}{Probabilistisch -- Gaussian Mixture Models (GMMs)}{152}\\[3mm]
+\folie{s06.pdf}{26}{Probabilistisch -- Gaussian Mixture Models (GMMs)}{153}\hspace{6mm}\folie{s07.pdf}{1}{Rekonstruktion -- Titel}{154}\par}
+\blatt{39}
+\clearpage
+{\centering
+\folie{s07.pdf}{2}{Rekonstruktion -- Fluch der Dimensionalität}{155}\hspace{6mm}\folie{s07.pdf}{3}{Rekonstruktion -- Dimensionsreduktion}{156}\\[3mm]
+\folie{s07.pdf}{4}{Rekonstruktion -- Rekonstruktion zur Anomalieerkennung}{157}\hspace{6mm}\folie{s07.pdf}{5}{Rekonstruktion -- Übersicht}{158}\par}
+\blatt{40}
+\clearpage
+{\centering
+\folie{s07.pdf}{6}{Rekonstruktion -- Autoencoder}{159}\hspace{6mm}\folie{s07.pdf}{7}{Rekonstruktion -- Motivation für Autoencoder}{160}\\[3mm]
+\folie{s07.pdf}{8}{Rekonstruktion -- Grundsätzliches Prinzip}{161}\hspace{6mm}\folie{s07.pdf}{9}{Rekonstruktion -- Autoencoder (AE)}{162}\par}
+\blatt{41}
+\clearpage
+{\centering
+\folie{s07.pdf}{10}{Rekonstruktion -- Traditionelle Anwendungen für einen Autoencoder}{163}\hspace{6mm}\folie{s07.pdf}{11}{Rekonstruktion -- Autoencoder in der Novelty Detection}{164}\\[3mm]
+\folie{s07.pdf}{12}{Rekonstruktion -- Convolutional Autoencoder (CAE)}{165}\hspace{6mm}\folie{s07.pdf}{13}{Rekonstruktion -- Faltung als Matrix-Operation}{166}\par}
+\blatt{42}
+\clearpage
+{\centering
+\folie{s07.pdf}{14}{Rekonstruktion -- Transponierte Faltung}{167}\hspace{6mm}\folie{s07.pdf}{15}{Rekonstruktion -- Transponierte Faltung}{168}\\[3mm]
+\folie{s07.pdf}{16}{Rekonstruktion -- Beispiel für CAE}{169}\hspace{6mm}\folie{s07.pdf}{17}{Rekonstruktion -- Ensembles von Autoencodern}{170}\par}
+\blatt{43}
+\clearpage
+{\centering
+\folie{s07.pdf}{18}{Rekonstruktion -- Ensembles von Autoencodern}{171}\hspace{6mm}\folie{s07.pdf}{19}{Rekonstruktion -- RandNet-Schichten}{172}\\[3mm]
+\folie{s07.pdf}{20}{Rekonstruktion -- Beispielhafte Umsetzung}{173}\hspace{6mm}\folie{s07.pdf}{21}{Rekonstruktion -- Beispielhafte Umsetzung}{174}\par}
+\blatt{44}
+\clearpage
+{\centering
+\folie{s07.pdf}{22}{Rekonstruktion -- Beispielhafte Umsetzung}{175}\hspace{6mm}\folie{s07.pdf}{23}{Rekonstruktion -- Beispielhafte Umsetzung}{176}\\[3mm]
+\folie{s07.pdf}{24}{Rekonstruktion -- Architektur von RandNet}{177}\hspace{6mm}\folie{s07.pdf}{25}{Rekonstruktion -- Verwendung des Ensembles}{178}\par}
+\blatt{45}
+\clearpage
+{\centering
+\folie{s07.pdf}{26}{Rekonstruktion -- Generative Adversarial Networks (GANs)}{179}\hspace{6mm}\folie{s07.pdf}{27}{Rekonstruktion -- Generative Adversarial Networks (GANs) [2]}{180}\\[3mm]
+\folie{s07.pdf}{28}{Rekonstruktion -- GAN -- Trainingsaufbau}{181}\hspace{6mm}\folie{s07.pdf}{29}{Rekonstruktion -- Beispielhafter Aufbau}{182}\par}
+\blatt{46}
+\clearpage
+{\centering
+\folie{s07.pdf}{30}{Rekonstruktion -- GANs in TensorFlow}{183}\hspace{6mm}\folie{s07.pdf}{31}{Rekonstruktion -- GANs in TensorFlow}{184}\\[3mm]
+\folie{s07.pdf}{32}{Rekonstruktion -- GANs in TensorFlow}{185}\hspace{6mm}\folie{s07.pdf}{33}{Rekonstruktion -- GANs in TensorFlow}{186}\par}
+\blatt{47}
+\clearpage
+{\centering
+\folie{s07.pdf}{34}{Rekonstruktion -- Vorteile der GANs}{187}\hspace{6mm}\folie{s07.pdf}{35}{Rekonstruktion -- Nachteile der GANs}{188}\\[3mm]
+\folie{s07.pdf}{36}{Rekonstruktion -- Empfehlungen für Deep Convolutional GANs (DCGANs)}{189}\hspace{6mm}\folie{s07.pdf}{37}{Rekonstruktion -- Anomalieerkennung mit AnoGAN [4]}{190}\par}
+\blatt{48}
+\clearpage
+{\centering
+\folie{s07.pdf}{38}{Rekonstruktion -- Anomalieerkennung mit AnoGAN}{191}\hspace{6mm}\folie{s07.pdf}{39}{Rekonstruktion -- Anomalieerkennung mit AnoGAN}{192}\\[3mm]
+\folie{s07.pdf}{40}{Rekonstruktion -- AnoGAN mit TensorFlow}{193}\hspace{6mm}\folie{s07.pdf}{41}{Rekonstruktion -- AnoGAN mit TensorFlow}{194}\par}
+\blatt{49}
+\clearpage
+{\centering
+\folie{s07.pdf}{42}{Rekonstruktion -- AnoGAN mit TensorFlow}{195}\hspace{6mm}\folie{s07.pdf}{43}{Rekonstruktion -- Verbesserung mit f-AnoGAN [5]}{196}\\[3mm]
+\folie{s07.pdf}{44}{Rekonstruktion -- Verbesserung mit f-AnoGAN}{197}\hspace{6mm}\folie{s07.pdf}{45}{Rekonstruktion -- Verbesserung mit f-AnoGAN}{198}\par}
+\blatt{50}
+\clearpage
+{\centering
+\folie{s07.pdf}{46}{Rekonstruktion -- f-AnoGAN mit TensorFlow}{199}\hspace{6mm}\folie{s07.pdf}{47}{Rekonstruktion -- f-AnoGAN mit TensorFlow}{200}\\[3mm]
+\folie{s07.pdf}{48}{Rekonstruktion -- f-AnoGAN mit TensorFlow}{201}\hspace{6mm}\folie{s07.pdf}{49}{Rekonstruktion -- f-AnoGAN mit TensorFlow}{202}\par}
+\blatt{51}
+\clearpage
+{\centering
+\folie{s08.pdf}{1}{Klassifikation -- Titel}{203}\hspace{6mm}\folie{s08.pdf}{2}{Klassifikation -- Klassifikationsbasierte Verfahren}{204}\\[3mm]
+\folie{s08.pdf}{3}{Klassifikation -- Übersicht der Ansätze}{205}\hspace{6mm}\folie{s08.pdf}{4}{Klassifikation -- One Class Support Vector Machine}{206}\par}
+\blatt{52}
+\clearpage
+{\centering
+\folie{s08.pdf}{5}{Klassifikation -- Wiederholung: Hessesche Normalform}{207}\hspace{6mm}\folie{s08.pdf}{6}{Klassifikation -- Überwachtes Lernen mit zwei Klassen}{208}\\[3mm]
+\folie{s08.pdf}{7}{Klassifikation -- Wo liegt die optimale Trennebene?}{209}\hspace{6mm}\folie{s08.pdf}{8}{Klassifikation -- Linear trennbarer Fall}{210}\par}
+\blatt{53}
+\clearpage
+{\centering
+\folie{s08.pdf}{9}{Klassifikation -- Linear trennbarer Fall}{211}\hspace{6mm}\folie{s08.pdf}{10}{Klassifikation -- Nicht-trennbarer Fall}{212}\\[3mm]
+\folie{s08.pdf}{11}{Klassifikation -- Optimierung der linearen SVM}{213}\hspace{6mm}\folie{s08.pdf}{12}{Klassifikation -- Pegasos-Algorithmus (eine Variante)}{214}\par}
+\blatt{54}
+\clearpage
+{\centering
+\folie{s08.pdf}{13}{Klassifikation -- Wo liegen die Support Vektoren?}{215}\hspace{6mm}\folie{s08.pdf}{14}{Klassifikation -- Veränderung der Trennebene}{216}\\[3mm]
+\folie{s08.pdf}{15}{Klassifikation -- Nicht-lineare Trennung}{217}\hspace{6mm}\folie{s08.pdf}{16}{Klassifikation -- Nicht-lineare Trennung}{218}\par}
+\blatt{55}
+\clearpage
+{\centering
+\folie{s08.pdf}{17}{Klassifikation -- Nicht-lineare Trennung}{219}\hspace{6mm}\folie{s08.pdf}{18}{Klassifikation -- Nicht-lineare Trennung}{220}\\[3mm]
+\folie{s08.pdf}{19}{Klassifikation -- Nicht-lineare Trennung}{221}\hspace{6mm}\folie{s08.pdf}{20}{Klassifikation -- Notizen: Lagrange / Optimierung}{222}\par}
+\blatt{56}
+\clearpage
+{\centering
+\folie{s08.pdf}{21}{Klassifikation -- Nicht-lineare Trennung}{223}\hspace{6mm}\folie{s08.pdf}{22}{Klassifikation -- Kerneltrick}{224}\\[3mm]
+\folie{s08.pdf}{23}{Klassifikation -- Kernelfunktionen}{225}\hspace{6mm}\folie{s08.pdf}{24}{Klassifikation -- Radiale Basisfunktionen (allgemein)}{226}\par}
+\blatt{57}
+\clearpage
+{\centering
+\folie{s08.pdf}{25}{Klassifikation -- Seite 24}{227}\hspace{6mm}\folie{s08.pdf}{26}{Klassifikation -- Transformation des RBF-Kernels}{228}\\[3mm]
+\folie{s08.pdf}{27}{Klassifikation -- Transformation des RBF-Kernels}{229}\hspace{6mm}\folie{s08.pdf}{28}{Klassifikation -- Beispiele}{230}\par}
+\blatt{58}
+\clearpage
+{\centering
+\folie{s08.pdf}{29}{Klassifikation -- Erweiterung}{231}\hspace{6mm}\folie{s08.pdf}{30}{Klassifikation -- Fazit für überwachtes Lernen}{232}\\[3mm]
+\folie{s08.pdf}{31}{Klassifikation -- One-Class-SVM (OC-SVM) [1]}{233}\hspace{6mm}\folie{s08.pdf}{32}{Klassifikation -- OC-SVM mit Beispielen zur Metaparameterwahl}{234}\par}
+\blatt{59}
+\clearpage
+{\centering
+\folie{s08.pdf}{33}{Klassifikation -- Support Vector Data Description (SVDD) [3]}{235}\hspace{6mm}\folie{s08.pdf}{34}{Klassifikation -- Klassifikationsbasierte Novelty Detection}{236}\\[3mm]
+\folie{s08.pdf}{35}{Klassifikation -- Motivation}{237}\hspace{6mm}\folie{s08.pdf}{36}{Klassifikation -- Klassifikationsbasierte Deep Learning Verfahren}{238}\par}
+\blatt{60}
+\clearpage
+{\centering
+\folie{s08.pdf}{37}{Klassifikation -- Deep SVDD}{239}\hspace{6mm}\folie{s08.pdf}{38}{Klassifikation -- Deep SVDD: Ziel}{240}\\[3mm]
+\folie{s08.pdf}{39}{Klassifikation -- Deep SVDD: Zielfunktion}{241}\hspace{6mm}\folie{s08.pdf}{40}{Klassifikation -- Training einer Deep SVDD}{242}\par}
+\blatt{61}
+\clearpage
+{\centering
+\folie{s08.pdf}{41}{Klassifikation -- Training einer Deep SVDD}{243}\hspace{6mm}\folie{s08.pdf}{42}{Klassifikation -- Training einer Deep SVDD}{244}\\[3mm]
+\folie{s08.pdf}{43}{Klassifikation -- Training einer Deep SVDD}{245}\hspace{6mm}\folie{s08.pdf}{44}{Klassifikation -- Anwendung einer Deep SVDD}{246}\par}
+\blatt{62}
+\clearpage
+{\centering
+\folie{s08.pdf}{45}{Klassifikation -- Beispiel für Deep SVDD in TensorFlow}{247}\hspace{6mm}\folie{s08.pdf}{46}{Klassifikation -- Beispiel für Deep SVDD in TensorFlow}{248}\\[3mm]
+\folie{s08.pdf}{47}{Klassifikation -- Beispiel für Deep SVDD in TensorFlow}{249}\hspace{6mm}\folie{s08.pdf}{48}{Klassifikation -- Beispiel für Deep SVDD in TensorFlow}{250}\par}
+\blatt{63}
+\clearpage
+{\centering
+\folie{s08.pdf}{49}{Klassifikation -- Beispiel für Deep SVDD in TensorFlow}{251}\hspace{6mm}\folie{s08.pdf}{50}{Klassifikation -- Beispiel für Deep SVDD in TensorFlow}{252}\\[3mm]
+\folie{s08.pdf}{51}{Klassifikation -- Selbstüberwachtes Lernen}{253}\hspace{6mm}\folie{s08.pdf}{52}{Klassifikation -- Selbstüberwachtes Lernen}{254}\par}
+\blatt{64}
+\clearpage
+{\centering
+\folie{s08.pdf}{53}{Klassifikation -- GOAD}{255}\hspace{6mm}\folie{s08.pdf}{54}{Klassifikation -- GOAD [6]}{256}\\[3mm]
+\folie{s08.pdf}{55}{Klassifikation -- GOAD: Training (1)}{257}\hspace{6mm}\folie{s08.pdf}{56}{Klassifikation -- GOAD: Training (2)}{258}\par}
+\blatt{65}
+\clearpage
+{\centering
+\folie{s08.pdf}{57}{Klassifikation -- GOAD: Anwendung auf neue Samples}{259}\hspace{6mm}\folie{s08.pdf}{58}{Klassifikation -- GOAD: Verallgemeinerung auf nicht-Bilddaten}{260}\\[3mm]
+\folie{s08.pdf}{59}{Klassifikation -- CutPaste [6]}{261}\hspace{6mm}\folie{s08.pdf}{60}{Klassifikation -- CutPaste [6]}{262}\par}
+\blatt{66}
+\clearpage
+{\centering
+\folie{s08.pdf}{61}{Klassifikation -- CutPaste [6]}{263}\hspace{6mm}\folie{s08.pdf}{62}{Klassifikation -- CutPaste: Beispielbilder}{264}\\[3mm]
+\folie{s08.pdf}{63}{Klassifikation -- CutPaste}{265}\hspace{6mm}\hspace{\folienbreite}\par}
+\blatt{67}
+\end{document}

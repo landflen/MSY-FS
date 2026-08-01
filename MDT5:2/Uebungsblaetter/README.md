@@ -17,6 +17,7 @@ Kompilieren: `pdflatex <datei>.tex` (zweimal ausführen). Blatt 1 ist bereits al
 | 7 | Session07_GANs.tex | Kap. 7: GAN, DCGAN, AnoGAN, f-AnoGAN | 08 | Mo 27.7. |
 | 8 | Session08_SVM_OCSVM.tex | Kap. 8: SVM, Kernel-Trick, OC-SVM, SVDD | 09 | Di 28.7. vorm. |
 | 10 | Session10_DeepSVDD_GOAD.tex | Kap. 8/8a: Deep SVDD, GOAD, CutPaste | 10+11 | Mi 29.7. vorm. |
+| PK2 | Probeklausur_2.tex (+PDF) | **Ganze Klausur, 125 P / 120 min**, Kap. 1–8 nach der vom Prof. angedeuteten Struktur (MC 21 P · Shapes · Fehler finden · Programmieren · Histogramm · SVM/OCSVM · Verfahrenswahl · Kurzfragen) | alle | Do 30.7. nachm. |
 
 > **Session 9 (Clustering/PCA) gestrichen (Klammer-Regel 23.7.):** k-Means, Silhouette und PCA sind nicht klausurrelevant. Übungsblatt Session09 und die zugehörige Rechenaufgabe entfallen.
 

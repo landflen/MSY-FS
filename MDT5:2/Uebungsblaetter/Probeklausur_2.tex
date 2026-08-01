@@ -1,0 +1,563 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage[margin=1.7cm,top=1.5cm,bottom=1.7cm]{geometry}
+\usepackage{titlesec}
+\titleformat*{\section}{\normalfont\large\bfseries}
+\titleformat*{\subsection}{\normalfont\normalsize\bfseries}
+\titlespacing*{\section}{0pt}{8pt}{3pt}
+\titlespacing*{\subsection}{0pt}{6pt}{2pt}
+\usepackage{amsmath,amssymb}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+\usepackage{needspace}
+\usepackage{tikz}
+\usepackage{array}
+
+\newcommand{\mcbox}{\raisebox{-1pt}{\fbox{\rule{0pt}{7pt}\rule{7pt}{0pt}}}\hspace{6pt}}
+\newcommand{\antwortlinien}[1]{%
+  \par\vspace{2pt}%
+  \newcount\zeilen \zeilen=#1
+  \loop
+    \noindent\rule{\linewidth}{0.4pt}\par\vspace{11pt}%
+    \advance\zeilen by -1
+  \ifnum\zeilen>0 \repeat
+}
+\newcommand{\pkt}[1]{\hfill\textbf{(#1 P)}}
+\lstset{language=Python,basicstyle=\ttfamily\footnotesize,keywordstyle=\bfseries,
+  commentstyle=\itshape\color{gray},showstringspaces=false,frame=single,
+  framerule=0.3pt,xleftmargin=8pt,framexleftmargin=6pt,aboveskip=6pt,belowskip=6pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small MDT5/2 -- Probeklausur 2 (generiert)}
+\fancyhead[R]{\small Maschinelles Lernen zur Anomalieerkennung}
+\fancyfoot[C]{\small Seite \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+\begin{center}
+  {\Large\bfseries Probeklausur 2}\\[4pt]
+  {\large Maschinelles Lernen zur Anomalieerkennung -- Kapitel 1--8}\\[6pt]
+  \begin{tabular}{@{}ll@{}}
+  \textbf{Bearbeitungszeit:} & 120 Minuten (bewusst mehr als die echten 90)\\
+  \textbf{Hilfsmittel:} & Skript (ausgedruckt) + handgeschriebene Blätter. \textbf{Keine Praktika.}\\
+  \textbf{Gesamtpunktzahl:} & 125 Punkte\\
+  \end{tabular}
+\end{center}
+
+\vspace{2pt}
+\noindent\rule{\linewidth}{0.8pt}
+\emph{Hinweis zur Bewertung von Aufgabe 1: Für ein richtiges Kreuz \textbf{mit} passender Begründung
+gibt es 3 Punkte, für eine richtige Begründung \textbf{allein} 1 Punkt -- auch wenn das Kreuz falsch
+gesetzt wurde. Ein Kreuz ohne Begründung gibt 0 Punkte.}
+
+\noindent\rule{\linewidth}{0.8pt}
+
+\section*{Aufgabe 1 -- Multiple Choice mit Begründung \pkt{21}}
+\emph{Markieren Sie jeweils die einzige richtige von drei Aussagen und begründen Sie Ihre
+Entscheidung in ein bis zwei Sätzen.}
+
+\subsection*{1.1 \ Für die Normalisierung von Merkmalen gilt:}
+\mcbox Eine z-Transformation (\texttt{StandardScaler}) bildet die Merkmale \textbf{immer} auf den
+Bereich $[-1, 1]$ ab.
+
+\mcbox Für den Isolation Forest ist eine Normalisierung \textbf{essentiell}, weil er die Abstände
+zwischen den Punkten auswertet.
+
+\mcbox Für abstandsbasierte Verfahren ist eine Normalisierung nötig, weil sonst das Merkmal mit
+dem größten Wertebereich den Abstand dominiert.
+
+Begründung:
+\antwortlinien{2}
+
+\subsection*{1.2 \ Für den Parameter \texttt{contamination} der Elliptic Envelope gilt:}
+\mcbox \texttt{contamination} gibt die Anzahl der erwarteten Ausreißer im Datensatz an und
+verändert den Kovarianz-Fit.
+
+\mcbox \texttt{contamination} ist ein Anteil und wirkt als Schwellwert; die AUC des Modells
+ändert sich dadurch \textbf{nicht}.
+
+\mcbox \texttt{contamination} ist ein Formparameter der geschätzten Ellipse und lässt sich
+unüberwacht per Grid Search bestimmen.
+
+Begründung:
+\antwortlinien{2}
+
+\subsection*{1.3 \ Für einen Autoencoder zur Anomalieerkennung gilt:}
+\mcbox Die Sigmoid-Aktivierung in der Ausgabeschicht zeigt an, dass der Autoencoder ein binäres
+Klassifikationsproblem (normal / anomal) löst.
+
+\mcbox Hat die Code-Schicht $z$ mindestens so viele Dimensionen wie die Eingabe, kann der
+Autoencoder die Identität lernen und wird zur Anomalieerkennung unbrauchbar.
+
+\mcbox Der Autoencoder wird auf Normaldaten \textbf{und} Anomalien trainiert, damit er beide
+Klassen unterscheiden kann.
+
+Begründung:
+\antwortlinien{2}
+
+\subsection*{1.4 \ Für Gradienten in tiefen Netzen gilt:}
+\mcbox ReLU verhindert sowohl verschwindende als auch explodierende Gradienten, weil ihre
+Ableitung \textbf{nie} größer als 1 wird.
+
+\mcbox Die Ableitung der Sigmoidfunktion ist höchstens $0{,}25$; über viele Schichten hinweg
+verschwindet der Gradient deshalb in Richtung der \textbf{Eingangsschicht}.
+
+\mcbox Explodierende Gradienten treten \textbf{immer} zuerst in der Ausgangsschicht auf, weil
+dort der Fehler entsteht.
+
+Begründung:
+\antwortlinien{2}
+
+\subsection*{1.5 \ Für die One-Class SVM gilt:}
+\mcbox $\nu$ ist ein Strafgewicht für Fehlklassifikationen (wie $C$ bei der Zweiklassen-SVM):
+je größer $\nu$, desto härter die Grenze.
+
+\mcbox $\nu$ ist eine obere Schranke für den Anteil der Ausreißer im Training und zugleich eine
+untere Schranke für den Anteil der Support-Vektoren.
+
+\mcbox Der Kernel-Trick ist bei der One-Class SVM nur eine Beschleunigung -- man könnte die
+Transformation $\varphi(x)$ \textbf{immer} auch explizit ausrechnen.
+
+Begründung:
+\antwortlinien{2}
+
+\subsection*{1.6 \ Ein Detektor flaggt in einem Datensatz mit 2\,\% Anomalien sehr viele Punkte.
+Dazu gilt:}
+\mcbox Die \emph{balanced accuracy} ist hier die ehrlichste Metrik, weil sie die Unbalanciertheit
+der Klassen einbezieht.
+
+\mcbox Precision und $F_1$ decken die Fehlalarme auf, weil in ihnen \textbf{keine} True Negatives
+vorkommen.
+
+\mcbox Ein hoher Recall belegt, dass nur wenige Fehlalarme auftreten.
+
+Begründung:
+\antwortlinien{2}
+
+\subsection*{1.7 \ Für Deep SVDD und GOAD gilt:}
+\mcbox Batch Normalization ist im Deep-SVDD-Netz \textbf{grundsätzlich verboten}, weil der
+gelernte Parameter $\beta$ wie ein Bias wirkt.
+
+\mcbox $\nu$ legt bei Deep SVDD den Radius als $(1-\nu)$-Quantil der Abstände zu $c$ fest; es
+verschiebt nur den Betriebspunkt, die AUC bleibt gleich.
+
+\mcbox Der dritte Term der GOAD-Verlustfunktion ist ein Weight Decay auf die Gewichte des Netzes.
+
+Begründung:
+\antwortlinien{2}
+
+\newpage
+\section*{Aufgabe 2 -- Ausgabe-Shapes eines Faltungs-Autoencoders \pkt{12}}
+
+Gegeben ist das folgende Netz. Die Eingabe ist ein RGB-Bild der Größe $64\times64\times3$.
+Tragen Sie für \textbf{jede} Zeile die Ausgabe-Shape ein (ohne Batch-Dimension).
+
+\begin{lstlisting}
+ae = tf.keras.Sequential([
+    tf.keras.layers.Input((64, 64, 3)),                                   #  ( 64, 64, 3 )
+ 1  tf.keras.layers.Conv2D(16, (3,3), padding='same', activation='relu'),
+ 2  tf.keras.layers.MaxPooling2D((2,2)),
+ 3  tf.keras.layers.Conv2D(32, (5,5), padding='valid', activation='relu'),
+ 4  tf.keras.layers.Conv2D(32, (3,3), strides=2, padding='same', activation='relu'),
+ 5  tf.keras.layers.MaxPooling2D((3,3)),
+ 6  tf.keras.layers.Flatten(),
+ 7  tf.keras.layers.Dense(20, activation='relu'),
+ 8  tf.keras.layers.Dense(512, activation='relu'),
+ 9  tf.keras.layers.Reshape((4, 4, 32)),
+10  tf.keras.layers.Conv2DTranspose(32, (3,3), strides=2, padding='same', activation='relu'),
+11  tf.keras.layers.Conv2DTranspose(16, (3,3), strides=2, padding='same', activation='relu'),
+12  tf.keras.layers.Conv2DTranspose(8,  (3,3), strides=2, padding='same', activation='relu'),
+13  tf.keras.layers.Conv2DTranspose(3,  (3,3), strides=2, padding='same', activation='sigmoid'),
+])
+\end{lstlisting}
+
+\begin{center}
+\begin{tabular}{|c|p{4.2cm}||c|p{4.2cm}|}
+\hline
+Zeile & Ausgabe-Shape & Zeile & Ausgabe-Shape \\ \hline
+1 & \rule{0pt}{13pt} & 8 & \rule{0pt}{13pt}\\ \hline
+2 & \rule{0pt}{13pt} & 9 & \rule{0pt}{13pt}\\ \hline
+3 & \rule{0pt}{13pt} & 10 & \rule{0pt}{13pt}\\ \hline
+4 & \rule{0pt}{13pt} & 11 & \rule{0pt}{13pt}\\ \hline
+5 & \rule{0pt}{13pt} & 12 & \rule{0pt}{13pt}\\ \hline
+6 & \rule{0pt}{13pt} & 13 & \rule{0pt}{13pt}\\ \hline
+7 & \rule{0pt}{13pt} & & \\ \hline
+\end{tabular}
+\end{center}
+
+\textbf{b)} Wie viele trainierbare Parameter hat Zeile 1, wie viele Zeile 7? Rechenweg angeben.
+\antwortlinien{3}
+
+\textbf{c)} Welche Schicht des Netzes trägt das größte Overfitting-Risiko und warum?
+\antwortlinien{2}
+
+\textbf{d)} Begründen Sie \textbf{beide} Entwurfsentscheidungen in Zeile 13: warum genau 3 Filter
+und warum \texttt{sigmoid}?
+\antwortlinien{3}
+
+\newpage
+\section*{Aufgabe 3 -- Fehler finden \pkt{18}}
+
+\emph{In den folgenden Ausschnitten können mehrere Fehler stecken -- oder auch keiner.
+Benennen Sie jeweils die betroffene Codezeile, den Fehler und seine Auswirkung.}
+
+\subsection*{3.1 \ Training und Evaluierung einer One-Class SVM (Novelty Detection) \pkt{10}}
+
+\begin{lstlisting}
+import numpy as np
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import GridSearchCV, train_test_split
+from sklearn.svm import OneClassSVM
+from sklearn.metrics import accuracy_score, roc_auc_score
+
+X, y = load_sensor_data()        # y: 0 = normal, 1 = Anomalie; ca. 3 % Anomalien
+
+scaler = StandardScaler()                                                    # (1)
+X = scaler.fit_transform(X)                                                  # (2)
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)     # (3)
+
+param_grid = {'nu':    np.logspace(-3, 0, 10),                               # (4)
+              'gamma': np.logspace(-2, 2, 10)}                               # (5)
+search = GridSearchCV(OneClassSVM(kernel='rbf'), param_grid,
+                      scoring='accuracy', cv=5)                              # (6)
+search.fit(X_train, y_train)                                                 # (7)
+
+best = search.best_estimator_
+pred = best.predict(X_train)                                                 # (8)
+pred = np.where(pred == 1, 0, 1)
+print('Accuracy:', accuracy_score(y_train, pred))                            # (9)
+print('AUC:', roc_auc_score(y_test, best.score_samples(X_test)))             # (10)
+\end{lstlisting}
+
+\antwortlinien{10}
+
+\newpage
+\subsection*{3.2 \ Aufbau eines CNN-Klassifikators für $32\times32\times3$-Bilder, 5 Klassen \pkt{8}}
+
+\begin{lstlisting}
+net = tf.keras.Sequential([
+    tf.keras.layers.Input((32, 32, 3)),
+    tf.keras.layers.Conv2D(16, (3,3), padding='same', activation='relu'),
+    tf.keras.layers.MaxPooling2D((2,2)),
+    tf.keras.layers.Conv2D(32, (3,3), padding='same', activation='relu'),
+    tf.keras.layers.MaxPooling2D((2,2)),
+    tf.keras.layers.Conv2D(64, (3,3), padding='same', activation='relu'),
+    tf.keras.layers.MaxPooling2D((2,2)),
+    tf.keras.layers.MaxPooling2D((4,4)),
+    tf.keras.layers.Dense(64, activation='relu'),
+    tf.keras.layers.Dense(5,  activation='relu'),
+])
+net.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+net.fit(x_train, y_train, epochs=20, validation_data=(x_test, y_test))
+\end{lstlisting}
+
+\antwortlinien{8}
+
+\newpage
+\section*{Aufgabe 4 -- Programmieren \pkt{16}}
+
+\subsection*{4.1 \ Deep-SVDD-Netz in Keras \pkt{10}}
+
+Schreiben Sie das Netz $\varphi(x)$ für eine Deep SVDD auf $28\times28\times1$-Bildern:
+zwei Faltungsschichten (die erste mit 8, die zweite mit 16 Feature Maps, jeweils $5\times5$,
+\texttt{padding='same'}), auf jede Faltung folgt ein Max-Pooling $2\times2$; danach wird flach
+gemacht und über eine vollverknüpfte Schicht auf einen Latent Space der Dimension 32 abgebildet.
+Alle Schichten mit L2-Regularisierung ($\lambda = 10^{-6}$), als Aktivierung
+\texttt{LeakyReLU}. \textbf{Beachten Sie die Konstruktionsregeln für Deep SVDD} und schreiben Sie
+die Shape hinter jede Schicht.
+
+\antwortlinien{12}
+
+\textbf{b)} Schreiben Sie die Zeile, mit der das Zentrum $c$ bestimmt wird. An welcher Stelle des
+Programms muss sie stehen, und was passiert, wenn man sie in die Trainingsschleife setzt oder
+$c = \mathbf{0}$ wählt?
+\antwortlinien{4}
+
+\newpage
+\subsection*{4.2 \ Anomalie-Score und Schwellwert in NumPy \pkt{6}}
+
+Gegeben sind ein fertig trainierter Autoencoder \texttt{ae} und Testdaten \texttt{X\_test} der
+Form \texttt{(N, 28, 28, 1)}. Aus dem Prozess ist bekannt, dass etwa \textbf{2\,\%} der Messungen
+Ausreißer sind. Schreiben Sie den Code, der
+
+\begin{enumerate}
+\itemsep0pt
+\item den Rekonstruktionsfehler je Sample berechnet,
+\item daraus den Schwellwert bestimmt,
+\item ein Ergebnis-Array in der sklearn-Konvention ($+1$ = normal, $-1$ = Anomalie) erzeugt,
+\item die Anzahl der ausgelösten Alarme ausgibt.
+\end{enumerate}
+
+\antwortlinien{8}
+
+\textbf{b)} Über welche Achsen wird beim Rekonstruktionsfehler gemittelt und warum?
+Welches Perzentil haben Sie in Schritt 2 verwendet und warum?
+\antwortlinien{3}
+
+\newpage
+\section*{Aufgabe 5 -- Auswertung eines Score-Histogramms \pkt{14}}
+
+Ein Autoencoder-Ensemble wurde \textbf{unüberwacht} auf $N = 5000$ Messungen angewendet. Das
+Histogramm zeigt die Verteilung der Anomalie-Scores $s$ über alle 5000 Punkte
+(Klassenbreite 0,5):
+
+\begin{center}
+\begin{tikzpicture}[x=1.45cm,y=0.0026cm]
+  % Balken
+  \fill[gray!35,draw=black,line width=0.3pt] (0,0)   rectangle (0.5,900);
+  \fill[gray!35,draw=black,line width=0.3pt] (0.5,0) rectangle (1.0,1500);
+  \fill[gray!35,draw=black,line width=0.3pt] (1.0,0) rectangle (1.5,1200);
+  \fill[gray!35,draw=black,line width=0.3pt] (1.5,0) rectangle (2.0,700);
+  \fill[gray!35,draw=black,line width=0.3pt] (2.0,0) rectangle (2.5,350);
+  \fill[gray!35,draw=black,line width=0.3pt] (2.5,0) rectangle (3.0,180);
+  \fill[gray!35,draw=black,line width=0.3pt] (3.0,0) rectangle (3.5,90);
+  \fill[gray!35,draw=black,line width=0.3pt] (3.5,0) rectangle (4.0,45);
+  \fill[gray!35,draw=black,line width=0.3pt] (4.0,0) rectangle (4.5,20);
+  \fill[gray!35,draw=black,line width=0.3pt] (4.5,0) rectangle (5.0,10);
+  \fill[gray!35,draw=black,line width=0.3pt] (5.0,0) rectangle (5.5,4);
+  \fill[gray!35,draw=black,line width=0.3pt] (5.5,0) rectangle (6.0,1);
+  % Achsen
+  \draw[->,line width=0.5pt] (0,0) -- (6.6,0) node[right,scale=0.85]{$s$};
+  \draw[->,line width=0.5pt] (0,0) -- (0,1700) node[above,scale=0.85]{Anzahl};
+  \foreach \x in {0,1,2,3,4,5,6}
+     \draw (\x,0) -- (\x,-35) node[below,scale=0.75]{\x};
+  \foreach \y in {500,1000,1500}
+     \draw (0,\y) -- (-0.07,\y) node[left,scale=0.75]{\y};
+\end{tikzpicture}
+\end{center}
+
+\begin{center}\small
+\begin{tabular}{|l|r|r|r|r|r|r|r|r|r|r|r|r|}
+\hline
+Klasse & 0--0,5 & 0,5--1 & 1--1,5 & 1,5--2 & 2--2,5 & 2,5--3 & 3--3,5 & 3,5--4 & 4--4,5 & 4,5--5 & 5--5,5 & 5,5--6\\ \hline
+Anzahl & 900 & 1500 & 1200 & 700 & 350 & 180 & 90 & 45 & 20 & 10 & 4 & 1\\ \hline
+\end{tabular}
+\end{center}
+
+Nachträglich wird ein \textbf{gelabelter} Validierungssatz verfügbar. Damit ergeben sich für
+einige Schwellwerte folgende Betriebspunkte:
+
+\begin{center}\small
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Schwellwert $s_0$ & 1,0 & 2,0 & 2,5 & 3,5 & 4,0\\ \hline
+TPR & 0,99 & 0,92 & 0,86 & 0,21 & 0,06\\ \hline
+FPR & 0,62 & 0,14 & 0,05 & 0,013 & 0,007\\ \hline
+\end{tabular}
+\hspace{6pt}
+\begin{tabular}{|l|c|}
+\hline
+AUC des Modells & 0,95\\ \hline
+\end{tabular}
+\end{center}
+
+\textbf{a)} Sie kennen zunächst \textbf{nur} das Histogramm. Wo würden Sie den Schwellwert legen,
+und wie viele Alarme löst Ihre Wahl aus? Rechnen Sie die Anzahl aus der Tabelle aus und prüfen
+Sie sie auf Plausibilität.
+\antwortlinien{4}
+
+\textbf{b)} Eine Kollegin setzt den Schwellwert stattdessen auf das 98{,}4\,\%-Quantil, weil aus
+dem Prozess ein Ausreißeranteil von 1,6\,\% bekannt ist. Welcher Schwellwert ergibt sich aus der
+Tabelle, wie viele Punkte werden geflaggt -- und welche Eigenschaft garantiert dieses Vorgehen,
+welche nicht?
+\antwortlinien{4}
+
+\textbf{c)} Bei diesem Schwellwert werden nur 21\,\% der echten Ausreißer gefunden, die AUC
+beträgt aber 0,95. Ist das Modell schlecht oder der Schwellwert? Begründen Sie, und nennen Sie
+die Eigenschaft der Score-Verteilung, die diesen Effekt erzeugt.
+\antwortlinien{4}
+
+\textbf{d)} Bestimmen Sie aus der Betriebspunkt-Tabelle den besten Schwellwert im Sinne des
+ROC-Knies. Geben Sie das Rechenkriterium an und vergleichen Sie den gefundenen Punkt mit
+$s_0 = 1{,}0$: was kostet der letzte Rest TPR, in Fehlalarmen ausgedrückt?
+\antwortlinien{5}
+
+\textbf{e)} Warum ist das Histogramm für die Wahl des Schwellwertes die schlechteste der drei
+möglichen Darstellungen? Welche zwei Darstellungen sind besser und was liest man dort jeweils ab?
+\antwortlinien{4}
+
+\newpage
+\section*{Aufgabe 6 -- SVM und One-Class SVM \pkt{22}}
+
+\subsection*{6.1 \ Zweiklassen-SVM von Hand \pkt{9}}
+
+Gegeben sind acht Punkte in zwei Klassen:
+
+\begin{center}\small
+\begin{tabular}{|l|l|}
+\hline
+Klasse $\bullet$ ($y = -1$) & $(1|2)$, $(2|1)$, $(2|3)$, $(3|1)$\\ \hline
+Klasse $\times$ ($y = +1$) & $(3|4)$, $(5|4)$, $(6|3)$, $(6|5)$, $(7|4)$\\ \hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.78]
+  \draw[step=1,gray!30,line width=0.3pt] (0,0) grid (8,6);
+  \draw[->] (0,0) -- (8.4,0) node[right,scale=0.85]{$x_1$};
+  \draw[->] (0,0) -- (0,6.4) node[above,scale=0.85]{$x_2$};
+  \foreach \x in {1,...,8} \draw (\x,0) -- (\x,-0.12) node[below,scale=0.7]{\x};
+  \foreach \y in {1,...,6} \draw (0,\y) -- (-0.12,\y) node[left,scale=0.7]{\y};
+  \foreach \p in {(1,2),(2,1),(2,3),(3,1)}
+     \fill \p circle (0.11);
+  \foreach \p in {(3,4),(5,4),(6,3),(6,5),(7,4)}
+     \draw[line width=1pt] \p ++(-0.13,-0.13) -- ++(0.26,0.26) \p ++(-0.13,0.13) -- ++(0.26,-0.26);
+\end{tikzpicture}
+\end{center}
+
+\textbf{a)} Zeichnen Sie die Trenngerade für ein \textbf{sehr großes} $C$ ein, markieren Sie alle
+Support-Vektoren und geben Sie die Breite der Margin an (Rechenweg).
+\antwortlinien{4}
+
+\textbf{b)} $C$ wird nun schrittweise \textbf{kleiner}. Beschreiben Sie, was mit der Lage der
+Trenngeraden, der Breite der Margin, der Anzahl der Support-Vektoren und den
+Fehlklassifikationen passiert -- und was im Grenzfall $C \to 0$ übrig bleibt.
+\antwortlinien{5}
+
+\textbf{c)} Ein neuer Punkt $(4|3)$ trifft ein. Zu welcher Klasse gehört er bei sehr großem $C$?
+Begründen Sie \textbf{ohne} zu schätzen, und sagen Sie, ob der Punkt innerhalb oder außerhalb der
+Margin liegt.
+\antwortlinien{3}
+
+\subsection*{6.2 \ Kernel-Trick \pkt{6}}
+
+Gegeben ist die Transformation
+$\varphi(\boldsymbol{x}) = \left(x_1^2,\ \sqrt{2}\,x_1x_2,\ x_2^2\right)$
+sowie die beiden Punkte $\boldsymbol{a} = (1|2)$ und $\boldsymbol{b} = (3|1)$.
+
+\textbf{a)} Berechnen Sie $\varphi(\boldsymbol{a}) \cdot \varphi(\boldsymbol{b})$ und
+$k(\boldsymbol{a}, \boldsymbol{b}) = (\boldsymbol{a} \cdot \boldsymbol{b})^2$ getrennt voneinander
+und vergleichen Sie.
+\antwortlinien{4}
+
+\textbf{b)} \textbf{Welche} Rechnungen der SVM kommen mit Skalarprodukten aus -- nennen Sie beide.
+Worin unterscheidet sich der RBF-Kernel rechnerisch vom polynomialen, und warum ist der
+Kernel-Trick dort nicht nur billiger, sondern die einzige Möglichkeit?
+\antwortlinien{5}
+
+\subsection*{6.3 \ One-Class SVM \pkt{7}}
+
+Die Normaldaten liegen als kompakte Wolke rechts oben, der Ursprung ist eingezeichnet:
+
+\begin{center}
+\begin{tikzpicture}[scale=0.75]
+  \draw[step=1,gray!30,line width=0.3pt] (0,0) grid (8,7);
+  \draw[->] (0,0) -- (8.4,0) node[right,scale=0.85]{$x_1$};
+  \draw[->] (0,0) -- (0,7.4) node[above,scale=0.85]{$x_2$};
+  \foreach \x in {1,...,8} \draw (\x,0) -- (\x,-0.12) node[below,scale=0.7]{\x};
+  \foreach \y in {1,...,7} \draw (0,\y) -- (-0.12,\y) node[left,scale=0.7]{\y};
+  \foreach \p in {(4,4),(4.6,5),(5,4.3),(5.5,5.2),(4.2,5.6),(5.8,4.1),(5.2,5.8),(4.8,4.8),
+                  (6.2,5.0),(3.8,4.9),(5.6,3.9),(4.4,4.2),(6.0,5.7),(5.0,5.3),(4.9,6.1)}
+     \fill \p circle (0.1);
+  \fill[black] (2.6,6.4) circle (0.1);
+  \node[scale=0.7] at (2.6,6.85) {Randpunkt};
+\end{tikzpicture}
+\end{center}
+
+\textbf{a)} Zeichnen Sie die Trennebene für einen \textbf{linearen} Kernel mit $\nu = 0{,}05$ ein
+und markieren Sie deutlich, auf welcher Seite Punkte als \textbf{anomal} gelten. Erklären Sie in
+einem Satz, wogegen die OCSVM die Normaldaten hier abgrenzt.
+\antwortlinien{3}
+
+\textbf{b)} Was ändert sich an Ihrer Zeichnung, wenn $\nu$ deutlich \textbf{größer} gewählt wird?
+Nennen Sie zusätzlich die Folge für Over- bzw. Underfitting bei zu kleinem und zu großem $\nu$.
+\antwortlinien{3}
+
+\textbf{c)} Nun wird auf einen RBF-Kernel gewechselt. Beschreiben Sie die Entscheidungsgrenze
+(nicht nur die Glockenfunktion!) und was mit ihr passiert, wenn $\gamma$ sehr groß wird. Welchen
+Wert nimmt die balanced accuracy im Extremfall an und warum?
+\antwortlinien{4}
+
+\newpage
+\section*{Aufgabe 7 -- Verfahrenswahl bei mehreren Clustern \pkt{12}}
+
+Die folgende Abbildung zeigt die \textbf{Normaldaten} eines Prozesses (zwei Merkmale, ohne
+Anomalien -- Novelty-Setup). Zusätzlich sind zwei neue Messungen $\times$ eingezeichnet, die
+bewertet werden sollen.
+
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+  \draw[step=1,gray!25,line width=0.3pt] (0,0) grid (10,10);
+  \draw[->] (0,0) -- (10.4,0) node[right,scale=0.85]{$x_1$};
+  \draw[->] (0,0) -- (0,10.4) node[above,scale=0.85]{$x_2$};
+  \foreach \x in {2,4,6,8,10} \draw (\x,0) -- (\x,-0.12) node[below,scale=0.7]{\x};
+  \foreach \y in {2,4,6,8,10} \draw (0,\y) -- (-0.12,\y) node[left,scale=0.7]{\y};
+  % Cluster 1
+  \foreach \p in {(1.6,2.2),(2.1,1.7),(2.4,2.4),(1.8,1.5),(2.6,1.9),(1.4,2.6),(2.2,2.9),(1.9,2.0)}
+     \fill \p circle (0.09);
+  % Cluster 2
+  \foreach \p in {(7.2,2.3),(7.8,2.8),(8.1,2.1),(7.5,3.1),(6.9,2.7),(8.0,3.0),(7.3,1.8),(7.6,2.5)}
+     \fill \p circle (0.09);
+  % Cluster 3
+  \foreach \p in {(4.7,7.2),(5.3,7.8),(4.9,8.1),(5.6,7.1),(4.4,7.9),(5.1,7.4),(5.8,7.7),(4.6,7.6)}
+     \fill \p circle (0.09);
+  % Testpunkte
+  \draw[line width=1.1pt] (4.9,4.6) ++(-0.16,-0.16) -- ++(0.32,0.32)
+        (4.9,4.6) ++(-0.16,0.16) -- ++(0.32,-0.32);
+  \node[scale=0.75] at (5.75,4.6) {$P_1$};
+  \draw[line width=1.1pt] (9.3,8.8) ++(-0.16,-0.16) -- ++(0.32,0.32)
+        (9.3,8.8) ++(-0.16,0.16) -- ++(0.32,-0.32);
+  \node[scale=0.75] at (8.6,8.8) {$P_2$};
+\end{tikzpicture}
+\end{center}
+
+\textbf{a)} Nennen Sie \textbf{zwei geeignete} und \textbf{ein ungeeignetes} Verfahren zur
+Novelty Detection für diese Datenlage. Begründen Sie \textbf{jedes der drei} einzeln aus der
+Form der Daten -- nicht aus Laufzeit oder Implementierungsaufwand.
+\antwortlinien{6}
+
+\textbf{b)} Wie bewerten Ihre drei Verfahren jeweils den Punkt $P_1$ und den Punkt $P_2$?
+Genau ein Punkt trennt die geeigneten von dem ungeeigneten Verfahren -- welcher, und warum?
+\antwortlinien{4}
+
+\textbf{c)} Welcher Metaparameter Ihres ersten geeigneten Verfahrens entscheidet darüber, ob die
+drei Gruppen als \textbf{drei getrennte Inseln} oder als \textbf{eine große Region} beschrieben
+werden? Was passiert bei einer schlechten Wahl in beide Richtungen?
+\antwortlinien{4}
+
+\textbf{d)} Der Datensatz wächst auf 200 Merkmale und $10^6$ Punkte. Welches Verfahren würden Sie
+jetzt wählen und welche zwei Gründe sprechen gegen Ihre bisherige Wahl?
+\antwortlinien{3}
+
+\newpage
+\section*{Aufgabe 8 -- Kurzfragen quer durch die Vorlesung \pkt{10}}
+
+\textbf{a)} Beschreiben Sie in eigenen Worten, wie der \textbf{AnoGAN}-Score für ein neues Bild
+berechnet wird. Warum ist dafür eine \emph{Optimierung} nötig, und welches Problem löst
+\textbf{f-AnoGAN} an genau dieser Stelle?
+\antwortlinien{5}
+
+\textbf{b)} Nennen Sie die \textbf{zwei} Diversitätsquellen eines RandNet-Ensembles und
+begründen Sie, warum der Ensemble-Score als \textbf{Median} und nicht als Mittelwert gebildet
+wird.
+\antwortlinien{4}
+
+\textbf{c)} Vergleichen Sie GOAD und Deep SVDD in vier Zeilen:
+
+\begin{center}
+\begin{tabular}{|p{4.2cm}|p{5.2cm}|p{5.2cm}|}
+\hline
+ & \textbf{Deep SVDD} & \textbf{GOAD}\\ \hline
+Was bilden die Normaldaten im Latent Space? & \rule{0pt}{22pt} & \\ \hline
+Woher kommt das Lernsignal? & \rule{0pt}{22pt} & \\ \hline
+Was ist die triviale Lösung, und was verhindert sie? & \rule{0pt}{28pt} & \\ \hline
+Wie entsteht der Anomalie-Score? & \rule{0pt}{28pt} & \\ \hline
+\end{tabular}
+\end{center}
+
+\vspace{6pt}
+\noindent\rule{\linewidth}{0.8pt}
+\begin{center}\small
+\textbf{Punkteverteilung:} A1 21 $\cdot$ A2 12 $\cdot$ A3 18 $\cdot$ A4 16 $\cdot$ A5 14 $\cdot$
+A6 22 $\cdot$ A7 12 $\cdot$ A8 10 \quad = \quad \textbf{125 Punkte}\\[3pt]
+Lösungen liegen bewusst nicht bei -- Antworten zur Korrektur mit Begründungs-Check einreichen.
+\end{center}
+
+\end{document}

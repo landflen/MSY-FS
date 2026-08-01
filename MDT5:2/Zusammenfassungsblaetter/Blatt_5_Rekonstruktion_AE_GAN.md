@@ -205,62 +205,39 @@ Antwortgerüst in Worten, pro Batch — rechts steht, woran man den Schritt im C
 
 ## AnoGAN (Folien 37–42) — Ablauf komplett (Aufgabentyp 9!)
 
-**Warum überhaupt eine Optimierung? (Folie 37 — erster Satz jeder Antwort auf „wie scort AnoGAN?")**
-Gefragt ist: Könnte der Generator dieses Sample erzeugt haben? Dazu bräuchte man das passende z —
-aber ein GAN kennt nur den Weg **z → Sample**, **kein inverses Mapping** Sample → z. Das passende z
-muss also **gesucht** werden, und wie gut es am Ende passt, ist der Score.
+**Warum Optimierung? (Folie 37 — erster Satz jeder Antwort)** Ein GAN kennt nur **z → Sample**, **kein inverses Mapping**. Das passende z muss **gesucht** werden; wie gut es am Ende passt = Score.
 
-**Training:** GAN ganz normal mit Normaldaten trainieren.
+**Training:** GAN normal mit Normaldaten.
 
-**Scoring eines neuen Samples x** (GAN-Parameter bleiben eingefroren!):
-1. z zufällig initialisieren (aus A-priori-Verteilung)
+**Scoring von x** (G und D **eingefroren**):
+1. z zufällig initialisieren
 2. n Iterationen (z. B. 500): L(x, z) nach **z** ableiten, z per Gradient Descent anpassen
 3. finale Kosten L(x, z_n) = **Anomalie-Score**
 
-**Kostenfunktion** (gewichtete Summe, λ z. B. 0,1):
-- Residual Loss L_res: Abstand **x ↔ G(z)** im Bild selbst
-- Discrimination Loss L_disc: Abstand **D_k(x) ↔ D_k(G(z))** — D_k = Ausgabe der vorletzten Discriminator-Schicht (im Code `feature_model`)
-- L = (1−λ)·L_res + λ·L_disc
+**Kosten** (λ ≈ 0,1): **L = (1−λ)·L_res + λ·L_disc**
+- **L_res:** Abstand x ↔ G(z) — **Pixelraum**, „sehen sie gleich aus?"
+- **L_disc:** Abstand D_k(x) ↔ D_k(G(z)) — **Merkmalsraum**, vorletzte D-Schicht (`layers[-2]`, `feature_model`), „wirken sie für D gleich?"
 
-**⚠ L_disc ist KEINE Klassifikationsentscheidung.** Beide Anteile messen **Ähnlichkeit**, nur in
-verschiedenen Räumen:
+**⚠ L_disc ist KEINE Klassifikationsentscheidung.** Beide messen **Ähnlichkeit**, nur in verschiedenen Räumen. D ist **Merkmalsextraktor**, sein Echt/Fake-Urteil wird nicht ausgewertet — daher `layers[-2]`.
 
-| | L_res | L_disc |
-|---|---|---|
-| verglichen | x ↔ G(z) | D_k(x) ↔ D_k(G(z)) |
-| Raum | **Pixelraum** | **Merkmalsraum** (vorletzte D-Schicht) |
-| Frage | sehen die Bilder gleich aus? | wirken sie für D gleich? |
+**Kein Code nötig** (9d = Fließtext), aber sagen: **z ist die einzige optimierte Größe** (`tf.Variable`, eines pro Sample), **D nur bis zur vorletzten Schicht**.
 
-D ist hier **Merkmalsextraktor, kein Klassifikator** — sein Echt/Fake-Urteil wird nicht ausgewertet,
-daher `layers[-2]`. „Kosten für die Klassifikation als Fälschung" ist falsch.
-
-**Kein Code nötig** (Musterlösung zu 9d ist Fließtext). Zwei Punkte, die man trotzdem sagen sollte:
-**z ist die einzige optimierte Größe** (als `tf.Variable`, ein z pro Sample; G und D bleiben
-eingefroren), und **D wird nur bis zur vorletzten Schicht benutzt** (`layers[-2]` = feature_model).
-
-**Nachteil AnoGAN:** pro neuem Sample eigene z-Optimierung → langsam im Einsatz.
+**Nachteil:** z-Optimierung pro Sample → langsam im Einsatz.
 
 ## f-AnoGAN (Folien 43–49)
 
-**Idee:** Encoder E lernt, z direkt aus x zu berechnen → Scoring in einem Durchlauf, keine Iterationen.
+**Idee:** Encoder E berechnet z **direkt** aus x → Score in **einem** Durchlauf, keine Iterationen.
 
-**3 Trainingsphasen:**
+**3 Phasen:**
 1. GAN mit Normaldaten trainieren
-2. **Encoder** trainieren (GAN eingefroren, gleiche Normaldaten; E am besten = „gespiegelter" Generator). Aufbau als Autoencoder: `E → G` (G als Decoder)
-3. Scoring: Score(x) = L(x) = L_res + L_disc mit G(E(x)) — **eine** Vorwärtsrechnung
+2. **E** trainieren (GAN eingefroren, gleiche Daten), Aufbau als Autoencoder **`E → G`** (G als Decoder), RMSprop
+3. Score(x) = L_res + L_disc mit **G(E(x))** — eine Vorwärtsrechnung
 
-- Dieselben zwei Anteile wie AnoGAN, nur mit **MSE** statt Betrag und mit G(E(x)) statt G(z)
-  (Folie 44 gewichtet zusätzlich mit Κ; der Code auf Folie 46 addiert beide **ungewichtet**)
-- Encoder-Training: RMSprop, Loss = Mittel der Gesamtkosten über Batch
+- Gleiche zwei Anteile wie AnoGAN, nur **MSE** statt Betrag und G(E(x)) statt G(z) (Folie 44 gewichtet mit Κ, Code Folie 46 addiert **ungewichtet**)
 
-**Encoder-Architektur = Generator rückwärts** (Aufgabentyp 9, wird als Code verlangt): gleich viele
-Faltungen wie G **ohne** dessen Ausgabeschicht, gleiche Feature-Map-Zahlen wie Gs mittlere
-Schichten, `Conv2D` statt `Conv2DTranspose`, sonst alles wie in G. Ende: `Flatten` →
-`Dense(units=latent_dim, activation='tanh')`. Zum Generator-Beispiel oben (z=100, 64×64×3):
+**Encoder = Generator rückwärts** (wird als Code verlangt): gleich viele Faltungen wie G **ohne** dessen Ausgabeschicht, gleiche Feature-Map-Zahlen, `Conv2D` statt `Conv2DTranspose`, sonst wie G. Ende: `Flatten` → `Dense(latent_dim, activation='tanh')`.
 
-⚠ Die Filterzahlen werden **in Gs Reihenfolge übernommen** (hier 64, 32) — der Encoder hat also
-**fallende** Filterzahlen, anders als der Discriminator. Sieht falsch aus, ist es nicht: genau so
-macht es Praktikum 08 (G: 32, 16 ⇒ E: 32, 16). Nicht „korrigieren".
+⚠ Filterzahlen **in Gs Reihenfolge** (hier 64, 32) ⇒ Encoder hat **fallende** Filterzahlen, anders als D. Sieht falsch aus, ist richtig (Praktikum 08). Nicht „korrigieren".
 
 ```python
 encoder = tf.keras.Sequential([
