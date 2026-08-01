@@ -156,12 +156,17 @@
       Pool abrunden vs. strides=2 aufrunden), Dense = Produkt ⇒ höchste Overfitting-Gefahr,
       Decoder-Block `Dense(H·W·C)` → `Reshape` → `Conv2DTranspose(..., padding='same')` mit
       Kanalzahl + Sigmoid am Ende, Ensemble-Score = Median.
-  - **Blatt ⑤ handschriftlich übertragen bis einschließlich GAN-Teil ✅ (27.7.)** — offen bleiben
-    nur noch die beiden letzten Abschnitte **AnoGAN (Folien 37–42)** und **f-AnoGAN (Folien 43–49)**,
-    also genau der Aufgabentyp-9-Kern. Vorgezogen aus dem Slot Di 28.7. (S7 Teil 2); dort jetzt nur
-    noch der Rest zu schreiben. Der neue
+  - **Blatt ⑤ vollständig handschriftlich übertragen ✅ (28.7.)** — GAN-Teil am 27.7., **AnoGAN
+    (Folien 37–42) + f-AnoGAN (Folien 43–49) am 28.7. nachgezogen**. Damit steht der
+    Aufgabentyp-9-Kern auf Papier. Der neue
     ⑥-Abschnitt „Schwellwert wählen" ist ein kurzer Nachtrag auf ein bereits übertragenes Blatt
     → passt in den Slot **Mi 29.7. nachm. („Blätter ①–⑦ finalisieren")**.
+- **S7 (27.7.)** ✅ Kap. 07 S. 25–51 (GAN, AnoGAN, f-AnoGAN) + Praktikum 08 **mitlesend**
+  (Zeitschnitt wegen der ED-Klausur am Vormittag) + Blatt `Session07_GANs` **gelöst und
+  korrigiert** ⇒ **Aufgabentyp 9 einmal ganz geübt**. Blatt ⑤ am 27./28.7. übertragen.
+  ⚠️ Die Detailbefunde der Korrektur wurden am 27.7. nicht ins Logbuch übernommen (der Tag
+  ist nur über die Blatt-⑤-Prüfrunden dokumentiert) — falls beim Blatt noch Fehlerbilder
+  offen sind, gehören sie zu den Stolperfallen.
 - **S8 (28.7.)** 🟡 **Praktikum 09 (SVM/OCSVM) komplett durchgearbeitet und abgeschlossen** —
   synthetisches Zwei-Klassen-Beispiel (C-Reihe, RBF, ν-SVM), OCSVM linear/RBF, Brustkrebs-
   Datensatz mit unüberwachter (δ_min/δ_max-Heuristik) vs. überwachter (Grid Search, balanced
@@ -188,7 +193,15 @@
     Antwortmuster Typ 7b (ν zu klein → Overfitting, ν zu groß → Underfitting), γ zu groß/zu klein,
     **Inselstrukturen als Stärke** (Argument der Musterlösung zu Original-Aufg. 8) und
     `gamma='scale'` = 1/(dim · var) nach Folie 22.
-    ⚠️ `Alle_Blaetter.md` enthält noch den **alten** Blatt-④-Stand → beim Finalisieren Mi 29.7. nachziehen.
+    `Alle_Blaetter.md` am 28.7. **neu erzeugt** — aus allen sieben Einzelblättern, mit
+    **Farbmarkierung der Suchbegriffe** (rot = Ankerbegriff/Verfahren, rosa = Stellgröße,
+    blau = Aufgabentyp + Folienverweis, orange = Falle/Verbot). **Rot steht seit dem 28.7. nur
+    noch dort, wo der Begriff auch erklärt wird** (erste Stelle je Blatt mit Erklärung daneben:
+    Tabellenzeile mit dem Begriff in Spalte 1, Abschnitt mit dem Begriff in der Überschrift, oder
+    „Begriff: / Begriff — …"); bloße Erwähnungen bleiben schwarz — 148 rote Marker vorher, 55
+    danach. Rosa weiter erstes Vorkommen je Abschnitt. Generator:
+    `Zusammenfassungsblaetter/build_alle.py` (lokal, gitignored) — **nach jeder Blattänderung
+    neu laufen lassen.**
   - **Blatt-④-Vorlage (SVM-/OCSVM-Teil) ist vollständig und abschreibbereit** — alle Nachträge
     vom 28.7. sind eingearbeitet. **Handschriftlich übertragen steht noch aus**, wird in einem
     Zug vom fertigen Stand geschrieben.
@@ -202,7 +215,149 @@
     **richtig gedacht zählt**, auch wenn der Wortlaut von Folie/Musterlösung abweicht. Auch das
     Widerlegen der falschen MC-Alternativen ist eine gültige Begründung. Gilt ab sofort für alle
     Korrekturen.
-  - **Offen aus S8:** Blatt ④ SVM-/OCSVM-Teil **handschriftlich übertragen**.
+  - **Blatt ④ Abschnitt „SVM überwacht (Folien 5–30)" handschriftlich übertragen ✅ (28.7.)** —
+    inkl. Kernel-Trick-Block. Dort am 28.7. präzisiert: **welche** Rechnung nur Skalarprodukte
+    braucht (duales Problem xᵢ·xⱼ beim Training **und** Entscheidungsfunktion x·xᵢ beim Anwenden)
+    → falls die alte Formulierung geschrieben wurde, den Halbsatz nachziehen.
+  - ~~**Offen aus S8:** Blatt ④ ab **OCSVM (Folie 31)** handschriftlich übertragen~~ —
+    **OCSVM-Teil am 29.7. abgeschrieben ✅** (Ansage Lena). **Noch offen: ab Deep SVDD**
+    (Deep SVDD, GOAD, CutPaste). Contrastive entfällt (08a gestrichen).
+    - ⚠️ **Zwei handschriftliche Nachträge im bereits geschriebenen SVM-Kernel-Block:**
+      (a) polynomial = erst Skalarprodukt, dann potenzieren / RBF = über den **Abstand**
+      (Stolperfalle 39, kommt in Original-Aufg. 5a vor — am 29.7. in die Vorlage ergänzt, als der
+      Abschnitt schon auf Papier stand); (b) der Halbsatz **welche** Rechnung nur Skalarprodukte
+      braucht (duales Problem beim Training **und** Entscheidungsfunktion beim Anwenden), falls
+      dort noch die alte Formulierung steht.
+  - **Bilanz Di-Nachmittag (Ansage Lena, 29.7.):** Von den acht Originalen wurde **nur Aufg. 3**
+    geschafft (→ Stolperfallen 43/44). Stattdessen sind die **handgeschriebenen Blätter markiert**
+    (Farbmarkierung der Suchbegriffe von `Alle_Blaetter.md` auf Papier übertragen) — das ist der
+    Navigationsteil der Open-Book-Vorbereitung und war für Mi nachm. eingeplant. Blatt ④ ab
+    OCSVM **nicht** geschrieben.
+- **S10 (29.7.)** 🟡 **läuft.** Kap. **08 vollständig gelesen ✅** (S. 38–64 Deep SVDD/GOAD +
+  08a) — der Lesestoff des Vormittags war damit schon vor der Session durch. Aktuell: **Praktika
+  10 (Deep SVDD) + 11 (GOAD)** — die letzten beiden Praktika, danach ist der Praktikumsteil
+  komplett. In beiden mit denselben Versionsfehlern rechnen wie in 07–09 (`np.float` → `float`,
+  `plt.boxplot(labels=)` → `tick_labels=`, `.shape()` → `.shape`).
+  - Danach in dieser Reihenfolge: (1) Blatt ④ **ab OCSVM** übertragen (Werkzeug für Typ 7 + 10),
+    (2) Blatt `Session10_DeepSVDD_GOAD` lösen ⇒ **Typ 10 einmal ganz** — der letzte ungeübte
+    Aufgabentyp.
+  - **Lokale Laufumgebung eingerichtet (29.7.)** — bisher lief alles in Colab. venv unter
+    `~/.venvs/mdt52` (Python 3.12, TF 2.21 nativ arm64, Keras 3.15, NumPy 2.5, sklearn, jupyter);
+    Jupyter-Kernel heißt **„Python 3.12 (MDT5/2 TF)"**. **Nicht** im Modulordner anlegen — der Pfad
+    `MDT5:2` enthält einen Doppelpunkt (= PATH-Trennzeichen), ein venv dort wäre kaputt.
+    `tensorflow-metal` (GPU) getestet und **wieder entfernt**: Version 1.2.0 ist die letzte und
+    zerschießt mit TF 2.21 schon den `import tensorflow`. Unnötig — auf der CPU gemessen:
+    Deep SVDD 0,65 s/Epoche (alle 600 Epochen ≈ 10–15 min), GOAD 27 s/Epoche (16 Ep. ≈ 7–12 min).
+  - **Praktikum 10 (Deep SVDD, MNIST, `normal_label=1`) abgeschlossen ✅ (29.7.)** — alle drei
+    Fragenblöcke beantwortet und korrigiert. Netz ist vorgegeben, kein Code zum Selbstschreiben;
+    inhaltlich ist das Praktikum **die Verbotsliste** (Typ 10).
+    - Block 1 (Maßnahmen gegen die konstante Abbildung) **fast komplett richtig** — gedeckelte
+      Aktivierungen, kein Bias, Ursprung; im Code LeakyReLU / `use_bias=False` / ±eps = 0,1.
+      Einziger Fehler: „Ursprung darf nicht bei **1** liegen" statt bei **0** (Zahlendreher, von Lena
+      selbst als Versehen erkannt — die 1 gehört zur Nachbarfolie „gedeckelte Aktivierung σ(x) → 1").
+      Gefehlt hat, dass die Maßnahme nicht nur „c ≠ 0" ist, sondern **c einmal vor dem
+      SVDD-Training setzen und danach nie ändern** (`get_center` steht außerhalb der Schleife).
+    - Block 2 (Decoder, erste Dense-Schicht, ohne Vor-Training): Decoder-Spiegelung
+      (`UpSampling2D` ↔ `MaxPool2D`) und Dense-als-Gegenstück-zu-`Flatten` richtig. Antwort zu
+      „ohne Vor-Training" nach Rückfrage vervollständigt (→ Stolperfalle 45).
+    - Block 3: ν-Frage und ν-Variation richtig, **Weight-Decay-Verortung falsch**
+      (→ Stolperfalle 46), **Anomalieklassen mit falschem Bezugspunkt** begründet
+      (→ Stolperfalle 47).
+  - **Praktikum 11 (GOAD, Fashion-MNIST `normal_label=9` + KDD-Cup) abgeschlossen ✅ (29.7.)**
+    — **damit ist der Praktikumsteil komplett (01–11).** Beide Fragenblöcke beantwortet und
+    korrigiert. Thema war neu und unsicher, deshalb Konzept vorab durchgesprochen: Transformationen
+    **erzeugen die Pseudo-Labels**, M Cluster statt einer Kugel, Score = landet jede transformierte
+    Version bei ihrem eigenen Zentrum. Zwei Rückfragen von Lena geklärt: **wozu L_TC überhaupt in
+    den Loss einfließt** (der Score misst Abstände zu den Zentren — ohne dichte, getrennte Cluster
+    ist er unbrauchbar; die Kreuzentropie allein ließe die Abbildungen beliebig streuen) und
+    **Abstände wovon wozu** (von den M transformierten Versionen eines **neuen** Samples zu den
+    nach dem Training festliegenden M Zentren; die Transformationen sind für Training und Test
+    dieselben, bei allgemeinen Daten wird `random_transformations` **einmal** gezogen).
+    - Fehlerbild im Frageblock 1 → Stolperfalle 49. Frageblock 2 (Bilder vs. allgemeine Daten)
+      richtig: affine Zufallstransformationen statt Geometrie, FC statt CNN (keine
+      Nachbarschaftsinformation), kleinerer Latent Space.
+    - **Zwei Versionsfehler:** `np.float` → `float` (wie erwartet) und **neu:**
+      `tf.keras.layers.InputLayer(...)` → `tf.keras.layers.Input(...)` plus
+      `fc_net_arch.input` → `.inputs` im FC-Netz für die allgemeinen Daten (Keras 3 baut ein
+      `Sequential` mit `InputLayer` nicht, daher „has never been called and thus has no defined
+      input"). Die Bild-Zelle weiter oben benutzt bereits `Input` + `.inputs` — funktionierendes
+      Muster im selben Notebook.
+  - **Blatt-④-GOAD-Abschnitt ergänzt (29.7.):** drei Warum-Sätze (warum Transformationen, warum
+    die Transformations-Vorhersage, warum dichte Cluster) + **Vergleichstabelle GOAD vs. Deep
+    SVDD** (Normaldaten / Lernsignal / triviale Lösung / Score). Die Formeln standen schon da,
+    die Begründungen fehlten.
+  - **Blatt-④-Vorlage an drei Stellen nachgezogen (29.7.), alles im Deep-SVDD-Abschnitt:**
+    (a) **BatchNorm-Zeile war sachlich falsch** und wurde ersetzt (→ Stolperfalle 48);
+    (b) neuer Zweizeiler „Ohne Vor-Training?" (zwei Wege, den Loss klein zu machen) — nach zwei
+    Kürzungsrunden auf Lenas Ansage, die erste Fassung war zu verdichtet zum Verstehen;
+    (c) Decoder-Regel „`Dense`→`Reshape` muss nur die **Auflösung** treffen, Kanalzahl frei".
+    `Alle_Blaetter.md` jeweils neu erzeugt. **Blatt ④ ab OCSVM ist weiterhin nicht abgeschrieben** —
+    die Korrekturen sind also rechtzeitig drin.
+  - **Blatt `Session10_DeepSVDD_GOAD` gelöst und korrigiert ✅ (29.7.) ⇒ TYP 10 EINMAL GANZ
+    GERECHNET — damit ist jeder der 12 Aufgabentypen mindestens einmal komplett geübt.**
+    Starkes Blatt: **alle vier MC-Kreuze richtig**, Aufgabe 2 (Verbotsliste) im Kern vollständig
+    (kein Bias / keine gedeckelten Aktivierungen / c nicht mitoptimiert / c ≠ 0, jeweils mit dem
+    Kollaps-Argument), Aufg. 4c (Score + Vorzeichen + beide Klassen) die beste Antwort des Blattes.
+    - **Aufg. 3 (Code beurteilen) ist der Schwachpunkt** → Stolperfalle 50. Variante A als „passt"
+      bewertet, obwohl die **erste Dense-Schicht kein `use_bias=False`** hat (Keras-Default True) =
+      Original-Aufg. 10.3. Variante B richtig als in Ordnung erkannt. Variante C nur **halb**:
+      `np.zeros` gefunden, **tanh übersehen** — dieselbe gedeckelte Aktivierung, die auf demselben
+      Blatt in 1.2 und Aufg. 2 korrekt als Verbot steht. Selbstwiderspruch wie bei Stolperfalle 36.
+    - **Aufg. 4d falsch** (→ Stolperfalle 51): „gemittelte Gewichte + Weight Decay" statt des
+      Volumen-Arguments von Folie 42. Aufg. 4b halb: (1−ν)-Quantil und ν richtig, aber „gemittelte
+      Abstände zu den **Clustern**" — Deep SVDD hat **eine** Kugel, das Quantil geht über die
+      einzelnen Abstände zu **c**; „Cluster" ist GOAD-Vokabular (Muster von Stolperfalle 37).
+    - **Aufg. 5a** M = 72 richtig, **Identitäts-Begründung verfehlt** („beste Merkmale zuvor
+      gelernt"). **Aufg. 5c** Rückfall in Stolperfalle 49: *was* klassifiziert wird richtig, das
+      *Warum* (Batch-Instabilität der Zentren) fehlt, dazu „Ermittlung des Weight Decay" falsch —
+      der dritte Loss-Term ist eine **L2-Regularisierung der Latent-Vektoren z**, kein Weight Decay.
+      5b/5d/5e richtig.
+      ⚠️ **Zweite falsche Zeile auf Blatt ④ gefunden (29.7.):** im GOAD-Abschnitt stand
+      „Kreuzentropie … als Stabilisierung **+ Weight Decay** — λ₁ = 0,1; λ₂ = 10". Falsch, und
+      damit die **Quelle** von Lenas Antwort in 5c. Folie 58: der λ₂-Term regularisiert die
+      **L2-Norm der Abbildungen z im Latent Space**. Zeile korrigiert (Gesamtloss jetzt
+      dreigliedrig ausgeschrieben, mit „kein Weight Decay!"). Zweiter Fund dieser Art nach der
+      BatchNorm-Zeile — beide Male rechtzeitig, weil Blatt ④ ab OCSVM noch nicht abgeschrieben ist.
+    - **Aufg. 6 (CutPaste) durchgehend richtig**; in 6c fehlt nur der Schritt davor
+      (Klassifikationsschicht abschneiden, CNN als Merkmalsextraktor f). **6d (Contrastive)
+      bewusst durchgestrichen** — konsistent mit der 08a-Streichung vom selben Tag.
+    - Durchgehendes Muster erneut: **Was-Fragen sitzen, Warum-Fragen enden zu früh**
+      (4d, 5a-Identität, 5c) — dritte Wiederholung nach Stolperfallen 45 und 49.
+  - **Foliensatz 08a von Blatt ④ gestrichen (29.7., Ansage Lena):** Der Abschnitt „Contrastive
+    Learning / SimCLR" ist raus, Titel und Quellenzeile auf „Kap. 8 / Foliensatz 08" korrigiert.
+    Begründung: 08a ist — wie **03a** (LOF/Matrix Profiles) und **07a** (k-Means/PCA, beide bereits
+    verworfen) — ein „Zusätzliche Verfahren"-Satz mit **6 Folien, kein Übungsblatt, kein Praktikum,
+    kein Aufgabentyp**; als einziges der drei war es noch drin. Inhalt von 08a: Selbstüberwachtes
+    Lernen, Contrastive Learning, SimCLR (der Titel nennt zusätzlich CSI, eine CSI-Folie existiert
+    aber nicht). **CutPaste bleibt** — es steht in Foliensatz **08** (Folien 62–65), nicht in 08a.
+    Kapiteltabelle im Lernplan und die To-do-Zeile „Blatt ④ ab OCSVM" entsprechend angepasst;
+    `Alle_Blaetter.md` neu erzeugt.
+
+## 🏁 Klausur geschrieben — Fr 31.07.2026, 11:00
+
+**Eindruck direkt danach: gut. Zeitlich sehr entspannt** — zum ersten Mal in diesem Semester
+**keine unbearbeitete Aufgabe**. Damit ist das Muster aus INF4/1 und ED (Punkte verschenkt, weil
+die Zeit nicht reichte) in MDT5/2 nicht aufgetreten. Was den Unterschied gemacht hat: jeder der
+12 Aufgabentypen war vor der Klausur mindestens einmal komplett gerechnet.
+
+**Vermutete Mindestfehler (Selbsteinschätzung Lena):**
+
+1. **1 Multiple-Choice-Frage** falsch.
+2. **AUC-Kurve:** falscher Schwellwert abgelesen, Bereich aber richtig eingegrenzt (Teilpunkte
+   wahrscheinlich — vgl. Stolperfalle 30 und den ⑥-Abschnitt „Schwellwert wählen").
+3. **OCSVM:** Zahl der Support-Vektoren richtig hergeleitet (bei 20 Punkten: ν = 0,001 → 1 SV,
+   ν = 0,01 → 2 SV), die Trennlinie jeweils **genau auf diese Punkte** gelegt.
+   ✅ **Am 01.08. nachgeprüft: das ist richtig.** Ein SV liegt per Definition *auf* der Grenze
+   (φ(x)ᵀw = ρ); außerhalb liegen nur die **Verletzer/Ausreißer**. Und ν ist die **obere** Schranke
+   für deren Anteil: ν·n = 0,001·20 = 0,02 bzw. 0,01·20 = 0,2 — beides < 1, also **null erlaubte
+   Ausreißer**, die Grenze umschließt alle 20 Punkte. Falsch wäre nur gewesen, die SV *außerhalb*
+   der Linie liegen zu lassen. (Die 2 SV bei ν = 0,01 folgen nicht zwingend aus 0,2 — die zweite
+   Schranke sagt nur „mindestens 1 SV" —, aber eine Gerade durch zwei Randpunkte ist der Normalfall
+   und die gezeichnete Grenze liegt gleich.)
+4. **Fehlerfinde-Aufgabe (Typ 4)** sollte richtig sein.
+
+**Note ausstehend.** Selbsteinschätzung und Aufwand stehen in `Notentracker.md`.
+Modulordner wird gezippt, sobald die Note da ist (Konvention aus dem Root-`CLAUDE.md`).
 
 ## Stolperfallen (vor der Klausur gezielt wiederholen)
 
@@ -439,7 +594,111 @@
     Zusatz zu Stolperfalle 37: „die Ebene verschiebt sich vom **Ursprung** weg" gehört zur OCSVM;
     im Zwei-Klassen-Fall wandert sie zur **Masse der Punkte** hin.
 
+43. **„Nach der ersten Schicht 16" heißt: die ERSTE Faltung hat schon 16 Filter (28.7.,
+    Originalübung Aufg. 3).** Die Formulierung wurde als „nach der ersten Schicht kommt eine
+    mit 16" gelesen → mit `filters=8` begonnen und danach verdoppelt, im Decoder gespiegelt
+    halbiert. „Nach Schicht X" beschreibt in solchen Aufgaben immer die **Ausgabe** von
+    Schicht X, nie die nächste Schicht. Richtig bei Eingabe (64,64,1), drei Faltungen mit
+    `strides=2`: **16 → 32 → 64**, Auflösung 32 → 16 → 8, also Encoder-Ausgang (8,8,64) →
+    `Flatten()` → `Dense(10)`. Gegenprobe: die Zahl der Feature Maps steigt, während die
+    Auflösung fällt — das ist die Standardform.
+
+44. **Dense/Reshape im Decoder muss die LETZTE Encoder-Schicht wiederherstellen (28.7.,
+    dieselbe Aufgabe).** Geschrieben wurde `Dense(8*8*16)` + `Reshape((8,8,16))` — die 16 ist
+    die Filterzahl der **ersten** Faltung. Der Decoder spiegelt aber rückwärts, beginnt also
+    beim **tiefsten** Feature-Map-Stapel: `Dense(8*8*64)` → `Reshape((8,8,64))` →
+    `Conv2DTranspose(32)` → `Conv2DTranspose(16)` → `Conv2DTranspose(1)`. Rezept: **erst die
+    Shape hinschreiben, die beim Flatten im Encoder verschwunden ist** (hier 8·8·64 = 4096) und
+    genau die in Dense und Reshape einsetzen — beide Zahlen müssen identisch sein.
+
+45. **„Was passiert ohne X?" verlangt die FOLGE fürs Ergebnis, nicht nur die Beschreibung (29.7.,
+    Praktikum 10).** Erste Antwort: „keine guten Merkmale, die Daten werden als Klumpen abgebildet"
+    — richtig, aber der Satz endet zu früh. Es fehlte, dass **die Anomalien mitklumpen** ⇒ Scores
+    ununterscheidbar ⇒ **AUC ≈ 0,5**. Gleiches Muster wie Stolperfallen 20/29 (nicht alles
+    beantwortet, was die Frage hergibt). Prüffrage vor dem Weiterblättern: *und was heißt das für
+    die Anomalieerkennung?*
+46. **Ein Kostenterm steht bei den Gewichten, nicht beim Optimierer (29.7., Praktikum 10).** Auf
+    „wo taucht λ/2·Σ‖W‖ im Code auf?" wurde `optimizer.apply_gradients(...)` genannt — die Zeile
+    wendet nur fertige Gradienten an und kennt keinen Regularisierer. Richtig:
+    `kernel_regularizer=tf.keras.regularizers.l2(weight_decay_factor)` **in jeder Schicht**,
+    λ = `weight_decay_factor` = 1e-6.
+47. **Ähnlichkeit immer zur NORMALKLASSE, nicht zwischen den Anomalien (29.7., Praktikum 10).**
+    Bei `normal_label = 1` wurde begründet, „3, 6, 8, 9 sind sich sehr ähnlich" — das spielt keine
+    Rolle. Eine 3, die einer 8 ähnelt, bleibt leicht erkennbar, solange beide der **1** unähnlich
+    sind. Schwer sind die schmalen, senkrechten Ziffern (v. a. **7**), die nah an c landen und in
+    die Kugel rutschen. Neues Gewand von Stolperfalle 26.
+48. **BatchNorm ist bei Deep SVDD KEIN Fehler — Blatt ④ stand falsch (29.7.).** Auf dem Blatt
+    stand „BatchNorm kritisch prüfen, β wirkt wie ein Bias (in Übungsaufgaben als Fehler
+    gewertet)". Gegenprobe an Original-Aufg. 10.2: dort steht `BatchNormalization()` im Netz, und
+    die Musterlösung sagt ausdrücklich **„Neuronales Netz in Ordnung"** — der Fehler ist allein
+    `transform_center = np.zeros(...)`. Auch Paulus' Praktikumscode nutzt BatchNorm. Wer sie
+    anstreicht, benennt den falschen Fehler. Vorlage am 29.7. korrigiert.
+
+49. **„Wozu dient X?" nicht mit „damit X funktioniert" beantworten (29.7., Praktikum 11).** Auf
+    „Was ist der Sinn der Transformationsvorhersage im Training?" kam „das Netz lernt,
+    Transformationen richtig zu erkennen" — das wiederholt die Aufgabe, statt ihren **Zweck** zu
+    nennen. Richtig (Folie 58): Der Triplet Center Loss ist **pro Batch instabil**, weil die
+    Cluster-Zentren aus dem Batch geschätzt werden; die Kreuzentropie ist ein stabiles
+    Standardziel und **stabilisiert das Training**. Die Transformationsvorhersage selbst wird
+    danach weggeworfen. Zweiter Fehler im selben Block: L_TC als **Schwierigkeitsmaß** beschrieben
+    („je höher, desto schwerer die Klassifikation") — es ist die **Kostenfunktion, die minimiert
+    wird**: eigenes Zentrum nah, nächstes fremdes fern (Marge s = 1). Warnsignal: eine Antwort,
+    die nur den Namen der Sache umformuliert.
+
+50. **Bei „Code beurteilen" jede Zeile abklappern — und „alles korrekt" nur nach dem vollen
+    Durchgang (29.7., Blatt S10 Aufg. 3).** Variante A wurde als in Ordnung durchgewinkt, obwohl
+    die **erste** `Dense` kein `use_bias=False` hat (Keras-Default ist **True** — ein fehlendes
+    Argument ist der Fehler, nicht ein falsches). Variante C wurde nach dem ersten Fund
+    (`np.zeros`) abgebrochen, `tanh` blieb unentdeckt. **Pro Ausschnitt können mehrere Fehler
+    stecken.** Feste Prüfreihenfolge: (1) `use_bias` in **jeder** Schicht, (2) Aktivierungen auf
+    sigmoid/tanh, (3) `transform_center` (≠ 0? außerhalb der Trainingsschleife?). Erst wenn alle
+    drei durch sind, darf „korrekt" hingeschrieben werden.
+51. **Warum minimiert die vereinfachte Deep-SVDD-Zielfunktion das Kugelvolumen? Der
+    Abstandsterm, nicht der Weight Decay (29.7., Blatt S10 Aufg. 4d).** Geantwortet wurde
+    „gemittelte Gewichte + Weight Decay" — der Weight Decay ist reine Regularisierung und hat
+    mit dem Volumen nichts zu tun. Richtig (Folie 42): der Term zieht **alle** abgebildeten
+    Normaldaten so nah wie möglich an c; R wird **danach** als Quantil genau dieser Abstände
+    berechnet ⇒ kleine Abstände ⇒ kleines R ⇒ kleines Volumen. Deshalb darf R im Training fehlen.
+52. **„Cluster" ist GOAD-Vokabular — Deep SVDD hat EINE Kugel (29.7., Blatt S10 Aufg. 4b).**
+    Der Radius ist das (1−ν)-Quantil der **einzelnen Abstände zum Zentrum c**, nicht „der
+    gemittelten Abstände zu den Clustern". Gleiches Muster wie Stolperfalle 37 (Vokabular aus dem
+    falschen Setting) — und die Klausur unterscheidet genau zwischen den beiden Verfahren.
+
 ## Gesicherte Merksätze (für die Blätter)
+
+- **Warum L_TC überhaupt in den Loss muss.** Der GOAD-Score misst **Abstände zu den Zentren**.
+  Die Kreuzentropie allein würde nur Transformationen unterscheiden lernen — die Abbildungen
+  dürften dabei beliebig streuen, die Abstände wären nichtssagend. L_TC erzwingt genau das, was
+  der Score braucht: **dichte Cluster, weit voneinander getrennt**.
+- **GOAD-Score konkret: Abstände wovon wozu.** Neues Sample → alle **M Transformationen** anwenden
+  → M Punkte im Latent Space → je Punkt der Abstand zu **allen** M Zentren → Wahrscheinlichkeit,
+  ob der Punkt näher an **seinem eigenen** Zentrum liegt → Score = Summe der negativen
+  Logarithmen. Normalbild: jede Version bei ihrem Zentrum ⇒ hohe P ⇒ niedriger Score.
+  Die Zentren stehen nach dem Training fest, und **Test benutzt dieselben Transformationen wie
+  das Training** (bei allgemeinen Daten wird `random_transformations` einmal gezogen und
+  wiederverwendet) — sonst passten die Zentren nicht mehr.
+- **ν bei Deep SVDD verschiebt nur den Betriebspunkt — die AUC bleibt gleich.** ν kommt im
+  Training gar nicht vor (die vereinfachte Zielfunktion, Folie 42, minimiert nur den Abstand zu c);
+  es legt **nach** dem Training den Radius als (1−ν)-Quantil fest. Größeres ν ⇒ kleinerer Radius
+  ⇒ mehr Alarme ⇒ acc_anom hoch, acc_normal runter (ν = 1 ⇒ Radius 0 ⇒ alles Anomalie).
+  **Exakt dasselbe Muster wie `contamination` bei der Elliptic Envelope:** Modellgüte fest,
+  Punkt auf der festen ROC-Kurve verschoben.
+- **Die drei Deep-SVDD-Verbote sind die vier Original-Teilaufgaben** (10.1 alles korrekt, 10.2
+  c bei 0, 10.3 Biases, 10.4 Sigmoid). Prüfreihenfolge im Code: `use_bias` in **jeder** Schicht →
+  Aktivierungen auf Sigmoid/tanh → die `transform_center`-Zeile (außerhalb des Trainings? ≠ 0?).
+  Pro Ausschnitt ist genau **eine** Sache falsch, und „alles korrekt" ist eine zulässige Antwort.
+- **Alle drei Verbote laufen auf dieselbe Katastrophe hinaus: Nullgewichte.** c = 0 macht sie
+  direkt optimal; Biases und gesättigte Aktivierungen bauen den fehlenden Offset nach.
+- **Decoder-`Dense`→`Reshape`: nur die Auflösung ist Pflicht, die Kanalzahl ist frei.** Praktikum 10
+  geht von 7×7×**4** im Encoder auf `Dense(7*7*2)` → `Reshape((7,7,2))` zurück — erlaubt, weil die
+  folgende `Conv2DTranspose` die Kanalzahl ohnehin neu setzt; die **7×7** muss stimmen, damit
+  zweimal Upsampling ×2 wieder auf 28 führt. Einschränkung von Stolperfalle 44: die **exakte**
+  letzte Encoder-Shape ist nur nötig, wenn die Aufgabe „spiegeln" ausdrücklich verlangt (Orig.-Aufg. 3).
+- **`kernel_regularizer` wirkt in einer selbstgebauten `GradientTape`-Schleife NICHT.** Keras sammelt
+  die Strafterme in `net.losses`; nur `compile`/`fit` addiert sie automatisch. In Praktikum 10 gibt
+  `train_loss` nur den Abstand zu c zurück ⇒ beim SVDD-Training ist der Weight Decay wirkungslos
+  (beim AE-Vortraining über `fit` dagegen aktiv). Nachgemessen am 29.7. Für die Klausurantwort
+  irrelevant, aber ein sauberer Aufgabentyp-4/5-Fund.
 
 - **Parameterzahl einer Dense-Schicht = Ausgaben der Vorschicht × eigene Neuronen + Bias.**
   Eingang ist die **Aktivierung** der Vorschicht, nicht deren Gewichtszahl: 200er-Schicht nach
@@ -616,6 +875,71 @@
   Trainings-FPR) oder überwacht per ROC.
 
 ## Änderungslog
+
+- **2026-07-29 (Nachtrag 5): Mitnahme-Gesamtskript `Gesamtskript/MDT5_2_Gesamtskript_4up.pdf`
+  gebaut** (nach dem Muster von INF4/1): **265 Folien auf 67 A4-Blättern quer, 4-up mit Rahmen**,
+  je Folie das Label „Kapitel – Thema «laufende Nr.»`` unten rechts, je Blatt „Blatt «Nr.»``.
+  Quelle sind die **annotierten** Sätze aus `Skript mit Ergaenzungen/` (01–08) — sie enthalten
+  alles aus den Originalen plus Handschrift plus **zwei reine Notizseiten** (Foliensatz 03 S. 24
+  Trainings-/Validierungs-/Testdaten, Foliensatz 08 S. 20 Lagrange/Optimierung; beides
+  weiß überdeckte Kopien der SGD-Folie, deshalb im Text noch „Stochastic Gradient Descent"). Die
+  Sätze 03a/07a/08a sind nicht dabei (nicht klausurrelevant, s. Nachtrag 3).
+  **20 Folien entfernt:** alle Impressums- und Literaturseiten, „Organisation der Vorlesung",
+  Agenda-/Diskussions-/Bildfolien aus Kap. 1 (S. 2, 3, 5, 9, 26, 29) und ein Animations-
+  zwischenschritt (06 S. 13, Folie 14 ist der vollständige Stand). **Keine entfernte Folie trug
+  Handschrift** — vorher per Pixelvergleich Original ↔ annotiert für alle 285 Seiten geprüft.
+  **Blatt 1 links = Inhaltsverzeichnis** (Kapitel + Unterkapitel/Verfahren, je mit
+  Folien- **und** Blattbereich — für die Open-Book-Navigation ist die Blattnummer die
+  relevante Spalte), rechts stehen schon die ersten beiden Folien.
+  Regenerieren: `python3 build_gesamtskript.py && latexmk -pdf MDT5_2_Gesamtskript_4up.tex`
+  (Streichliste `RAUS`, Themen-Overrides `TITEL_FIX` und die Verfahrensgliederung `UNTER`
+  stehen im Skript).
+
+- **2026-07-29 (Nachtrag 4): Blatt `Session10` korrigiert ⇒ ALLE 12 AUFGABENTYPEN EINMAL GEÜBT.**
+  Typ 10 war der letzte offene. Ergebnis stark (4/4 MC, Verbotsliste vollständig, Score-Aufgabe
+  komplett); Schwachpunkt ist das **Code-Beurteilen** (ein Ausschnitt fälschlich als korrekt
+  gewertet, in einem zweiten nur einer von zwei Fehlern gefunden) und wieder die **Warum-Fragen**.
+  Stolperfallen 50–52 ergänzt. **Offen: Blatt ④ ab OCSVM handschriftlich übertragen** — jetzt der
+  einzige verbliebene Punkt vor der Generalprobe Do 30.7.
+
+- **2026-07-29 (Nachtrag 3): Foliensatz 08a (Contrastive Learning / SimCLR) als nicht
+  klausurrelevant gestrichen.** Damit sind alle drei „Zusätzliche Verfahren"-Sätze (03a, 07a, 08a)
+  raus — 08a war das letzte, das noch auf einem Blatt stand. Abschnitt aus `Blatt_4_…` entfernt,
+  Titel/Quellenzeile korrigiert, Kapiteltabelle + To-do-Zeile im Lernplan angepasst,
+  `Alle_Blaetter.md` neu erzeugt. **CutPaste bleibt** (Foliensatz 08, Folien 62–65). Rechtzeitig,
+  weil Blatt ④ ab OCSVM noch nicht abgeschrieben ist.
+
+- **2026-07-29 (Nachtrag 2): Praktikum 11 (GOAD) abgeschlossen ⇒ PRAKTIKUMSTEIL KOMPLETT (01–11).**
+  Stolperfalle 49 (Zweck-Frage zirkulär beantwortet, L_TC als Schwierigkeitsmaß) und zwei
+  Merksätze zu GOAD ergänzt; Blatt ④ um drei Warum-Sätze + Vergleichstabelle GOAD/Deep SVDD
+  erweitert. Neuer Versionsfehler notiert: `InputLayer` → `Input` und `.input` → `.inputs`
+  (Keras 3). **Offen aus S10: Blatt ④ ab OCSVM übertragen, dann Blatt `Session10` lösen (Typ 10,
+  letzter ungeübter Aufgabentyp).**
+
+- **2026-07-29 (Nachtrag): Praktikum 10 (Deep SVDD) abgeschlossen; lokale TF-Umgebung steht.**
+  Alle drei Fragenblöcke korrigiert; Stolperfallen 45–48 und fünf Merksätze ergänzt. Wichtigster
+  Fund ist eine **falsche Zeile auf Blatt ④** (BatchNorm als Fehler markiert, obwohl die
+  Musterlösung zu Aufg. 10.2 das Netz mit BatchNorm ausdrücklich für in Ordnung erklärt) —
+  rechtzeitig korrigiert, weil Blatt ④ ab OCSVM noch nicht abgeschrieben ist. Dazu zwei
+  Ergänzungen im selben Abschnitt (Vor-Training-Begründung, Decoder-Kanalzahl frei).
+  Laufumgebung von Colab auf lokal umgestellt (`~/.venvs/mdt52`, TF 2.21 arm64); Metal-GPU
+  geprüft und verworfen, CPU reicht für beide Praktika. **Offen aus S10: Praktikum 11 (GOAD),
+  dann Blatt ④ ab OCSVM und Blatt `Session10` (Typ 10).**
+
+- **2026-07-29: Originale werden NICHT nachgeholt — sie bleiben für die Generalprobe frisch.**
+  Vom Di-Nachmittag ist nur Original-Aufg. 3 erledigt; dafür sind die handgeschriebenen Blätter
+  markiert. Statt den Überhang (Aufg. 9, 5, 2, 4, 8, 12, MC-Block) am Mi nachm. abzuarbeiten,
+  wird er auf die **Generalprobe Do 30.7.** gelegt. Nebeneffekt: die Generalprobe bekommt ihren
+  Charakter als **volle 90-min-Klausur aus Originalaufgaben** zurück (Rücknahme der Entscheidung
+  vom 27.7.), und es müssen **keine Füllaufgaben generiert** werden. Kap. 08 ist vollständig
+  gelesen, der Mi-Vormittag trägt daher nur noch Praktika 10/11. Mi nachm. bekommt dafür Blatt ④
+  ab OCSVM + Blatt `Session10` (**Typ 10**, letzter ungeübter Typ) — beides hat Vorrang vor allen
+  Blätter-Nachträgen.
+
+- **2026-07-28 (Nachtrag): Originalübung Aufgabe 3 (Conv-Autoencoder in Keras) korrigiert.**
+  Zwei Fehler, beide Shape-/Filterzahl-Buchhaltung, nicht Verständnis: Filterzahl-Start bei 8
+  statt 16 („nach der ersten Schicht 16" falsch gelesen) und `Dense(8*8*16)`/`Reshape((8,8,16))`
+  statt der letzten Encoder-Shape (8,8,64). → Stolperfallen 43 und 44.
 
 - **2026-07-27 (Nachtrag 4): Blatt ⑤ abgeschrieben bis auf AnoGAN und f-AnoGAN.** Übertragen sind
   AE/CAE-Teil, Curse of Dimensionality, RandNet, GAN-Grundlagen und das G-/D-Gerüst; offen bleiben
