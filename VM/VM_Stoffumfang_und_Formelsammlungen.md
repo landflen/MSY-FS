@@ -1,8 +1,12 @@
 # VM — Stoffumfang und die drei fremden Formelsammlungen
 
 > Bestandsaufnahme vom 01.08.2026. Grundlage: die drei aus dem Kommiliton:innen-Chat
-> stammenden Formelsammlungen in `Formelsammlungen_fremd/`. **Das Skript selbst fehlt weiterhin** —
-> diese Sammlungen sind derzeit die einzige Quelle dafür, was das Modul überhaupt umfasst.
+> stammenden Formelsammlungen in `Formelsammlungen_fremd/`.
+>
+> ⚠️ **Überholt seit 07.09.2026:** Skript und Übungsaufgaben liegen inzwischen vor
+> (→ [`VM_Lernmaterial.md`](VM_Lernmaterial.md)). Die Frage „was gehört zum Stoff?" beantwortet
+> jetzt das Skript selbst. Diese Datei bleibt als **Bewertung der drei fremden Formelsammlungen**
+> nützlich — für die Frage, welche davon sich als Vorlage für die eigenen 10 Seiten eignet.
 
 ## Warum das wichtig ist
 
@@ -72,8 +76,10 @@ der Klausur ist also kein Zufall des Jahrgangs 2026, sondern die Struktur des Mo
 
 > ⚠️ **Auffällig:** Die Laplace-Transformation — mit 19 Punkten die größte Aufgabe 2026 —
 > steht in Toni A **nicht** drin. Entweder war sie 2023 nicht im Stoff, oder die Sammlung ist
-> dort unvollständig. **Für Laplace hast du bisher keine Vorlage** (und in der Klausur ist ohnehin
-> nur das beigefügte Tabellenblatt zugelassen).
+> dort unvollständig.
+> **Erledigt seit 07.09.2026:** Laplace steht in Abschnitt 1.6 des DGL-Skripts (inkl.
+> Verschiebungs- und Faltungssatz), und das Tabellenblatt aus dem Klausursatz liegt als
+> `Tabellen_VM.pdf` bzw. am Ende von `VM_Probeklausur.pdf` vor — **nur 9 Korrespondenzen**.
 
 ## Stoffliste Teil B (aus MayPa 2025 + Toni 2023)
 
@@ -99,8 +105,9 @@ der Klausur ist also kein Zufall des Jahrgangs 2026, sondern die Struktur des Mo
 1. **Eigene Formelsammlung, 10 Seiten**, aus MayPa (Teil B) + Toni A (Teil A), gekürzt auf das,
    was zu einem Aufgabentyp gehört. Vorlage für die Gliederung: die sechs Rezepte aus
    `VM_Klausur_SoSe2026.md`.
-2. **Die Lücke Laplace** selbst füllen — aus Papula und der Klausuraufgabe 2, die den kompletten
-   Weg vormacht (transformieren → auflösen → PBZ → Faltungssatz).
+2. ~~**Die Lücke Laplace** selbst füllen — aus Papula und der Klausuraufgabe 2.~~ → erledigt:
+   Skript-Abschnitt 1.6 plus `Partialbruchzerlegung.pdf`. Auf die eigenen 10 Seiten gehören die
+   **Sätze** (Ableitung, Verschiebung, Faltung) — die 9 Korrespondenzen liegen in der Klausur bei.
 3. **Teil A doppelt verwerten:** Ruhelagen, Linearisierung, Jacobi, Stabilität, Routh und
    Lyapunov stehen fast identisch in `SOS/Teil_A/SOS_A_FS/`. Wenn du VM und SOS im selben
    Semester schreibst, ist das derselbe Lernblock — und deine SOS-Formelsammlung ist dafür

@@ -11,7 +11,7 @@ Skala Gefühl: frei formuliert. Aufwand/Zeit: grob in Stunden bzw. Lernzeitraum.
 | INF4/1 | 13.07.2026 | ≈ 20 h (7 Sessions über 2 Wochen) | gut vorbereitet | war mist | 2,3  |
 | INF4/2 | 20.07.2026 |         |               |               | 1,7  |
 | ED     | 27.07.2026 | Reste der drei anderen Prüfungen; Probeklausuren ~40–48/100 | schlecht vorbereitet | – | 3,0  |
-| MDT5/2 | 31.07.2026 | 10 Sessions 8.–30.07. (Praktika 01–11, 7 Blätter, alle 12 Aufgabentypen) | gut vorbereitet | gut, zeitlich sehr entspannt | _ausstehend_ |
+| MDT5/2 | 31.07.2026 | 10 Sessions 8.–30.07. (Praktika 01–11, 7 Blätter, alle 12 Aufgabentypen) | gut vorbereitet | gut, zeitlich sehr entspannt | **1,3** |
 
 ## Details
 
@@ -50,7 +50,7 @@ Skala Gefühl: frei formuliert. Aufwand/Zeit: grob in Stunden bzw. Lernzeitraum.
   haben unter Zeitdruck getragen. Material bleibt in `ED.zip` archiviert (wird nicht mehr gebraucht).
 
 ### MDT5/2 — Maschinelles Lernen zur Anomalieerkennung (31.07.2026)
-- **Note:** _ausstehend_
+- **Note:** **1,3** (bestätigt, 03.08.2026) — zweitbeste Note des Studiums nach MDT5/1
 - **Gefühl vor der Klausur:** gut vorbereitet — jeder der 12 Aufgabentypen mindestens einmal
   komplett gerechnet, alle 11 Praktika durch, 7 handschriftliche Blätter mit Farbmarkierung
 - **Gefühl direkt danach:** gut. **Zeit war sehr entspannt** — erstmals kein Modul mit
@@ -63,14 +63,17 @@ Skala Gefühl: frei formuliert. Aufwand/Zeit: grob in Stunden bzw. Lernzeitraum.
     SV liegen per Definition *auf* der Grenze, außerhalb liegen nur Verletzer, und ν·n = 0,02
     bzw. 0,2 < 1 ⇒ null erlaubte Ausreißer, Grenze umschließt alle 20 Punkte.
   - Fehlerfinde-Aufgabe (Typ 4) sollte richtig sein
-- **Erwartung:** deutlich besser als 2,0, wenn die Selbsteinschätzung trägt.
+- **Erwartung war:** deutlich besser als 2,0, wenn die Selbsteinschätzung trägt.
+- **Befund:** Die Selbsteinschätzung hat getragen — 1,3 ist exakt die „optimistischere Variante"
+  aus der Prognose vom 01.08. Damit ist das Gefühl danach hier zum ersten Mal ein guter Schätzer
+  gewesen (anders als bei INF4/1 und ED, s. Lehre 7 im Root-`CLAUDE.md`). Der Unterschied:
+  das Gefühl stützte sich auf **nachgerechnete Einzelfehler**, nicht auf einen Gesamteindruck.
 
 ## Anstehende Prüfungen (zum Nachtragen)
 
 | Modul  | Prüfung    | Gefühl vorher | Gefühl danach | Note |
 |--------|------------|---------------|---------------|------|
 | SOS    | ~~22.07.2026~~ → offen | — | — | **nicht geschrieben** (nicht im SS 2026 angetreten) |
-| MDT5/2 | 31.07.2026 | gut vorbereitet | gut, zeitlich entspannt | _Note ausstehend_ |
 | INF6/1 | noch offen |               |               |      |
 | INF6/2 | noch offen |               |               |      |
 | VM     | noch offen |               |               |      |
@@ -89,25 +92,28 @@ Schnitt ein einfacher arithmetischer Mittelwert der sechs Noten, kein Modul zieh
 | MDT5/1 | 5    | WiSe 25/26      | abgeschlossen                  | 1,0  |
 | INF4/1 | 5    | 13.07.2026      | abgeschlossen                  | 2,3  |
 | INF4/2 | 5    | 20.07.2026      | abgeschlossen                  | 1,7  |
-| MDT5/2 | 5    | 31.07.2026      | geschrieben, Note ausstehend   | –    |
+| MDT5/2 | 5    | 31.07.2026      | abgeschlossen                  | 1,3  |
 | INF6/1 | 5    | noch nicht terminiert | offen                    | –    |
 | INF6/2 | 5    | noch nicht terminiert | offen                    | –    |
 
 ### Schnitt-Berechnung
 
-- **Jetziger Schnitt (alle drei bestätigt):** (1,0 + 2,3 + 1,7) / 3 = 5,0 / 3
-  = **1,67** — basiert auf 3 von 6 Modulen (15 von 30 ECTS), alle Noten offiziell.
-- **Best Case:** MDT5/2, INF6/1, INF6/2 alle 1,0 →
-  (1,0 + 2,3 + 1,7 + 1,0 + 1,0 + 1,0) / 6 = 8,0 / 6 = **1,33**
-- **Worst Case (realistisch, d. h. alle noch bestanden):** MDT5/2, INF6/1, INF6/2 alle 4,0 →
-  (1,0 + 2,3 + 1,7 + 4,0 + 4,0 + 4,0) / 6 = 17,0 / 6 = **2,83**
+- **Jetziger Schnitt (alle vier bestätigt):** (1,0 + 2,3 + 1,7 + 1,3) / 4 = 6,3 / 4
+  = **1,58** — basiert auf 4 von 6 Modulen (20 von 30 ECTS), alle Noten offiziell.
+  Offen sind nur noch INF6/1 und INF6/2.
+- **Best Case:** INF6/1, INF6/2 beide 1,0 →
+  (1,0 + 2,3 + 1,7 + 1,3 + 1,0 + 1,0) / 6 = 8,3 / 6 = **1,38**
+- **Worst Case (realistisch, d. h. beide noch bestanden):** INF6/1, INF6/2 beide 4,0 →
+  (1,0 + 2,3 + 1,7 + 1,3 + 4,0 + 4,0) / 6 = 14,3 / 6 = **2,38**
   (durchgefallene Module zählen nicht in den Schnitt, bis sie wiederholt und bestanden sind —
-  2,83 ist daher der schlechteste Fall, der überhaupt in die Durchschnittsberechnung eingeht)
-- **Realistischer Schnitt (Prognose, 01.08.2026):** MDT5/2, INF6/1, INF6/2 mit je ca. 2,0 angesetzt →
-  (1,0 + 2,3 + 1,7 + 2,0 + 2,0 + 2,0) / 6 = 11,0 / 6 = **1,83**
+  2,38 ist daher der schlechteste Fall, der überhaupt in die Durchschnittsberechnung eingeht)
+- **Realistischer Schnitt (Prognose, 03.08.2026):** INF6/1, INF6/2 mit je ca. 2,0 angesetzt →
+  (1,0 + 2,3 + 1,7 + 1,3 + 2,0 + 2,0) / 6 = 10,3 / 6 = **1,72**
   (ED gehört **nicht** in diesen Block — die 3,0 in ED lässt den Vertiefungsschnitt unberührt)
-- **Optimistischere Variante:** Nach dem Gefühl direkt nach der Klausur ist MDT5/2 eher bei 1,3 →
-  (1,0 + 2,3 + 1,7 + 1,3 + 2,0 + 2,0) / 6 = 10,3 / 6 = **1,72**. Verifizieren, sobald die Note da ist.
+- **Wirkung der MDT5/2-Note:** Die 1,3 hat die alte „optimistischere Variante" exakt bestätigt.
+  Gegenüber der Prognose mit 2,0 sinkt der erwartete Vertiefungsschnitt von 1,83 auf **1,72**,
+  die Gesamtspanne von 1,33–2,83 auf 1,38–2,38. Der Block ist damit weitgehend festgezurrt —
+  selbst zwei 4,0en in INF6 lassen ihn nicht schlechter als 2,38 werden.
 
 ## Gesamtnote (ganzer Studiengang, ca. 90 ECTS)
 
@@ -133,19 +139,20 @@ evtl. nur Bestehenspflicht ohne Note).
 
 ### Schnitt-Berechnung (ganzer Studiengang)
 
-- **Bekannt (alle bestätigt):** MDT5/1 = 1,0 + INF4/1 = 2,3 + INF4/2 = 1,7 + ED = 3,0
-  → zusammen 20 von 90 ECTS. Summe dieser vier Noten: 8,0. Die übrigen 70 ECTS
-  sind offen — allein die Masterarbeit (23 ECTS) ist größer als alles bisher Bekannte zusammen.
-- **Best Case:** alle übrigen 70 ECTS mit 1,0 →
-  (5×1,0 + 5×2,3 + 5×1,7 + 5×3,0 + 70×1,0) / 90 = (40 + 70) / 90 = 110 / 90 = **≈ 1,22**
-- **Worst Case (realistisch, d. h. alles nur gerade so bestanden):** alle übrigen 70 ECTS mit 4,0
-  → (40 + 70 × 4,0) / 90 = (40 + 280) / 90 = 320 / 90 = **≈ 3,56**
+- **Bekannt (alle bestätigt):** MDT5/1 = 1,0 + INF4/1 = 2,3 + INF4/2 = 1,7 + ED = 3,0 + MDT5/2 = 1,3
+  → zusammen 25 von 90 ECTS. Summe dieser fünf Noten: 9,3 (ECTS × Note = 46,5). Die übrigen
+  65 ECTS sind offen — allein die Masterarbeit (23 ECTS) ist größer als alles bisher Bekannte.
+- **Best Case:** alle übrigen 65 ECTS mit 1,0 →
+  (46,5 + 65×1,0) / 90 = 111,5 / 90 = **≈ 1,24**
+- **Worst Case (realistisch, d. h. alles nur gerade so bestanden):** alle übrigen 65 ECTS mit 4,0
+  → (46,5 + 65 × 4,0) / 90 = 306,5 / 90 = **≈ 3,41**
 
-Die Spanne 1,22–3,56 ist wieder etwas enger als vorher (1,11–3,61) — der Boden ist durch die 3,0
-in ED gestiegen, die Decke leicht gefallen. Getrieben wird sie weiterhin von den 70 offenen ECTS
-(allen voran die Masterarbeit mit 23). Die nächste echte Verengung bringt die MDT5/2-Note.
+Die Spanne 1,24–3,41 ist erneut enger als vorher (1,22–3,56): Die 1,3 in MDT5/2 hebt den Boden
+kaum, drückt aber die Decke um 0,15. Getrieben wird die Spanne weiterhin von den 65 offenen ECTS
+(allen voran die Masterarbeit mit 23) — ab hier verengt sie nur noch das Projekt bzw. die
+Masterarbeit spürbar, nicht mehr einzelne 5-ECTS-Prüfungen.
 
-### Realistischer Schnitt (Prognose, Stand 01.08.2026)
+### Realistischer Schnitt (Prognose, Stand 03.08.2026)
 
 Auf Basis von Lenas eigenen Einschätzungen für die übrigen Bereiche:
 
@@ -157,27 +164,29 @@ Auf Basis von Lenas eigenen Einschätzungen für die übrigen Bereiche:
 | MDT5/1 (bestätigt)                 | 5    | 1,0              | 5,0          |
 | INF4/1 (bestätigt)                 | 5    | 2,3              | 11,5         |
 | INF4/2 (bestätigt)                 | 5    | 1,7              | 8,5          |
-| MDT5/2, INF6/1, INF6/2 (je ~2,0)   | 15   | 2,0              | 30,0         |
+| **MDT5/2** (bestätigt)             | 5    | **1,3**          | 6,5          |
+| INF6/1, INF6/2 (je ~2,0)           | 10   | 2,0              | 20,0         |
 | Projekt + Masterarbeit             | 35   | 1,3              | 45,5         |
 | PU                                  | 5    | 1,3              | 6,5          |
-| **Zwischensumme**                  | **85** |                | **157,0**    |
+| **Zwischensumme**                  | **85** |                | **153,5**    |
 
-→ Realistischer Schnitt über diese 85 ECTS: 157,0 / 85 = **≈ 1,85**
-(vorher 1,83 mit ED als geschätzter 2,7 — die echte 3,0 kostet also **0,02**)
+→ Realistischer Schnitt über diese 85 ECTS: 153,5 / 85 = **≈ 1,81**
+(vorher 1,85 mit MDT5/2 als geschätzter 2,0 — die echte 1,3 bringt also **0,04**)
 
 Mit Wahlpflicht Gruppe 2 (5 ECTS) über volle 90 ECTS gerechnet:
 
 | Gruppe 2 | Rechnung | Schnitt |
 |---|---|---|
-| 1,0 | 162 / 90 | ≈ 1,80 |
-| 2,0 | 167 / 90 | ≈ 1,86 |
-| 4,0 | 177 / 90 | ≈ 1,97 |
+| 1,0 | 158,5 / 90 | ≈ 1,76 |
+| 2,0 | 163,5 / 90 | ≈ 1,82 |
+| 4,0 | 173,5 / 90 | ≈ 1,93 |
 
-Der realistische Gesamtschnitt liegt also grob **zwischen 1,80 und 1,97**, mit ≈ 1,85 als Anker.
+Der realistische Gesamtschnitt liegt also grob **zwischen 1,76 und 1,93**, mit ≈ 1,81 als Anker.
 
 **Was den Schnitt jetzt noch bewegt:** Projekt + Masterarbeit sind 35 ECTS = 39 % — ein Zehntel
 dort wiegt mehr als eine ganze Notenstufe in einem 5-ECTS-Modul (ein 5-ECTS-Modul ist 5/90 ≈ 5,6 %,
 eine ganze Note dort ≈ 0,06 im Schnitt). Die vier verbleibenden Prüfungen (VM, SOS, INF6/1, INF6/2)
 und PU sind zusammen 25 ECTS.
 
-**Lücken:** Wahlpflicht Gruppe 2 (~5 ECTS, noch nicht gewählt) und MDT5/2 (Note ausstehend).
+**Lücke:** nur noch Wahlpflicht Gruppe 2 (~5 ECTS, noch nicht gewählt). Alle fünf geschriebenen
+Prüfungen sind benotet und eingetragen.
